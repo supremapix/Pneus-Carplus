@@ -33,6 +33,6 @@ export function getTireSlug(tire: { id: string; brand: string; name?: string; wi
   }
   parts.push(model);
 
-  return parts.join('+').replace(/[^a-zA-Z0-9+_-]/g, '');
+  return parts.join('+').replace(/[^a-zA-Z0-9+_-]/g, '').toLowerCase();
 }
 

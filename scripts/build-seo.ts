@@ -35,7 +35,7 @@ function getTireSlug(tire: { id: string; brand: string; name?: string; width: nu
   }
   parts.push(model);
 
-  return parts.join('+').replace(/[^a-zA-Z0-9+_-]/g, '');
+  return parts.join('+').replace(/[^a-zA-Z0-9+_-]/g, '').toLowerCase();
 }
 
 // Data Lists for Sitemap and Pre-renderer
