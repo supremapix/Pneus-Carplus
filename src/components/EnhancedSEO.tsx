@@ -28,7 +28,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
   let title = "Pneus em Curitiba - Melhores Marcas com Pronta Entrega | Carplus Pneus";
   let desc = "Procurando pneus em Curitiba? A Carplus Pneus oferece o maior estoque de pneus novos das marcas Pirelli, Bridgestone, Michelin, Goodyear com montagem grátis no Portão.";
   let keywords = "pneus em curitiba, pneus no portão, pneus, comprar pneus curitiba, pneus novos curitiba, auto center curitiba, borracharia curitiba, alinhamento 3D";
-  let ogImage = "https://www.carpluspneuseoficina.com.br/images/galeria/og-carplus.webp";
+  let ogImage = `${domain}/og-carplus.webp`;
 
   if (selectedTire) {
     const discountText = selectedTire.isOffer ? " - Preço Promocional" : "";
