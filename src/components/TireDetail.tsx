@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tire } from '../types';
+import { getTireSlug } from '../utils/slugify';
 import { 
   ArrowLeft, ShoppingCart, ShieldCheck, HelpCircle, 
   Tag, Clock, Phone, CheckCircle, Sparkles, MessageSquare,
@@ -27,7 +28,7 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [tire.id]);
 
-  const shareUrl = `https://www.carpluscwb.com.br/pneu/${tire.id}`;
+  const shareUrl = `https://www.carpluscwb.com.br/pneu/${getTireSlug(tire)}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(shareUrl);

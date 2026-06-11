@@ -13,6 +13,31 @@ function toSlug(str: string): string {
     .replace(/-+/g, '-');
 }
 
+function getTireSlug(tire: { id: string; brand: string; name?: string; width: number; aspectRatio: number; rim: number; model: string }): string {
+  const brand = tire.brand.toUpperCase();
+  const width = tire.width;
+  const aspect = tire.aspectRatio;
+  const rim = tire.rim;
+  const model = tire.model.toUpperCase()
+    .replace(/[\s/]+/g, '-')
+    .replace(/[^A-Z0-9-]/g, '');
+
+  let loadSpeed = '';
+  const tireName = tire.name || `${tire.brand} ${tire.model}`;
+  const loadSpeedMatch = tireName.match(/\b(\d{2,3}[A-Z])\b/i);
+  if (loadSpeedMatch) {
+    loadSpeed = loadSpeedMatch[1].toUpperCase();
+  }
+
+  let parts = [brand, width, aspect, rim];
+  if (loadSpeed) {
+    parts.push(loadSpeed);
+  }
+  parts.push(model);
+
+  return parts.join('+').replace(/[^a-zA-Z0-9+_-]/g, '');
+}
+
 // Data Lists for Sitemap and Pre-renderer
 const DOMAIN = "https://www.carpluscwb.com.br";
 
@@ -148,7 +173,7 @@ function generateSitemap() {
 
   // 7. Tires (8)
   TIRES_DATA.forEach(t => {
-    addUrl(`${DOMAIN}/pneu/${t.id}`, "0.8");
+    addUrl(`${DOMAIN}/pneu/${getTireSlug(t)}`, "0.8");
   });
 
   xml += `</urlset>\n`;
@@ -325,8 +350,9 @@ function runPrerendering() {
 
   // Adding Tires (8)
   TIRES_DATA.forEach(t => {
+    // 1. Primary Friendly Slug Route
     routes.push({
-      path: `pneu/${t.id}`,
+      path: `pneu/${getTireSlug(t)}`,
       title: `Pneu ${t.brand} ${t.model} ${t.width}/${t.aspectRatio} R${t.rim} Curitiba | Carplus`,
       desc: `Compre seu Pneu ${t.brand} ${t.model} original medida ${t.width}/${t.aspectRatio} R${t.rim} na Carplus Portão. Montagem computorizada e bicos de ar grátis inclusos!`,
       keywords: `pneu ${t.brand}, pneu ${t.brand} ${t.model}, pneu ${t.width} ${t.aspectRatio} r${t.rim}, pneus novos curitiba, pneu portao`,
@@ -349,6 +375,15 @@ function runPrerendering() {
           }
         ]
       }
+    });
+
+    // 2. Backward-compatible Classic parameter ID route
+    routes.push({
+      path: `pneu/${t.id}`,
+      title: `Pneu ${t.brand} ${t.model} ${t.width}/${t.aspectRatio} R${t.rim} Curitiba | Carplus`,
+      desc: `Compre seu Pneu ${t.brand} ${t.model} original medida ${t.width}/${t.aspectRatio} R${t.rim} na Carplus Portão. Montagem computorizada e bicos de ar grátis inclusos!`,
+      keywords: `pneu ${t.brand}, pneu ${t.brand} ${t.model}, pneu ${t.width} ${t.aspectRatio} r${t.rim}, pneus novos curitiba, pneu portao`,
+      schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness()] }
     });
   });
 

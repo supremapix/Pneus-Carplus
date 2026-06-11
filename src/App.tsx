@@ -10,7 +10,7 @@ import ScrollToTop from './components/ScrollToTop';
 import CompanyPages from './components/CompanyPages';
 import TireDetail from './components/TireDetail';
 import { TIRES_DATA, MOST_SEARCHED_MEASURES } from './data';
-import { toSlug } from './utils/slugify';
+import { toSlug, getTireSlug } from './utils/slugify';
 import EnhancedSEO from './components/EnhancedSEO';
 import { Tire, CartItem } from './types';
 import { 
@@ -346,8 +346,13 @@ export default function App() {
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneu' && parts[1]) {
-      const tireId = parts[1];
-      const matched = TIRES_DATA.find(t => t.id === tireId);
+      const tireParam = decodeURIComponent(parts[1]).trim().toLowerCase().replace(/[\s+]+/g, '+');
+      // Look for match by direct ID or normalized friendly slug
+      const matched = TIRES_DATA.find(t => {
+        const idMatch = t.id.toLowerCase() === tireParam;
+        const slugMatch = getTireSlug(t).toLowerCase().replace(/[\s+]+/g, '+') === tireParam;
+        return idMatch || slugMatch;
+      });
       if (matched) {
         setCurrentView('pneu-detalhes');
         setSelectedTire(matched);
@@ -422,7 +427,7 @@ export default function App() {
   useEffect(() => {
     let idealPath = '/';
     if (selectedTire) {
-      idealPath = `/pneu/${selectedTire.id}`;
+      idealPath = `/pneu/${getTireSlug(selectedTire)}`;
     } else if (currentView === 'seo-landing' && seoTarget) {
       const slugName = toSlug(seoTarget.name);
       idealPath = `/${seoTarget.type}/${slugName}`;

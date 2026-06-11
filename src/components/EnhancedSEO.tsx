@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Tire } from '../types';
-import { toSlug } from '../utils/slugify';
+import { toSlug, getTireSlug } from '../utils/slugify';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
@@ -16,7 +16,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
   // 1. Calculate Individual Canonical URL
   let canonicalUrl = domain;
   if (selectedTire) {
-    canonicalUrl = `${domain}/pneu/${selectedTire.id}`;
+    canonicalUrl = `${domain}/pneu/${getTireSlug(selectedTire)}`;
   } else if (currentView === 'seo-landing' && seoTarget) {
     const slug = toSlug(seoTarget.name);
     canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
@@ -146,7 +146,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         "@type": "ListItem",
         "position": 3,
         "name": `${selectedTire.brand} ${selectedTire.model}`,
-        "item": `${domain}/pneu/${selectedTire.id}`
+        "item": `${domain}/pneu/${getTireSlug(selectedTire)}`
       }
     );
   } else if (currentView === 'seo-landing' && seoTarget) {
@@ -183,7 +183,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     const finalP = selectedTire.promoPrice || selectedTire.price;
     const prodSchema = {
       "@type": "Product",
-      "@id": `${domain}/pneu/${selectedTire.id}#produto`,
+      "@id": `${domain}/pneu/${getTireSlug(selectedTire)}#produto`,
       "name": `Pneu ${selectedTire.brand} ${selectedTire.model} ${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}`,
       "image": selectedTire.image || "https://www.carpluspneuseoficina.com.br/images/galeria/fachada-logo.webp",
       "description": `Pneu novo modelo ${selectedTire.model} marca ${selectedTire.brand}, medida ${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}. Montagem técnica e válvulas grátis inclusas no Portão.`,
@@ -195,7 +195,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       "sku": `${selectedTire.width}${selectedTire.aspectRatio}${selectedTire.rim}`,
       "offers": {
         "@type": "Offer",
-        "url": `${domain}/pneu/${selectedTire.id}`,
+        "url": `${domain}/pneu/${getTireSlug(selectedTire)}`,
         "priceCurrency": "BRL",
         "price": finalP,
         "priceValidUntil": "2027-12-31",
