@@ -325,7 +325,7 @@ export default function App() {
 
     const firstRoute = parts[0].toLowerCase();
 
-    if (firstRoute === 'quem-somos') {
+    if (firstRoute === 'quem-somos' || firstRoute === 'quemsomos') {
       setCurrentView('quem-somos');
       setSeoTarget(null);
       setSelectedTire(null);
@@ -341,7 +341,7 @@ export default function App() {
       setCurrentView('mapa-do-site');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'contato') {
+    } else if (firstRoute === 'contato' || firstRoute === 'fale-conosco' || firstRoute === 'faleconosco') {
       setCurrentView('contato');
       setSeoTarget(null);
       setSelectedTire(null);

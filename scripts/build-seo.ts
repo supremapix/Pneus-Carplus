@@ -400,6 +400,36 @@ function runPrerendering() {
     fs.writeFileSync(path.join(targetDir, 'index.html'), rewritten);
   });
 
+  // Generate physical folders and redirect pages for legacy URLs (so they never 404 on pure static hosting)
+  const legacyRedirects = [
+    { from: 'fale-conosco', to: 'contato' },
+    { from: 'faleconosco', to: 'contato' },
+    { from: 'quemsomos', to: 'quem-somos' }
+  ];
+
+  legacyRedirects.forEach(redir => {
+    const targetDir = path.join(distPath, redir.from);
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecionando... | Carplus Pneus</title>
+  <meta http-equiv="refresh" content="0; url=/${redir.to}" />
+  <script>
+    window.location.replace("/${redir.to}");
+  </script>
+</head>
+<body>
+  <p>Página movida. Redirecionando para <a href="/${redir.to}">/${redir.to}</a>...</p>
+</body>
+</html>`;
+    fs.writeFileSync(path.join(targetDir, 'index.html'), html);
+    console.log(`Legacy redirect folder created: /dist/${redir.from} -> /${redir.to}`);
+  });
+
   console.log("HTML static pre-rendering task completed successfully!");
 }
 
