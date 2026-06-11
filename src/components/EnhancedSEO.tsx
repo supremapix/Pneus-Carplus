@@ -11,7 +11,7 @@ interface EnhancedSEOProps {
 }
 
 export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: EnhancedSEOProps) {
-  const domain = "https://carpluspneus.com.br";
+  const domain = "https://www.carpluscwb.com.br";
   
   // 1. Calculate Individual Canonical URL
   let canonicalUrl = domain;

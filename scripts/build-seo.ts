@@ -14,7 +14,7 @@ function toSlug(str: string): string {
 }
 
 // Data Lists for Sitemap and Pre-renderer
-const DOMAIN = "https://carpluspneus.com.br";
+const DOMAIN = "https://www.carpluscwb.com.br";
 
 const OFFICIAL_NEIGHBORHOODS = [
   "Abranches", "Água Verde", "Ahú", "Alto Boqueirão", "Alto da Glória",

@@ -1,5 +1,6 @@
 {
-  "redirects": [
-    { "source": "/:path*", "destination": "/", "permanent": false }
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/((?!assets|favicon|sw\\.js|sitemap\\.xml|robots\\.txt|[^/]+\\.[^/]+$).*)", "destination": "/index.html" }
   ]
 }
