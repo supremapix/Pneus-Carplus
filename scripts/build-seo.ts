@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { TIRES_DATA } from '../src/data';
 
 // Slugify helper
 function toSlug(str: string): string {
@@ -110,17 +111,6 @@ const CARS = [
   "Ford Ka", "Ford Fiesta", "Ford EcoSport", "Ford Focus", "Ford Ranger",
   "Renault Sandero", "Renault Logan", "Renault Duster", "Renault Kwid",
   "Jeep Compass", "Jeep Renegade", "Nissan Versa", "Nissan Kicks"
-];
-
-const TIRES_DATA = [
-  { id: 'b1', brand: 'Bridgestone', model: 'Ecopia EP150', price: 349, promoPrice: 299, width: 175, aspectRatio: 65, rim: 14, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg' },
-  { id: 'b2', brand: 'Bridgestone', model: 'Turanza T005', price: 429, promoPrice: 389, width: 185, aspectRatio: 60, rim: 15, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg' },
-  { id: 'b3', brand: 'Bridgestone', model: 'Dueler H/T 684', price: 829, promoPrice: 779, width: 205, aspectRatio: 60, rim: 16, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg' },
-  { id: 'p1_tire', brand: 'Pirelli', model: 'Cinturato P1', price: 339, promoPrice: 289, width: 175, aspectRatio: 65, rim: 14, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg' },
-  { id: 'p2_tire', brand: 'Pirelli', model: 'Cinturato P7', price: 459, promoPrice: 419, width: 205, aspectRatio: 55, rim: 16, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg' },
-  { id: 'm1', brand: 'Michelin', model: 'Primacy 4', price: 549, promoPrice: 499, width: 205, aspectRatio: 55, rim: 16, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg' },
-  { id: 'm2', brand: 'Michelin', model: 'LTX Force', price: 929, promoPrice: 879, width: 215, aspectRatio: 60, rim: 17, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg' },
-  { id: 'co1', brand: 'Continental', model: 'PowerContact 2', price: 389, promoPrice: 349, width: 185, aspectRatio: 60, rim: 15, image: 'https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg' }
 ];
 
 function generateSitemap() {
