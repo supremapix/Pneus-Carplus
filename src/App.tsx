@@ -6,8 +6,12 @@ import CartDrawer from './components/CartDrawer';
 import ServiceHistory from './components/ServiceHistory';
 import TireFinderWizard from './components/TireFinderWizard';
 import LiveWhatsAppChat from './components/LiveWhatsAppChat';
+import ScrollToTop from './components/ScrollToTop';
 import CompanyPages from './components/CompanyPages';
+import TireDetail from './components/TireDetail';
 import { TIRES_DATA, MOST_SEARCHED_MEASURES } from './data';
+import { toSlug } from './utils/slugify';
+import EnhancedSEO from './components/EnhancedSEO';
 import { Tire, CartItem } from './types';
 import { 
   OFFICIAL_NEIGHBORHOODS, NON_OFFICIAL_NEIGHBORHOODS, POPULAR_REGIONS, 
@@ -23,9 +27,11 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
+  const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
+  const [isConveyorPaused, setIsConveyorPaused] = useState(false);
 
   // Search and Filter States
   const [keyword, setKeyword] = useState('');
@@ -167,12 +173,34 @@ export default function App() {
 
   // Scroll handler mapping
   const handleScrollToSection = (sectionId: string) => {
+    if (sectionId === 'quem-somos') {
+      setCurrentView('quem-somos');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (sectionId === 'contato') {
+      setCurrentView('contato');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (sectionId === 'home') {
+      setCurrentView('home');
+      setTimeout(() => {
+        const targetElement = homeRef.current;
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
     if (currentView !== 'home') {
       setCurrentView('home');
       setTimeout(() => {
         let targetElement: HTMLElement | null = null;
-        if (sectionId === 'home') targetElement = homeRef.current;
-        else if (sectionId === 'finder') targetElement = finderRef.current;
+        if (sectionId === 'finder') targetElement = finderRef.current;
         else if (sectionId === 'catalog') targetElement = catalogRef.current;
         else if (sectionId === 'categories') targetElement = categoriesRef.current;
         else if (sectionId === 'maps-section') targetElement = mapsRef.current || document.getElementById('maps-section');
@@ -185,11 +213,10 @@ export default function App() {
     }
 
     let targetElement: HTMLElement | null = null;
-    if (sectionId === 'home') targetElement = homeRef.current;
-    else if (sectionId === 'finder') targetElement = finderRef.current;
-    else if (sectionId === 'catalog') targetElement = catalogRef.current;
-    else if (sectionId === 'categories') targetElement = categoriesRef.current;
-    else if (sectionId === 'maps-section') targetElement = mapsRef.current || document.getElementById('maps-section');
+    if (sectionId === 'finder') targetElement = finderRef.current;
+    if (sectionId === 'catalog') targetElement = catalogRef.current;
+    if (sectionId === 'categories') targetElement = categoriesRef.current;
+    if (sectionId === 'maps-section') targetElement = mapsRef.current || document.getElementById('maps-section');
 
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -213,6 +240,12 @@ export default function App() {
         handleScrollToSection('catalog');
       }, 50);
     }
+  };
+
+  const handleShowTireDetail = (tire: Tire) => {
+    setSelectedTire(tire);
+    setCurrentView('pneu-detalhes');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   // Reset all catalog filters
@@ -278,11 +311,139 @@ export default function App() {
     setCurrentPage(1);
   }, [keyword, selectedBrand, selectedRim, filterWidth, filterProfile, onlyOffers]);
 
+  // --- INTEGRATED SPA CLIENT-SIDE URL ROUTING ENGINE ---
+  const parsePathAndSetState = () => {
+    const rawPath = window.location.pathname;
+    const parts = rawPath.split('/').filter(Boolean);
+    
+    if (parts.length === 0) {
+      setCurrentView('home');
+      setSeoTarget(null);
+      setSelectedTire(null);
+      return;
+    }
+
+    const firstRoute = parts[0].toLowerCase();
+
+    if (firstRoute === 'quem-somos') {
+      setCurrentView('quem-somos');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'politica-privacidades') {
+      setCurrentView('politica-privacidades');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'politica-devolucao') {
+      setCurrentView('politica-devolucao');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'mapa-do-site') {
+      setCurrentView('mapa-do-site');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'contato') {
+      setCurrentView('contato');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu' && parts[1]) {
+      const tireId = parts[1];
+      const matched = TIRES_DATA.find(t => t.id === tireId);
+      if (matched) {
+        setCurrentView('pneu-detalhes');
+        setSelectedTire(matched);
+        setSeoTarget(null);
+      } else {
+        setCurrentView('home');
+        setSeoTarget(null);
+        setSelectedTire(null);
+      }
+    } else if (firstRoute === 'bairro' && parts[1]) {
+      const slug = parts[1].toLowerCase();
+      const matchedOfficial = OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n) === slug);
+      if (matchedOfficial) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'bairro', name: matchedOfficial });
+        setSelectedTire(null);
+        return;
+      }
+      const matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n.name) === slug);
+      if (matchedNon) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'bairro', name: matchedNon.name, region: matchedNon.region });
+        setSelectedTire(null);
+        return;
+      }
+      const fallbackName = parts[1].split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'bairro', name: fallbackName });
+      setSelectedTire(null);
+    } else if (firstRoute === 'cidade' && parts[1]) {
+      const slug = parts[1].toLowerCase();
+      const matchedCity = METROPOLITAN_CITIES.find(c => toSlug(c) === slug);
+      if (matchedCity) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'cidade', name: matchedCity });
+        setSelectedTire(null);
+      } else {
+        const fallbackName = parts[1].split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'cidade', name: fallbackName });
+        setSelectedTire(null);
+      }
+    } else if (firstRoute === 'aro' && parts[1]) {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'aro', name: parts[1] });
+      setSelectedTire(null);
+    } else if (firstRoute === 'carro' && parts[1]) {
+      const fallbackName = parts[1].split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'carro', name: fallbackName });
+      setSelectedTire(null);
+    } else {
+      setCurrentView('home');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    }
+  };
+
+  useEffect(() => {
+    parsePathAndSetState();
+    
+    const handlePopState = () => {
+      parsePathAndSetState();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
+    let idealPath = '/';
+    if (selectedTire) {
+      idealPath = `/pneu/${selectedTire.id}`;
+    } else if (currentView === 'seo-landing' && seoTarget) {
+      const slugName = toSlug(seoTarget.name);
+      idealPath = `/${seoTarget.type}/${slugName}`;
+    } else if (currentView !== 'home') {
+      idealPath = `/${currentView}`;
+    }
+
+    if (window.location.pathname !== idealPath) {
+      window.history.pushState(null, '', idealPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [currentView, seoTarget, selectedTire]);
+
   // Hot offers in stock to highlight
   const spotlightOffers = TIRES_DATA.filter(t => t.isOffer);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans selection:bg-[#f49e1a] selection:text-gray-950" id="carplus-root">
+      
+      {/* Dynamic Advanced Helmet-driven Head & Structured Data Management */}
+      <EnhancedSEO currentView={currentView} seoTarget={seoTarget} selectedTire={selectedTire} />
       
       {/* Dynamic Navbar */}
       <Navbar 
@@ -292,8 +453,19 @@ export default function App() {
       />
 
       {/* Main Content Layout */}
-      {currentView !== 'home' ? (
-        <main className="flex-1 w-full bg-[#111215]">
+      {currentView === 'pneu-detalhes' && selectedTire ? (
+        <main className="flex-1 w-full bg-white">
+          <TireDetail 
+            tire={selectedTire}
+            onBack={() => {
+              setCurrentView('home');
+              setSelectedTire(null);
+            }}
+            onAddToCart={handleAddToCart}
+          />
+        </main>
+      ) : currentView !== 'home' ? (
+        <main className="flex-1 w-full bg-white">
           <CompanyPages 
             view={currentView}
             seoTarget={seoTarget}
@@ -312,150 +484,213 @@ export default function App() {
           />
         </main>
       ) : (
-        <main className="flex-1 w-full pb-16">
-        
-        {/* Banner/Hero Section (matching screenshot look exactly) */}
-        <div 
-          ref={homeRef} 
-          className="relative bg-[#111215] text-white overflow-hidden py-16 px-6 border-b border-yellow-500/10"
-          id="hero-banner"
-        >
-          {/* Ambient lighting effect */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-yellow-600/10 via-transparent to-transparent pointer-events-none"></div>
-          
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            {/* Info Text */}
-            <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-justify space-y-5">
-              <span className="bg-yellow-500/20 text-yellow-500 font-black text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                <Flame className="w-4 h-4 text-yellow-500 animate-pulse" />
-                <span>TECNOLOGIA • PRECISÃO • DESEMPENHO • SEGURANÇA</span>
-              </span>
-              
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white uppercase leading-tight select-none">
-                Pneus em <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f49e1a] to-yellow-400">Curitiba</span>
-              </h1>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-yellow-500 uppercase tracking-wide select-none">
-                Oficina Mecânica <span className="italic text-white">Full Service</span>
-              </h2>
+        <main className="flex-1 w-full pb-16 bg-white">
 
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-justify max-w-2xl px-1 sm:px-0">
-                Pneus das melhores marcas com preços a partir de <strong>R$ 239,00 à vista</strong>. Conte com montagem inclusa, atendimento premium do Portão Carplus Pneus e parcele em até <strong>10x sem juros</strong> direto na loja física após a instalação!
-              </p>
-
-              {/* Direct call layout */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto pt-2" id="hero-action-buttons">
-                <button
-                  onClick={() => handleScrollToSection('finder')}
-                  className="w-full sm:w-auto bg-white hover:bg-yellow-500 text-gray-950 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-                  id="goto-finder-btn"
-                >
-                  <Search className="w-4 h-4 shrink-0 text-gray-900" />
-                  Ir até a Carplus
-                </button>
-                <a
-                  href="tel:4130827282"
-                  className="w-full sm:w-auto border border-gray-700 bg-gray-900/80 hover:bg-gray-800 text-white font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider transition duration-300 flex items-center justify-center gap-2"
-                  id="hero-call-now"
-                >
-                  <Phone className="w-4 h-4 shrink-0 text-yellow-500" />
-                  Ligar Agora: (41) 3082-7282
-                </a>
-              </div>
-            </div>
-
-            {/* Premium Interactive Showcase Side Panel */}
-            <div className="lg:col-span-5 bg-gray-900/60 p-5 rounded-3xl border border-gray-800 space-y-4" id="hero-quick-shortcuts">
-              <h4 className="text-xs uppercase font-extrabold text-yellow-500 tracking-wider flex items-center gap-2 justify-center lg:justify-start">
-                <Sparkles className="w-4 h-4 text-yellow-500 animate-spin" />
-                Buscas Mais Frequentes no Google
-              </h4>
-              <p className="text-[11px] text-gray-400 text-justify">
-                As dimensões mais requisitadas para carros compactos e SUV em Curitiba. Selecione para aplicar de imediato ao estoque:
-              </p>
-              
-              <div className="grid grid-cols-2 gap-2" id="quick-searches-grid">
-                {MOST_SEARCHED_MEASURES.map((item, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleSearchMeasure(item.query)}
-                    className="p-2.5 bg-[#17191d] hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 rounded-xl transition text-left flex flex-col justify-between"
-                  >
-                    <span className="font-bold text-xs sm:text-sm font-mono tracking-tight">{item.text}</span>
-                    <span className="text-[9px] text-gray-500 mt-0.5">{item.searches}</span>
-                  </button>
-                ))}
-              </div>
-
-              <div className="border-t border-gray-850 pt-3 flex items-center justify-between text-xs text-gray-400">
-                <span>Total de pneus cadastrados: <strong>{TIRES_DATA.length}</strong></span>
-                <span className="text-[#25D366] font-bold">● Portão Curitiba Ativa</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Highlighted Promo Offers Grid (Prateleira de Ofertas) */}
-        <section className="max-w-7xl mx-auto px-4 mt-8" id="spotlight-offers-section">
-          <div className="bg-gradient-to-r from-[#1f2937] to-[#111215] text-white p-6 rounded-3xl border border-yellow-500/20 shadow-xl">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <div className="text-center sm:text-left">
-                <span className="bg-[#ef1420] text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full inline-block">
-                  PROMOÇÃO RELÂMPAGO
+          {/* Fully Automatic 100% Dynamic Tire Conveyor Belt (Esteira de Pneus) */}
+          <div 
+            ref={homeRef}
+            className="w-full bg-gray-50 border-b border-gray-200 py-6 px-4 md:px-6 relative z-10 select-none shadow-sm"
+            id="conveyor-belt-section"
+          >
+            <div className="max-w-7xl mx-auto">
+              <div className="mb-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+                <div>
+                  <span className="bg-black text-white font-mono font-black text-[10px] uppercase tracking-widest px-3 py-1 rounded-full inline-flex items-center gap-1.5 border border-black shadow-sm animate-pulse">
+                    <Flame className="w-3.5 h-3.5 text-white" />
+                    ESTEIRA AUTOMÁTICA DE OFERTAS
+                  </span>
+                  <h1 className="text-2xl sm:text-3.5xl font-black uppercase text-gray-950 mt-2 tracking-tight leading-tight" id="conveyor-main-h1">
+                    Promoções de Pneus em Destaque no Portão • <span className="text-[#f49e1a]">Menor Preço de Curitiba</span>
+                  </h1>
+                </div>
+                <span className="bg-yellow-500/10 text-yellow-700 text-xs font-black px-4 py-2 rounded-xl border border-yellow-250 shrink-0 hidden md:inline">
+                  ● Montagem inclusa + bicos de ar novos grátis
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black uppercase text-yellow-500 tracking-tight mt-1">
-                  Destaques da Semana em Oferta
-                </h3>
-                <p className="text-xs text-gray-400 mt-1 text-justify">
-                  Estes pneus estão com preço reduzido e montagem de bicos sem custo adicional para retirada na loja física do Portão. Aproveite!
+              </div>
+
+              {/* Conveyor Track Container */}
+              <div 
+                className="overflow-hidden relative bg-white border border-gray-200 rounded-3xl py-6 px-4 cursor-grab active:cursor-grabbing shadow-inner"
+                id="conveyor-belt-container"
+                onTouchStart={() => setIsConveyorPaused(true)}
+                onTouchEnd={() => setIsConveyorPaused(false)}
+                onMouseEnter={() => setIsConveyorPaused(true)}
+                onMouseLeave={() => setIsConveyorPaused(false)}
+                onClick={() => setIsConveyorPaused(!isConveyorPaused)}
+              >
+                {/* Repeating list for seamless slider loops */}
+                <div className={`flex gap-6 animate-marquee ${isConveyorPaused ? 'animate-marquee-paused' : ''}`}>
+                  {[...spotlightOffers, ...spotlightOffers, ...spotlightOffers, ...spotlightOffers, ...spotlightOffers].map((t, index) => (
+                    <div 
+                      key={`conveyor-tile-${t.id}-${index}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleShowTireDetail(t);
+                      }}
+                      className="w-72 sm:w-80 bg-white border-2 border-gray-250 hover:border-yellow-500 rounded-2xl p-5 flex flex-col justify-between shrink-0 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group cursor-pointer"
+                    >
+                      <div className="relative bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-center h-48 sm:h-52 overflow-hidden shadow-sm">
+                        <span className="absolute top-2 left-2 z-10 bg-black text-white text-xs font-black px-2.5 py-1 rounded shadow">
+                          Aro {t.rim}
+                        </span>
+                        <img 
+                          src={t.image} 
+                          alt={t.name} 
+                          className="h-38 sm:h-44 object-contain transition duration-500 group-hover:scale-105" 
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = "https://www.carpluspneuseoficina.com.br/images/logos/logo-vertical.svg";
+                          }}
+                        />
+                      </div>
+                      
+                      <div className="mt-4 flex-grow text-center lg:text-left min-h-[90px] flex flex-col justify-between">
+                        <div>
+                          <span className="text-xs text-[#f49e1a] font-mono tracking-wider font-black block uppercase">{t.brand}</span>
+                          <h4 className="text-sm sm:text-base font-black text-gray-950 leading-tight mt-1 line-clamp-2 hover:text-yellow-600 transition" title={t.name}>
+                            {t.name}
+                          </h4>
+                        </div>
+                        
+                        <div className="mt-3 flex items-baseline justify-center lg:justify-start gap-1.5">
+                          <span className="line-through text-xs text-gray-400 font-mono">R$ {t.price.toFixed(2)}</span>
+                          <span className="text-lg sm:text-xl font-black text-black font-mono">R$ {t.promoPrice?.toFixed(2)}</span>
+                        </div>
+                      </div>
+                      
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleShowTireDetail(t);
+                        }}
+                        className="w-full mt-4 bg-gray-950 text-white group-hover:bg-[#f49e1a] group-hover:text-black transition-all font-black py-2.5 rounded-xl text-xs uppercase tracking-wider block text-center shadow-md border border-transparent group-hover:border-black"
+                      >
+                        Ver Detalhes Técnicos
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Informative description paragraph under the conveyor belt for senior readability and prominence */}
+              <div className="mt-4 bg-yellow-500/5 border border-yellow-500/20 rounded-2xl p-4 sm:p-5 shadow-sm">
+                <p className="text-xs sm:text-sm text-gray-800 font-black text-justify leading-relaxed">
+                  Adquira pneus novos e originais de alta durabilidade com condições imbatíveis. Na Carplus Pneus, você tem direito a <strong>montagem avançada inclusa</strong>, <strong>substituição preventiva dos bicos de ar de graça</strong> e check-up de suspensão completo sem taxas embutidas. Toque em qualquer pneu da esteira acima para consultar aplicações no seu carro ou falar com nossa gerência no WhatsApp!
                 </p>
               </div>
-              <button
-                onClick={() => {
-                  setOnlyOffers(true);
-                  handleScrollToSection('catalog');
-                }}
-                className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-extrabold px-4 py-2.5 rounded-xl text-xs uppercase"
-              >
-                Filtrar catálogo por ofertas
-              </button>
-            </div>
 
-            {/* Grid of spotlighed tires */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4" id="spotlight-offers-grid">
-              {spotlightOffers.map(t => (
-                <div key={`offer-${t.id}`} className="bg-white text-gray-900 rounded-2xl overflow-hidden p-3 border border-yellow-500/30 flex flex-col justify-between shadow-md">
-                  <div className="relative">
-                    <span className="absolute top-1 left-1 bg-[#ef1420] text-white text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">
-                      Super Desconto
-                    </span>
-                    <img src={t.image} alt={t.name} className="h-28 object-contain w-full bg-gray-50 rounded-lg p-2" />
-                  </div>
-                  <div className="mt-2 flex-grow">
-                    <h4 className="text-xs font-bold text-gray-900 truncate">{t.name}</h4>
-                    <p className="text-[10px] text-[#f49e1a] font-bold uppercase">{t.brand}</p>
-                    
-                    <div className="mt-1 flex items-baseline gap-1.5">
-                      {t.promoPrice !== undefined && t.promoPrice !== null ? (
-                        <>
-                          <span className="line-through text-[10px] text-gray-400 font-mono">R$ {t.price.toFixed(2)}</span>
-                          <span className="text-sm font-black text-[#ef1420] font-mono">R$ {t.promoPrice.toFixed(2)}</span>
-                        </>
-                      ) : (
-                        <span className="text-sm font-black text-gray-900 font-mono">R$ {t.price.toFixed(2)}</span>
-                      )}
+              {/* Brand Logos Conveyor Track Container (Sliding opposite direction very slowly) */}
+              <div 
+                className="overflow-hidden relative bg-white border border-gray-150 rounded-2xl py-3 px-4 mt-4 shadow-sm"
+                id="brands-conveyor-belt-container"
+              >
+                <div className="flex gap-12 items-center animate-marquee-reverse">
+                  {[1, 2, 3, 4, 5, 6].flatMap(() => [
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg",
+                    "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg"
+                  ]).map((url, idx) => (
+                    <div 
+                      key={`brand-logo-${idx}`} 
+                      className="h-10 w-28 shrink-0 flex items-center justify-center filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300 pointer-events-none select-none"
+                    >
+                      <img 
+                        src={url} 
+                        alt="Logo Marca Parceira Carplus" 
+                        className="h-full max-w-full object-contain"
+                        referrerPolicy="no-referrer"
+                      />
                     </div>
-                  </div>
-                  <button
-                    onClick={() => handleAddToCart(t, 2)}
-                    className="w-full mt-2.5 bg-gray-950 text-white hover:bg-yellow-500 hover:text-gray-950 font-bold py-1.5 rounded-lg text-[10px] uppercase transition"
-                  >
-                    Reservar 2 Pneus
-                  </button>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
-        </section>
+        
+          {/* Banner/Hero Section (High-Contrast White Theme optimized for Seniors) */}
+          <div 
+            className="relative bg-white text-gray-900 overflow-hidden py-16 px-6 border-b border-gray-200"
+            id="hero-banner"
+          >
+            {/* Subtle Ambient light bg */}
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white pointer-events-none"></div>
+            
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              {/* Info Text */}
+              <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-5">
+                <span className="bg-yellow-500/10 text-yellow-600 font-black text-[11px] uppercase tracking-widest px-4 py-2 rounded-full inline-flex items-center gap-1.5 border border-yellow-300">
+                  <Flame className="w-4 h-4 text-yellow-600 animate-pulse" />
+                  <span>MULTIPLICADOR DE BENEFÍCIOS • PORTÃO CARPLUS PNEUS</span>
+                </span>
+                
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-gray-950 uppercase leading-none select-none">
+                  Pneus em <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f49e1a] to-yellow-600">Curitiba</span>
+                </h1>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 uppercase tracking-wide select-none">
+                  Oficina Mecânica Mecânica <span className="text-yellow-600 font-extrabold">Completa</span>
+                </h2>
+
+                <p className="text-gray-700 text-lg sm:text-xl font-bold leading-relaxed text-justify max-w-2xl px-1 sm:px-0">
+                  Pneus novos das melhores marcas com preços imbatíveis a partir de <strong className="text-black text-2xl font-mono">R$ 239,00 à vista</strong>. Com montagem inclusa gratuita de bicos de ar novos, atendimento premium de oficina mecânica no Portão e parcelamento em até <strong className="text-gray-950">10x sem juros</strong> direto no ato da instalação física!
+                </p>
+
+                {/* Direct call layout */}
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto pt-2" id="hero-action-buttons">
+                  <button
+                    onClick={() => handleScrollToSection('finder')}
+                    className="w-full sm:w-auto bg-[#f49e1a] hover:bg-yellow-500 text-gray-950 font-black px-8 py-4.5 rounded-2xl text-sm uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 border border-[#d68516]"
+                    id="goto-finder-btn"
+                  >
+                    <Search className="w-5 h-5 shrink-0 text-gray-950" />
+                    Buscar Pneus em Curitiba
+                  </button>
+                  <a
+                    href="tel:4130827282"
+                    className="w-full sm:w-auto border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 font-black px-8 py-4.5 rounded-2xl text-sm uppercase tracking-wider transition duration-300 flex items-center justify-center gap-2 shadow"
+                    id="hero-call-now"
+                  >
+                    <Phone className="w-5 h-5 shrink-0 text-yellow-600 animate-bounce" />
+                    Telefone: (41) 3082-7282
+                  </a>
+                </div>
+              </div>
+
+              {/* Senior-Readable Quick Shortcuts Panel */}
+              <div className="lg:col-span-5 bg-gray-50 p-6 rounded-3xl border border-gray-200 shadow-sm space-y-4" id="hero-quick-shortcuts">
+                <h4 className="text-sm uppercase font-extrabold text-gray-900 tracking-wider flex items-center gap-2 justify-center lg:justify-start">
+                  <Sparkles className="w-5 h-5 text-yellow-600 animate-spin" />
+                  Mais Procurados no Google Curitiba (Aros)
+                </h4>
+                <p className="text-xs text-gray-600 font-semibold text-center lg:text-left">
+                  Dimensões e aros campeões de vendas na capital. Toque em uma medida para filtrar o estoque e conferir nossas ofertas:
+                </p>
+                
+                <div className="grid grid-cols-2 gap-2" id="quick-searches-grid">
+                  {MOST_SEARCHED_MEASURES.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSearchMeasure(item.query)}
+                      className="p-3 bg-white hover:bg-yellow-50 text-gray-900 hover:text-black border border-gray-250 hover:border-yellow-500 rounded-xl transition text-left flex flex-col justify-between cursor-pointer group shadow-sm"
+                    >
+                      <span className="font-black text-sm sm:text-base font-mono tracking-tight text-gray-900 group-hover:text-yellow-600">{item.text}</span>
+                      <span className="text-[10px] text-gray-500 font-bold mt-0.5">{item.searches}</span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="border-t border-gray-200 pt-3 flex items-center justify-between text-xs text-gray-600 font-bold">
+                  <span>Total cadastrado: <strong className="text-gray-950 font-extrabold">{TIRES_DATA.length} pneus</strong></span>
+                  <span className="text-[#15803d] font-bold">● Loja Portão Aberta</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
         {/* Wizard application guide (Qual pneu vai no meu carro?) */}
         <section ref={finderRef} className="max-w-7xl mx-auto px-4 mt-8" id="finder">
@@ -767,7 +1002,7 @@ export default function App() {
               {((keyword || selectedBrand !== 'Todas' || selectedRim !== 'Todos' || filterWidth !== 'Todos' || filterProfile !== 'Todos' || onlyOffers)) && (
                 <button
                   onClick={resetFilters}
-                  className="text-xs font-bold text-red-500 hover:underline"
+                  className="text-xs font-bold text-black border-b border-black hover:bg-black hover:text-white px-2 py-1 rounded"
                   id="reset-all-filters"
                 >
                   Limpar Todos os Filtros (X)
@@ -906,6 +1141,7 @@ export default function App() {
                     key={tire.id}
                     tire={tire}
                     onAddToCart={handleAddToCart}
+                    onSelectTire={handleShowTireDetail}
                   />
                 ))}
               </div>
@@ -1216,6 +1452,7 @@ export default function App() {
 
       {/* Floating Live Chat & Booking trigger */}
       <LiveWhatsAppChat />
+      <ScrollToTop />
 
       {/* Structured Footer */}
       <Footer onNavigate={(page) => {

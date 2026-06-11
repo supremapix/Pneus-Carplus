@@ -1,0 +1,26 @@
+# Carplus Pneus - Auto Center e Distribuição de Pneus Novos em Curitiba
+
+Bem-vindo ao diretório de informações e documentação da **Carplus Pneus**, o autocenter de alta tecnologia especializado em pneus de marcas consagradas, localizado no bairro Portão em Curitiba - PR.
+
+## Informações Corporativas
+- **Razão Social/Nome Fantasia:** Carplus Pneus e Auto Center
+- **Endereço Físico:** Avenida Presidente Arthur da Silva Bernardes, 1323 - Portão, Curitiba - PR (CEP: 80320-300)
+- **Telefone de Contato:** (41) 3082-7282
+- **WhatsApp de Vendas:** (41) 3082-7282
+- **Site Oficial:** https://carpluspneus.com.br
+- **Horário de Funcionamento:** Segunda a Sexta: 08h00 às 18h00 | Sábado: 08h00 às 12h00
+
+## Diferenciais e Serviços
+- **Pneus 100% Novos:** Trabalhamos exclusivamente de forma estrita com pneus novos com garantia de 5 anos direto do fabricante e certificado Inmetro de excelência.
+- **Mecânica Expressa Integrada:** Fazemos montagem, balanceamento computadorizado, Alinhamento 3D computadorizado de alta precisão, suspensão completa (amortecedores, pivôs, buchas, kits batentes), freios (pastilhas e discos) e revisão preventiva.
+- **Marcas Oficiais Disponíveis:** Distribuição oficial de Bridgestone, Pirelli, Michelin, Goodyear, Continental, Yokohama, Firestone, Delinte, Comforser, Xbri e Prinx.
+
+## Estrutura da Plataforma Virtual
+Nossa loja virtual permite aos moradores de Curitiba e toda a Região Metropolitana (RMC):
+1. **Filtro de Pneus por Tamanho / Medida:** Busca interativa por Largura, Perfil e Aro (Aros R13, R14, R15, R16, R17 e R18).
+2. **Guia de Marcas Premium:** Descrição do perfil e comportamento mecânico de cada fabricante de pneu em estoque.
+3. **Busca por Veículo / Montadora:** Banco de dados integrado que correlaciona dezenas de veículos populares (Onix, Gol, HB20, Kwid, Corolla, Civic, Mobi, Toro, Uno, S10) e as medidas exatas homologadas de fábrica.
+4. **Páginas de Descoberta SEO Localizadas:** Landing pages otimizadas para bairros de Curitiba (Portão, Água Verde, Batel, CIC, Centro, Cristo Rei, Santa Felicidade, Sítio Cercado, etc.) e cidades da Região Metropolitana de Curitiba (São José dos Pinhais, Pinhais, Colombo, Araucária, Campo Largo, Fazenda Rio Grande).
+
+## Atendimento Técnico de Entrega
+A negociação e a finalização de compras ocorrem diretamente via integração com o WhatsApp de plantão de técnicos da Carplus. Os pneus podem ser reservados para instalação na autocenter física ou enviados para frete imediato.

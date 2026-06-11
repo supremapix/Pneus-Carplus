@@ -15,30 +15,70 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
   };
 
   const navLinks = [
-    { label: 'Início', id: 'home' },
-    { label: 'Encontrar Pneu', id: 'finder' },
-    { label: 'Catálogo de Pneus', id: 'catalog' },
-    { label: 'Aros & Marcas', id: 'categories' },
-    { label: 'Onde Estacionar (Maps)', id: 'maps-section' }
+    { label: 'Quem Somos', id: 'quem-somos' },
+    { label: 'Contato', id: 'contato' }
   ];
 
   return (
     <header className="sticky top-0 z-40 w-full" id="main-header">
-      {/* Top bar with hours and address */}
-      <div className="bg-[#111215] text-white text-[11px] sm:text-xs py-2 px-4 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1.5 sm:gap-4">
-          <div className="flex items-center gap-2 justify-center text-center sm:text-justify font-medium">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#f49e1a] animate-pulse"></span>
-            <span>Unidade Portão - Av. Presid. Arthur da Silva Bernardes, 1323 • Curitiba, PR</span>
-          </div>
-          <div className="flex items-center gap-4 text-gray-350 font-mono">
-            <span>Seg-Sex: 08:00 - 18:00 • Sáb: 08:00 - 12:00</span>
-            <span className="hidden md:inline font-bold text-[#f49e1a] hover:underline">
-              <a href="tel:4130827282" className="flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5" />
-                (41) 3082-7282
-              </a>
-            </span>
+      {/* Dynamic Marquee Letreiro Top Bar */}
+      <div className="bg-[#0b0c0e] text-white py-2 border-b border-[#f49e1a]/20 overflow-hidden relative z-50 group hover:bg-[#111215] transition-colors duration-300">
+        <div className="max-w-full flex cursor-pointer" title="Passe o mouse para pausar e clique nos links para ligar ou ver endereço!">
+          <div className="animate-top-marquee flex items-center gap-16 whitespace-nowrap">
+            {/* Array of info items, repeated to ensure loop is completely seamless */}
+            {Array.from({ length: 4 }).map((_, repeatIdx) => (
+              <React.Fragment key={`marquee-group-${repeatIdx}`}>
+                {/* Item 1: Endereço */}
+                <a 
+                  href="https://maps.google.com/?q=Av.+Presid.+Arthur+da+Silva+Bernardes,+1323+-+Portão,+Curitiba+-+PR"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-[#f49e1a] transition-colors text-xs font-bold font-sans group/link"
+                >
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#f49e1a] animate-pulse"></span>
+                  <span className="text-gray-400">📍 LOJA PORTÃO:</span>
+                  <span className="underline decoration-dashed decoration-gray-600 group-hover/link:decoration-[#f49e1a]">
+                    Av. Pres. Arthur Bernardes, 1323 - Curitiba, PR
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-gray-500 group-hover/link:text-[#f49e1a]" />
+                </a>
+
+                {/* Item 2: Telefone de Atendimento */}
+                <a 
+                  href="tel:554130827282"
+                  className="inline-flex items-center gap-2 hover:text-[#f49e1a] transition-colors text-xs font-bold font-mono group/link"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#f49e1a]" />
+                  <span className="text-gray-400 font-sans">LIGUE JÁ:</span>
+                  <span className="underline decoration-dashed decoration-gray-600 group-hover/link:decoration-[#f49e1a]">
+                    (41) 3082-7282
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-gray-500 group-hover/link:text-[#f49e1a]" />
+                </a>
+
+                {/* Item 3: Horários */}
+                <div className="inline-flex items-center gap-2 text-xs font-bold text-gray-300 font-mono">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+                  <span className="text-gray-400 font-sans">HORÁRIO:</span>
+                  <span>Seg-Sex: 08:00 - 18:00 • Sáb: 08:00 - 12:00</span>
+                </div>
+
+                {/* Item 4: WhatsApp Solicitar Agendamento */}
+                <a 
+                  href={formatWhatsApp("Olá Carplus! Gostaria de agendar uma revisão rápida ou solicitar um orçamento de pneus.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-[#f49e1a] transition-colors text-xs font-extrabold font-sans group/link"
+                >
+                  <span className="text-green-500 font-bold animate-pulse">●</span>
+                  <span className="text-gray-400">WHATSAPP:</span>
+                  <span className="underline decoration-dashed decoration-gray-600 group-hover/link:decoration-[#f49e1a]">
+                    Fale Direto com Atendimento
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-gray-500 group-hover/link:text-[#f49e1a]" />
+                </a>
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>
@@ -69,7 +109,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
           </div>
 
           {/* Core Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -113,7 +153,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-300 hover:text-white"
+              className="md:hidden p-2 text-gray-300 hover:text-white"
               id="mobile-menu-toggle"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -123,7 +163,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
 
         {/* Mobile menu panel */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-3 pt-3 border-t border-gray-800 space-y-2 pb-2" id="mobile-navigation-links">
+          <div className="md:hidden mt-3 pt-3 border-t border-gray-800 space-y-2 pb-2" id="mobile-navigation-links">
             {navLinks.map((link) => (
               <button
                 key={link.id}

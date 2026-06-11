@@ -6,9 +6,10 @@ interface TireCardProps {
   key?: string;
   tire: Tire;
   onAddToCart: (tire: Tire, quantity: number) => void;
+  onSelectTire?: (tire: Tire) => void;
 }
 
-export default function TireCard({ tire, onAddToCart }: TireCardProps) {
+export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardProps) {
   const [qty, setQty] = useState(2); // Default is set to 2 for a pair
 
   const finalPrice = tire.promoPrice || tire.price;
@@ -38,7 +39,10 @@ export default function TireCard({ tire, onAddToCart }: TireCardProps) {
       </div>
 
       {/* Image container with totally white background */}
-      <div className="relative p-6 bg-white flex items-center justify-center min-h-[190px] border-b border-gray-200/80">
+      <div 
+        onClick={() => onSelectTire && onSelectTire(tire)}
+        className="relative p-6 bg-white flex items-center justify-center min-h-[190px] border-b border-gray-200/80 cursor-pointer"
+      >
         <img 
           src={tire.image} 
           alt={tire.name} 
@@ -57,7 +61,10 @@ export default function TireCard({ tire, onAddToCart }: TireCardProps) {
 
       {/* Content wrapper */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between text-center md:text-justify">
-        <div>
+        <div 
+          onClick={() => onSelectTire && onSelectTire(tire)}
+          className="cursor-pointer"
+        >
           {/* Brand & Model */}
           <div className="flex items-center justify-center md:justify-start gap-1.5 mb-1.5">
             <span className="text-[10px] tracking-wider uppercase font-extrabold text-[#f49e1a]">
@@ -70,7 +77,7 @@ export default function TireCard({ tire, onAddToCart }: TireCardProps) {
           </div>
 
           {/* Catalog name */}
-          <h4 className="text-sm font-bold text-gray-900 leading-snug line-clamp-2 min-h-[40px]" title={tire.name}>
+          <h4 className="text-sm font-bold text-gray-900 leading-snug line-clamp-2 min-h-[40px] hover:text-yellow-600 transition" title={tire.name}>
             {tire.name}
           </h4>
 

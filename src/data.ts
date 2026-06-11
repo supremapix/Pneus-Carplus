@@ -1,7 +1,7 @@
 import { Tire, CarModel, ServiceRecord } from './types';
 
 // Large dataset of real tires from the provided spreadsheet:
-export const TIRES_DATA: Tire[] = [
+const RAW_TIRES_DATA: Tire[] = [
   // BRIDGESTONE
   {
     id: 'b1',
@@ -659,6 +659,22 @@ export const TIRES_DATA: Tire[] = [
     model: 'VANMEJOR'
   }
 ];
+
+// Dynamic conversion booster: Make every tire have a discount where original price is markup simulated (R$49 to R$150)
+export const TIRES_DATA: Tire[] = RAW_TIRES_DATA.map(tire => {
+  const charCodeSum = tire.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 10);
+  const simulatedMarkup = 49 + (charCodeSum % 102); // Guaranteed between R$ 49 and R$ 150
+  
+  const promoPrice = tire.promoPrice || tire.price;
+  const price = promoPrice + simulatedMarkup;
+
+  return {
+    ...tire,
+    price,
+    promoPrice,
+    isOffer: true // Boost conversion: Show every single tire with dynamic, beautiful offers!
+  };
+});
 
 // Let's create the interactive car finder data
 export const FIAT_CARS: CarModel[] = [

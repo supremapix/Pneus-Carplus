@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Website Pages -->
   <url>
     <loc>https://carpluspneus.com.br/</loc>
     <lastmod>2026-06-11</lastmod>
@@ -13,16 +14,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://carpluspneus.com.br/politica-privacidade</loc>
+    <loc>https://carpluspneus.com.br/politica-privacidades</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://carpluspneus.com.br/politica-devolucao</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://carpluspneus.com.br/mapa-do-site</loc>
@@ -30,7 +31,46 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Curitiba Key Neighborhoods & Cities RMC -->
+
+  <!-- Pneus por Aro (Aro R13 a R18) - Otimizado para buscas de "pneus aro x" e "pneus por aro" -->
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-13</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-14</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-15</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-16</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-17</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/aro-18</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Pneus nos Principais Bairros de Curitiba - Otimizado para buscas de "pneus no bairro x" e "pneus em Curitiba" -->
   <url>
     <loc>https://carpluspneus.com.br/pneus/portao</loc>
     <lastmod>2026-06-11</lastmod>
@@ -41,6 +81,30 @@
     <loc>https://carpluspneus.com.br/pneus/agua-verde</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/batel</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/novo-mundo</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/pinheirinho</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/centro</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
@@ -49,6 +113,68 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/santa-felicidade</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/sitio-cercado</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/cajuru</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/boqueirao</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/hauer</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/xaxim</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/uberaba</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/bairro-alto</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/boa-vista</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/capao-raso</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pneus em Cidades da Região Metropolitana (RMC) - Otimizado para buscas de "pneus cidade x" -->
   <url>
     <loc>https://carpluspneus.com.br/pneus/sao-jose-dos-pinhais</loc>
     <lastmod>2026-06-11</lastmod>
@@ -62,7 +188,31 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://carpluspneus.com.br/pneus/colombo</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://carpluspneus.com.br/pneus/araucaria</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/almirante-tamandare</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/campo-largo</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carpluspneus.com.br/pneus/fazenda-rio-grande</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

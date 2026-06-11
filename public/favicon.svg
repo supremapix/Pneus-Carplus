@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="112" fill="#000000"/>
+  <g transform="translate(25, 25) scale(0.9)">
+    <!-- Curvatura esquerda branca 'C' -->
+    <path d="M 230 65 C 120 65, 55 145, 55 256 C 55 367, 120 447, 230 447 C 255 447, 275 441, 290 435 L 290 355 C 275 363, 255 367, 230 367 C 160 367, 130 315, 130 256 C 130 197, 160 145, 230 145 C 255 145, 275 149, 290 157 L 290 77 C 275 71, 255 65, 230 65 Z" fill="#FFFFFF"/>
+    <!-- Asa direita 'P' laranja -->
+    <path d="M 260 65 L 400 65 C 465 65, 500 115, 500 190 C 500 265, 465 315, 400 315 L 325 315 L 245 445 L 245 315 L 260 315 Z" fill="#F49E1A"/>
+    <!-- Corte interno no P para o miolo -->
+    <path d="M 325 145 L 385 145 C 410 145, 425 155, 425 190 C 425 225, 410 235, 385 235 L 325 235 Z" fill="#000000"/>
+    
+    <!-- Seção Quadriculada (Bandeira de Corrida/Transição no meio) -->
+    <rect x="230" y="145" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="253.3" y="145" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="276.6" y="145" width="23.3" height="28.3" fill="#F49E1A"/>
+    
+    <rect x="230" y="173.3" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="253.3" y="173.3" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="276.6" y="173.3" width="23.3" height="28.3" fill="#000000"/>
+    
+    <rect x="230" y="201.6" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="253.3" y="201.6" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="276.6" y="201.6" width="23.3" height="28.3" fill="#F49E1A"/>
+    
+    <rect x="230" y="230" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="253.3" y="230" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="276.6" y="230" width="23.3" height="28.3" fill="#000000"/>
+    
+    <rect x="230" y="258.3" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="253.3" y="258.3" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="276.6" y="258.3" width="23.3" height="28.3" fill="#F49E1A"/>
+    
+    <rect x="230" y="286.6" width="23.3" height="28.3" fill="#000000"/>
+    <rect x="253.3" y="286.6" width="23.3" height="28.3" fill="#F49E1A"/>
+    <rect x="276.6" y="286.6" width="23.3" height="28.3" fill="#000000"/>
+  </g>
+</svg>

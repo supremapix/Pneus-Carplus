@@ -121,38 +121,31 @@ export default function Footer({ onNavigate }: FooterProps) {
 
 export function SupremaCredit() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 pt-4 border-t border-neutral-800 flex justify-center items-center">
-      <div className="bg-black border border-neutral-800 rounded-full px-6 py-2.5 shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-[0_0_15px_rgba(244,158,26,0.15)]">
-        <p className="text-white hover:text-white transition-colors duration-200 text-sm sm:text-base font-bold flex flex-wrap items-center justify-center gap-2">
-          <span className="opacity-90">Desenvolvido com</span> 
-          
-          {/* Coração pulsante com efeito de sombra */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-4 border-t border-neutral-800 flex justify-center items-center">
+      <div className="bg-black border border-neutral-800 hover:border-[#f49e1a]/30 rounded-2xl sm:rounded-full px-5 py-3 sm:py-2 flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2.5 transition-all duration-300 hover:shadow-[0_0_15px_rgba(244,158,26,0.1)] text-center max-w-full">
+        <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-gray-300 font-bold select-none">
+          <span>Desenvolvido com</span>
           <Heart 
-            size={14} 
-            className="text-red-500 animate-[pulse_1.5s_infinite] shrink-0 filter drop-shadow-[0_0_3px_rgba(239,68,68,0.7)]" 
+            size={12} 
+            className="text-[#f49e1a] fill-[#f49e1a] animate-[pulse_1.5s_infinite] shrink-0 filter drop-shadow-[0_0_3px_rgba(244,158,26,0.73)]" 
           /> 
-          
-          <span className="opacity-90">por</span>
-          
-          {/* Link para o site da Suprema */}
-          <a 
-            id="developer-suprema-link"
-            href="https://supremasite.com.br" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-[#f49e1a] hover:text-white transition-all font-black inline-flex items-center gap-2 cursor-pointer border-b border-dashed border-[#f49e1a]/50 hover:border-white"
-          >
-            Suprema Sites Express
-            
-            {/* Logotipo oficial com efeito de iluminação */}
-            <img 
-              src="https://img.supremamidia.com/suprema-img.png" 
-              alt="Suprema" 
-              className="h-[18px] w-auto inline select-none shrink-0 filter drop-shadow-[0_0_2px_rgba(250,204,21,0.5)] transition-transform duration-300 hover:scale-110" 
-              referrerPolicy="no-referrer"
-            />
-          </a>
-        </p>
+          <span>por</span>
+        </div>
+        <a 
+          id="developer-suprema-link"
+          href="https://supremasite.com.br" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-[#f49e1a] hover:text-white transition-all font-black text-xs sm:text-sm inline-flex items-center gap-2 cursor-pointer border-b border-dashed border-[#f49e1a]/40 hover:border-white pb-0.5 shrink-0"
+        >
+          <span>Suprema Sites Express</span>
+          <img 
+            src="https://img.supremamidia.com/suprema-img.png" 
+            alt="Suprema" 
+            className="h-3.5 sm:h-4 w-auto self-center select-none shrink-0 filter drop-shadow-[0_0_2px_rgba(250,204,21,0.5)] transition-transform duration-300 hover:scale-105" 
+            referrerPolicy="no-referrer"
+          />
+        </a>
       </div>
     </div>
   );

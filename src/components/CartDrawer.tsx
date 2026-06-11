@@ -134,40 +134,42 @@ export default function CartDrawer({
                 return (
                   <div 
                     key={item.tire.id}
-                    className="flex gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100 items-center justify-between"
+                    className="flex flex-col sm:flex-row gap-3 bg-gray-50 p-3.5 rounded-xl border border-gray-150 items-start sm:items-center justify-between"
                     id={`cart-drawer-item-${item.tire.id}`}
                   >
-                    <img 
-                      src={item.tire.image} 
-                      alt={item.tire.name} 
-                      className="w-12 h-12 object-contain bg-white rounded border border-gray-200 p-1"
-                    />
+                    <div className="flex gap-3 items-center min-w-0 w-full sm:w-auto">
+                      <img 
+                        src={item.tire.image} 
+                        alt={item.tire.name} 
+                        className="w-12 h-12 object-contain bg-white rounded border border-gray-250 p-1 shrink-0"
+                      />
 
-                    <div className="flex-1 min-w-0">
-                      <span className="bg-gray-200 text-gray-700 text-[9px] uppercase font-bold px-1.5 py-0.5 rounded">
-                        {item.tire.brand}
-                      </span>
-                      <h4 className="text-xs font-bold text-gray-900 truncate mt-1">
-                        {item.tire.name}
-                      </h4>
-                      <p className="text-xs text-yellow-600 font-semibold font-mono">
-                        R$ {itemPrice.toFixed(2)} /un
-                      </p>
+                      <div className="flex-1 min-w-0">
+                        <span className="bg-gray-200 text-gray-700 text-[9px] uppercase font-black px-1.5 py-0.5 rounded">
+                          {item.tire.brand}
+                        </span>
+                        <h4 className="text-xs font-black text-gray-900 truncate mt-1" title={item.tire.name}>
+                          {item.tire.name}
+                        </h4>
+                        <p className="text-xs text-yellow-600 font-bold font-mono">
+                          R$ {itemPrice.toFixed(2)} /un
+                        </p>
+                      </div>
                     </div>
 
                     {/* Quantity edits */}
-                    <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 w-full sm:w-auto pt-2.5 sm:pt-0 border-t sm:border-t-0 border-gray-200">
                       <div className="flex items-center border border-gray-300 bg-white rounded-lg overflow-hidden h-8">
                         <button 
                           onClick={() => onUpdateQuantity(item.tire.id, Math.max(1, item.quantity - 1))}
-                          className="px-2 hover:bg-gray-100 font-bold text-xs"
+                          className="px-2.5 hover:bg-gray-100 font-bold text-xs"
                         >
                           -
                         </button>
                         <span className="px-2 font-mono text-xs font-bold text-gray-900">{item.quantity}</span>
                         <button 
                           onClick={() => onUpdateQuantity(item.tire.id, Math.min(12, item.quantity + 1))}
-                          className="px-2 hover:bg-gray-100 font-bold text-xs"
+                          className="px-2.5 hover:bg-gray-100 font-bold text-xs"
                         >
                           +
                         </button>
@@ -175,10 +177,10 @@ export default function CartDrawer({
 
                       <button 
                         onClick={() => onRemoveItem(item.tire.id)}
-                        className="p-1.5 hover:text-yellow-500 text-gray-400 transition"
+                        className="p-1.5 hover:text-yellow-600 text-gray-400 transition"
                         title="Remover pneu"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
