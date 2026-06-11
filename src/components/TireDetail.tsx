@@ -2,7 +2,8 @@ import React from 'react';
 import { Tire } from '../types';
 import { 
   ArrowLeft, ShoppingCart, ShieldCheck, HelpCircle, 
-  Tag, Clock, Phone, CheckCircle, Sparkles, MessageSquare 
+  Tag, Clock, Phone, CheckCircle, Sparkles, MessageSquare,
+  Facebook, Linkedin, Twitter, Share2, Link, Copy, Check
 } from 'lucide-react';
 
 interface TireDetailProps {
@@ -15,6 +16,7 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
   const [quantity, setQuantity] = React.useState(4); // Default to 4 tires as standard set
   const [expandedFaqIdx, setExpandedFaqIdx] = React.useState<number | null>(null);
   const [selectedCompatCar, setSelectedCompatCar] = React.useState<string | null>(null);
+  const [copied, setCopied] = React.useState(false);
   
   const finalPrice = tire.promoPrice || tire.price;
   const hasPromo = !!tire.promoPrice;
@@ -25,8 +27,16 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [tire.id]);
 
+  const shareUrl = `https://www.carpluscwb.com.br/pneu/${tire.id}`;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const handleWhatsAppInquiry = () => {
-    const text = `Olá Carplus! Estou na página de detalhes do Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim}) e tenho interesse em reservar ${quantity} unidades com instalação gratuita na loja do Portão.`;
+    const text = `Olá Carplus! Estou na página de detalhes do Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim}) e tenho interesse em reservar ${quantity} unidades com instalação gratuita na loja do Portão. No link: ${shareUrl}`;
     const encoded = encodeURIComponent(text);
     const link = `https://api.whatsapp.com/send?phone=554130827282&text=${encoded}`;
     window.open(link, '_blank');
@@ -233,6 +243,98 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                 <MessageSquare className="w-5 h-5" />
                 <span>Reservar ou Simular no WhatsApp</span>
               </button>
+
+              {/* Social Sharing block */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4.5 space-y-3" id="social-share-section">
+                <div className="flex items-center gap-2">
+                  <Share2 className="w-4 h-4 text-[#f49e1a]" />
+                  <span className="text-xs uppercase font-black tracking-wider text-gray-950">Compartilhar este Pneu:</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {/* WhatsApp */}
+                  <a
+                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Olha só este Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim}) que encontrei na Carplus Curitiba com Instalação Grátis no Portão! Acesse: ${shareUrl}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compartilhar no WhatsApp"
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-green-500 hover:bg-green-600 text-white transition-all duration-150 shadow-sm"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 shrink-0" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  {/* Facebook */}
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compartilhar no Facebook"
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-[#1877F2] hover:bg-[#1877F2]/90 text-white transition-all duration-150 shadow-sm"
+                  >
+                    <Facebook className="w-3.5 h-3.5 shrink-0" />
+                    <span>Facebook</span>
+                  </a>
+
+                  {/* LinkedIn */}
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compartilhar no LinkedIn"
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-[#0a66c2] hover:bg-[#0a66c2]/90 text-white transition-all duration-150 shadow-sm"
+                  >
+                    <Linkedin className="w-3.5 h-3.5 shrink-0" />
+                    <span>LinkedIn</span>
+                  </a>
+
+                  {/* Twitter / X */}
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(`Achei Pneu para meu carro com Instalação e Bicos Inclusos de graça na Carplus Pneus! Confira: `)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compartilhar no Twitter"
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-black hover:bg-neutral-800 text-white transition-all duration-150 shadow-sm"
+                  >
+                    <Twitter className="w-3.5 h-3.5 shrink-0" />
+                    <span>Twitter</span>
+                  </a>
+
+                  {/* Pinterest */}
+                  <a
+                    href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(shareUrl)}&media=${encodeURIComponent(tire.image)}&description=${encodeURIComponent(`Pneu ${tire.brand} ${tire.model} com Montagem Grátis em Curitiba`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Compartilhar no Pinterest"
+                    className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-[#bd081c] hover:bg-[#bd081c]/90 text-white transition-all duration-150 shadow-sm"
+                  >
+                    <Share2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>Pinterest</span>
+                  </a>
+
+                  {/* Copy Link */}
+                  <button
+                    onClick={handleCopyLink}
+                    title="Copiar link do pneu"
+                    className={`flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl transition-all duration-150 border shadow-sm cursor-pointer select-none ${
+                      copied 
+                        ? 'bg-yellow-500 border-black text-black font-black' 
+                        : 'bg-white border-gray-300 text-gray-750 hover:bg-gray-100 hover:border-gray-400'
+                    }`}
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 shrink-0" />
+                        <span>Copiado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 shrink-0" />
+                        <span>Copiar Link</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
