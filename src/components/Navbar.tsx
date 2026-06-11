@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Calendar, ShoppingCart, HelpCircle, FileText, Navigation, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Phone, Calendar, ShoppingCart, HelpCircle, FileText, Navigation, Menu, X, ArrowUpRight, MapPin, Clock, MessageSquare } from 'lucide-react';
 
 interface NavbarProps {
   onScrollToSection: (sectionId: string) => void;
@@ -35,8 +35,8 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 hover:text-[#f49e1a] transition-colors text-xs font-bold font-sans group/link"
                 >
-                  <span className="inline-block w-2 h-2 rounded-full bg-[#f49e1a] animate-pulse"></span>
-                  <span className="text-gray-400">📍 LOJA PORTÃO:</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#f49e1a] shrink-0" />
+                  <span className="text-gray-400">LOJA PORTÃO:</span>
                   <span className="underline decoration-dashed decoration-gray-600 group-hover/link:decoration-[#f49e1a]">
                     Av. Pres. Arthur Bernardes, 1323 - Curitiba, PR
                   </span>
@@ -57,10 +57,10 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                 </a>
 
                 {/* Item 3: Horários */}
-                <div className="inline-flex items-center gap-2 text-xs font-bold text-gray-300 font-mono">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
-                  <span className="text-gray-400 font-sans">HORÁRIO:</span>
-                  <span>Seg-Sex: 08:00 - 18:00 • Sáb: 08:00 - 12:00</span>
+                <div className="inline-flex items-center gap-2 text-xs font-bold text-gray-300 font-sans">
+                  <Clock className="w-3.5 h-3.5 text-green-500 shrink-0" />
+                  <span className="text-gray-400">HORÁRIO:</span>
+                  <span className="font-mono">Seg-Sex: 08:00 - 18:00 • Sáb: 08:00 - 12:00</span>
                 </div>
 
                 {/* Item 4: WhatsApp Solicitar Agendamento */}
@@ -70,7 +70,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 hover:text-[#f49e1a] transition-colors text-xs font-extrabold font-sans group/link"
                 >
-                  <span className="text-green-500 font-bold animate-pulse">●</span>
+                  <MessageSquare className="w-3.5 h-3.5 text-green-500 shrink-0" />
                   <span className="text-gray-400">WHATSAPP:</span>
                   <span className="underline decoration-dashed decoration-gray-600 group-hover/link:decoration-[#f49e1a]">
                     Fale Direto com Atendimento
