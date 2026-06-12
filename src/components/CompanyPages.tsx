@@ -10,7 +10,8 @@ import {
   METROPOLITAN_CITIES, getRouteInstructions 
 } from '../seo-data';
 import ServiceHistory from './ServiceHistory';
-import { TIRES_DATA } from '../data';
+import { TIRES_DATA, CAR_MODELS_DATA } from '../data';
+import TireCard from './TireCard';
 import { motion, AnimatePresence } from 'motion/react';
 
 
@@ -112,6 +113,8 @@ interface CompanyPagesProps {
   onSelectSeoTarget: (target: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; }) => void;
   onSelectRimFromSeo?: (rim: number | 'Todos') => void;
   onSelectBrandFromSeo?: (brand: string) => void;
+  onAddToCart?: (tire: any, quantity: number) => void;
+  onSelectTire?: (tire: any) => void;
 }
 
 export default function CompanyPages({ 
@@ -121,7 +124,9 @@ export default function CompanyPages({
   onNavigateToPage, 
   onSelectSeoTarget,
   onSelectRimFromSeo,
-  onSelectBrandFromSeo
+  onSelectBrandFromSeo,
+  onAddToCart,
+  onSelectTire
 }: CompanyPagesProps) {
   // Aros 13 to 23
   const AROS = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
@@ -1000,6 +1005,45 @@ export default function CompanyPages({
         {/* VIEW: SEO DYNAMIC LANDING PAGE */}
         {view === 'seo-landing' && seoTarget && (() => {
           const sampleSearched = getMostSearchedTires(seoTarget.name, seoTarget.type);
+          const isAro = seoTarget.type === 'aro';
+          const isCarro = seoTarget.type === 'carro';
+
+          let targetTires: any[] = [];
+          let ratioText = '';
+
+          if (isAro) {
+            const extracted = seoTarget.name.match(/\d+/);
+            const targetRim = extracted ? parseInt(extracted[0]) : null;
+            targetTires = targetRim ? TIRES_DATA.filter(t => t.rim === targetRim) : [];
+          } else if (isCarro) {
+            const normalizedCarName = seoTarget.name.toLowerCase();
+            const matchedCar = CAR_MODELS_DATA.find(c => 
+              normalizedCarName.includes(c.name.toLowerCase()) || 
+              c.name.toLowerCase().includes(normalizedCarName) ||
+              normalizedCarName.includes(c.brand.toLowerCase() + " " + c.name.toLowerCase())
+            );
+            if (matchedCar) {
+              const ratio = matchedCar.recommendedTireRatio;
+              ratioText = ratio;
+              const parts = ratio.split('/');
+              if (parts.length >= 3) {
+                const [w, a, r] = parts.map(Number);
+                targetTires = TIRES_DATA.filter(t => t.width === w && t.aspectRatio === a && t.rim === r);
+              }
+            }
+          } else {
+            // Curated offers for local neighborhoods or cities
+            targetTires = TIRES_DATA.filter(t => t.isOffer).slice(0, 8);
+          }
+
+          if (isCarro && targetTires.length === 0 && ratioText) {
+            const parts = ratioText.split('/');
+            if (parts.length >= 3) {
+              const r = parseInt(parts[2]);
+              targetTires = TIRES_DATA.filter(t => t.rim === r);
+            }
+          }
+
           const localFaq = [
             {
               q: `A Carplus Pneus realmente atende moradores de ${seoTarget.name}?`,
@@ -1197,6 +1241,87 @@ export default function CompanyPages({
                   </div>
                 </div>
 
+                {/* MATCHING REAL TIRES DYNAMIC CATALOG GRID */}
+                <div className="space-y-4 border-t border-gray-150 pt-7">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                    <div>
+                      {isAro && (
+                        <>
+                          <h4 className="text-sm font-black text-gray-950 uppercase border-l-4 border-yellow-500 pl-3 leading-tight select-none font-mono">
+                            Estoque Imediato no {seoTarget.name}
+                          </h4>
+                          <p className="text-xs text-gray-600 mt-1">
+                            Abaixo listamos todos os modelos de pneus novos nacionais e importados de **{seoTarget.name}** disponíveis em Curitiba:
+                          </p>
+                        </>
+                      )}
+                      {isCarro && (
+                        <>
+                          <h4 className="text-sm font-black text-gray-950 uppercase border-l-4 border-yellow-500 pl-3 leading-tight select-none font-mono">
+                            Pneus Compatíveis com {seoTarget.name} {ratioText ? `(${ratioText})` : ''}
+                          </h4>
+                          <p className="text-xs text-gray-600 mt-1">
+                            Veja os pneus novos no estoque correspondentes à medida oficial ou compatíveis do seu carro:
+                          </p>
+                        </>
+                      )}
+                      {!isAro && !isCarro && (
+                        <>
+                          <h4 className="text-sm font-black text-gray-950 uppercase border-l-4 border-yellow-500 pl-3 leading-tight select-none font-mono">
+                            Destaques em Oferta com Instalação Grátis em {seoTarget.name}
+                          </h4>
+                          <p className="text-xs text-gray-600 mt-1">
+                            Pneus novos com montagem inclusa e troca de bicos grátis para motoristas de {seoTarget.name}:
+                          </p>
+                        </>
+                      )}
+                    </div>
+                    <span className="font-mono text-[10px] bg-[#f49e1a]/15 text-yellow-650 font-black px-2.5 py-1 rounded border border-[#f49e1a]/30 uppercase shrink-0">
+                      {targetTires.length} Pneus em Estoque
+                    </span>
+                  </div>
+
+                  {targetTires.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="seo-page-tire-grid">
+                      {targetTires.map((t) => (
+                        <div key={t.id} className="h-full">
+                          <TireCard 
+                            tire={t}
+                            onAddToCart={(tire, qty) => {
+                              if (onAddToCart) {
+                                onAddToCart(tire, qty);
+                              } else {
+                                const whatsappUrl = `https://wa.me/5541999999999?text=Olá%20Carplus!%20Gostaria%20de%20reservar%20${qty}%20unidades%20do%20pneu%20${encodeURIComponent(tire.name)}%20com%20instalação%20grátis%252c%20vi%20na%20página%20de%20${encodeURIComponent(seoTarget.name)}.`;
+                                window.open(whatsappUrl, '_blank');
+                              }
+                            }}
+                            onSelectTire={(tire) => {
+                              if (onSelectTire) {
+                                onSelectTire(tire);
+                              }
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="bg-yellow-500/5 border border-[#f49e1a]/15 p-6 rounded-2xl text-center space-y-2">
+                       <p className="text-xs font-black text-gray-900 uppercase">Gama Completa Sob Demanda</p>
+                       <p className="text-[11px] text-gray-600 max-w-md mx-auto leading-relaxed">
+                         Não localizamos unidades de estoque imediato para esta medida específica agora, mas podemos importar e faturar direto do atacado em até 24 horas, mantendo a instalação gratuita no Portão!
+                       </p>
+                       <a 
+                         href={formatWhatsApp(`Olá Carplus! Gostaria de consultar pneu para meu veículo ${seoTarget.name}, que vi na página do site.`)}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="inline-block bg-black text-white hover:bg-[#f49e1a] hover:text-black font-mono font-black text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl transition cursor-pointer"
+                       >
+                         Consultar Medida Personalizada ➔
+                       </a>
+                    </div>
+                  )}
+                </div>
+
                 {/* Route instructions box - percurso */}
                 <div className="bg-gray-50 border border-gray-150 p-5 rounded-2xl space-y-3.5 font-sans shadow-inner text-gray-900">
                   <div className="flex items-center gap-2 border-b border-gray-200 pb-3">
@@ -1385,7 +1510,7 @@ export default function CompanyPages({
                         Buscar por Aro
                       </p>
                       <div className="flex flex-col gap-1 text-[10px] font-bold text-gray-700">
-                        {[13, 14, 15, 16, 17, 18].map((a) => (
+                        {[13, 14, 15, 16, 17, 18, 19, 20].map((a) => (
                           <button
                             key={a}
                             onClick={() => {

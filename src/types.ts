@@ -21,7 +21,7 @@ export interface CartItem {
 
 export interface CarModel {
   id: string;
-  brand: 'Fiat' | 'Volkswagen';
+  brand: 'Fiat' | 'Volkswagen' | 'Chevrolet' | 'Hyundai' | 'Toyota' | 'Honda' | 'Renault' | 'Ford' | 'Jeep';
   name: string;
   yearRange: string;
   recommendedTireRatio: string; // e.g. "175/65/14" or "195/55/15"

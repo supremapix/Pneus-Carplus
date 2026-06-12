@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { FIAT_CARS, VOLKSWAGEN_CARS, TIRES_DATA } from '../data';
+import { CAR_MODELS_DATA, TIRES_DATA } from '../data';
 import { CarModel, Tire } from '../types';
 import { Car, Search, CheckCircle, ArrowRight, HelpCircle } from 'lucide-react';
+
+const BRANDS = [
+  'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Honda', 'Renault', 'Ford', 'Jeep'
+] as const;
+
+type AllowedBrands = typeof BRANDS[number];
 
 interface TireFinderWizardProps {
   onSearchMeasure: (measure: string) => void;
@@ -9,10 +15,10 @@ interface TireFinderWizardProps {
 }
 
 export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireFinderWizardProps) {
-  const [selectedBrand, setSelectedBrand] = useState<'Fiat' | 'Volkswagen'>('Fiat');
+  const [selectedBrand, setSelectedBrand] = useState<AllowedBrands>('Fiat');
   const [selectedCar, setSelectedCar] = useState<CarModel | null>(null);
 
-  const currentCars = selectedBrand === 'Fiat' ? FIAT_CARS : VOLKSWAGEN_CARS;
+  const currentCars = CAR_MODELS_DATA.filter(car => car.brand === selectedBrand);
 
   // Let's find real tires in our catalog matching this car's recommended ratio
   const getMatchingTires = (ratio: string): Tire[] => {
@@ -35,44 +41,40 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
         <h3 className="text-2xl sm:text-3xl font-black text-black uppercase leading-none tracking-tight">
           Qual pneu vai no seu carro?
         </h3>
-        <p className="text-xs sm:text-sm text-black font-bold mt-1 text-justify">
+        <p className="text-xs sm:text-sm text-black font-bold mt-1 text-justify font-sans leading-relaxed">
           Selecione a montadora e depois o modelo para encontrar a medida exata homologada e ver os pneus em estoque com instalação gratuita na loja de Curitiba.
         </p>
       </div>
 
       {/* Brand Selectors */}
-      <div className="grid grid-cols-2 gap-2.5 mb-6" id="wizard-brand-toggles">
-        <button
-          onClick={() => {
-            setSelectedBrand('Fiat');
-            setSelectedCar(null);
-          }}
-          className={`flex items-center justify-center gap-1.5 sm:gap-2 py-3 px-3 sm:py-3.5 sm:px-4 rounded-xl border-2 font-black text-xs sm:text-sm uppercase tracking-normal sm:tracking-wider transition-all duration-300 shrink-0 ${
-            selectedBrand === 'Fiat'
-              ? 'bg-black border-black text-white shadow-lg'
-              : 'border-black bg-white hover:bg-gray-100 text-black'
-          }`}
-          id="select-fiat"
-        >
-          <Car className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-          <span>FIAT</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setSelectedBrand('Volkswagen');
-            setSelectedCar(null);
-          }}
-          className={`flex items-center justify-center gap-1.5 sm:gap-2 py-3 px-3 sm:py-3.5 sm:px-4 rounded-xl border-2 font-black text-xs sm:text-sm uppercase tracking-normal sm:tracking-wider transition-all duration-300 shrink-0 ${
-            selectedBrand === 'Volkswagen'
-              ? 'bg-black border-black text-white shadow-lg'
-              : 'border-black bg-white hover:bg-gray-100 text-black'
-          }`}
-          id="select-volkswagen"
-        >
-          <Car className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-          <span>VOLKSWAGEN</span>
-        </button>
+      <div className="mb-6">
+        <p className="block text-xs uppercase tracking-wider font-extrabold text-black mb-2 text-center sm:text-left">
+          Selecione a montadora:
+        </p>
+        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-1.5" id="wizard-brand-toggles">
+          {BRANDS.map(brand => {
+            const isSelected = selectedBrand === brand;
+            return (
+              <button
+                key={brand}
+                type="button"
+                onClick={() => {
+                  setSelectedBrand(brand);
+                  setSelectedCar(null);
+                }}
+                className={`flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl border-2 font-black text-[10px] uppercase transition-all duration-300 cursor-pointer shrink-0 ${
+                  isSelected
+                    ? 'bg-black border-black text-white shadow-md'
+                    : 'border-black/50 bg-white hover:bg-gray-100 text-black'
+                }`}
+                id={`select-${brand.toLowerCase()}`}
+              >
+                <Car className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate max-w-[65px]">{brand === 'Volkswagen' ? 'VW' : brand}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Model Selection Row (Styled Responsive) */}

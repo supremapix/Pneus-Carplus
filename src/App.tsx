@@ -36,7 +36,7 @@ export default function App() {
   // Search and Filter States
   const [keyword, setKeyword] = useState('');
   const [selectedBrand, setSelectedBrand] = useState('Todas');
-  const [selectedRim, setSelectedRim] = useState<'Todos' | 13 | 14 | 15 | 16 | 17 | 18>('Todos');
+  const [selectedRim, setSelectedRim] = useState<'Todos' | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20>('Todos');
   const [filterWidth, setFilterWidth] = useState('Todos');
   const [filterProfile, setFilterProfile] = useState('Todos');
   const [onlyOffers, setOnlyOffers] = useState(false);
@@ -486,6 +486,22 @@ export default function App() {
               setCurrentView('seo-landing');
               setSeoTarget(target);
             }}
+            onAddToCart={handleAddToCart}
+            onSelectTire={handleShowTireDetail}
+            onSelectRimFromSeo={(rim) => {
+              setSelectedRim(rim);
+              setCurrentView('home');
+              setTimeout(() => {
+                handleScrollToSection('catalog');
+              }, 50);
+            }}
+            onSelectBrandFromSeo={(brand) => {
+              setSelectedBrand(brand);
+              setCurrentView('home');
+              setTimeout(() => {
+                handleScrollToSection('catalog');
+              }, 50);
+            }}
           />
         </main>
       ) : (
@@ -764,8 +780,8 @@ export default function App() {
                   Selecione um tamanho de <strong>Aro (Rín)</strong> abaixo para aplicar o filtro imediatamente ao nosso catálogo de vendas. Atendemos desde dimensões populares portabilidade até pick-ups robustas de passeio urbano e de carga.
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-                  {[13, 14, 15, 16, 17, 18, 'Todos'].map((rimVal) => {
+                <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-9 gap-3">
+                  {[13, 14, 15, 16, 17, 18, 19, 20, 'Todos'].map((rimVal) => {
                     const isSelected = selectedRim === rimVal || (rimVal === 'Todos' && selectedRim === 'Todos');
                     const isAll = rimVal === 'Todos';
                     return (
@@ -799,11 +815,12 @@ export default function App() {
                 </div>
 
                 {/* Sub-meta details box of current Rims */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
                   {[
                     { rim: '13 e 14', desc: 'Siena, Uno, Gol, Palio, Classic, Celta, Kwid', common: '175/65/R14, 175/70/R13, 185/60/R14', badge: 'Retífica & Compactos' },
                     { rim: '15 e 16', desc: 'Argo, Polo, Fox, Civic, Corolla, Sandero, HB20, Spin', common: '185/60/R15, 195/55/R15, 205/55/R16', badge: 'Hatchs & Sedans Médios' },
                     { rim: '17 e 18', desc: 'T-Cross, Nivus, Corolla Altis, Jeep Compass, Hilux, S10', common: '205/55/R17, 215/50/R17, 265/60/R18', badge: 'SUVs & Pickups' },
+                    { rim: '19 e 20', desc: 'Jeep Compass S, Equinox, Mercedes GLA, Tiguan, SUVs Premium', common: '235/45/R19, 245/40/R20, 265/50/R20', badge: 'Premium & EV High Performance' },
                   ].map((det, id) => (
                     <div key={id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between">
                       <div>
