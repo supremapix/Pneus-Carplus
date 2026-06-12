@@ -163,27 +163,149 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
 
         {/* Mobile menu panel */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-3 pt-3 border-t border-gray-800 space-y-2 pb-2" id="mobile-navigation-links">
-            {navLinks.map((link) => (
+          <div className="md:hidden mt-3 pt-4 border-t-2 border-[#f49e1a]/40 pb-4 scale-in" id="mobile-navigation-links">
+            {/* Header with carplus logo & close hint */}
+            <div className="bg-neutral-900 p-4 rounded-2xl border border-neutral-800 mb-4 flex flex-col items-center text-center">
+              <img
+                src="https://www.carpluspneuseoficina.com.br/images/logos/logo-horizontal.svg"
+                alt="Carplus Pneus e Oficina"
+                className="h-10 w-auto object-contain mb-2"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-xs text-[#f49e1a] font-mono uppercase font-black tracking-widest">
+                Portão • Curitiba
+              </span>
+              <p className="text-xs text-gray-300 mt-2 font-medium">
+                Menu adaptado com letras grandes e botões fáceis de tocar para navegação simplificada.
+              </p>
+            </div>
+
+            {/* List block */}
+            <div className="space-y-3">
+              <p className="text-xs text-[#f49e1a] uppercase font-black tracking-widest pl-1 mt-1">
+                Páginas mais procuradas:
+              </p>
+
+              {/* 1. Ver estoque de pneus */}
               <button
-                key={link.id}
                 onClick={() => {
-                  onScrollToSection(link.id);
+                  onScrollToSection('catalog');
                   setIsMobileMenuOpen(false);
                 }}
-                className="block w-full text-left py-2 px-3 text-xs uppercase font-extrabold tracking-wider hover:bg-gray-800 text-gray-350 rounded"
+                className="w-full flex items-center justify-between p-4 bg-neutral-900 border-2 border-neutral-700 hover:border-[#f49e1a] rounded-2xl text-left active:bg-neutral-800 transition duration-200"
               >
-                {link.label}
+                <div className="flex items-center gap-3">
+                  <div className="bg-[#f49e1a] text-black p-2.5 rounded-xl">
+                    <ShoppingCart className="w-6 h-6 shrink-0" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-white">Ver Ofertas e Pneus</span>
+                    <span className="block text-[11px] text-gray-400 font-medium">Consulta de marcas, aros e preços em promoção</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-gray-500 shrink-0" />
               </button>
-            ))}
-            <a
-              href={formatWhatsApp('Olá, gostaria de agendar serviços na Carplus.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full text-center bg-[#f49e1a] hover:bg-white hover:text-black text-gray-950 text-xs uppercase font-extrabold py-2.5 rounded mt-3 border border-transparent transition-colors duration-300"
-            >
-              WhatsApp Agendamentos
-            </a>
+
+              {/* 2. Simulador */}
+              <button
+                onClick={() => {
+                  onScrollToSection('finder');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-between p-4 bg-neutral-900 border-2 border-neutral-700 hover:border-[#f49e1a] rounded-2xl text-left active:bg-neutral-800 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-[#f49e1a] text-black p-2.5 rounded-xl">
+                    <HelpCircle className="w-6 h-6 shrink-0" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-white">Descobrir Pneu do Meu Carro</span>
+                    <span className="block text-[11px] text-gray-400 font-medium">Guia fácil passo a passo para achar o modelo certo</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-gray-500 shrink-0" />
+              </button>
+
+              {/* 3. Ligar direto */}
+              <a
+                href="tel:554130827282"
+                className="w-full flex items-center justify-between p-4 bg-green-950 border-2 border-green-700 hover:border-green-400 rounded-2xl text-left active:bg-green-900 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-500 text-white p-2.5 rounded-xl">
+                    <Phone className="w-6 h-6 shrink-0 text-[#0b0c0e]" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-green-300">LIGAR (41) 3082-7282</span>
+                    <span className="block text-[11px] text-green-400 font-bold">Toque para telefonar grátis com um clique</span>
+                  </div>
+                </div>
+                <Phone className="w-5 h-5 text-green-400 shrink-0" />
+              </a>
+
+              {/* 4. WhatsApp */}
+              <a
+                href={formatWhatsApp('Olá Carplus! Quero agendar serviços ou orçamento para o meu carro.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-between p-4 bg-emerald-950 border-2 border-emerald-700 hover:border-emerald-400 rounded-2xl text-left active:bg-emerald-900 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-emerald-500 text-white p-2.5 rounded-xl">
+                    <MessageSquare className="w-6 h-6 shrink-0 text-[#0b0c0e]" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-emerald-300">Chamar no WhatsApp</span>
+                    <span className="block text-[11px] text-emerald-400 font-bold">Consulte orçamentos por mensagem rápida</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-emerald-400 shrink-0" />
+              </a>
+
+              {/* 5. Endereço / Localização */}
+              <button
+                onClick={() => {
+                  onScrollToSection('maps-section');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-between p-4 bg-neutral-900 border-2 border-neutral-700 hover:border-[#f49e1a] rounded-2xl text-left active:bg-neutral-800 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-[#f49e1a] text-black p-2.5 rounded-xl">
+                    <MapPin className="w-6 h-6 shrink-0" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-white">Como Chegar (Endereço)</span>
+                    <span className="block text-[11px] text-gray-400 font-medium">Av. Arthur Bernardes, 1323 - Portão, Curitiba</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-gray-500 shrink-0" />
+              </button>
+
+              {/* Outros links de texto grandes */}
+              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-800">
+                <button
+                  onClick={() => {
+                    onScrollToSection('quem-somos');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-4 text-center active:bg-neutral-800 transition text-base font-black text-white flex flex-col items-center gap-1"
+                >
+                  <FileText className="w-5 h-5 text-[#f49e1a]" />
+                  <span>Quem Somos</span>
+                </button>
+                <button
+                  onClick={() => {
+                    onScrollToSection('contato');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-4 text-center active:bg-neutral-800 transition text-base font-black text-white flex flex-col items-center gap-1"
+                >
+                  <Calendar className="w-5 h-5 text-[#f49e1a]" />
+                  <span>Fale Conosco</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </nav>

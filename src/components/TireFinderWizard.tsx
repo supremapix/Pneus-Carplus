@@ -35,13 +35,13 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
   return (
     <div className="bg-[#f49e1a] text-black p-6 rounded-3xl border-2 border-black shadow-xl" id="tire-finder-wizard">
       <div className="text-center sm:text-left mb-6">
-        <span className="bg-black text-white font-black text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full inline-block mb-2 shadow-sm">
+        <span className="bg-black text-white font-black text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-full inline-block mb-2 shadow-sm">
           Guia de Aplicação Oficial
         </span>
         <h3 className="text-2xl sm:text-3xl font-black text-black uppercase leading-none tracking-tight">
           Qual pneu vai no seu carro?
         </h3>
-        <p className="text-xs sm:text-sm text-black font-bold mt-1 text-justify font-sans leading-relaxed">
+        <p className="text-sm sm:text-base text-black font-extrabold mt-2 text-justify font-sans leading-relaxed">
           Selecione a montadora e depois o modelo para encontrar a medida exata homologada e ver os pneus em estoque com instalação gratuita na loja de Curitiba.
         </p>
       </div>
@@ -62,14 +62,14 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                   setSelectedBrand(brand);
                   setSelectedCar(null);
                 }}
-                className={`flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl border-2 font-black text-[10px] uppercase transition-all duration-300 cursor-pointer shrink-0 ${
+                className={`flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-xl border-2 font-black text-xs uppercase transition-all duration-300 cursor-pointer shrink-0 ${
                   isSelected
                     ? 'bg-black border-black text-white shadow-md'
                     : 'border-black/50 bg-white hover:bg-gray-100 text-black'
                 }`}
                 id={`select-${brand.toLowerCase()}`}
               >
-                <Car className="w-3.5 h-3.5 shrink-0" />
+                <Car className="w-4 h-4 shrink-0" />
                 <span className="truncate max-w-[65px]">{brand === 'Volkswagen' ? 'VW' : brand}</span>
               </button>
             );
@@ -92,16 +92,16 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
               <button
                 key={car.id}
                 onClick={() => setSelectedCar(car)}
-                className={`p-3 rounded-xl border-2 text-left transition text-xs flex flex-col justify-between ${
+                className={`p-3 rounded-xl border-2 text-left transition flex flex-col justify-between h-full ${
                   isSelected
                     ? 'border-black bg-black text-white'
                     : 'border-black bg-white hover:bg-gray-50 text-black'
                 }`}
                 id={`car-model-${car.id}`}
               >
-                <div className="font-extrabold text-xs truncate uppercase">{car.name}</div>
-                <div className={`text-[10px] ${isSelected ? 'text-gray-300' : 'text-gray-600'} font-bold mt-1`}>{car.yearRange}</div>
-                <div className={`mt-1 text-[11px] font-mono font-black ${isSelected ? 'text-[#f49e1a]' : 'text-black'}`}>
+                <div className="font-extrabold text-xs sm:text-sm truncate uppercase">{car.name}</div>
+                <div className={`text-xs ${isSelected ? 'text-gray-300' : 'text-gray-600'} font-black mt-1`}>{car.yearRange}</div>
+                <div className={`mt-1 text-sm font-mono font-black ${isSelected ? 'text-[#f49e1a]' : 'text-black bg-yellow-500/10 px-1 py-0.5 rounded'}`}>
                   {car.recommendedTireRatio}
                 </div>
               </button>
@@ -116,13 +116,13 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gray-200 pb-4 mb-4">
             <div>
               <span className="text-xs text-gray-500 uppercase font-mono font-bold">Medida Homologada para {selectedCar.name}:</span>
-              <h4 className="text-2xl font-black font-mono tracking-tight text-black mt-0.5">
+              <h4 className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-black mt-0.5">
                 {selectedCar.recommendedTireRatio.replace('/', '/').replace('/', ' R')}
               </h4>
             </div>
             <button
               onClick={() => onSearchMeasure(selectedCar.recommendedTireRatio)}
-              className="bg-black hover:bg-neutral-900 text-white font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition uppercase tracking-wider shadow-sm"
+              className="bg-black hover:bg-neutral-900 text-white font-black px-5 py-3 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 transition uppercase tracking-wider shadow-sm"
               id="search-measure-btn"
             >
               <Search className="w-4 h-4 shrink-0" />
@@ -130,7 +130,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
             </button>
           </div>
 
-          <p className="text-xs text-black font-bold mb-3 text-justify leading-relaxed">
+          <p className="text-sm text-gray-800 font-extrabold mb-3 text-justify leading-relaxed">
             Abaixo estão os pneus equivalentes em estoque com esta medida específica hoje. Você pode encomendar e agendar a instalação na nossa loja do Portão em Curitiba:
           </p>
 
@@ -150,11 +150,11 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                       className="w-12 h-12 object-contain bg-white rounded p-1 border border-gray-200"
                     />
                     <div>
-                      <span className="bg-black text-[9px] uppercase font-black text-white px-2 py-0.5 rounded border border-black font-mono">
+                      <span className="bg-black text-[10px] sm:text-xs uppercase font-black text-white px-2.5 py-0.5 rounded border border-black font-mono">
                         {t.brand}
                       </span>
-                      <h5 className="text-xs font-black text-gray-900 line-clamp-1 mt-0.5">{t.name}</h5>
-                      <p className="text-[11px] text-gray-800 font-mono font-bold">
+                      <h5 className="text-sm font-black text-gray-900 line-clamp-1 mt-0.5">{t.name}</h5>
+                      <p className="text-xs sm:text-sm text-gray-800 font-mono font-bold">
                         {t.promoPrice ? (
                           <>
                             <span className="line-through text-gray-400 mr-2">R$ {t.price.toFixed(2)}</span>
@@ -168,7 +168,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                   </div>
                   <button
                     onClick={() => onAddToCart(t, 2)}
-                    className="bg-[#f49e1a] hover:bg-yellow-500 text-black border border-black font-black px-3.5 py-1.5 rounded-xl text-[10px] tracking-wider uppercase transition"
+                    className="bg-[#f49e1a] hover:bg-yellow-500 text-black border border-black font-black px-4 py-2.5 rounded-xl text-xs tracking-wider uppercase transition"
                     id={`add-matched-to-cart-${t.id}`}
                   >
                     +2 Pneu
@@ -179,7 +179,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
           ) : (
             <div className="text-center py-5 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 text-black">
               <HelpCircle className="w-8 h-8 text-black mx-auto mb-2" />
-              <p className="text-xs text-black font-bold">
+              <p className="text-xs sm:text-sm text-black font-black">
                 Sem pneus exatos desta medida no momento, mas podemos encomendar!
               </p>
               <button
@@ -187,7 +187,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                   const query = `Olá! Preciso de pneus na medida ${selectedCar.recommendedTireRatio} para meu ${selectedCar.name}. Vocês conseguem encomendar?`;
                   window.open(`https://api.whatsapp.com/send?phone=554130827282&text=${encodeURIComponent(query)}`, '_blank');
                 }}
-                className="mt-2 text-xs text-black underline font-black hover:text-gray-900 block mx-auto"
+                className="mt-2 text-xs sm:text-sm text-black underline font-black hover:text-gray-900 block mx-auto"
                 id="whatsapp-custom-order"
               >
                 Solicitar via WhatsApp
@@ -197,8 +197,8 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
         </div>
       ) : (
         <div className="bg-white border-2 border-black rounded-2xl p-8 text-center text-black flex flex-col items-center justify-center min-h-[140px]" id="wizard-empty-box">
-          <Car className="w-10 h-10 text-black mb-2" />
-          <p className="text-xs text-black font-extrabold uppercase tracking-wide">Selecione um veículo acima para ver pneus ideais instantaneamente</p>
+          <Car className="w-10 h-10 text-black mb-2 animate-bounce" />
+          <p className="text-xs sm:text-sm text-black font-black uppercase tracking-wide">Selecione um veículo acima para ver pneus ideais instantaneamente</p>
         </div>
       )}
     </div>

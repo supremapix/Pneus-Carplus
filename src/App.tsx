@@ -1037,11 +1037,11 @@ export default function App() {
               
               {/* Brand filter */}
               <div>
-                <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Escolher Marca</label>
+                <label className="block text-xs font-black uppercase text-gray-700 mb-1">Escolher Marca</label>
                 <select
                   value={selectedBrand}
                   onChange={(e) => setSelectedBrand(e.target.value)}
-                  className="w-full text-xs font-semibold border border-gray-250 rounded-xl p-2.5 bg-gray-50 text-gray-800 focus:bg-white"
+                  className="w-full text-sm font-bold border-2 border-gray-300 rounded-xl p-3 bg-white text-gray-900 focus:bg-yellow-50/10 focus:border-[#f49e1a]"
                   id="brand-dropdown"
                 >
                   {uniqueBrands.map((brand) => (
@@ -1052,14 +1052,14 @@ export default function App() {
 
               {/* Rim selector */}
               <div>
-                <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Aro (Rín)</label>
+                <label className="block text-xs font-black uppercase text-gray-700 mb-1">Aro (Rín)</label>
                 <select
                   value={selectedRim}
                   onChange={(e) => {
                     const val = e.target.value;
                     setSelectedRim(val === 'Todos' ? 'Todos' : Number(val) as any);
                   }}
-                  className="w-full text-xs font-semibold border border-gray-250 rounded-xl p-2.5 bg-gray-50 text-gray-800"
+                  className="w-full text-sm font-bold border-2 border-gray-300 rounded-xl p-3 bg-white text-gray-900 focus:bg-yellow-50/10 focus:border-[#f49e1a]"
                   id="rim-dropdown"
                 >
                   <option value="Todos">Todos os Aros</option>
@@ -1071,11 +1071,11 @@ export default function App() {
 
               {/* Width Selector */}
               <div>
-                <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Largura (mm)</label>
+                <label className="block text-xs font-black uppercase text-gray-700 mb-1">Largura (mm)</label>
                 <select
                   value={filterWidth}
                   onChange={(e) => setFilterWidth(e.target.value)}
-                  className="w-full text-xs font-semibold border border-gray-250 rounded-xl p-2.5 bg-gray-50 text-gray-800"
+                  className="w-full text-sm font-bold border-2 border-gray-300 rounded-xl p-3 bg-white text-gray-900 focus:bg-yellow-50/10 focus:border-[#f49e1a]"
                   id="width-dropdown"
                 >
                   <option value="Todos">Todas</option>
@@ -1087,11 +1087,11 @@ export default function App() {
 
               {/* Profile selection */}
               <div>
-                <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Perfil (%)</label>
+                <label className="block text-xs font-black uppercase text-gray-700 mb-1">Perfil (%)</label>
                 <select
                   value={filterProfile}
                   onChange={(e) => setFilterProfile(e.target.value)}
-                  className="w-full text-xs font-semibold border border-gray-250 rounded-xl p-2.5 bg-gray-50 text-gray-800"
+                  className="w-full text-sm font-bold border-2 border-gray-300 rounded-xl p-3 bg-white text-gray-905 focus:bg-yellow-50/10 focus:border-[#f49e1a]"
                   id="profile-dropdown"
                 >
                   <option value="Todos">Todos</option>
@@ -1103,14 +1103,14 @@ export default function App() {
 
               {/* Toggle Offers */}
               <div className="col-span-2 md:col-span-1 flex items-center justify-center md:justify-start">
-                <label className="flex items-center gap-2 cursor-pointer pt-3 md:pt-0" id="only-offers-toggle">
+                <label className="flex items-center gap-2 cursor-pointer pt-3 md:pt-4" id="only-offers-toggle">
                   <input
                     type="checkbox"
                     checked={onlyOffers}
                     onChange={(e) => setOnlyOffers(e.target.checked)}
-                    className="w-4 h-4 rounded text-yellow-500 border-gray-300 focus:ring-yellow-500"
+                    className="w-5 h-5 rounded text-yellow-600 border-gray-300 focus:ring-yellow-500 cursor-pointer"
                   />
-                  <span className="text-xs font-bold text-gray-700 uppercase tracking-tight">Sò Pneus em Oferta</span>
+                  <span className="text-sm font-black text-gray-900 uppercase tracking-tight select-none">Só Pneus em Oferta</span>
                 </label>
               </div>
             </div>
@@ -1118,14 +1118,14 @@ export default function App() {
             {/* Keyword block */}
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="w-4 h-4 text-gray-400" />
+                <Search className="w-5 h-5 text-gray-500" />
               </span>
               <input
                 type="text"
                 placeholder="Busque por largura, aro, marca ou modelo (Ex: Michelin, 175/65, 185/60/15)..."
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                className="w-full text-xs sm:text-sm border border-gray-200 rounded-xl pl-9 pr-4 py-3 bg-gray-50 text-gray-800"
+                className="w-full text-sm sm:text-base border-2 border-gray-300 rounded-xl pl-10 pr-4 py-3.5 bg-white text-gray-950 font-medium placeholder-gray-400 focus:border-[#f49e1a]"
                 id="catalog-search-input"
               />
             </div>
