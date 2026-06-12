@@ -12,7 +12,24 @@ import TireDetail from './components/TireDetail';
 import { TIRES_DATA, MOST_SEARCHED_MEASURES } from './data';
 import { toSlug, getTireSlug } from './utils/slugify';
 import EnhancedSEO from './components/EnhancedSEO';
+import CarplusVideosSection from './components/CarplusVideosSection';
 import { Tire, CartItem } from './types';
+
+const BRAND_LOGOS: Record<string, string> = {
+  BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
+  PIRELLI: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg",
+  MICHELIN: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg",
+  CONTINENTAL: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg",
+  GOODYEAR: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg",
+  YOKOHAMA: "https://icon2.cleanpng.com/20180516/evq/avr9ddjh0.webp",
+  FIRESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg",
+  DELINTE: "https://s19532.pcdn.co/wp-content/uploads/2019/12/Delinte-Logo-1.jpg",
+  COMFORSER: "https://www.gtiresinternational.us/wp-content/uploads/2022/10/Comforser-Tires.png",
+  XBRI: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg",
+  PRINX: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRauciXYNudC8XaeVj_7c3o5urb17rrs_uw&s",
+  LINGLONG: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg",
+  SPEEDMAX: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6La6GWmZDeZMCxlH4OA8rJcNjLj8mrjpW4A&s"
+};
 import { 
   OFFICIAL_NEIGHBORHOODS, NON_OFFICIAL_NEIGHBORHOODS, POPULAR_REGIONS, 
   METROPOLITAN_CITIES, getRouteInstructions 
@@ -850,17 +867,19 @@ export default function App() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
-                    { name: 'BRIDGESTONE', slogan: 'Suavidade Japonesa', style: 'Origem japonesa. Máxima durabilidade nas rodovias, frenagem macia e excelente controle acústico de ruídos.', color: 'from-white to-gray-50', pMin: 'R$ 489,00' },
-                    { name: 'PIRELLI', slogan: 'Desempenho Italiano', style: 'Tradição italiana mundial. Grande aderência em pistas secas e molhadas sob condições adversas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'MICHELIN', slogan: 'Máxima Performance', style: 'Padrão mundial em segurança e durabilidade lendária. Menor desgaste e resistência a rolamentos.', color: 'from-white to-gray-50', pMin: 'R$ 749,00' },
-                    { name: 'CONTINENTAL', slogan: 'Engenharia Alemã', style: 'Pneus alemães de alta proteção contra furos e aquaplanagens. Excelente tração em curvas sinuosas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'GOODYEAR', slogan: 'Segurança Longa Pista', style: 'Excelente estabilidade estrutural e aderência ideal em asfalto ondulado ou de terra.', color: 'from-white to-gray-50', pMin: 'R$ 789,00' },
-                    { name: 'YOKOHAMA', slogan: 'Linha Premium Racing', style: 'Excelente esportividade e performance em alta velocidade para veículos esportivos e de luxo.', color: 'from-white to-gray-50', pMin: 'R$ 399,00' },
-                    { name: 'FIRESTONE', slogan: 'Robustez Reconhecida', style: 'Subdivisão Bridgestone reconhecida pela alta durabilidade em veículos civis e comerciais leves.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'DELINTE', slogan: 'Tecnologia Inovadora', style: 'Banda de rodagem inovadora, rodar extremamente seguro e ótimos custos de aquisição direta.', color: 'from-white to-gray-50', pMin: 'R$ 329,00' },
-                    { name: 'COMFORSER', slogan: 'Durabilidade Diária', style: 'Excelente maciez e resistência na pavimentação urbana nacional. Custo-benefício de destaque.', color: 'from-white to-gray-50', pMin: 'R$ 239,00 à vista' },
-                    { name: 'XBRI', slogan: 'Excelente Tração Diária', style: 'Casing robusto projetado com asfalto nacional em mente. Ótimas notas de maciez diárias.', color: 'from-white to-gray-50', pMin: 'R$ 269,00' },
-                    { name: 'PRINX', slogan: 'Equilíbrio e Conforto', style: 'Pneus silenciosos inovadores excelentes para o dia-a-dia em metrópoles.', color: 'from-white to-gray-50', pMin: 'R$ 459,00' }
+                    { name: 'BRIDGESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg", slogan: 'Suavidade Japonesa', style: 'Origem japonesa. Máxima durabilidade nas rodovias, frenagem macia e excelente controle acústico de ruídos.', color: 'from-white to-gray-50', pMin: 'R$ 489,00' },
+                    { name: 'PIRELLI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg", slogan: 'Desempenho Italiano', style: 'Tradição italiana mundial. Grande aderência em pistas secas e molhadas sob condições adversas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
+                    { name: 'MICHELIN', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg", slogan: 'Máxima Performance', style: 'Padrão mundial em segurança e durabilidade lendária. Menor desgaste e resistência a rolamentos.', color: 'from-white to-gray-50', pMin: 'R$ 749,00' },
+                    { name: 'CONTINENTAL', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg", slogan: 'Engenharia Alemã', style: 'Pneus alemães de alta proteção contra furos e aquaplanagens. Excelente tração em curvas sinuosas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
+                    { name: 'GOODYEAR', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg", slogan: 'Segurança Longa Pista', style: 'Excelente estabilidade estrutural e aderência ideal em asfalto ondulado ou de terra.', color: 'from-white to-gray-50', pMin: 'R$ 789,00' },
+                    { name: 'YOKOHAMA', logo: "https://icon2.cleanpng.com/20180516/evq/avr9ddjh0.webp", slogan: 'Linha Premium Racing', style: 'Excelente esportividade e performance em alta velocidade para veículos esportivos e de luxo.', color: 'from-white to-gray-50', pMin: 'R$ 399,00' },
+                    { name: 'FIRESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg", slogan: 'Robustez Reconhecida', style: 'Subdivisão Bridgestone reconhecida pela alta durabilidade em veículos civis e comerciais leves.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
+                    { name: 'DELINTE', logo: "https://s19532.pcdn.co/wp-content/uploads/2019/12/Delinte-Logo-1.jpg", slogan: 'Tecnologia Inovadora', style: 'Banda de rodagem inovadora, rodar extremamente seguro e ótimos custos de aquisição direta.', color: 'from-white to-gray-50', pMin: 'R$ 329,00' },
+                    { name: 'COMFORSER', logo: "https://www.gtiresinternational.us/wp-content/uploads/2022/10/Comforser-Tires.png", slogan: 'Durabilidade Diária', style: 'Excelente maciez e resistência na pavimentação urbana nacional. Custo-benefício de destaque.', color: 'from-white to-gray-50', pMin: 'R$ 239,00 à vista' },
+                    { name: 'XBRI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg", slogan: 'Excelente Tração Diária', style: 'Casing robusto projetado com asfalto nacional em mente. Ótimas notas de maciez diárias.', color: 'from-white to-gray-50', pMin: 'R$ 269,00' },
+                    { name: 'PRINX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRauciXYNudC8XaeVj_7c3o5urb17rrs_uw&s", slogan: 'Equilíbrio e Conforto', style: 'Pneus silenciosos inovadores excelentes para o dia-a-dia em metrópoles.', color: 'from-white to-gray-50', pMin: 'R$ 459,00' },
+                    { name: 'LINGLONG', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg", slogan: 'Inovação Silenciosa', style: 'Firme aderência e escoamento hídrico exemplar para curvas e frenagens em dias chuvosos.', color: 'from-white to-gray-50', pMin: 'R$ 319,05' },
+                    { name: 'SPEEDMAX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6La6GWmZDeZMCxlH4OA8rJcNjLj8mrjpW4A&s", slogan: 'Trabalho Pesado Eficiente', style: 'Marca robusta projetada para render mais quilometragem com desgaste lateral uniforme.', color: 'from-white to-gray-50', pMin: 'R$ 289,00' }
                   ].map((brandMeta) => {
                     const isSelected = selectedBrand.toUpperCase() === brandMeta.name;
                     return (
@@ -872,24 +891,27 @@ export default function App() {
                         }}
                         className={`p-4 rounded-xl transition-all duration-300 border text-left flex flex-col justify-between bg-gradient-to-br relative overflow-hidden group ${brandMeta.color} ${
                           isSelected 
-                            ? 'border-[#f49e1a] ring-4 ring-[#f49e1a]/15 bg-yellow-50/10' 
+                            ? 'border-[#f49e1a] ring-4 ring-[#f49e1a]/15 bg-yellow-50/10 shadow-md' 
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-black tracking-widest text-gray-900 group-hover:text-[#f49e1a] transition duration-150">
-                            {brandMeta.name}
-                          </span>
-                          <span className="text-[9px] bg-[#f49e1a]/15 px-2 py-0.5 rounded text-gray-950 font-bold font-mono">
+                        <div className="flex justify-between items-center w-full gap-2">
+                          <img
+                            src={brandMeta.logo}
+                            alt={brandMeta.name}
+                            className="h-9 max-h-[36px] w-auto max-w-[120px] object-contain opacity-90 group-hover:opacity-100 transition rounded"
+                            referrerPolicy="no-referrer"
+                          />
+                          <span className="text-[9px] bg-[#f49e1a]/15 px-2 py-0.5 rounded text-gray-950 font-bold font-mono shrink-0">
                             {brandMeta.slogan}
                           </span>
                         </div>
-                        <p className="text-[11px] text-gray-600 mt-2 leading-relaxed text-justify">
+                        <p className="text-[11px] text-gray-600 mt-3 leading-relaxed text-justify">
                           {brandMeta.style}
                         </p>
                         <div className="mt-3 pt-2 border-t border-gray-200 flex justify-between items-center text-[10px]">
-                          <span className="text-gray-400 font-medium">A partir de:</span>
-                          <span className="font-extrabold text-gray-900 text-xs">{brandMeta.pMin}</span>
+                          <span className="text-gray-400 font-medium font-mono">A partir de:</span>
+                          <span className="font-extrabold text-gray-900 text-xs font-mono">{brandMeta.pMin}</span>
                         </div>
                       </button>
                     );
@@ -1030,6 +1052,48 @@ export default function App() {
                   Limpar Todos os Filtros (X)
                 </button>
               )}
+            </div>
+
+            {/* Quick Brand Logo Filter row styling */}
+            <div className="mb-6 bg-gray-50 border border-gray-150 p-4 rounded-2xl select-none" id="brand-logo-filtering-row">
+              <p className="text-[11px] font-black uppercase text-gray-700 mb-2.5 tracking-wider font-mono flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f49e1a]" />
+                Filtrar com 1 Toque por Fabricante Oficial:
+              </p>
+              <div className="flex flex-wrap gap-2 items-center justify-start">
+                <button
+                  onClick={() => setSelectedBrand('Todas')}
+                  className={`px-3 py-1.5 rounded-xl border text-[10px] font-black uppercase transition-all duration-300 cursor-pointer ${
+                    selectedBrand === 'Todas'
+                      ? 'bg-black text-white border-black shadow'
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-gray-400'
+                  }`}
+                >
+                  Todas Marcas
+                </button>
+                {Object.entries(BRAND_LOGOS).map(([bName, bUrl]) => {
+                  const isSelected = selectedBrand.toUpperCase() === bName.toUpperCase();
+                  return (
+                    <button
+                      key={`btn-logo-filter-${bName}`}
+                      onClick={() => setSelectedBrand(bName)}
+                      className={`h-11 px-3 py-1.5 rounded-xl border bg-white flex items-center justify-center transition-all duration-300 cursor-pointer hover:shadow-xs ${
+                        isSelected
+                          ? 'border-[#f49e1a] ring-2 ring-[#f49e1a]/25 scale-105 shadow-xs bg-yellow-50/5'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                      title={`Filtrar somente ${bName}`}
+                    >
+                      <img
+                        src={bUrl}
+                        alt={bName}
+                        className="h-full max-h-[22px] w-auto max-w-[80px] object-contain"
+                        referrerPolicy="no-referrer"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Interactive Selector drop-downs */}
@@ -1282,6 +1346,11 @@ export default function App() {
             </div>
 
           </div>
+        </section>
+
+        {/* Verification Videos Section for Elderly and High Trust */}
+        <section className="max-w-7xl mx-auto px-4">
+          <CarplusVideosSection />
         </section>
 
         {/* Real Structure Image Gallery Section (Carplus Authentic Showroom) */}

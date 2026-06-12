@@ -12,6 +12,7 @@ import {
 import ServiceHistory from './ServiceHistory';
 import { TIRES_DATA, CAR_MODELS_DATA } from '../data';
 import TireCard from './TireCard';
+import CarplusVideosSection from './CarplusVideosSection';
 import { motion, AnimatePresence } from 'motion/react';
 
 
@@ -545,6 +546,8 @@ export default function CompanyPages({
               </div>
             </div>
 
+            <CarplusVideosSection />
+
             <div className="bg-gray-900 text-white rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow">
               <div className="text-center sm:text-left">
                 <h4 className="font-extrabold uppercase text-yellow-500">Agende sua visita na loja física ou tire suas dúvidas!</h4>
@@ -999,6 +1002,8 @@ export default function CompanyPages({
                 )}
               </div>
             </div>
+            
+            <CarplusVideosSection />
           </div>
         )}
 
@@ -1452,6 +1457,8 @@ export default function CompanyPages({
                     })}
                   </div>
                 </div>
+
+                <CarplusVideosSection />
 
                 {/* Direct Cross-Linking Menu satisfying: 'crie links internos entre as paginas pneus, bairro e cidade e aro e marcas' */}
                 <div className="bg-yellow-500/5 border-2 border-dashed border-[#f49e1a]/30 rounded-2xl p-5 sm:p-6 space-y-4 text-gray-900" id="seo-deep-internal-links">
