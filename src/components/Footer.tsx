@@ -8,7 +8,7 @@ interface FooterProps {
 export default function Footer({ onNavigate }: FooterProps) {
   return (
     <footer className="bg-[#f49e1a] text-neutral-950 py-16 px-6 border-t-[6px] border-neutral-950 font-sans" id="main-footer">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         
         {/* Coluna 1: Logo e Descrição */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
@@ -29,21 +29,21 @@ export default function Footer({ onNavigate }: FooterProps) {
           <h4 className="font-extrabold text-xl uppercase tracking-wider text-neutral-950 border-b-4 border-neutral-950 pb-2 w-full">Fale Conosco</h4>
           <div className="space-y-4 w-full">
             <p className="text-sm text-neutral-950 font-extrabold uppercase">Ligue para tirar dúvidas ou agendar:</p>
-            <div className="bg-neutral-950 text-white rounded-2xl p-5 shadow-lg flex flex-col items-center md:items-start gap-1 border-2 border-neutral-900">
-              <span className="text-xs uppercase tracking-widest text-[#f49e1a] font-extrabold font-mono">Telefone de Atendimento</span>
-              <p className="flex items-center gap-3 justify-center md:justify-start">
-                <Phone className="w-7 h-7 text-[#f49e1a] shrink-0" />
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#f49e1a]">(41) 3082-7282</span>
+            <div className="bg-neutral-950 text-white rounded-2xl p-5 shadow-lg flex flex-col items-center md:items-start gap-1 border-2 border-neutral-900 w-full overflow-hidden">
+              <span className="text-xs uppercase tracking-widest text-[#f49e1a] font-extrabold font-mono whitespace-nowrap block">Telefone de Atendimento</span>
+              <p className="flex items-center gap-2 justify-center md:justify-start w-full whitespace-nowrap">
+                <Phone className="w-6 h-6 text-[#f49e1a] shrink-0" />
+                <span className="text-xl sm:text-2xl xl:text-3xl font-black tracking-tight text-[#f49e1a] whitespace-nowrap">(41) 3082-7282</span>
               </p>
             </div>
             
             <a 
               href="tel:4130827282" 
-              className="w-full flex items-center justify-center gap-3 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-5 px-6 rounded-2xl text-base transition-all duration-300 shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95"
+              className="w-full flex items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all duration-300 shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 whitespace-nowrap"
               id="footer-call-btn"
             >
-              <Phone className="w-6 h-6 shrink-0" />
-              LIGAR PRO TELEFONE COM UM CLIQUE
+              <Phone className="w-5 h-5 shrink-0" />
+              LIGAR COM UM CLIQUE
             </a>
           </div>
         </div>
@@ -53,13 +53,13 @@ export default function Footer({ onNavigate }: FooterProps) {
           <h4 className="font-extrabold text-xl uppercase tracking-wider text-neutral-950 border-b-4 border-neutral-950 pb-2 w-full">Horários</h4>
           <div className="space-y-4 text-sm font-extrabold text-neutral-900">
             <div className="space-y-3">
-              <p className="flex items-center gap-3 justify-center md:justify-start">
+              <p className="flex items-center gap-2 justify-center md:justify-start whitespace-nowrap text-sm xl:text-base">
                 <Clock className="w-5 h-5 text-neutral-950 shrink-0" />
-                <span className="text-base text-black font-semibold">Segunda a Sexta: <span className="font-black text-neutral-950 text-lg">08:00 às 18:00</span></span>
+                <span className="text-black font-semibold">Seg a Sex: <span className="font-black text-neutral-950 text-base xl:text-lg">08:00 às 18:00</span></span>
               </p>
-              <p className="flex items-center gap-3 justify-center md:justify-start">
+              <p className="flex items-center gap-2 justify-center md:justify-start whitespace-nowrap text-sm xl:text-base">
                 <Clock className="w-5 h-5 text-neutral-950 shrink-0" />
-                <span className="text-base text-black font-semibold">Sábado: <span className="font-black text-neutral-950 text-lg">08:00 às 12:00</span></span>
+                <span className="text-black font-semibold">Sábado: <span className="font-black text-neutral-950 text-base xl:text-lg">08:00 às 12:00</span></span>
               </p>
             </div>
             <div className="bg-neutral-950 text-[#f49e1a] text-center font-black text-xs uppercase px-4 py-2 rounded-xl inline-block shadow-md">
@@ -83,10 +83,10 @@ export default function Footer({ onNavigate }: FooterProps) {
             </p>
             <a 
               href="#maps-section" 
-              className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-4 px-5 rounded-2xl text-sm transition-all shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 cursor-pointer"
+              className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 cursor-pointer whitespace-nowrap"
             >
               <Compass className="w-5 h-5 shrink-0" />
-              VER COMO CHEGAR PASSO A PASSO
+              VER COMO CHEGAR
             </a>
           </div>
         </div>
