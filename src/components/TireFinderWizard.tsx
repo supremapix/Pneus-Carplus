@@ -62,6 +62,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                   setSelectedBrand(brand);
                   setSelectedCar(null);
                 }}
+                style={isSelected ? { textShadow: '1px 1px 2px rgba(0,0,0,0.9)' } : undefined}
                 className={`flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-xl border-2 font-black text-xs uppercase transition-all duration-300 cursor-pointer shrink-0 ${
                   isSelected
                     ? 'bg-black border-black text-white shadow-md'
@@ -92,6 +93,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
               <button
                 key={car.id}
                 onClick={() => setSelectedCar(car)}
+                style={isSelected ? { textShadow: '1px 1px 2px rgba(0,0,0,0.9)' } : undefined}
                 className={`p-3 rounded-xl border-2 text-left transition flex flex-col justify-between h-full ${
                   isSelected
                     ? 'border-black bg-black text-white'
@@ -123,6 +125,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
             <button
               onClick={() => onSearchMeasure(selectedCar.recommendedTireRatio)}
               className="bg-black hover:bg-neutral-900 text-white font-black px-5 py-3 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 transition uppercase tracking-wider shadow-sm"
+              style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
               id="search-measure-btn"
             >
               <Search className="w-4 h-4 shrink-0" />

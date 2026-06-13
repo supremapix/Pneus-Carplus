@@ -917,6 +917,7 @@ export default function CompanyPages({
                       type="button"
                       onClick={() => setIsContactSubmitted(false)}
                       className="bg-black text-white hover:bg-neutral-900 font-black text-[11px] uppercase tracking-wider px-4 py-2.5 rounded-xl transition border-2 border-black"
+                      style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                     >
                       Enviar Nova Mensagem
                     </button>
@@ -1319,7 +1320,7 @@ export default function CompanyPages({
                          href={formatWhatsApp(`Olá Carplus! Gostaria de consultar pneu para meu veículo ${seoTarget.name}, que vi na página do site.`)}
                          target="_blank"
                          rel="noopener noreferrer"
-                         className="inline-block bg-black text-white hover:bg-[#f49e1a] hover:text-black font-mono font-black text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl transition cursor-pointer"
+                         className="inline-block bg-black text-white hover:bg-[#f49e1a] hover:text-black font-mono font-black text-[10px] uppercase tracking-wider py-2 px-4 rounded-xl transition cursor-pointer" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                        >
                          Consultar Medida Personalizada ➔
                        </a>

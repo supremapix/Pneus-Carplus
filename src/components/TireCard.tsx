@@ -2,6 +2,22 @@ import React, { useState } from 'react';
 import { Tire } from '../types';
 import { ShoppingCart, Heart, ShieldCheck, ArrowRight, Tag } from 'lucide-react';
 
+const BRAND_LOGOS: Record<string, string> = {
+  BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
+  PIRELLI: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg",
+  MICHELIN: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg",
+  CONTINENTAL: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg",
+  GOODYEAR: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg",
+  YOKOHAMA: "https://icon2.cleanpng.com/20180516/evq/avr9ddjh0.webp",
+  FIRESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg",
+  DELINTE: "https://s19532.pcdn.co/wp-content/uploads/2019/12/Delinte-Logo-1.jpg",
+  COMFORSER: "https://www.gtiresinternational.us/wp-content/uploads/2022/10/Comforser-Tires.png",
+  XBRI: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg",
+  PRINX: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRauciXYNudC8XaeVj_7c3o5urb17rrs_uw&s",
+  LINGLONG: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg",
+  SPEEDMAX: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6La6GWmZDeZMCxlH4OA8rJcNjLj8mrjpW4A&s"
+};
+
 interface TireCardProps {
   key?: string;
   tire: Tire;
@@ -66,10 +82,19 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
           className="cursor-pointer"
         >
           {/* Brand & Model */}
-          <div className="flex items-center justify-center md:justify-start gap-1.5 mb-2">
-            <span className="text-xs sm:text-sm tracking-wider uppercase font-black text-[#f49e1a] bg-neutral-900 px-2 py-0.5 rounded-md">
-              {tire.brand}
-            </span>
+          <div className="flex items-center justify-center md:justify-start gap-1.5 mb-2 h-12">
+            {BRAND_LOGOS[tire.brand.toUpperCase()] ? (
+              <img 
+                src={BRAND_LOGOS[tire.brand.toUpperCase()]} 
+                alt={tire.brand} 
+                className="h-10 w-auto max-w-[120px] object-contain select-none shrink-0"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <span className="text-xs sm:text-sm tracking-wider uppercase font-black text-neutral-950 bg-gray-100 px-2.5 py-1 rounded shadow-sm border border-gray-200">
+                {tire.brand}
+              </span>
+            )}
             <span className="text-gray-300 text-xs">•</span>
             <span className="text-xs sm:text-sm text-gray-600 font-serif font-black">
               Série {tire.model.split(' ')[0]}
@@ -151,7 +176,8 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
               // reset back to default
               setQty(2);
             }}
-            className="flex-1 bg-gray-950 hover:bg-[#f49e1a] text-[#f49e1a] hover:text-black font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-black"
+            className="flex-1 bg-gray-950 hover:bg-[#f49e1a] text-white hover:text-black font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-black"
+            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
             id={`add-to-cart-${tire.id}`}
           >
             <ShoppingCart className="w-4 h-4 shrink-0" />

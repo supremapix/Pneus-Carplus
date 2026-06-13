@@ -226,7 +226,8 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                     onAddToCart(tire, quantity);
                     onBack();
                   }}
-                  className="w-full bg-gray-950 hover:bg-gray-800 text-[#f49e1a] hover:text-white font-black h-[52px] rounded-2xl flex items-center justify-center gap-2.5 text-xs sm:text-sm uppercase tracking-wide transition border border-black shadow-md"
+                  className="w-full bg-gray-950 hover:bg-gray-800 text-white font-black h-[52px] rounded-2xl flex items-center justify-center gap-2.5 text-xs sm:text-sm uppercase tracking-wide transition border border-black shadow-md"
+                  style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                   id="add-cart-detail-btn"
                 >
                   <ShoppingCart className="w-5 h-5" />
@@ -295,6 +296,7 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                     rel="noopener noreferrer"
                     title="Compartilhar no Twitter"
                     className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-[10px] font-black uppercase tracking-wider rounded-xl bg-black hover:bg-neutral-800 text-white transition-all duration-150 shadow-sm"
+                    style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                   >
                     <Twitter className="w-3.5 h-3.5 shrink-0" />
                     <span>Twitter</span>
@@ -531,6 +533,7 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                     window.open(`https://api.whatsapp.com/send?phone=554130827282&text=${encoded}`, '_blank');
                   }}
                   className="bg-black hover:bg-yellow-600 hover:text-black text-white font-black text-[10px] uppercase tracking-wider px-5 py-3 rounded-xl min-w-[200px] text-center transition"
+                  style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                 >
                   Reservar para {selectedCompatCar} ➔
                 </button>

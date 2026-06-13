@@ -13,6 +13,7 @@ import { TIRES_DATA, MOST_SEARCHED_MEASURES } from './data';
 import { toSlug, getTireSlug } from './utils/slugify';
 import EnhancedSEO from './components/EnhancedSEO';
 import CarplusVideosSection from './components/CarplusVideosSection';
+import InstagramFeed from './components/InstagramFeed';
 import { Tire, CartItem } from './types';
 
 const BRAND_LOGOS: Record<string, string> = {
@@ -583,9 +584,20 @@ export default function App() {
                         />
                       </div>
                       
-                      <div className="mt-4 flex-grow text-center lg:text-left min-h-[90px] flex flex-col justify-between">
+                      <div className="mt-4 flex-grow text-center lg:text-left min-h-[95px] flex flex-col justify-between">
                         <div>
-                          <span className="text-xs text-[#f49e1a] font-mono tracking-wider font-black block uppercase">{t.brand}</span>
+                          {BRAND_LOGOS[t.brand.toUpperCase()] ? (
+                            <div className="flex items-center justify-center lg:justify-start h-12 select-none my-1">
+                              <img 
+                                src={BRAND_LOGOS[t.brand.toUpperCase()]} 
+                                alt={t.brand} 
+                                className="h-10 w-auto max-w-[120px] object-contain"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                          ) : (
+                            <span className="text-xs text-neutral-950 bg-gray-100 px-2.5 py-1 rounded shadow-sm font-mono tracking-wider font-black inline-block uppercase border border-gray-200">{t.brand}</span>
+                          )}
                           <h4 className="text-sm sm:text-base font-black text-gray-950 leading-tight mt-1 line-clamp-2 hover:text-yellow-600 transition" title={t.name}>
                             {t.name}
                           </h4>
@@ -1063,6 +1075,7 @@ export default function App() {
               <div className="flex flex-wrap gap-2 items-center justify-start">
                 <button
                   onClick={() => setSelectedBrand('Todas')}
+                  style={selectedBrand === 'Todas' ? { textShadow: '1px 1px 2px rgba(0,0,0,0.9)' } : undefined}
                   className={`px-3 py-1.5 rounded-xl border text-[10px] font-black uppercase transition-all duration-300 cursor-pointer ${
                     selectedBrand === 'Todas'
                       ? 'bg-black text-white border-black shadow'
@@ -1234,19 +1247,19 @@ export default function App() {
 
               {/* Pagination controls */}
               {filteredTires.length > itemsPerPage && (
-                <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm" id="catalog-pagination">
-                  <span className="text-xs text-gray-500">
+                <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm select-none" id="catalog-pagination">
+                  <span className="text-xs text-gray-500 text-center sm:text-left">
                     Exibindo pneus <strong>{startIndex + 1}</strong> a <strong>{Math.min(startIndex + itemsPerPage, filteredTires.length)}</strong> de um total de <strong>{filteredTires.length}</strong>
                   </span>
 
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 w-full sm:w-auto justify-center min-w-0">
                     <button
                       onClick={() => {
                         setCurrentPage(prev => Math.max(1, prev - 1));
                         setTimeout(() => catalogRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
                       }}
                       disabled={currentPage === 1}
-                      className={`px-3 py-2 rounded-xl text-xs uppercase font-extrabold transition-all duration-200 border cursor-pointer ${
+                      className={`px-3 py-2 h-10 sm:h-9 rounded-xl text-xs uppercase font-extrabold transition-all duration-200 border cursor-pointer flex items-center justify-center shrink-0 ${
                         currentPage === 1
                           ? 'bg-gray-100 border-gray-150 text-gray-400 cursor-not-allowed'
                           : 'bg-white border-gray-200 text-gray-900 hover:border-[#f49e1a] hover:bg-gray-50'
@@ -1255,25 +1268,49 @@ export default function App() {
                       Anterior
                     </button>
 
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
-                      const isCurrent = p === currentPage;
-                      return (
-                        <button
-                          key={`page-num-${p}`}
-                          onClick={() => {
-                            setCurrentPage(p);
-                            setTimeout(() => catalogRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
-                          }}
-                          className={`w-9 h-9 rounded-xl text-xs font-mono font-bold transition-all duration-200 border cursor-pointer ${
-                            isCurrent
-                              ? 'bg-[#f49e1a] border-[#f49e1a] text-black shadow-md'
-                              : 'bg-white border-gray-200 text-gray-700 hover:border-[#f49e1a] hover:bg-gray-50'
-                          }`}
-                        >
-                          {p}
-                        </button>
-                      );
-                    })}
+                    <div className="flex items-center gap-1 sm:gap-1.5 max-w-full overflow-x-auto scrollbar-none py-1 px-1 justify-center">
+                      {(() => {
+                        const maxNeighbours = 1;
+                        const pages: (number | string)[] = [];
+                        if (totalPages <= 5) {
+                          for (let i = 1; i <= totalPages; i++) pages.push(i);
+                        } else {
+                          pages.push(1);
+                          const start = Math.max(2, currentPage - maxNeighbours);
+                          const end = Math.min(totalPages - 1, currentPage + maxNeighbours);
+                          if (start > 2) pages.push('...');
+                          for (let i = start; i <= end; i++) pages.push(i);
+                          if (end < totalPages - 1) pages.push('...');
+                          pages.push(totalPages);
+                        }
+                        return pages.map((p, idx) => {
+                          if (typeof p === 'string') {
+                            return (
+                              <span key={`ellipsis-${idx}`} className="px-1.5 text-xs font-mono font-bold text-gray-450 select-none">
+                                {p}
+                              </span>
+                            );
+                          }
+                          const isCurrent = p === currentPage;
+                          return (
+                            <button
+                              key={`page-num-${p}`}
+                              onClick={() => {
+                                setCurrentPage(p);
+                                setTimeout(() => catalogRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
+                              }}
+                              className={`w-10 h-10 sm:w-9 sm:h-9 rounded-xl text-xs font-mono font-extrabold transition-all duration-200 border cursor-pointer shrink-0 flex items-center justify-center ${
+                                isCurrent
+                                  ? 'bg-[#f49e1a] border-[#f49e1a] text-black shadow-md'
+                                  : 'bg-white border-gray-200 text-gray-700 hover:border-[#f49e1a] hover:bg-gray-50'
+                              }`}
+                            >
+                              {p}
+                            </button>
+                          );
+                        });
+                      })()}
+                    </div>
 
                     <button
                       onClick={() => {
@@ -1281,7 +1318,7 @@ export default function App() {
                         setTimeout(() => catalogRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
                       }}
                       disabled={currentPage === totalPages}
-                      className={`px-3 py-2 rounded-xl text-xs uppercase font-extrabold transition-all duration-200 border cursor-pointer ${
+                      className={`px-3 py-2 h-10 sm:h-9 rounded-xl text-xs uppercase font-extrabold transition-all duration-200 border cursor-pointer flex items-center justify-center shrink-0 ${
                         currentPage === totalPages
                           ? 'bg-gray-100 border-gray-150 text-gray-400 cursor-not-allowed'
                           : 'bg-white border-gray-200 text-gray-900 hover:border-[#f49e1a] hover:bg-gray-50'
@@ -1302,7 +1339,8 @@ export default function App() {
               </p>
               <button
                 onClick={resetFilters}
-                className="mt-4 bg-gray-900 hover:bg-[#f49e1a] text-[#f49e1a] hover:text-white font-extrabold text-xs px-5 py-2 rounded-xl transition"
+                className="mt-4 bg-gray-900 hover:bg-[#f49e1a] text-white hover:text-white font-extrabold text-xs px-5 py-2 rounded-xl transition"
+                style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
                 id="reset-filter-fallback-btn"
               >
                 Remover Todos os Filtros
@@ -1540,6 +1578,9 @@ export default function App() {
         </section>
 
       </main>)}
+
+      {/* Instagram Feed Section */}
+      <InstagramFeed />
 
       {/* Floating Live Chat & Booking trigger */}
       <LiveWhatsAppChat />

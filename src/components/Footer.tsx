@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MapPin, Clock, Compass, Heart } from 'lucide-react';
+import { Phone, MapPin, Clock, Compass, Heart, Sparkles } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site') => void;
@@ -30,16 +30,17 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="space-y-4 w-full">
             <p className="text-sm text-neutral-950 font-extrabold uppercase">Ligue para tirar dúvidas ou agendar:</p>
             <div className="bg-neutral-950 text-white rounded-2xl p-5 shadow-lg flex flex-col items-center md:items-start gap-1 border-2 border-neutral-900 w-full overflow-hidden">
-              <span className="text-xs uppercase tracking-widest text-[#f49e1a] font-extrabold font-mono whitespace-nowrap block">Telefone de Atendimento</span>
+              <span className="text-xs uppercase tracking-widest text-[#f49e1a] font-extrabold font-mono whitespace-nowrap block" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}>Telefone de Atendimento</span>
               <p className="flex items-center gap-2 justify-center md:justify-start w-full whitespace-nowrap">
-                <Phone className="w-6 h-6 text-[#f49e1a] shrink-0" />
-                <span className="text-xl sm:text-2xl xl:text-3xl font-black tracking-tight text-[#f49e1a] whitespace-nowrap">(41) 3082-7282</span>
+                <Phone className="w-6 h-6 text-white shrink-0" style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.9))' }} />
+                <span className="text-xl sm:text-2xl xl:text-3xl font-black tracking-tight text-white whitespace-nowrap" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}>(41) 3082-7282</span>
               </p>
             </div>
             
             <a 
               href="tel:4130827282" 
-              className="w-full flex items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all duration-300 shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 whitespace-nowrap"
+              className="w-full flex items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all duration-300 shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 whitespace-nowrap"
+              style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
               id="footer-call-btn"
             >
               <Phone className="w-5 h-5 shrink-0" />
@@ -62,8 +63,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <span className="text-black font-semibold">Sábado: <span className="font-black text-neutral-950 text-base xl:text-lg">08:00 às 12:00</span></span>
               </p>
             </div>
-            <div className="bg-neutral-950 text-[#f49e1a] text-center font-black text-xs uppercase px-4 py-2 rounded-xl inline-block shadow-md">
-              ✨ Atendimento rápido sem filas
+            <div 
+              className="bg-neutral-950 text-white text-center font-black text-xs uppercase px-4 py-2 rounded-xl inline-flex items-center gap-1.5 shadow-md"
+              style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
+            >
+              <Sparkles className="w-4 h-4 text-white shrink-0" />
+              <span>Atendimento rápido sem filas</span>
             </div>
           </div>
         </div>
@@ -83,7 +88,8 @@ export default function Footer({ onNavigate }: FooterProps) {
             </p>
             <a 
               href="#maps-section" 
-              className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-[#f49e1a] hover:text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 cursor-pointer whitespace-nowrap"
+              className="inline-flex w-full items-center justify-center gap-2 bg-neutral-950 hover:bg-neutral-900 text-white font-black py-4 px-4 rounded-2xl text-sm lg:text-xs xl:text-sm transition-all shadow-xl hover:-translate-y-1 border-2 border-neutral-950 active:scale-95 cursor-pointer whitespace-nowrap"
+              style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
             >
               <Compass className="w-5 h-5 shrink-0" />
               VER COMO CHEGAR
@@ -122,7 +128,8 @@ export default function Footer({ onNavigate }: FooterProps) {
           </button>
           <button 
             onClick={() => { onNavigate('mapa-do-site'); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
-            className="bg-neutral-950 text-[#f49e1a] hover:text-white px-4 py-2 rounded-xl text-xs font-black shadow-md transition uppercase tracking-wider cursor-pointer"
+            className="bg-neutral-950 text-white hover:text-yellow-400 px-4 py-2 rounded-xl text-xs font-black shadow-md transition uppercase tracking-wider cursor-pointer"
+            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
           >
             Mapa do Site Completo
           </button>

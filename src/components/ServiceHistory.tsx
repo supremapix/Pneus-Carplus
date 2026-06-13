@@ -183,6 +183,7 @@ export default function ServiceHistory() {
           <button
             type="submit"
             className="w-full bg-[#1a1c20] hover:bg-black text-white font-bold py-2 px-4 rounded-lg text-xs tracking-wide uppercase transition"
+            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
             id="save-service-btn"
           >
             Salvar Registro no Histórico do Navegador
