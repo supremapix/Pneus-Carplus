@@ -127,6 +127,24 @@ export default function Footer({ onNavigate }: FooterProps) {
             Trocas e Garantia
           </button>
           <button 
+            onClick={() => { onNavigate('curitiba' as any); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
+            className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
+          >
+            Hub Curitiba
+          </button>
+          <button 
+            onClick={() => { onNavigate('regiao-metropolitana' as any); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
+            className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
+          >
+            Hub RMC
+          </button>
+          <button 
+            onClick={() => { onNavigate('admin-indexacao' as any); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
+            className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black text-xs"
+          >
+            ⚙️ Painel GSC
+          </button>
+          <button 
             onClick={() => { onNavigate('mapa-do-site'); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
             className="bg-neutral-950 text-white hover:text-yellow-400 px-4 py-2 rounded-xl text-xs font-black shadow-md transition uppercase tracking-wider cursor-pointer"
             style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}

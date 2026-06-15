@@ -2,10 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Tire } from '../types';
 import { toSlug, getTireSlug } from '../utils/slugify';
+import { isPageReleased, getSavedGSCRate } from '../utils/seoWaves';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
-  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato';
+  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   selectedTire: Tire | null;
 }
@@ -22,6 +23,18 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
   } else if (currentView !== 'home') {
     canonicalUrl = `${domain}/${currentView}`;
+  }
+
+  // 1b. Determine Wave Indexability Robots Control
+  let robotsContent = "index, follow";
+  if (currentView === 'seo-landing' && seoTarget) {
+    const rate = getSavedGSCRate();
+    const isReleased = isPageReleased(seoTarget.name, seoTarget.type, rate);
+    if (!isReleased) {
+      robotsContent = "noindex, follow";
+    }
+  } else if (currentView === 'admin-indexacao') {
+    robotsContent = "noindex, nofollow"; // never index admin page
   }
 
   // 2. Determine Title, Description, and Keywords
@@ -58,6 +71,18 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     title = "Fale Conosco, Agende e Como Chegar | Carplus Pneus";
     desc = "Endereço, telefone e WhatsApp da Carplus Pneus no Portão, Curitiba. Agende sua troca de pneus e revisão preventiva com orçamento transparente.";
     keywords = "contato carplus, telefone carplus, whatsapp carplus, como chegar carplus, agendar revisao";
+  } else if (currentView === 'curitiba') {
+    title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";
+    desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone com montagem, bicos de vedação e calibragem digital grátis.";
+    keywords = "pneus curitiba, pneus na cidade de curitiba, borracharia curitiba, alinhamento curitiba";
+  } else if (currentView === 'regiao-metropolitana') {
+    title = "Pneus na Região Metropolitana de Curitiba (RMC) - Atendimento Auto Center | Carplus";
+    desc = "Comprou pneu na RMC? Agende a montagem técnica expressa gratuita em nossa loja sede do Portão, Curitiba. Pirelli, Goodyear, Michelin em Colombo, Araucária, Pinhais e mais.";
+    keywords = "pneus rmc, pneus regiao metropolitana curitiba, pneus colombo, pneus sjp, pneus araucaria, pneus pinhais";
+  } else if (currentView === 'admin-indexacao') {
+    title = "Painel de Indexação Progressiva em Ondas - Área de Gestão | Carplus";
+    desc = "Gerenciador estratégico de status GSC, volume de busca de bairros e sitemaps segmentados.";
+    keywords = "seo admin, indexacao em ondas, carplus admin";
   } else if (currentView === 'seo-landing' && seoTarget) {
     const { name, type } = seoTarget;
     if (type === 'bairro') {
@@ -248,7 +273,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       <title>{title}</title>
       <meta name="description" content={desc} />
       <meta name="keywords" content={keywords} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
 
       {/* 5. Open Graph Meta Tags (Facebook & general social preview) */}

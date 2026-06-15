@@ -50,7 +50,7 @@ export default function InstagramFeed() {
               className="absolute inset-0 w-full h-full"
               frameBorder="0"
               scrolling="no"
-              allowTransparency={true}
+              allowtransparency="true"
               loading="lazy"
               title="Carplus Instagram Feed"
             ></iframe>

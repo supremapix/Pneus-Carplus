@@ -45,7 +45,7 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
@@ -347,6 +347,18 @@ export default function App() {
       setCurrentView('quem-somos');
       setSeoTarget(null);
       setSelectedTire(null);
+    } else if (firstRoute === 'curitiba') {
+      setCurrentView('curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'regiao-metropolitana' || firstRoute === 'regiaometropolitana') {
+      setCurrentView('regiao-metropolitana');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if ((firstRoute === 'admin' && parts[1] === 'indexacao') || firstRoute === 'admin-indexacao') {
+      setCurrentView('admin-indexacao');
+      setSeoTarget(null);
+      setSelectedTire(null);
     } else if (firstRoute === 'politica-privacidades') {
       setCurrentView('politica-privacidades');
       setSeoTarget(null);
@@ -449,6 +461,12 @@ export default function App() {
     } else if (currentView === 'seo-landing' && seoTarget) {
       const slugName = toSlug(seoTarget.name);
       idealPath = `/${seoTarget.type}/${slugName}`;
+    } else if (currentView === 'curitiba') {
+      idealPath = '/curitiba';
+    } else if (currentView === 'regiao-metropolitana') {
+      idealPath = '/regiao-metropolitana';
+    } else if (currentView === 'admin-indexacao') {
+      idealPath = '/admin/indexacao';
     } else if (currentView !== 'home') {
       idealPath = `/${currentView}`;
     }
