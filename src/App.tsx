@@ -45,7 +45,7 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
@@ -343,7 +343,32 @@ export default function App() {
 
     const firstRoute = parts[0].toLowerCase();
 
-    if (firstRoute === 'quem-somos' || firstRoute === 'quemsomos') {
+    // Specific SEO vanity URLs matching
+    if (firstRoute === 'aro-14') {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'aro', name: '14' });
+      setSelectedTire(null);
+    } else if (firstRoute === 'aro-19') {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'aro', name: '19' });
+      setSelectedTire(null);
+    } else if (firstRoute === 'pirelli') {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'bairro', name: 'Pirelli' });
+      setSelectedTire(null);
+    } else if (firstRoute === 'honda') {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'carro', name: 'Honda' });
+      setSelectedTire(null);
+    } else if (firstRoute === 'sobre-a-carplus' || firstRoute === 'sobre') {
+      setCurrentView('quem-somos');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'carrinho') {
+      setCurrentView('carrinho');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'quem-somos' || firstRoute === 'quemsomos') {
       setCurrentView('quem-somos');
       setSeoTarget(null);
       setSelectedTire(null);
@@ -538,6 +563,10 @@ export default function App() {
                 handleScrollToSection('catalog');
               }, 50);
             }}
+            cartItems={cartItems}
+            onUpdateQuantity={handleUpdateQuantity}
+            onRemoveFromCart={handleRemoveFromCart}
+            onClearCart={handleClearCart}
           />
         </main>
       ) : (
@@ -1618,6 +1647,13 @@ export default function App() {
         onRemoveItem={handleRemoveFromCart}
         onUpdateQuantity={handleUpdateQuantity}
         onClearCart={handleClearCart}
+        onNavigateToCart={() => {
+          setIsCartOpen(false);
+          setCurrentView('carrinho');
+          setSeoTarget(null);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.history.pushState(null, '', '/carrinho');
+        }}
       />
 
     </div>

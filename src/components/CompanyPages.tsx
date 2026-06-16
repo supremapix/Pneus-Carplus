@@ -113,15 +113,19 @@ const CARPLUS_EQUIPE_GALLERY = [
 ];
 
 interface CompanyPagesProps {
-  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao';
+  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   onNavigateHome: () => void;
-  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao') => void;
+  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho') => void;
   onSelectSeoTarget: (target: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; }) => void;
   onSelectRimFromSeo?: (rim: number | 'Todos') => void;
   onSelectBrandFromSeo?: (brand: string) => void;
   onAddToCart?: (tire: any, quantity: number) => void;
   onSelectTire?: (tire: any) => void;
+  cartItems?: any[];
+  onUpdateQuantity?: (tireId: string, quantity: number) => void;
+  onRemoveFromCart?: (tireId: string) => void;
+  onClearCart?: () => void;
 }
 
 export default function CompanyPages({ 
@@ -133,7 +137,11 @@ export default function CompanyPages({
   onSelectRimFromSeo,
   onSelectBrandFromSeo,
   onAddToCart,
-  onSelectTire
+  onSelectTire,
+  cartItems = [],
+  onUpdateQuantity,
+  onRemoveFromCart,
+  onClearCart
 }: CompanyPagesProps) {
   // Aros 13 to 23
   const AROS = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
@@ -219,7 +227,240 @@ export default function CompanyPages({
       </div>
 
       <div className="max-w-6xl mx-auto">
-        
+
+        {/* VIEW: CARRINHO DE COMPRAS WOOCOMMERCE SIMULADO */}
+        {view === 'carrinho' && (() => {
+          const total = cartItems.reduce((acc, item) => acc + ((item.tire.promoPrice || item.tire.price) * item.quantity), 0);
+          const totalPix = total * 0.95;
+          const totalInstallment = total / 10;
+          
+          const buildCartWhatsAppMessage = () => {
+            const listText = cartItems.map(item => {
+              const cleanedName = `Pneu ${item.tire.brand} ${item.tire.width}/${item.tire.aspectRatio}R${item.tire.rim} ${item.tire.model}`;
+              return `• ${item.quantity}x ${cleanedName} - R$ ${(item.tire.promoPrice || item.tire.price).toFixed(2)} cada (Subtotal: R$ ${((item.tire.promoPrice || item.tire.price) * item.quantity).toFixed(2)})`;
+            }).join('\n');
+            const message = `Olá equipe Carplus Pneus! Gostaria de agendar a instalação e garantir os bicos de ar grátis para os seguintes pneus do meu carrinho:\n\n${listText}\n\n*Valor Total:* R$ ${total.toFixed(2)}\n*À vista no PIX (com desconto):* R$ ${totalPix.toFixed(2)}\n*Ou no Cartão:* 10x sem juros de R$ ${totalInstallment.toFixed(2)}\n\nPor favor, confirmem o agendamento da montagem computadorizada na loja do Portão!`;
+            return `https://api.whatsapp.com/send?phone=554130827282&text=${encodeURIComponent(message)}`;
+          };
+
+          return (
+            <div className="space-y-8 animate-fade-in" id="view-carrinho-page">
+              <div className="text-center md:text-left">
+                <span className="bg-yellow-500/10 text-yellow-700 border border-yellow-500/25 font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-full inline-block">
+                  Ambiente Seguro de Compra • Carplus CWB
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-950 mt-3 tracking-tight">
+                  Seu Carrinho • <span className="text-yellow-600">Revisão de Compra</span>
+                </h2>
+                <p className="text-sm max-w-2xl mt-2 text-justify leading-relaxed text-gray-650 font-medium">
+                  Confira as quantidades dos pneus novos da sua frota e usufrua do nosso combo de montagem qualificada sem custos: balanceamento calibrado, bicos de ar cortesia e vistoria preventiva de alinhamento incluídos na sede do Portão, Curitiba!
+                </p>
+              </div>
+
+              {cartItems.length === 0 ? (
+                <div className="bg-gray-50 border border-dashed border-gray-300 rounded-3xl p-12 text-center space-y-6" id="empty-cart-view">
+                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto text-gray-400">
+                    <Building className="w-10 h-10" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-extrabold text-gray-950 uppercase">Sem pneus no carrinho de compras</h3>
+                    <p className="text-xs text-gray-650 max-w-md mx-auto">
+                      Seu carrinho de compras está limpo. Navegue pelo nosso mapa do site ou volte ao catálogo para selecionar as melhores marcas (Pirelli, Bridgestone, Goodyear, Michelin) com garantia de 5 anos de fábrica!
+                    </p>
+                  </div>
+                  <button 
+                    onClick={onNavigateHome}
+                    className="bg-gray-950 hover:bg-[#f49e1a] hover:text-black text-white font-black px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow border border-transparent hover:border-black cursor-pointer"
+                  >
+                    Voltar ao Catálogo de Pneus
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="active-cart-grid">
+                  {/* Cart Items List Table (Left Col - 8 cols span) */}
+                  <div className="lg:col-span-8 bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+                    <h3 className="text-lg font-black uppercase text-gray-950 border-b border-gray-100 pb-3 flex items-center gap-2">
+                      <Tag className="w-5 h-5 text-yellow-600" />
+                      <span>Seus Itens Selecionados ({cartItems.reduce((s, i) => s + i.quantity, 0)} pneus)</span>
+                    </h3>
+
+                    <div className="space-y-4 divide-y divide-gray-100">
+                      {cartItems.map((item, idx) => {
+                        const originalP = item.tire.price;
+                        const finalP = item.tire.promoPrice || originalP;
+                        const itemSub = finalP * item.quantity;
+                        const cleanedName = `Pneu ${item.tire.brand} ${item.tire.width}/${item.tire.aspectRatio}R${item.tire.rim} ${item.tire.model}`;
+
+                        return (
+                          <div 
+                            key={`cart-item-${item.tire.id}-${idx}`}
+                            className={`pt-4 first:pt-0 flex flex-col sm:flex-row items-center justify-between gap-4`}
+                          >
+                            {/* Product Thumbnail & Details */}
+                            <div className="flex items-center gap-4 w-full sm:w-auto">
+                              <div className="w-20 h-20 bg-gray-50 border border-gray-150 rounded-xl p-2 flex items-center justify-center shrink-0">
+                                <img 
+                                  src={item.tire.image} 
+                                  alt={cleanedName} 
+                                  className="w-full h-full object-contain"
+                                  referrerPolicy="no-referrer"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <span className="inline-block text-[9px] bg-gray-100 border border-gray-200 text-gray-700 font-mono font-bold px-2 py-0.5 rounded uppercase">
+                                  {item.tire.brand}
+                                </span>
+                                <h4 className="text-sm font-extrabold text-gray-950 uppercase leading-snug line-clamp-1">
+                                  {cleanedName}
+                                </h4>
+                                <p className="text-xs text-gray-400 font-mono">
+                                  Medida: {item.tire.width}/{item.tire.aspectRatio} R{item.tire.rim} • Cód: {item.tire.id}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Quantity & Small Totals Controls */}
+                            <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto border-t sm:border-t-0 border-gray-50 pt-3 sm:pt-0">
+                              {/* Quantity selection */}
+                              <div className="flex items-center border border-gray-200 rounded-xl bg-gray-50 p-1">
+                                <button
+                                  onClick={() => onUpdateQuantity && onUpdateQuantity(item.tire.id, Math.max(1, item.quantity - 1))}
+                                  className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-black font-extrabold cursor-pointer hover:bg-gray-200 rounded-lg transition"
+                                  disabled={item.quantity <= 1}
+                                  aria-label="Diminuir unidade"
+                                >
+                                  -
+                                </button>
+                                <span className="w-10 text-center font-mono text-sm font-extrabold text-gray-950">
+                                  {item.quantity}
+                                </span>
+                                <button
+                                  onClick={() => onUpdateQuantity && onUpdateQuantity(item.tire.id, item.quantity + 1)}
+                                  className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-black font-extrabold cursor-pointer hover:bg-gray-200 rounded-lg transition"
+                                  aria-label="Aumentar unidade"
+                                >
+                                  +
+                                </button>
+                              </div>
+
+                              {/* Price Math block */}
+                              <div className="text-right space-y-0.5 min-w-[100px]">
+                                <p className="text-[10px] text-gray-400 font-mono">Unitário: R$ {finalP.toFixed(2)}</p>
+                                <p className="text-sm font-black text-gray-950 font-mono">R$ {itemSub.toFixed(2)}</p>
+                              </div>
+
+                              {/* Remove cross action button */}
+                              <button
+                                onClick={() => onRemoveFromCart && onRemoveFromCart(item.tire.id)}
+                                className="text-gray-400 hover:text-red-500 p-2 rounded-xl hover:bg-red-50 transition cursor-pointer shrink-0"
+                                aria-label="Remover item"
+                              >
+                                <X className="w-5 h-5" />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="border-t border-gray-100 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <button 
+                        onClick={onNavigateHome}
+                        className="text-yellow-600 hover:text-yellow-700 hover:underline font-extrabold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span>Adicionar Mais Pneus</span>
+                      </button>
+
+                      {onClearCart && (
+                        <button 
+                          onClick={onClearCart}
+                          className="text-gray-400 hover:text-red-500 font-extrabold text-xs uppercase tracking-wider cursor-pointer"
+                        >
+                          Limpar Todo o Carrinho
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Summary Board panel (Right Col - 4 cols span) */}
+                  <div className="lg:col-span-4 space-y-6">
+                    {/* Order summary element */}
+                    <div className="bg-gray-50 border border-gray-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+                      <h3 className="text-lg font-black uppercase text-gray-950 border-b border-gray-200 pb-3 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5 text-green-600" />
+                        <span>Resumo do Pedido</span>
+                      </h3>
+
+                      <div className="space-y-3 font-mono text-sm border-b border-gray-200 pb-4">
+                        <div className="flex justify-between items-center text-gray-650">
+                          <span>Subtotal de Itens</span>
+                          <span>R$ {total.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-650">
+                          <span>Montagem e Instalação</span>
+                          <span className="text-green-600 font-extrabold uppercase">Grátis</span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-650">
+                          <span>Bicos de Borracha</span>
+                          <span className="text-green-600 font-extrabold uppercase">Cortesia</span>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-650">
+                          <span>Check-up Geometria</span>
+                          <span className="text-green-600 font-extrabold uppercase">Incluso</span>
+                        </div>
+                      </div>
+
+                      {/* Payment Methods Breakdown */}
+                      <div className="space-y-4">
+                        {/* À Vista PIX */}
+                        <div className="bg-green-50 border border-green-200 rounded-2xl p-4 space-y-1">
+                          <span className="text-[10px] text-green-700 font-mono uppercase font-black tracking-wider block">Desconto especial PIX (-5%)</span>
+                          <p className="text-2xl font-black text-green-800 font-mono">R$ {totalPix.toFixed(2)}</p>
+                          <p className="text-xs text-green-600 font-bold select-none">Economia líquida de R$ {(total * 0.05).toFixed(2)} à vista!</p>
+                        </div>
+
+                        {/* Cartão de Crédito */}
+                        <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-1">
+                          <span className="text-[10px] text-gray-500 font-mono uppercase font-black tracking-wider block">Parcelamento no Cartão</span>
+                          <p className="text-xl font-black text-gray-950 font-mono">10x R$ {totalInstallment.toFixed(2)}</p>
+                          <p className="text-xs text-gray-400 font-bold select-none">Sem juros adicionais em bandeiras oficiais.</p>
+                        </div>
+                      </div>
+
+                      {/* Checkout button linked to WhatsApp */}
+                      <a 
+                        href={buildCartWhatsAppMessage()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-[#f49e1a] hover:bg-[#e08b10] border-2 border-black text-gray-950 hover:text-black font-black py-4 rounded-2xl text-xs uppercase tracking-wider block text-center shadow-lg transition-all transform hover:scale-[1.01] cursor-pointer"
+                        id="complete-order-button"
+                      >
+                        Agendar Instalação via WhatsApp
+                      </a>
+
+                      <p className="text-[10px] text-gray-400 text-center leading-relaxed font-semibold">
+                        Garantimos reserva imediata do estoque com faturamento e instalação em nossa loja física oficial (Av. Arthur Bernardes, 1323 - Portão).
+                      </p>
+                    </div>
+
+                    {/* Protection assurance certificate */}
+                    <div className="bg-white border border-gray-200 rounded-3xl p-5 space-y-3 shadow-inner">
+                      <h4 className="text-xs font-black text-gray-950 uppercase flex items-center gap-1.5 font-mono">
+                        <ShieldCheck className="w-4 h-4 text-yellow-600" />
+                        <span>Garantia de 5 anos Inclusa</span>
+                      </h4>
+                      <p className="text-[11px] text-gray-650 leading-relaxed text-justify font-medium">
+                        Todos os pneus em estoque acompanham o selo de qualidade do Inmetro, nota fiscal e cobertura de garantia total de 5 anos contra defeitos e anomalias de fábrica. Sua compra e rodagem estão amparadas com tranquilidade na Carplus.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
+
         {/* VIEW: QUEM SOMOS */}
         {view === 'quem-somos' && (
           <div className="space-y-8" id="view-quem-somos">

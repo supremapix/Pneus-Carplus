@@ -9,6 +9,7 @@ interface CartDrawerProps {
   onRemoveItem: (tireId: string) => void;
   onUpdateQuantity: (tireId: string, quantity: number) => void;
   onClearCart: () => void;
+  onNavigateToCart?: () => void;
 }
 
 export default function CartDrawer({
@@ -17,7 +18,8 @@ export default function CartDrawer({
   cartItems,
   onRemoveItem,
   onUpdateQuantity,
-  onClearCart
+  onClearCart,
+  onNavigateToCart
 }: CartDrawerProps) {
   const [userName, setUserName] = useState('');
   const [userCar, setUserCar] = useState('');
@@ -119,10 +121,21 @@ export default function CartDrawer({
           ) : (
             <div className="space-y-3" id="cart-drawer-items-list">
               <div className="flex justify-between items-center text-xs text-gray-400 pb-2 border-b border-gray-100">
-                <span>{totalQty} pneu(s) adicionados</span>
+                <div className="flex items-center gap-3">
+                  <span>{totalQty} pneu(s) adicionados</span>
+                  {onNavigateToCart && (
+                    <button
+                      onClick={onNavigateToCart}
+                      className="text-yellow-600 hover:text-yellow-700 font-extrabold uppercase hover:underline flex items-center gap-1 text-[11px] cursor-pointer"
+                      id="view-full-cart-link"
+                    >
+                      Ver Tela Inteira ➔
+                    </button>
+                  )}
+                </div>
                 <button 
                   onClick={onClearCart}
-                  className="text-gray-400 hover:text-yellow-500 hover:underline flex items-center gap-1"
+                  className="text-gray-400 hover:text-red-500 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Trash2 className="w-3 h-3" />
                   Esvaziar
