@@ -45,7 +45,7 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
@@ -398,6 +398,26 @@ export default function App() {
       setSelectedTire(null);
     } else if (firstRoute === 'contato' || firstRoute === 'fale-conosco' || firstRoute === 'faleconosco') {
       setCurrentView('contato');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'oficina-do-pneu-curitiba') {
+      setCurrentView('oficina-do-pneu-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'garagem-de-pneus-curitiba') {
+      setCurrentView('garagem-de-pneus-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-pirelli-curitiba') {
+      setCurrentView('pneus-pirelli-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'alinhamento-3d-curitiba') {
+      setCurrentView('alinhamento-3d-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'blog') {
+      setCurrentView('blog');
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneu' && parts[1]) {

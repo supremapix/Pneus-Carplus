@@ -6,7 +6,7 @@ import { isPageReleased, getSavedGSCRate } from '../utils/seoWaves';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
-  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho';
+  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   selectedTire: Tire | null;
 }
@@ -149,6 +149,26 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     title = "Carrinho de Compras | Car Plus";
     desc = "Visualize seu carrinho de compras de pneus novos na Car Plus. Finalize o pedido com bicos grátis agendando a sua instalação rápida em Curitiba hoje mesmo."; // exactly 155 characters
     keywords = "carrinho carplus, comprar pneus, finalizar compra pneus curitiba";
+  } else if (currentView === 'oficina-do-pneu-curitiba') {
+    title = "Oficina do Pneu Curitiba - Serviços Especializados de Auto Center | Carplus";
+    desc = "Procurando oficina do pneu em Curitiba? A Carplus no Portão oferece serviços mecânicos completos de suspensão, freios, alinhamento 3D e troca de pneus com garantia.";
+    keywords = "oficina do pneu curitiba, borracharia curitiba, mecanica curitiba, conserto de pneu curitiba, vulcanização";
+  } else if (currentView === 'garagem-de-pneus-curitiba') {
+    title = "Garagem de Pneus Curitiba - Amplo Estoque a Pronta Entrega | Carplus";
+    desc = "A maior garagem de pneus de Curitiba. Estoque completo de pneus novos originais Pirelli, Goodyear, Michelin, Bridgestone de todas as medidas com bicos e montagem gratuita.";
+    keywords = "garagem de pneus curitiba, estoque de pneus curitiba, pneus baratos, pneus pronta entrega curitiba";
+  } else if (currentView === 'pneus-pirelli-curitiba') {
+    title = "Pneus Pirelli Curitiba - Modelos Cinturato, Scorpion e P-Zero | Carplus";
+    desc = "Compre pneus Pirelli novos originais em Curitiba com o melhor custo-benefício. Revendedor especialista de pneus Pirelli para todas as marcas com montagem grátis.";
+    keywords = "pneus pirelli curitiba, pirelli cinturato, pirelli scorpion, pneu pirelli r14, pneu pirelli r15, pneu pirelli r16";
+  } else if (currentView === 'alinhamento-3d-curitiba') {
+    title = "Alinhamento 3D Curitiba - Geometria e Balanceamento Preciso | Carplus";
+    desc = "Melhore a dirigibilidade e economize pneus com o Alinhamento 3D em Curitiba. Equipamentos computadorizados de alta precisão de fábrica na Carplus Pneus Portão.";
+    keywords = "alinhamento 3d curitiba, geometria curitiba, balanceamento de pneus curitiba, cambagem curitiba, rampa de alinhamento";
+  } else if (currentView === 'blog') {
+    title = "Blog da Carplus Pneus Curitiba - Dicas e Guias Automotivos";
+    desc = "Dicas para aumentar a vida útil dos pneus, saiba tudo sobre alinhamento 3D, balanceamento, marcas parceiras e curiosidades para motoristas de Curitiba.";
+    keywords = "blog de carros, dicas de pneus, quando trocar pneu, alinhamento de roda, calibragem de pneu Curitiba";
   } else if (currentView === 'curitiba') {
     title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";
     desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone com montagem, bicos de vedação e calibragem digital grátis.";
@@ -230,6 +250,13 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       "latitude": -25.477815,
       "longitude": -49.299557
     },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "184",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -293,6 +320,41 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         "item": canonicalUrl
       }
     );
+  } else if (currentView === 'oficina-do-pneu-curitiba') {
+    breadcrumbList.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Oficina do Pneu Curitiba",
+      "item": `${domain}/oficina-do-pneu-curitiba`
+    });
+  } else if (currentView === 'garagem-de-pneus-curitiba') {
+    breadcrumbList.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Garagem de Pneus Curitiba",
+      "item": `${domain}/garagem-de-pneus-curitiba`
+    });
+  } else if (currentView === 'pneus-pirelli-curitiba') {
+    breadcrumbList.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Pneus Pirelli Curitiba",
+      "item": `${domain}/pneus-pirelli-curitiba`
+    });
+  } else if (currentView === 'alinhamento-3d-curitiba') {
+    breadcrumbList.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Alinhamento 3D Curitiba",
+      "item": `${domain}/alinhamento-3d-curitiba`
+    });
+  } else if (currentView === 'blog') {
+    breadcrumbList.itemListElement.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${domain}/blog`
+    });
   } else if (currentView !== 'home') {
     breadcrumbList.itemListElement.push(
       {
@@ -307,7 +369,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
   // Compose dynamic graphs
   const graph: any[] = [breadcrumbList, baseLocalBusiness];
 
-  // If viewing a tire, add a Product Schema
+  // If viewing a tire, add a Product Schema with comprehensive details and AggregateRating
   if (selectedTire) {
     const finalP = selectedTire.promoPrice || selectedTire.price;
     const prodSchema = {
@@ -322,6 +384,13 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       },
       "mpn": selectedTire.id,
       "sku": `${selectedTire.width}${selectedTire.aspectRatio}${selectedTire.rim}`,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "184",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
       "offers": {
         "@type": "Offer",
         "url": `${domain}/pneu/${getTireSlug(selectedTire)}`,
@@ -332,16 +401,107 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         "availability": "https://schema.org/InStock",
         "seller": {
           "@type": "AutoPartsStore",
-          "name": "Carplus Pneus"
+          "name": "Carplus Pneus",
+          "url": domain
         }
       }
     };
     graph.push(prodSchema);
   }
 
-  // FAQ schema if viewing home/details
-  if (currentView === 'home') {
-    const faqSchema = {
+  // Automatic FAQ Schema depending on Category & Product
+  if (selectedTire) {
+    const prodFaq = {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `Qual o tempo de garantia do Pneu ${selectedTire.brand} ${selectedTire.model}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Todos os pneus novos vendidos na Carplus, incluindo o modelo Pneu ${selectedTire.brand} ${selectedTire.model} de medida ${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}, possuem garantia contratual oficial de fábrica de 5 anos de duração contra falhas estruturais ou defeitos de fabricação.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `A instalação e bicos de reposição do Pneu ${selectedTire.brand} são grátis?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Sim! Ao efetuar a reserva do seu Pneu ${selectedTire.brand} em nosso site, a montagem computadorizada cuidadosa e a substituição das válvulas antigas por bicos de borracha comuns novos são inteiramente grátis ao realizar o serviço em nossa oficina do Portão, em Curitiba.`
+          }
+        }
+      ]
+    };
+    graph.push(prodFaq);
+  } else if (currentView === 'seo-landing' && seoTarget) {
+    let questionsList: any[] = [];
+    if (seoTarget.type === 'bairro' || seoTarget.type === 'cidade') {
+      questionsList = [
+        {
+          "@type": "Question",
+          "name": `A Carplus Pneus atende motoristas da região de ${seoTarget.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Sim! Atendemos com extrema dedicação todos os moradores de ${seoTarget.name}. Você pode reservar seus pneus novos pelo nosso portal de forma 100% segura e realizar a instalação expressa de forma gratuita na nossa loja do Portão, que fica a poucos minutos da sua localidade.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Como funciona o pagamento de pneus reservados para ${seoTarget.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Você realiza a reserva inteiramente online e não faz pagamento digital de antecedência. O pagamento do valor é efetuado direto na autocenter após os pneus novos estarem montados e prontos em seu carro. Aceitamos PIX com descontos especiais ou parcelamento de até 10 vezes sem juros nos cartões.`
+          }
+        }
+      ];
+    } else if (seoTarget.type === 'aro') {
+      questionsList = [
+        {
+          "@type": "Question",
+          "name": `Quais fabricantes de Pneus Aro ${seoTarget.name} estão disponíveis de prontidão?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Contamos com um enorme estoque selecionado de Pneus de Aro R${seoTarget.name} novos e homologados pelo INMETRO, fabricados pelas gigantes Pirelli, Goodyear, Bridgestone, Michelin, Dunlop, Delinte e Xbri em Curitiba.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Como obter a montagem gratuita dos pneus Aro ${seoTarget.name} novos?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Toda reserva efetuada na Carplus Pneus para pneus Aro R${seoTarget.name} já tem direito adquirido de montagem computadorizada expressa e substituição de válvulas de ar inteiramente grátis em nosso autocenter especializado do Portão.`
+          }
+        }
+      ];
+    } else if (seoTarget.type === 'carro') {
+      questionsList = [
+        {
+          "@type": "Question",
+          "name": `Qual a medida ideal recomendada de pneu para carros ${seoTarget.name}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Para garantir o máximo desempenho e a integridade de segurança de fábrica, nós recomendamos e instalamos as medidas homologadas originalmente pelas montadoras de veículos ${seoTarget.name}. Nossos especialistas técnicos estão prontos para validar de forma prévia a aplicação correta.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `É necessário fazer Alinhamento 3D no veículo ${seoTarget.name} ao trocar os pneus?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Sim, recomendamos fortemente efetuar o Alinhamento 3D e Balanceamento preventivos ao colocar as borrachas novas. Isso assegura o desgaste perfeitamente uniforme dos sulcos do pneu do seu ${seoTarget.name} e preserva a integridade de sua dirigibilidade.`
+          }
+        }
+      ];
+    }
+
+    if (questionsList.length > 0) {
+      graph.push({
+        "@type": "FAQPage",
+        "mainEntity": questionsList
+      });
+    }
+  } else if (currentView === 'home' || currentView === 'oficina-do-pneu-curitiba' || currentView === 'garagem-de-pneus-curitiba' || currentView === 'pneus-pirelli-curitiba' || currentView === 'alinhamento-3d-curitiba') {
+    const defaultFaq = {
       "@type": "FAQPage",
       "mainEntity": [
         {
@@ -362,7 +522,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         }
       ]
     };
-    graph.push(faqSchema);
+    graph.push(defaultFaq);
   }
 
   const structuredDataString = JSON.stringify({

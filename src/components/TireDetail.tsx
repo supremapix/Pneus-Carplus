@@ -197,6 +197,60 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
               </ul>
             </div>
 
+            {/* INTERNAL LINKING: PRODUTOS -> CATEGORIAS */}
+            <div className="border border-yellow-500/15 bg-yellow-500/5 p-4 rounded-xl space-y-2 text-xs font-semibold">
+              <p className="text-gray-900 uppercase font-black text-[10px] tracking-wider font-mono">➔ Navegação por Categorias e Medidas Co-relacionadas</p>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <a
+                  href={`/aro/${tire.rim}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.history.pushState(null, '', `/aro/${tire.rim}`);
+                    window.dispatchEvent(new Event('popstate'));
+                  }}
+                  className="bg-white hover:bg-black hover:text-white text-gray-800 border border-gray-200 py-1.5 px-3 rounded-lg transition"
+                >
+                  Pneus Aro {tire.rim} ➔
+                </a>
+                {tire.brand.toLowerCase() === 'pirelli' ? (
+                  <a
+                    href="/pneus-pirelli-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.history.pushState(null, '', '/pneus-pirelli-curitiba');
+                      window.dispatchEvent(new Event('popstate'));
+                    }}
+                    className="bg-white hover:bg-black hover:text-white text-gray-805 border border-gray-200 py-1.5 px-3 rounded-lg transition"
+                  >
+                    Todos os Pirelli ➔
+                  </a>
+                ) : (
+                  <a
+                    href="/garagem-de-pneus-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.history.pushState(null, '', '/garagem-de-pneus-curitiba');
+                      window.dispatchEvent(new Event('popstate'));
+                    }}
+                    className="bg-white hover:bg-black hover:text-white text-gray-805 border border-gray-200 py-1.5 px-3 rounded-lg transition"
+                  >
+                    Estoque Completo ➔
+                  </a>
+                )}
+                <a
+                  href="/curitiba"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.history.pushState(null, '', '/curitiba');
+                    window.dispatchEvent(new Event('popstate'));
+                  }}
+                  className="bg-white hover:bg-black hover:text-white text-gray-805 border border-gray-200 py-1.5 px-3 rounded-lg transition"
+                >
+                  Busca por Bairros ➔
+                </a>
+              </div>
+            </div>
+
             {/* Add to reserve form layout */}
             <div className="border-t border-gray-200 pt-5 space-y-4">
               <div className="flex flex-col sm:flex-row items-center gap-3">

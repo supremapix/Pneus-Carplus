@@ -142,6 +142,11 @@ function generateSitemaps() {
     { loc: `${DOMAIN}/regiao-metropolitana`, priority: "0.9" },
     { loc: `${DOMAIN}/politica-privacidades`, priority: "0.3" },
     { loc: `${DOMAIN}/politica-devolucao`, priority: "0.3" },
+    { loc: `${DOMAIN}/oficina-do-pneu-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/garagem-de-pneus-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneus-pirelli-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/alinhamento-3d-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/blog`, priority: "0.8" },
   ];
   TIRES_DATA.forEach(t => {
     instUrls.push({ loc: `${DOMAIN}/pneu/${getTireSlug(t)}`, priority: "0.8" });
@@ -341,6 +346,102 @@ function runPrerendering() {
     desc: 'Selecione sua cidade na Região Metropolitana para pneus novos selecionados. Agende a montagem expressa em nosso Auto Center Portão na Av. Arthur Bernardes.',
     keywords: 'pneus rmc, pneus regiao metropolitana curitiba, pneus pinhais, pneus colombo, pneus sjp',
     schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness(), { "@type": "WebPage", "name": "Pneus RMC", "url": `${DOMAIN}/regiao-metropolitana` }] },
+    isIndexable: true
+  });
+
+  // New highly optimized landing / service pages
+  routes.push({
+    path: 'oficina-do-pneu-curitiba',
+    title: 'Oficina do Pneu Curitiba - Serviços e Borracharia de Alta Precisão | Carplus',
+    desc: 'Centro Automotivo em Curitiba especializado em troca de pneus, conserto de rodas, suspensão e freios. Ganhe bicos de borracha novos e montagem expressa de graça.',
+    keywords: 'oficina do pneu curitiba, borracharia curitiba, centro automotivo curitiba, conserto roda curitiba, pneu portao',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Oficina do Pneu Curitiba",
+          "url": `${DOMAIN}/oficina-do-pneu-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'garagem-de-pneus-curitiba',
+    title: 'Garagem de Pneus Curitiba - Amplo Estoque a Pronta Entrega | Carplus Pneus',
+    desc: 'A grande garagem de pneus de Curitiba. Amplo estoque de pneus novos Pirelli, Goodyear, Bridgestone, Delinte com bicos grátis e montagem em nosso box Portão.',
+    keywords: 'garagem de pneus curitiba, estoque de pneus curitiba, pneus pronta entrega, comprar pneu curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Garagem de Pneus Curitiba",
+          "url": `${DOMAIN}/garagem-de-pneus-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneus-pirelli-curitiba',
+    title: 'Pneus Pirelli em Curitiba - Concessionária Autorizada no Portão | Carplus',
+    desc: 'Buscando pneus Pirelli em Curitiba? Grade completa de medidas Cinturato P7, Scorpion e P-Zero. Montagem e bico de borracha gratuito em nossa rampa 3D no Portão.',
+    keywords: 'pneus pirelli curitiba, pirelli cinturato curitiba, pirelli scorpion curitiba, comprar pneu pirelli',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneus Pirelli Curitiba",
+          "url": `${DOMAIN}/pneus-pirelli-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'alinhamento-3d-curitiba',
+    title: 'Alinhamento 3D Curitiba - Prevenção de Desgaste e Geometria | Carplus',
+    desc: 'Alinhamento Computadorizado Tridimensional de alta precisão em Curitiba. Evite desgaste precoce de pneus e desvios nas retas. Equipamentos novos e precisos.',
+    keywords: 'alinhamento 3d curitiba, alinhamento e balanceamento curitiba, cambagem curitiba, caster suspensao',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Alinhamento 3D Curitiba",
+          "url": `${DOMAIN}/alinhamento-3d-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'blog',
+    title: 'Blog da Carplus Pneus - Manual de Dicas e Mecânica de Pneus | Carplus',
+    desc: 'Esclareça suas dúvidas técnicas sobre alinhamento 3D, indicador TWI, limites de segurança de pneus murchos e cuidados fundamentais no clima chuvoso de Curitiba.',
+    keywords: 'blog carplus, manual do pneu, calibragem curitiba, indicador twi, dicas suspensão',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Blog de Dicas Automotivas",
+          "url": `${DOMAIN}/blog`
+        }
+      ]
+    },
     isIndexable: true
   });
 

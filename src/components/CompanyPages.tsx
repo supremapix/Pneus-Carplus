@@ -113,10 +113,10 @@ const CARPLUS_EQUIPE_GALLERY = [
 ];
 
 interface CompanyPagesProps {
-  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho';
+  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   onNavigateHome: () => void;
-  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho') => void;
+  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog') => void;
   onSelectSeoTarget: (target: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; }) => void;
   onSelectRimFromSeo?: (rim: number | 'Todos') => void;
   onSelectBrandFromSeo?: (brand: string) => void;
@@ -2367,6 +2367,62 @@ export default function CompanyPages({
                   </div>
                 </div>
 
+                {/* 2. INTERNAL LINKING: CATEGORIAS -> SERVIÇOS */}
+                <div className="bg-yellow-500/5 border border-yellow-500/20 p-5 rounded-3xl space-y-3 text-xs text-left">
+                  <h4 className="font-extrabold text-[#f49e1a] uppercase tracking-wider font-mono">
+                    ➔ Centro Automotivo & Serviços Adicionais no Portão
+                  </h4>
+                  <p className="text-gray-700 leading-relaxed font-semibold">
+                    Se você está em <strong>{seoTarget.name}</strong> ou redondezas de Curitiba, agende junto aos seus pneus novos as revisões preventivas eletrônicas de geometria e rodagem em nossa loja sede:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                    <a
+                      href="/alinhamento-3d-curitiba"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.history.pushState(null, '', '/alinhamento-3d-curitiba');
+                        window.dispatchEvent(new Event('popstate'));
+                      }}
+                      className="bg-white hover:bg-black hover:text-white text-gray-800 border border-gray-200 p-3 rounded-xl transition font-medium flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="font-black text-gray-950 block uppercase font-mono mb-1">Geometria 3D</span>
+                        <span className="text-[10px] text-gray-500 block leading-snug">Preserve a banda de rodagem com o Alinhamento Computadorizado Tridimensional ➔</span>
+                      </div>
+                    </a>
+
+                    <a
+                      href="/oficina-do-pneu-curitiba"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.history.pushState(null, '', '/oficina-do-pneu-curitiba');
+                        window.dispatchEvent(new Event('popstate'));
+                      }}
+                      className="bg-white hover:bg-black hover:text-white text-gray-800 border border-gray-200 p-3 rounded-xl transition font-medium flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="font-black text-gray-950 block uppercase font-mono mb-1">Oficina & Suspensão</span>
+                        <span className="text-[10px] text-gray-500 block leading-snug">Revisão rigorosa de amortecedores, molas, pastilhas e buchas com bicos novos grátis ➔</span>
+                      </div>
+                    </a>
+
+                    <a
+                      href="/pneus-pirelli-curitiba"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.history.pushState(null, '', '/pneus-pirelli-curitiba');
+                        window.dispatchEvent(new Event('popstate'));
+                      }}
+                      className="bg-white hover:bg-black hover:text-white text-gray-800 border border-gray-200 p-3 rounded-xl transition font-medium flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="font-black text-gray-950 block uppercase font-mono mb-1">Pirelli Especialista</span>
+                        <span className="text-[10px] text-gray-500 block leading-snug">Explore as especificações das séries Cinturato, Scorpion e P-Zero no estoque ➔</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
                 {/* Bottom Actions direct triggers */}
                 <div className="bg-gray-150 border-2 border-gray-200 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-inner">
                   <div className="text-center sm:text-left">
@@ -2395,6 +2451,788 @@ export default function CompanyPages({
                   </div>
                 </div>
 
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* 1. OFICINA DO PNEU CURITIBA LAYOUT */}
+        {view === 'oficina-do-pneu-curitiba' && (() => {
+          const [selectedSymptom, setSelectedSymptom] = useState<string | null>(null);
+          
+          const symptoms = [
+            {
+              id: 'puxando',
+              label: 'Carro puxando para a esquerda/direita',
+              diagnostic: 'Divergência ou câmber desequilibrado. Necessita de Alinhamento 3D corretivo.',
+              tip: 'Rodar assim gasta rapidamente o flanco interno de um dos pneus.'
+            },
+            {
+              id: 'tremendo',
+              label: 'Volante vibrando acima de 80 km/h',
+              diagnostic: 'Desbalanceamento das rodas dianteiras ou traseiras. Necessita de Balanceamento Computadorizado.',
+              tip: 'Pode danificar os rolamentos e buchas de balança a médio prazo.'
+            },
+            {
+              id: 'estalo',
+              label: 'Ruídos ou estalos secos ao esterçar',
+              diagnostic: 'Folga em juntas homocinéticas, buchas ou pivô de bandeja. Recomenda-se vistoria física suspensa.',
+              tip: 'Item crítico de segurança ativa do veículo!'
+            },
+            {
+              id: 'gasto_torto',
+              label: 'Pneu com desgaste irregular ("escamado" ou liso nos cantos)',
+              diagnostic: 'Sintoma clássico de suspensão frouxa, pressão incorreta ou geometria desalinhada.',
+              tip: 'Inverter os pneus de lado ajuda temporariamente, mas o alinhamento é mandatório.'
+            }
+          ];
+
+          const matchedSymptom = symptoms.find(s => s.id === selectedSymptom);
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans">
+              <div className="text-center space-y-3">
+                <span className="bg-yellow-500/10 text-yellow-650 font-mono font-black text-[10px] uppercase px-3.5 py-1.5 rounded-full border border-yellow-500/25">
+                  Centro Especializado Portão
+                </span>
+                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight uppercase font-mono">
+                  Oficina do Pneu Curitiba
+                </h1>
+                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+                  Revisão completa de montagem, borracharia técnica computadorizada, suspensão, freios, alinhamento 3D e balanceamento com total precisão de fábrica.
+                </p>
+              </div>
+
+              {/* Banner / Visual */}
+              <div className="bg-gradient-to-r from-gray-900 to-gray-800 p-6 sm:p-8 rounded-3xl text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="space-y-3 text-left">
+                  <span className="font-mono text-yellow-500 uppercase tracking-widest text-xs font-black">Instalação Expressa</span>
+                  <h2 className="text-xl sm:text-2xl font-black uppercase font-mono">Bicos de Borracha e Montagem de Graça</h2>
+                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-md font-medium">
+                    Ao adquirir seus pneus novos na Carplus, nós realizamos a montagem técnica computadorizada e damos as válvulas novas gratuitamente em nossa oficina física na Arthur Bernardes.
+                  </p>
+                </div>
+                <img 
+                  src="https://www.carpluspneuseoficina.com.br/images/galeria/oficina-carros.webp" 
+                  alt="Oficina Carplus Portão"
+                  className="w-full md:w-56 h-36 object-cover rounded-2xl border border-white/10"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              {/* Bento Grid Features */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-2">
+                  <Wrench className="w-6 h-6 text-yellow-500" />
+                  <h3 className="text-sm font-black uppercase font-mono text-gray-900">Maquinário Moderno</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Desmontadoras pneumáticas macias e elevadores táticos que protegem a longarina do seu veículo e previnem riscos nas rodas de liga leve.
+                  </p>
+                </div>
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-2">
+                  <Users className="w-6 h-6 text-yellow-500" />
+                  <h3 className="text-sm font-black uppercase font-mono text-gray-900">Especialistas Treinados</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Nossos profissionais mecânicos realizam diagnóstico transparente, mapeando desgastes de forma honesta, sem falsos alarmes ou surpresas.
+                  </p>
+                </div>
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-2">
+                  <ShieldCheck className="w-6 h-6 text-yellow-500" />
+                  <h3 className="text-sm font-black uppercase font-mono text-gray-900">Garantia e Segurança</h3>
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    Garantia integral em todos os serviços efetuados. Utilizamos apenas peças automotivas homologadas com selo oficial de rastreabilidade.
+                  </p>
+                </div>
+              </div>
+
+              {/* Interactive Symptom Simulator */}
+              <div className="bg-gray-100 border border-gray-200 p-6 rounded-3xl space-y-4">
+                <div className="space-y-1">
+                  <h3 className="text-base font-black text-gray-900 uppercase font-mono flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-yellow-650" />
+                    Simulador de Diagnóstico Rápido Carplus
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Seu veículo apresenta algum comportamento estranho? Selecione abaixo e veja o pré-diagnóstico técnico recomendado:
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {symptoms.map(s => (
+                    <button
+                      key={s.id}
+                      onClick={() => setSelectedSymptom(s.id)}
+                      className={`text-left p-3.5 rounded-xl border text-xs font-bold transition flex items-center justify-between cursor-pointer ${
+                        selectedSymptom === s.id
+                          ? 'bg-black text-white border-black'
+                          : 'bg-white text-gray-800 border-gray-200 hover:border-gray-400'
+                      }`}
+                    >
+                      <span>{s.label}</span>
+                      <ChevronRight className="w-4 h-4 text-yellow-500 shrink-0" />
+                    </button>
+                  ))}
+                </div>
+
+                {matchedSymptom && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-yellow-500/10 border border-[#f49e1a]/25 p-4 rounded-xl space-y-2 text-xs"
+                  >
+                    <p className="font-extrabold text-yellow-850 uppercase font-mono">
+                      ➔ DIAGNÓSTICO ESTIMADO: {matchedSymptom.diagnostic}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      <strong>Recomendação técnica:</strong> {matchedSymptom.tip}
+                    </p>
+                    <div className="pt-2">
+                      <a
+                        href={formatWhatsApp(`Olá Carplus Curitiba! Meu carro está com o comportamento "${matchedSymptom.label}". Gostaria de agendar uma inspeção em seu centro automotivo.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block bg-black text-white hover:bg-[#f49e1a] hover:text-black font-mono font-black text-[10px] uppercase py-2 px-4 rounded-lg transition"
+                      >
+                        Agendar Inspeção Gratuita via WhatsApp ➔
+                      </a>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Final CTA */}
+              <div className="bg-yellow-500/5 border border-yellow-500/15 p-6 rounded-3xl text-center space-y-3">
+                <h3 className="text-lg font-black uppercase font-mono text-gray-900">Agende sua Visita no Portão</h3>
+                <p className="text-xs text-gray-600 max-w-md mx-auto leading-relaxed font-semibold">
+                  Avenida Arthur Bernardes, 1323. Traga seu veículo para um check-up gratuito sem compromisso. Nossa equipe está de prontidão com ferramentas de última geração.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+                  <button 
+                    onClick={onNavigateHome}
+                    className="border border-gray-300 hover:bg-gray-100 font-extrabold text-xs uppercase px-5 py-3 rounded-xl transition cursor-pointer bg-white"
+                  >
+                    Ir para Início
+                  </button>
+                  <a 
+                    href={formatWhatsApp("Olá Carplus Curitiba! Vi a página Oficina do Pneu e gostaria de solicitar um orçamento para alinhamento 3D e balanceamento.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black text-xs uppercase px-6 py-3.5 rounded-xl transition border border-black cursor-pointer inline-flex items-center gap-2"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    Falar via WhatsApp
+                  </a>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* 2. GARAGEM DE PNEUS CURITIBA */}
+        {view === 'garagem-de-pneus-curitiba' && (() => {
+          const [brandFilter, setBrandFilter] = useState<'Todos' | 'Pirelli' | 'Michelin' | 'Goodyear' | 'Bridgestone' | 'Delinte'>('Todos');
+          const [rimFilter, setRimFilter] = useState<'Todos' | '14' | '15' | '16' | '17' | '18' | '19'>('Todos');
+
+          const filteredTires = TIRES_DATA.filter(t => {
+            const matchBrand = brandFilter === 'Todos' || t.brand.toLowerCase() === brandFilter.toLowerCase();
+            const matchRim = rimFilter === 'Todos' || String(t.rim) === rimFilter;
+            return matchBrand && matchRim;
+          });
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
+              <div className="text-center space-y-2">
+                <span className="bg-yellow-500 text-gray-950 font-mono font-black text-[9px] uppercase px-3 py-1 rounded inline-block">
+                  Pronta Entrega Imediata
+                </span>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
+                  Garagem de Pneus Curitiba
+                </h1>
+                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-xs sm:text-sm">
+                  Temos o maior e mais variado estoque de pneus novos com montagem rápida no Portão. Compare as marcas lendárias Pirelli, Goodyear, Bridgestone, Michelin de forma justa e garanta frete ou instalação grátis.
+                </p>
+              </div>
+
+              {/* Stock info box */}
+              <div className="bg-gray-150 border border-gray-350 p-5 rounded-2xl flex flex-col sm:flex-row items-center gap-4 text-xs">
+                <Flame className="w-8 h-8 text-yellow-600 shrink-0 animate-pulse" />
+                <p className="text-gray-700 leading-relaxed text-justify font-bold uppercase font-mono">
+                  ➔ ESTOQUE ATUALIZADO: Rodando com pneus seguros e de alta performance. Reservando pelo site, garantimos seu horário exclusivo para instalação mecânica em nossa estufa física e bicos novos grátis.
+                </p>
+              </div>
+
+              {/* Filters UI */}
+              <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase text-gray-500 tracking-wider block font-mono">Filtro por Marca Especialista</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['Todos', 'Pirelli', 'Michelin', 'Goodyear', 'Bridgestone', 'Delinte'].map(b => (
+                      <button
+                        key={b}
+                        onClick={() => setBrandFilter(b as any)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-extrabold border transition cursor-pointer ${
+                          brandFilter === b 
+                            ? 'bg-black text-white border-black' 
+                            : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-gray-400'
+                        }`}
+                      >
+                        {b}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black uppercase text-gray-500 tracking-wider block font-mono">Filtro por Diâmetro (Aro)</label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {['Todos', '14', '15', '16', '17', '18', '19'].map(r => (
+                      <button
+                        key={r}
+                        onClick={() => setRimFilter(r as any)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-extrabold border transition cursor-pointer ${
+                          rimFilter === r 
+                            ? 'bg-black text-white border-black' 
+                            : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-gray-400'
+                        }`}
+                      >
+                        {r === 'Todos' ? 'Todos' : `R${r}`}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Dynamic Tire Grid representation */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+                  <h3 className="text-sm font-black uppercase font-mono text-gray-950">Medidas Disponíveis na Garagem ({filteredTires.length})</h3>
+                  <span className="text-[10px] text-gray-500 font-bold uppercase font-mono">Montagem Expressa inclusa</span>
+                </div>
+
+                {filteredTires.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {filteredTires.map((tire, index) => (
+                      <div key={tire.id || index} className="bg-white border border-gray-200 p-4 rounded-2xl flex gap-4 items-center shadow-sm relative hover:border-[#f49e1a]/50 transition duration-300">
+                        <img 
+                          src={tire.image || "https://www.carpluspneuseoficina.com.br/images/galeria/troca-pneu.webp"} 
+                          alt={tire.name} 
+                          className="w-20 h-20 object-contain p-1 shrink-0 bg-gray-50 rounded-xl"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="flex-1 space-y-1 text-left min-w-0">
+                          <span className="bg-gray-900 text-white font-mono font-black text-[8px] uppercase px-1.5 py-0.5 rounded">
+                            {tire.brand}
+                          </span>
+                          <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
+                          <p className="text-xs text-gray-500 font-semibold font-mono tracking-wide">{tire.width}/{tire.aspectRatio} R{tire.rim} {tire.loadIndex}{tire.speedRating}</p>
+                          <div className="flex items-center gap-2 pt-1">
+                            <span className="font-mono font-black text-sm text-yellow-650">R$ {tire.promoPrice || tire.price}</span>
+                            {tire.promoPrice && <span className="text-[10px] text-gray-400 line-through font-mono">R$ {tire.price}</span>}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1 shrink-0">
+                          <button
+                            onClick={() => {
+                              if (onAddToCart) {
+                                onAddToCart(tire, 1);
+                              }
+                            }}
+                            className="bg-black hover:bg-yellow-500 hover:text-black text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
+                          >
+                            Carrinho
+                          </button>
+                          <a
+                            href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de reservar o pneu ${tire.brand} ${tire.model} medida ${tire.width}/${tire.aspectRatio} R${tire.rim} de R$ ${tire.promoPrice || tire.price} pelo WhatsApp.`)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 border border-black/10 text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
+                          >
+                            Whats
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-yellow-500/5 border border-yellow-500/10 p-10 rounded-2xl text-center space-y-2">
+                    <p className="font-black text-sm text-gray-900 uppercase font-mono">Nenhum Pneu Filtro Encontrado</p>
+                    <p className="text-xs text-gray-600 max-w-sm mx-auto">Mas podemos faturar essa medida direto do atacado com até 24 horas. Fale com um consultor!</p>
+                    <a
+                      href={formatWhatsApp("Olá Carplus! Gostaria de verificar pneus novos sob consulta de estoque.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-black text-white hover:bg-yellow-500 hover:text-gray-950 font-mono font-black text-xs uppercase px-4 py-2.5 rounded-xl transition inline-block cursor-pointer"
+                    >
+                      Verificar via WhatsApp ➔
+                    </a>
+                  </div>
+                )}
+
+                {/* 3. INTERNAL LINKING: SERVICES -> BLOG */}
+                <div className="bg-[#f49e1a]/5 border border-[#f49e1a]/15 p-5 rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 text-xs mt-8 text-left">
+                  <div className="space-y-0.5">
+                    <span className="font-mono text-[9px] text-[#f49e1a] uppercase font-black tracking-widest block">Dica Técnica de Segurança</span>
+                    <p className="font-extrabold text-gray-950 uppercase">Como verificar o desgaste crítico do seu pneu através do TWI?</p>
+                    <p className="text-gray-550 leading-relaxed font-semibold">Mostramos em nosso blog como localizar os pequenos relevos no pneu e evitar ser penalizado em blitze.</p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      onNavigateToPage('blog');
+                    }}
+                    className="bg-black hover:bg-[#f49e1a] hover:text-black text-white font-extrabold px-4 py-2.5 rounded-xl transition shrink-0 uppercase font-mono text-[10px]"
+                  >
+                    Ver Guia TWI ➔
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* 3. PNEUS PIRELLI CURITIBA */}
+        {view === 'pneus-pirelli-curitiba' && (() => {
+          const pirelliTires = TIRES_DATA.filter(t => t.brand.toLowerCase() === 'pirelli');
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
+              <div className="text-center space-y-2">
+                <span className="bg-red-600 text-white font-mono font-bold text-[9px] uppercase px-3.5 py-1.5 rounded inline-block tracking-widest">
+                  Pirelli Premium
+                </span>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
+                  Pneus Pirelli Curitiba
+                </h1>
+                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm">
+                  Adquira pneus Pirelli originais novos Cinturato, Scorpion e P-Zero. Garantia oficial de 5 anos de fábrica contra defeitos, bicos novos de borracha e instalação computadorizada grátis em nosso autocenter no Portão.
+                </p>
+              </div>
+
+              {/* Informational Column Copy */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-3xl border border-gray-200 shadow-sm text-xs sm:text-sm">
+                <div className="space-y-3">
+                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Cinturato & Scorpion</h3>
+                  <p className="text-gray-700 leading-relaxed text-justify">
+                    A Pirelli é líder em homologação original para veículos sofisticados. A linha <strong>Cinturato</strong> oferece excepcional rendimento quilométrico e excelente frenagem no solo molhado, ótimo para as constantes chuvas de Curitiba. Já a linha <strong>Scorpion</strong> foi rigorosamente pensada para SUVs e picapes robustos, garantindo tração firme e baixíssimo ruído interno.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Benefícios Exclusivos Carplus</h3>
+                  <p className="text-gray-700 leading-relaxed text-justify">
+                    Reservando seus pneus Pirelli novos de forma online, garantimos a você a montagem expressa computadorizada de alta precisão e as válvulas de ar inteiramente gratuitas. Nosso pátio do Portão conta com elevadores pantográficos calibrados e equipe homologada para atendimento de automóveis importados e esportivos.
+                  </p>
+                </div>
+              </div>
+
+              {/* Pirelli Tires List */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-black uppercase font-mono text-gray-950 border-b border-gray-200 pb-2 text-left">Pneus Pirelli em Destaque no Estoque</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {pirelliTires.map((tire, idx) => (
+                    <div key={tire.id || idx} className="bg-white border border-gray-200 p-4 rounded-2xl flex gap-4 items-center shadow-sm hover:border-red-500/40 transition duration-300">
+                      <img 
+                        src={tire.image || "https://www.carpluspneuseoficina.com.br/images/galeria/troca-pneu.webp"} 
+                        alt={tire.name} 
+                        className="w-20 h-20 object-contain p-1 shrink-0 bg-gray-50 rounded-xl"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="flex-1 space-y-0.5 text-left min-w-0">
+                        <span className="bg-red-600 text-white font-mono font-bold text-[8px] uppercase px-1.5 py-0.5 rounded">
+                          PIRELLI
+                        </span>
+                        <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
+                        <p className="text-xs text-gray-500 font-semibold font-mono">{tire.width}/{tire.aspectRatio} R{tire.rim} {tire.loadIndex}{tire.speedRating}</p>
+                        <span className="font-mono font-black text-sm text-yellow-650 block pt-1">R$ {tire.promoPrice || tire.price}</span>
+                      </div>
+
+                      <div className="flex flex-col gap-1 shrink-0">
+                        <button
+                          onClick={() => {
+                            if (onAddToCart) {
+                              onAddToCart(tire, 1);
+                            }
+                          }}
+                          className="bg-black hover:bg-yellow-500 hover:text-black text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition cursor-pointer"
+                        >
+                          Carrinho
+                        </button>
+                        <a
+                          href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de reservar o pneu Pirelli ${tire.model} de medida ${tire.width}/${tire.aspectRatio} R${tire.rim} que vi no site.`)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 border border-black/10 text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
+                        >
+                          WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 3. INTERNAL LINKING: SERVICES -> BLOG */}
+              <div className="bg-yellow-500/5 border border-yellow-500/15 p-5 rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 text-xs mt-6 text-left">
+                <div className="space-y-0.5">
+                  <span className="font-mono text-[9px] text-[#f49e1a] uppercase font-black tracking-widest block">Conteúdo Recomendado do Blog</span>
+                  <p className="font-extrabold text-gray-950 uppercase">O Clima de Curitiba e Seus Pneus: Cuidados fundamentais</p>
+                  <p className="text-gray-550 leading-relaxed font-semibold">Explicamos como as bruscas oscilações térmicas e chuvas frequentes afetam a calibragem dos compostos Pirelli.</p>
+                </div>
+                <button
+                  onClick={() => {
+                    onNavigateToPage('blog');
+                  }}
+                  className="bg-black hover:bg-[#f49e1a] hover:text-black text-white font-extrabold px-4 py-2.5 rounded-xl transition shrink-0 uppercase font-mono text-[10px]"
+                >
+                  Ler Artigo ➔
+                </button>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* 4. ALINHAMENTO 3D CURITIBA */}
+        {view === 'alinhamento-3d-curitiba' && (() => {
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
+              <div className="text-center space-y-2">
+                <span className="bg-yellow-500/10 text-yellow-650 font-mono font-black text-[10px] uppercase px-3.5 py-1.5 rounded-full border border-yellow-500/25">
+                  Tecnologia e Precisão Computadorizada
+                </span>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
+                  Alinhamento 3D Curitiba
+                </h1>
+                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm">
+                  Restabeleça as tolerâncias milimétricas originais do fabricante com nossa rampa computadorizada de Alinhamento Tridimensional no bairro Portão. Garanta a dirigibilidade exata e preserve a borracha dos pneus novos.
+                </p>
+              </div>
+
+              {/* Structured explanation of 3D technology */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-3xl border border-gray-250 items-center justify-between">
+                <div className="space-y-4">
+                  <h3 className="text-base font-black uppercase text-gray-950 font-mono border-l-4 border-yellow-500 pl-3 leading-tight">O que é Geometria Computadorizada 3D?</h3>
+                  <p className="text-xs sm:text-sm text-gray-705 leading-relaxed text-justify font-medium">
+                    Ao contrário do alinhamento óptico manual tradicional, o <strong>Alinhamento 3D</strong> utiliza garras reflexivas especiais fixadas nas rodas que interagem em tempo real com modernos projetores e sensores de laser infravermelho. O software decodifica a posição tridimensional do carro e a compara contra a biblioteca de tolerância oficial de caster, câmber e convergência atualizada diretamente das montadoras de veículos.
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-705 leading-relaxed text-justify font-semibold">
+                    Evitamos esforços do volante nas retas, reduzimos o arrasto prejudicial dos sulcos de pneu na asfalto, e aumentamos consideravelmente a durabilidade dos seus pneus e juntas homocinéticas da caixa mecânica de direção.
+                  </p>
+                </div>
+                <img 
+                  src="https://www.carpluspneuseoficina.com.br/images/galeria/alinhamento-jeep.webp" 
+                  alt="Alinhamento Jeep Compass em Curitiba"
+                  className="w-full h-56 object-cover rounded-2xl border border-gray-200"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              {/* Step-by-Step Box */}
+              <div className="bg-gray-100 p-6 rounded-3xl border border-gray-200 space-y-4">
+                <h3 className="text-sm font-black text-gray-900 uppercase font-mono text-center">Processo Técnico Rigoroso Carplus</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
+                  <div className="bg-white p-4 rounded-xl border border-gray-150 space-y-1">
+                    <span className="font-mono font-black text-yellow-500">Passo 01</span>
+                    <h4 className="font-extrabold text-gray-950 uppercase">Mapeamento Geométrico</h4>
+                    <p className="text-[11px] text-gray-650 leading-relaxed text-justify">
+                      Colocamos os alvos de leitura reflexiva e medimos em segundos as deformidades angulares do chassi do veículo.
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-gray-150 space-y-1">
+                    <span className="font-mono font-black text-yellow-500">Passo 02</span>
+                    <h4 className="font-extrabold text-gray-950 uppercase">Configuração Milimétrica</h4>
+                    <p className="text-[11px] text-gray-650 leading-relaxed text-justify">
+                      Nossos técnicos experientes giram os tensores com ferramentas calibradas regulando converge/diverge até as barras ficarem perfeitamente centralizadas.
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-xl border border-gray-150 space-y-1">
+                    <span className="font-mono font-black text-yellow-500">Passo 03</span>
+                    <h4 className="font-extrabold text-gray-950 uppercase">Balanceamento Final</h4>
+                    <p className="text-[11px] text-gray-650 leading-relaxed text-justify">
+                      Adicionamos os contrapesos corretivos na máquina rotadora de balanceamento para anular descompensação dinâmica acima de 80 km/h.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. INTERNAL LINKING: SERVICES -> BLOG */}
+              <div className="bg-yellow-500/5 border border-yellow-500/15 p-5 rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 text-xs mt-4 text-left font-sans">
+                <div className="space-y-0.5">
+                  <span className="font-mono text-[9px] text-[#f49e1a] uppercase font-black tracking-widest block font-bold">Artigo Editorial Do Blog</span>
+                  <p className="font-extrabold text-gray-950 uppercase">Alinhamento 3D vs Alinhamento Convencional: Qual escolher?</p>
+                  <p className="text-gray-550 leading-relaxed font-semibold">Explicamos cientificamente as diferenças tecnológicas para proteger as rodas e poupar combustível.</p>
+                </div>
+                <button
+                  onClick={() => {
+                    onNavigateToPage('blog');
+                  }}
+                  className="bg-black hover:bg-[#f49e1a] hover:text-black text-white font-extrabold px-4 py-2.5 rounded-xl transition shrink-0 uppercase font-mono text-[10px]"
+                >
+                  Ler Artigo ➔
+                </button>
+              </div>
+
+              {/* Call to action */}
+              <div className="bg-yellow-500/5 border border-yellow-500/15 p-6 rounded-3xl text-center space-y-3 font-sans">
+                <h3 className="text-lg font-black uppercase font-mono text-gray-950">Gostaria de agendar o Alinhamento de seu Veículo?</h3>
+                <p className="text-xs text-gray-650 max-w-xl mx-auto leading-relaxed font-bold">
+                  Não rodar torto prolonga a vida útil da sua suspensão e poupa em até 10% no consumo médio de combustível do tanque! Venha ao Portão.
+                </p>
+                <div className="flex flex-wrap gap-3 items-center justify-center pt-2">
+                  <button
+                    onClick={onNavigateHome}
+                    className="bg-white border border-gray-300 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl cursor-pointer hover:bg-gray-50"
+                  >
+                    Voltar ao Início
+                  </button>
+                  <a
+                    href={formatWhatsApp("Olá Carplus Curitiba! Gostaria de agendar um Alinhamento Computadorizado 3D e Balanceamento na Avenida Arthur Bernardes.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black text-xs uppercase px-6 py-3.5 rounded-xl transition border border-black cursor-pointer shadow-sm"
+                  >
+                    Agendar Alinhamento ➔
+                  </a>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* 5. DYNAMIC BLOG AND READ-POST VIEWS */}
+        {view === 'blog' && (() => {
+          const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
+
+          const articles = [
+            {
+              id: 1,
+              title: "Alinhamento 3D vs Alinhamento Convencional: Qual a real diferença?",
+              date: "12 de Junho, 2026",
+              category: "Manutenção Preventiva",
+              summary: "Descubra como projetores tridimensionais de laser trazem precisão milimétrica incomparável frente aos painéis ópticos de antigamente, prolongando a vida dos pneus.",
+              image: "https://www.carpluspneuseoficina.com.br/images/galeria/alinhamento-jeep.webp",
+              content: `
+O alinhamento e a geometria das rodas do seu automóvel são fatores fundamentais para garantir uma condução suave, estável e livre de perigos, além de impedir o desgaste irregular das bandas de rodagem. No entanto, muitos motoristas ainda hesitam quando chegam ao auto center e são confrontados entre escolher o alinhamento óptico convencional e o moderno **Alinhamento Tridimensional (3D)** computadorizado.
+
+## O Que é o Alinhamento Convencional?
+No método tradicional, projetores de luz ou painéis óticos magnéticos são manualmente ancorados aos flanges de ferro da roda. O alinhador de pista ajusta os ângulos baseando-se em indicações analógicas visuais projetadas na parede da oficina. Embora funcional para reparos simples de urgência, esse sistema analógico está sujeito a acidentes mecânicos de calibragem, pequenas deformações nas pinças e, principalmente, à paralaxe humana de posicionamento do visor.
+
+## A Revolução Científica do Alinhamento 3D
+No Alinhamento 3D de última geração, garras reflexivas dotadas de alvos fotossensíveis são acopladas aos pneus de forma muito sutil, sem gerar riscos no acabamento diamantado de suas rodas de liga leve. Câmeras infravermelhas de varredura industrial leem as coordenadas desses alvos em tempo real e criam um modelo virtual perfeito do comportamento geométrico tridimensional do veículo.
+
+O computador compara esse mapa contra a gigantesca base de dados de fábrica, indicando com tolerância decimal exatamente quanto girar nas porcas dos tirantes de direção, barra de torção e braços oscilantes.
+
+## Benefícios Práticos Inegáveis:
+1. **Conservação da Banda de Rodagem:** O alinhamento perfeito impede o arraste perpendicular da borracha contra o asfalto por desalinhamento, estendendo a vida útil dos pneus em até 30%.
+2. **Economia em Abastecimento:** Menos atrito e resistência de rolagem reduzem o esforço do motor, poupando combustível valioso nas ruas de Curitiba.
+3. **Integridade de Peças Complexas:** Impede o estresse prematuro de pivôs de bandeja, terminais axiais e buchas.
+
+Na Carplus Pneus Portão, nossa rampa de Alinhamento 3D é constantemente auditada e calibrada de acordo com as especificações exigidas por montadoras premium. Agende hoje mesmo seu exame sem compromisso!
+              `
+            },
+            {
+              id: 2,
+              title: "TWI do Pneu: Como identificar pneus carecas e evitar multas severas",
+              date: "05 de Junho, 2026",
+              category: "Legislação e Segurança",
+              summary: "Aprenda a inspecionar os indicadores TWI incorporados nos sulcos dos pneus novos. Garanta aderência no solo molhado sob as rígidas chuvas de Curitiba.",
+              image: "https://www.carpluspneuseoficina.com.br/images/galeria/troca-pneu.webp",
+              content: `
+O asfalto de Curitiba e região metropolitana sofre constantemente com chuvas repentinas, deixando as pistas da Linha Verde e das avenidas rápidas escorregadias em questão de minutos. Por isso, rodar com pneus dotados de profundidade adequada nos sulcos não é apenas uma questão de evitar multas pesadas de trânsito — é uma necessidade de segurança ativa e preservação da vida contra aquaplanagens.
+
+## O Que Significa a Sigla TWI?
+A sigla **TWI** (Tread Wear Indicator, ou Indicador de Desgaste da Banda de Rodagem) refere-se a pequenos blocos transversais de borracha sólida posicionados de forma estratégica no fundo dos sulcos principais do pneu. Eles servem de medição científica para estipular o desgaste do composto de carbono ativo.
+
+Para localizar o TWI em seu automóvel, basta observar a lateral do pneu perto da junção da banda. Há pequenas setas estampadas, triângulos pequenos ou a própria inscrição em relevo "TWI".
+
+## Como Fazer a Medição Correta?
+Quando a banda de rodagem gasta até atingir o mesmo nível desses blocos do TWI, o pneu atingiu o limite legal crítico estabelecido por lei: **1,6 milímetros de profundidade**. A partir deste momento, a capacidade de escoar a lâmina de água de chuva reduz drasticamente, tornando as manobras evasivas perigosas.
+
+## Implicações Legais no Código de Trânsito Brasileiro (CTB)
+Conduzir veículo com pneu abaixo do limite legal é uma infração considerada grave pelo Artigo 230 do CTB. Resulta em:
+- Perda de 5 pontos na carteira nacional de habilitação (CNH).
+- Multa pecuniária significativa por pneu em desacordo.
+- Retenção imediata do veículo para regularização de segurança.
+
+## Diferenciais da Borracharia Técnica Carplus Curitiba:
+Substituímos bicos ressecados por novos inteiramente comuns de borracha premium gratuitas na montagem computadorizada na Arthur Bernardes. Mapeamos as ranhuras e apresentamos soluções reais em pneus homologados originais Pirelli, Delinte, Goodyear, Bridgestone com faturamento ágil e facilitado.
+              `
+            },
+            {
+              id: 3,
+              title: "O Clima de Curitiba e Seus Pneus: Cuidados fundamentais no frio e umidade",
+              date: "28 de Maio, 2026",
+              category: "Dicas de Direção",
+              summary: "As baixas temperaturas de inverno afetam diretamente a pressão do ar nos talões dos pneus. Entenda as pressões recomendadas para dias frios e úmidos.",
+              image: "https://www.carpluspneuseoficina.com.br/images/galeria/montagem-pneu.webp",
+              content: `
+Quem reside ou transita de carro pelas ruas de Curitiba conhece bem a instabilidade térmica que define nosso clima regional automotivo. Em um único dia, podemos encarar frio intenso na parte da manhã, calor moderado à tarde e chuva torrencial no retorno para casa. No entanto, poucos conhecem o impacto real que a oscilação de temperatura externa gera no interior do pneu do seu veículo.
+
+## A Física por Trás da Calibragem
+O ar atmosférico é composto por gases que se expandem com o calor e se contraem sob temperaturas geladas de inverno. Na prática automotiva, para cada **5°C de redução** nos termômetros da cidade de Curitiba, a pressão estática interna do seu pneu diminui em cerca de **1 PSI** (libra de pressão por polegada).
+
+Se você calibrou seus pneus há algumas semanas em um dia ensolarado e a temperatura caiu drasticamente no inverno, a borracha poderá estar subcalibrada pela manhã e rodar gerando desgaste lateral precoce.
+
+## Problemas Clássicos da Subcalibragem:
+1. **Desgaste Prematuro nos Ombros:** Pneus murchos dobram mais suas laterais, acelerando a deterioração dos ombros e diminuindo em milhares de quilômetros sua vida útil.
+2. **Perigo de Aquaplanagem:** Com menor pressão, a área de contato útil no asfalto molhado central se retira, de forma a elevar a chance de escorregar sobre poças de água.
+3. **Consumo de Combustível Maior:** Pneus mais moles elevam a área de atrito ativo, exercendo maior resistência e demandando força mecânica adicional do motor.
+
+## A Importância de Calibrar a Frio
+Efetue a aferição de calibragem sempre pela manhã ou tendo rodado menos de 3 quilômetros até nossa autocenter física Carplus. Isso garante que a leitura dos sensores represente a pressão real de repouso físico sem influência térmica da rolagem.
+
+Nossa equipe no Portão está equipada com calibradores digitais auditados e precisos. Passe em nossa ampla garagem no Portão para calibrar seus pneus Pirelli, Goodyear ou importados inteiramente de graça e ganhe maior durabilidade!
+              `
+            }
+          ];
+
+          const activePost = articles.find(a => a.id === selectedArticleId);
+
+          if (activePost) {
+            return (
+              <div className="max-w-3xl mx-auto px-4 py-8 space-y-6 animate-fade-in font-sans text-left text-gray-900 leading-relaxed text-xs sm:text-sm">
+                <button
+                  onClick={() => setSelectedArticleId(null)}
+                  className="flex items-center gap-1.5 text-xs font-black uppercase text-gray-500 hover:text-black transition cursor-pointer font-mono"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Voltar para Artigos do Blog
+                </button>
+
+                <div className="space-y-3">
+                  <span className="bg-yellow-500 text-gray-950 font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded inline-block">
+                    {activePost.category}
+                  </span>
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-gray-900 font-mono leading-tight tracking-tight">
+                    {activePost.title}
+                  </h1>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase font-mono tracking-wider">
+                    Carplus Autocenter | Publicado em {activePost.date}
+                  </p>
+                </div>
+
+                <div className="border border-gray-200 rounded-3xl overflow-hidden shadow-sm h-64 sm:h-80 bg-gray-150">
+                  <img 
+                    src={activePost.image} 
+                    alt={activePost.title} 
+                    className="w-full h-full object-cover opacity-95"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+
+                {/* Formatted Article Body */}
+                <div className="space-y-4 text-justify font-sans text-gray-750 font-medium">
+                  {activePost.content.split('\n\n').map((paragraph, pIdx) => {
+                    const cleanP = paragraph.trim();
+                    if (!cleanP) return null;
+
+                    if (cleanP.startsWith('##')) {
+                      return (
+                        <h2 key={pIdx} className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono pt-4 border-b border-gray-150 pb-1 text-left">
+                          {cleanP.replace('##', '').trim()}
+                        </h2>
+                      );
+                    }
+
+                    if (cleanP.startsWith('1.') || cleanP.startsWith('*')) {
+                      return (
+                        <ul key={pIdx} className="list-disc pl-5 space-y-1 my-2">
+                          {cleanP.split('\n').map((li, lIdx) => (
+                            <li key={lIdx} className="text-xs sm:text-sm text-gray-700 leading-relaxed text-justify">
+                              {li.replace(/^(\d+\.|\*)/, '').trim()}
+                            </li>
+                          ))}
+                        </ul>
+                      );
+                    }
+
+                    return (
+                      <p key={pIdx} className="text-xs sm:text-sm text-gray-700 leading-relaxed text-justify">
+                        {cleanP.replace(/\*\*/g, '')}
+                      </p>
+                    );
+                  })}
+                </div>
+
+                {/* Article CTA */}
+                <div className="border-t border-gray-150 pt-6 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="text-left space-y-0.5">
+                    <p className="text-xs font-black text-gray-900 uppercase">Gostou da leitura técnica e quer tirar dúvidas?</p>
+                    <p className="text-[10px] text-gray-500 font-medium">Peça orçamento ou agende montagem expressa de bicos grátis no Portão.</p>
+                  </div>
+                  <a
+                    href={formatWhatsApp(`Olá Carplus Curitiba! Li seu artigo "${activePost.title}" no blog e gostaria de realizar um agendamento preventivo computadorizado.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#f49e1a] hover:bg-yellow-400 text-gray-950 border border-black font-black text-xs uppercase px-5 py-3 rounded-xl tracking-wider transition cursor-pointer"
+                  >
+                    Falar com Consultor via WhatsApp ➔
+                  </a>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
+              <div className="text-center space-y-2">
+                <span className="bg-[#f49e1a]/10 text-yellow-650 font-mono font-black text-[10px] uppercase px-3.5 py-1.5 rounded-full border border-yellow-500/25">
+                  Artigos e Guias Especializados
+                </span>
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
+                  Blog da Carplus Pneus
+                </h1>
+                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm">
+                  Educação automotiva, leis de trânsito, e dicas práticas dos nossos engenheiros técnicos para você rodar com dirigibilidade milimétrica e máxima segurança ativa em Curitiba.
+                </p>
+              </div>
+
+              {/* Magazine Style Main Index Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {articles.map(article => (
+                  <div 
+                    key={article.id} 
+                    className="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm flex flex-col hover:border-[#f49e1a]/55 transition duration-300"
+                  >
+                    <div className="h-44 bg-gray-100 relative">
+                      <img 
+                        src={article.image} 
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                      <span className="absolute top-3 left-3 bg-black text-white font-mono font-bold text-[8px] uppercase px-2 py-1 rounded">
+                        {article.category}
+                      </span>
+                    </div>
+
+                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-1.5 text-left">
+                        <span className="text-[10px] text-gray-400 font-mono font-semibold block">{article.date}</span>
+                        <h3 className="text-sm font-black uppercase text-gray-950 line-clamp-2 leading-snug font-mono">
+                          {article.title}
+                        </h3>
+                        <p className="text-xs text-gray-650 line-clamp-3 leading-relaxed">
+                          {article.summary}
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedArticleId(article.id)}
+                        className="w-full bg-gray-100 border border-gray-200 text-gray-900 hover:bg-[#f49e1a] hover:text-black font-mono font-black text-xs uppercase py-2 rounded-xl transition cursor-pointer mt-auto"
+                      >
+                        Ler Artigo Completo ➔
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-gray-150 pt-5 text-center">
+                <button
+                  onClick={onNavigateHome}
+                  className="bg-black hover:bg-[#f49e1a] hover:text-black text-white font-mono font-black text-xs uppercase px-5 py-3 rounded-xl transition cursor-pointer"
+                >
+                  Voltar para o Início
+                </button>
               </div>
             </div>
           );
