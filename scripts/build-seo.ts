@@ -576,8 +576,8 @@ function runPrerendering() {
 
   routes.push({
     path: 'barao-pneus-e-oficina-bacacheri-curitiba',
-    title: 'Barão Pneus Bacacheri Curitiba - Dicas, Serviços e Alternativas | Carplus',
-    desc: 'Está procurando serviços no norte de Curitiba como a Barão Pneus e Oficina Bacacheri? Compare e descubra as vantagens exclusivas e equipamentos 3D de alta gama na Carplus Portão.',
+    title: 'Alternativa a Barão Pneus e Oficina Bacacheri Curitiba | Carplus',
+    desc: 'Buscando alternativa a Barão Pneus e Oficina Bacacheri no norte de Curitiba? Compare e descubra as vantagens exclusivas e equipamentos 3D da Carplus Portão.',
     keywords: 'barao pneus e oficina bacacheri curitiba, barao pneus bacacheri, rodagem norte curitiba, auto center bacacheri',
     schema: {
       "@context": "https://schema.org",
@@ -585,7 +585,7 @@ function runPrerendering() {
         makeLocalBusiness(),
         {
           "@type": "WebPage",
-          "name": "Barão Pneus Bacacheri - Alternativa Tecnológica",
+          "name": "Alternativa a Barão Pneus e Oficina Bacacheri Curitiba",
           "url": `${DOMAIN}/barao-pneus-e-oficina-bacacheri-curitiba`
         }
       ]
@@ -595,8 +595,8 @@ function runPrerendering() {
 
   routes.push({
     path: 'barao-pneus-sao-jose-pinhais',
-    title: 'Barão Pneus São José dos Pinhais - Modelos e Alternativas de Preço | Carplus',
-    desc: 'Pesquisando Barão Pneus em São José dos Pinhais? Explore condições diferenciais e preços imbatíveis de pneus novos na Carplus. Localização estratégica e fácil acesso pela rápida do Portão.',
+    title: 'Conheça Alternativa a Barão Pneus São José Pinhais | Carplus',
+    desc: 'Pesquisando Barão Pneus em São José dos Pinhais? Conheça a alternativa de pneus novos na Carplus. Localização de fácil acesso pela rápida do Portão.',
     keywords: 'barao pneus sao jose pinhais, pneus sao jose dos pinhais, auto center sao jose, comprar pneus sao jose pinhais',
     schema: {
       "@context": "https://schema.org",
@@ -604,7 +604,7 @@ function runPrerendering() {
         makeLocalBusiness(),
         {
           "@type": "WebPage",
-          "name": "Barão Pneus São José dos Pinhais - Alternativa Econômica",
+          "name": "Conheça Alternativa a Barão Pneus São José Pinhais",
           "url": `${DOMAIN}/barao-pneus-sao-jose-pinhais`
         }
       ]
@@ -652,8 +652,8 @@ function runPrerendering() {
 
   routes.push({
     path: 'bana-pneus',
-    title: 'Bana Pneus Curitiba - Guia Técnico e Comparativos de Garantia | Carplus',
-    desc: 'Procura informações da Bana Pneus em Curitiba? Conheça os diferenciais de qualidade, prazos de garantia e condições exclusivas da Carplus Portão com serviços expressos imbatíveis.',
+    title: 'Alternativa a Bana Pneus Curitiba - Serviços e Preços | Carplus',
+    desc: 'Procurando alternativa a Bana Pneus em Curitiba? Conheça diferenciais de qualidade, prazos de garantia de 5 anos e condições exclusivas da Carplus Portão com serviços expressos.',
     keywords: 'bana pneus, bana pneus curitiba, pneus goodyear curitiba, loja goodyear curitiba',
     schema: {
       "@context": "https://schema.org",
@@ -661,7 +661,7 @@ function runPrerendering() {
         makeLocalBusiness(),
         {
           "@type": "WebPage",
-          "name": "Bana Pneus Curitiba - Comparativo Técnico",
+          "name": "Alternativa a Bana Pneus Curitiba",
           "url": `${DOMAIN}/bana-pneus`
         }
       ]
@@ -709,8 +709,8 @@ function runPrerendering() {
 
   routes.push({
     path: 'barao-pneus-e-oficina-portao',
-    title: 'Barão Pneus e Oficina Portão - Análise Técnica e Alternativas Sede | Carplus',
-    desc: 'Está procurando serviços automotivos no Portão de Curitiba semelhantes a Barão Pneus? Visite a Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.',
+    title: 'Alternativa a Barão Pneus e Oficina Portão | Carplus',
+    desc: 'Procurando serviços no Portão semelhantes a Barão Pneus? Conheça a alternativa Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.',
     keywords: 'barao pneus e oficina portão, barao pneus portao, auto center portao curitiba, borracharia portão curitiba',
     schema: {
       "@context": "https://schema.org",
@@ -718,7 +718,7 @@ function runPrerendering() {
         makeLocalBusiness(),
         {
           "@type": "WebPage",
-          "name": "Barão Pneus e Oficina Portão - Alternativa Carplus",
+          "name": "Alternativa a Barão Pneus e Oficina Portão",
           "url": `${DOMAIN}/barao-pneus-e-oficina-portao`
         }
       ]

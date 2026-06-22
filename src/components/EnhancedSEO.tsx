@@ -194,12 +194,12 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     desc = "Precisa de pneus Bridgestone em Curitiba? Faça simulações e compre com preços imbatíveis. Instalação profissional expressa com troca gratuita de bicos inclusa em nossa loja física.";
     keywords = "pneus bridgestone curitiba precos, bridgestone turanza preco curitiba, comprar pneus bridgestone, pneus ecopia curitiba";
   } else if (currentView === 'barao-pneus-e-oficina-bacacheri-curitiba') {
-    title = "Barão Pneus Bacacheri Curitiba - Dicas, Serviços e Alternativas | Carplus";
-    desc = "Está procurando serviços no norte de Curitiba como a Barão Pneus e Oficina Bacacheri? Compare e descubra as vantagens exclusivas e equipamentos 3D de alta gama na Carplus Portão.";
+    title = "Alternativa a Barão Pneus e Oficina Bacacheri Curitiba | Carplus";
+    desc = "Buscando alternativa a Barão Pneus e Oficina Bacacheri no norte de Curitiba? Compare e descubra as vantagens exclusivas e equipamentos 3D da Carplus Portão.";
     keywords = "barao pneus e oficina bacacheri curitiba, barao pneus bacacheri, rodagem norte curitiba, auto center bacacheri";
   } else if (currentView === 'barao-pneus-sao-jose-pinhais') {
-    title = "Barão Pneus São José dos Pinhais - Modelos e Alternativas de Preço | Carplus";
-    desc = "Pesquisando Barão Pneus em São José dos Pinhais? Explore condições de parcelamento e preços imbatíveis de pneus novos na Carplus. Localização de fácil acesso pela rápida do Portão.";
+    title = "Conheça Alternativa a Barão Pneus São José Pinhais | Carplus";
+    desc = "Pesquisando Barão Pneus em São José dos Pinhais? Conheça a alternativa de pneus novos na Carplus. Localização de fácil acesso pela rápida do Portão.";
     keywords = "barao pneus sao jose pinhais, pneus sao jose dos pinhais, auto center sao jose, comprar pneus sao jose pinhais";
   } else if (currentView === 'pneus-em-curitiba-melhor-preco') {
     title = "Pneus em Curitiba com Melhor Preço - Cobrimos Orçamentos | Carplus";
@@ -210,8 +210,8 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     desc = "Distribuidora ágil de pneus novos com venda varejo direta pelo menor custo para o motorista de Curitiba. Isenção total de taxas de montagem e suporte técnico em suspensões.";
     keywords = "distribuidora de pneus em curitiba, loja distribuidora pneus, pneus pronta entrega, marcas premium atacado curitiba";
   } else if (currentView === 'bana-pneus') {
-    title = "Bana Pneus Curitiba - Guia Técnico e Comparativos de Garantia | Carplus";
-    desc = "Procura informações da Bana Pneus em Curitiba? Conheça os diferenciais de qualidade, prazos de garantia e condições exclusivas da Carplus Portão com serviços expressos imbatíveis.";
+    title = "Alternativa a Bana Pneus Curitiba - Serviços e Preços | Carplus";
+    desc = "Procurando alternativa a Bana Pneus em Curitiba? Conheça diferenciais de qualidade, prazos de garantia de 5 anos e condições exclusivas da Carplus Portão com serviços expressos.";
     keywords = "bana pneus, bana pneus curitiba, pneus goodyear curitiba, loja goodyear curitiba";
   } else if (currentView === 'loja-de-pneus-em-curitiba') {
     title = "Loja de Pneus em Curitiba - Box Rápido e Atendimento Sede | Carplus";
@@ -222,8 +222,8 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     desc = "Melhor preço garantido em pneus originais Pirelli em Curitiba. Estoque completo Cinturato P1, P7, Scorpion a pronta entrega com bico grátis e geometria 3D computadorizada no Portão.";
     keywords = "pneus pirelli em curitiba melhor preco, pirelli cinturato curitiba, comprar pneu pirelli porto, oficina especialista em pirelli";
   } else if (currentView === 'barao-pneus-e-oficina-portao') {
-    title = "Barão Pneus e Oficina Portão - Análise Técnica e Alternativas Sede | Carplus";
-    desc = "Está procurando serviços automotivos no Portão de Curitiba semelhantes a Barão Pneus? Visite a Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.";
+    title = "Alternativa a Barão Pneus e Oficina Portão | Carplus";
+    desc = "Procurando serviços no Portão semelhantes a Barão Pneus? Conheça a alternativa Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.";
     keywords = "barao pneus e oficina portão, barao pneus portao, auto center portao curitiba, borracharia portão curitiba";
   } else if (currentView === 'curitiba') {
     title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";

@@ -304,8 +304,8 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'barao-pneus-e-oficina-bacacheri-curitiba': {
-      title: "Alternativa Carplus ao Bacacheri",
-      subtitle: "Buscando pneus novos com geometria 3D computadorizada? Descubra por que clientes do Bacacheri vêm ao Portão.",
+      title: "Alternativa a Barão Pneus e Oficina Bacacheri",
+      subtitle: "Buscando pneus novos com geometria 3D computadorizada? Descubra por que a Carplus é a alternativa perfeita.",
       tag: "Tecnologia de Alta Performance",
       bgGradient: "from-emerald-950 to-gray-950",
       content: (
@@ -342,7 +342,7 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'barao-pneus-sao-jose-pinhais': {
-      title: "Alternativa Carplus a São José dos Pinhais",
+      title: "Conheça Alternativa a Barão Pneus São José Pinhais",
       subtitle: "Descubra preços muito mais baratos em pneus novos de fábrica com rampa 3D computadorizada.",
       tag: "Distribuição Direta Paraná",
       bgGradient: "from-blue-950 to-gray-950",
@@ -423,7 +423,7 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'bana-pneus': {
-      title: "Bana Pneus e Alternativas",
+      title: "Alternativa a Bana Pneus",
       subtitle: "Seu guia para a melhor decisão técnica de pneus Goodyear nacionais em Curitiba.",
       tag: "Opções Técnicas de Qualidade",
       bgGradient: "from-amber-950 to-gray-950",
@@ -508,7 +508,7 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'barao-pneus-e-oficina-portao': {
-      title: "Alternativa Carplus no Portão",
+      title: "Alternativa a Barão Pneus e Oficina Portão",
       subtitle: "Seu carro desalinhado? Visite a rampa 3D computadorizada da Carplus Arthur Bernardes.",
       tag: "Liderança Mecânica Autocenter",
       bgGradient: "from-zinc-900 to-gray-950",
