@@ -45,7 +45,7 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
@@ -418,6 +418,62 @@ export default function App() {
       setSelectedTire(null);
     } else if (firstRoute === 'blog') {
       setCurrentView('blog');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'xbri-pneus-curitiba') {
+      setCurrentView('xbri-pneus-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-baratos-em-curitiba') {
+      setCurrentView('pneus-baratos-em-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'melhor-site-para-comprar-pneus') {
+      setCurrentView('melhor-site-para-comprar-pneus');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'distribuidora-de-pneus-importados-atacado-curitiba') {
+      setCurrentView('distribuidora-de-pneus-importados-atacado-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-hankook-curitiba') {
+      setCurrentView('pneu-hankook-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-bridgestone-curitiba-precos') {
+      setCurrentView('pneus-bridgestone-curitiba-precos');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'barao-pneus-e-oficina-bacacheri-curitiba') {
+      setCurrentView('barao-pneus-e-oficina-bacacheri-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'barao-pneus-sao-jose-pinhais') {
+      setCurrentView('barao-pneus-sao-jose-pinhais');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-em-curitiba-melhor-preco') {
+      setCurrentView('pneus-em-curitiba-melhor-preco');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'distribuidora-de-pneus-em-curitiba') {
+      setCurrentView('distribuidora-de-pneus-em-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'bana-pneus') {
+      setCurrentView('bana-pneus');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'loja-de-pneus-em-curitiba') {
+      setCurrentView('loja-de-pneus-em-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-pirelli-em-curitiba-melhor-preco') {
+      setCurrentView('pneus-pirelli-em-curitiba-melhor-preco');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'barao-pneus-e-oficina-portao') {
+      setCurrentView('barao-pneus-e-oficina-portao');
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneu' && parts[1]) {

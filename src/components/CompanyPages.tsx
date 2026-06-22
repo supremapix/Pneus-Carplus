@@ -20,6 +20,7 @@ import { TIRES_DATA, CAR_MODELS_DATA } from '../data';
 import TireCard from './TireCard';
 import CarplusVideosSection from './CarplusVideosSection';
 import { motion, AnimatePresence } from 'motion/react';
+import SearchIntentPages from './SearchIntentPages';
 
 
 const WHEEL_SERVICES = [
@@ -113,10 +114,10 @@ const CARPLUS_EQUIPE_GALLERY = [
 ];
 
 interface CompanyPagesProps {
-  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog';
+  view: 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   onNavigateHome: () => void;
-  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog') => void;
+  onNavigateToPage: (page: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao') => void;
   onSelectSeoTarget: (target: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; }) => void;
   onSelectRimFromSeo?: (rim: number | 'Todos') => void;
   onSelectBrandFromSeo?: (brand: string) => void;
@@ -2724,7 +2725,7 @@ export default function CompanyPages({
                             {tire.brand}
                           </span>
                           <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
-                          <p className="text-xs text-gray-500 font-semibold font-mono tracking-wide">{tire.width}/{tire.aspectRatio} R{tire.rim} {tire.loadIndex}{tire.speedRating}</p>
+                          <p className="text-xs text-gray-500 font-semibold font-mono tracking-wide">{tire.width}/{tire.aspectRatio} R{tire.rim}</p>
                           <div className="flex items-center gap-2 pt-1">
                             <span className="font-mono font-black text-sm text-yellow-650">R$ {tire.promoPrice || tire.price}</span>
                             {tire.promoPrice && <span className="text-[10px] text-gray-400 line-through font-mono">R$ {tire.price}</span>}
@@ -2841,7 +2842,7 @@ export default function CompanyPages({
                           PIRELLI
                         </span>
                         <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
-                        <p className="text-xs text-gray-500 font-semibold font-mono">{tire.width}/{tire.aspectRatio} R{tire.rim} {tire.loadIndex}{tire.speedRating}</p>
+                        <p className="text-xs text-gray-500 font-semibold font-mono">{tire.width}/{tire.aspectRatio} R{tire.rim}</p>
                         <span className="font-mono font-black text-sm text-yellow-650 block pt-1">R$ {tire.promoPrice || tire.price}</span>
                       </div>
 
@@ -3237,6 +3238,28 @@ Nossa equipe no Portão está equipada com calibradores digitais auditados e pre
             </div>
           );
         })()}
+
+        {[
+          'xbri-pneus-curitiba',
+          'pneus-baratos-em-curitiba',
+          'melhor-site-para-comprar-pneus',
+          'distribuidora-de-pneus-importados-atacado-curitiba',
+          'pneu-hankook-curitiba',
+          'pneus-bridgestone-curitiba-precos',
+          'barao-pneus-e-oficina-bacacheri-curitiba',
+          'barao-pneus-sao-jose-pinhais',
+          'pneus-em-curitiba-melhor-preco',
+          'distribuidora-de-pneus-em-curitiba',
+          'bana-pneus',
+          'loja-de-pneus-em-curitiba',
+          'pneus-pirelli-em-curitiba-melhor-preco',
+          'barao-pneus-e-oficina-portao'
+        ].includes(view) && (
+          <SearchIntentPages 
+            view={view as any} 
+            onNavigateHome={onNavigateHome} 
+          />
+        )}
 
       </div>
 

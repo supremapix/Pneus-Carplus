@@ -147,6 +147,20 @@ function generateSitemaps() {
     { loc: `${DOMAIN}/pneus-pirelli-curitiba`, priority: "0.9" },
     { loc: `${DOMAIN}/alinhamento-3d-curitiba`, priority: "0.9" },
     { loc: `${DOMAIN}/blog`, priority: "0.8" },
+    { loc: `${DOMAIN}/xbri-pneus-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneus-baratos-em-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/melhor-site-para-comprar-pneus`, priority: "0.9" },
+    { loc: `${DOMAIN}/distribuidora-de-pneus-importados-atacado-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneu-hankook-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneus-bridgestone-curitiba-precos`, priority: "0.9" },
+    { loc: `${DOMAIN}/barao-pneus-e-oficina-bacacheri-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/barao-pneus-sao-jose-pinhais`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneus-em-curitiba-melhor-preco`, priority: "0.9" },
+    { loc: `${DOMAIN}/distribuidora-de-pneus-em-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/bana-pneus`, priority: "0.9" },
+    { loc: `${DOMAIN}/loja-de-pneus-em-curitiba`, priority: "0.9" },
+    { loc: `${DOMAIN}/pneus-pirelli-em-curitiba-melhor-preco`, priority: "0.9" },
+    { loc: `${DOMAIN}/barao-pneus-e-oficina-portao`, priority: "0.9" },
   ];
   TIRES_DATA.forEach(t => {
     instUrls.push({ loc: `${DOMAIN}/pneu/${getTireSlug(t)}`, priority: "0.8" });
@@ -439,6 +453,273 @@ function runPrerendering() {
           "@type": "WebPage",
           "name": "Blog de Dicas Automotivas",
           "url": `${DOMAIN}/blog`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  // Adding the requested 14 high-intent search pages
+  routes.push({
+    path: 'xbri-pneus-curitiba',
+    title: 'Xbri Pneus Curitiba - Ampla Linha de Medidas e Modelos | Carplus',
+    desc: 'Buscando pneus Xbri em Curitiba com o melhor custo-benefício, alta durabilidade e aderência garantida? Ganhe bicos de borracha novos e montagem grátis no Portão.',
+    keywords: 'xbri pneus curitiba, pneu xbri curitiba, comprar pneu xbri, marcas de pneus baratos curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Xbri Pneus Curitiba",
+          "url": `${DOMAIN}/xbri-pneus-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneus-baratos-em-curitiba',
+    title: 'Pneus Baratos em Curitiba - Preço de Atacado Completo | Carplus',
+    desc: 'Onde comprar pneus baratos em Curitiba? Seleção de pneus importados e nacionais pelo menor preço à pronta entrega. Ganhe bicos novos e instalação expressa sem pagar mais nada.',
+    keywords: 'pneus baratos em curitiba, comprar pneu barato, borracharia barata curitiba, pneu promocao curitiba, pneu aro 13 barato',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneus Baratos em Curitiba",
+          "url": `${DOMAIN}/pneus-baratos-em-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'melhor-site-para-comprar-pneus',
+    title: 'Melhor Site para Comprar Pneus no Brasil - Reserva Online Segura | Carplus',
+    desc: 'Descubra a Carplus Pneus como o melhor site para comprar pneus: pesquise com transparência total de preços, faça sua reserva online e pague apenas pós-montagem com bicos gratuitos.',
+    keywords: 'melhor site para comprar pneus, comprar pneu online, onde comprar pneu de carro, reserva pneu internet',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Melhor Site para Comprar Pneus",
+          "url": `${DOMAIN}/melhor-site-para-comprar-pneus`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'distribuidora-de-pneus-importados-atacado-curitiba',
+    title: 'Distribuidora de Pneus Importados Atacado Curitiba - Faturado CNPJ | Carplus',
+    desc: 'Importação direta e venda corporativa de pneus em Curitiba. Condições de atacado imbatíveis no faturamento empresarial, frotistas e revendas com envio ágil para todo o estado.',
+    keywords: 'distribuidora de pneus importados atacado curitiba, atacado de pneus curitiba, pneus importados atacado parana, pneu CNPJ curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Distribuidora de Pneus Importados Atacado Curitiba",
+          "url": `${DOMAIN}/distribuidora-de-pneus-importados-atacado-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneu-hankook-curitiba',
+    title: 'Pneu Hankook Curitiba - Linha Premium Dynapro e Ventus | Carplus Pneus',
+    desc: 'Encontre pneus Hankook em Curitiba. Alta durabilidade, altíssima performance asiática homologada como equipamento original de montadoras mundiais de luxo. Montagem rápida grátis no Portão.',
+    keywords: 'pneu hankook curitiba, hankook ventus curitiba, comprar pneu hankook, distribuidor hankook parana',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneu Hankook Curitiba",
+          "url": `${DOMAIN}/pneu-hankook-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneus-bridgestone-curitiba-precos',
+    title: 'Pneus Bridgestone Curitiba Preços - Modelos Turanza e Ecopia | Carplus',
+    desc: 'Precisa de pneus Bridgestone em Curitiba? Faça simulações e compre com preços imbatíveis. Instalação profissional expressa com troca gratuita de bicos inclusa em nossa loja física.',
+    keywords: 'pneus bridgestone curitiba precos, bridgestone turanza preco curitiba, comprar pneus bridgestone, pneus ecopia curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneus Bridgestone Curitiba Preços",
+          "url": `${DOMAIN}/pneus-bridgestone-curitiba-precos`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'barao-pneus-e-oficina-bacacheri-curitiba',
+    title: 'Barão Pneus Bacacheri Curitiba - Dicas, Serviços e Alternativas | Carplus',
+    desc: 'Está procurando serviços no norte de Curitiba como a Barão Pneus e Oficina Bacacheri? Compare e descubra as vantagens exclusivas e equipamentos 3D de alta gama na Carplus Portão.',
+    keywords: 'barao pneus e oficina bacacheri curitiba, barao pneus bacacheri, rodagem norte curitiba, auto center bacacheri',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Barão Pneus Bacacheri - Alternativa Tecnológica",
+          "url": `${DOMAIN}/barao-pneus-e-oficina-bacacheri-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'barao-pneus-sao-jose-pinhais',
+    title: 'Barão Pneus São José dos Pinhais - Modelos e Alternativas de Preço | Carplus',
+    desc: 'Pesquisando Barão Pneus em São José dos Pinhais? Explore condições diferenciais e preços imbatíveis de pneus novos na Carplus. Localização estratégica e fácil acesso pela rápida do Portão.',
+    keywords: 'barao pneus sao jose pinhais, pneus sao jose dos pinhais, auto center sao jose, comprar pneus sao jose pinhais',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Barão Pneus São José dos Pinhais - Alternativa Econômica",
+          "url": `${DOMAIN}/barao-pneus-sao-jose-pinhais`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneus-em-curitiba-melhor-preco',
+    title: 'Pneus em Curitiba com Melhor Preço - Cobrimos Orçamentos | Carplus',
+    desc: 'Garantia absoluta de pneus em Curitiba com o melhor preço real do mercado! Linha completa Pirelli, Delinte, Goodyear de aro 13 a 20 com montagem e bicos novos grátis hoje.',
+    keywords: 'pneus em curitiba melhor preco, comprar pneu curitiba barato, orçamento pneu curitiba, pneu nacional importado parana',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneus em Curitiba Melhor Preço",
+          "url": `${DOMAIN}/pneus-em-curitiba-melhor-preco`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'distribuidora-de-pneus-em-curitiba',
+    title: 'Distribuidora de Pneus em Curitiba - Estoque Completo Portão | Carplus',
+    desc: 'Distribuidora ágil de pneus novos com venda varejo direta pelo menor custo para o motorista de Curitiba. Isenção total de taxas de montagem e suporte técnico em suspensões.',
+    keywords: 'distribuidora de pneus em curitiba, loja distribuidora pneus, pneus pronta entrega, marcas premium atacado curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Distribuidora de Pneus em Curitiba",
+          "url": `${DOMAIN}/distribuidora-de-pneus-em-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'bana-pneus',
+    title: 'Bana Pneus Curitiba - Guia Técnico e Comparativos de Garantia | Carplus',
+    desc: 'Procura informações da Bana Pneus em Curitiba? Conheça os diferenciais de qualidade, prazos de garantia e condições exclusivas da Carplus Portão com serviços expressos imbatíveis.',
+    keywords: 'bana pneus, bana pneus curitiba, pneus goodyear curitiba, loja goodyear curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Bana Pneus Curitiba - Comparativo Técnico",
+          "url": `${DOMAIN}/bana-pneus`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'loja-de-pneus-em-curitiba',
+    title: 'Loja de Pneus em Curitiba - Box Rápido e Atendimento Sede | Carplus',
+    desc: 'Venha conhecer sua melhor loja de pneus novos em Curitiba ao lado da Arthur Bernardes. Troca veloz, maquinários modernos anti-riscos e bico premium grátis com total comodidade.',
+    keywords: 'loja de pneus em curitiba, melhor borracharia curitiba, loja rodas de liga leve curitiba, pneus portao loja fisica',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Loja de Pneus em Curitiba",
+          "url": `${DOMAIN}/loja-de-pneus-em-curitiba`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'pneus-pirelli-em-curitiba-melhor-preco',
+    title: 'Pneus Pirelli em Curitiba Melhor Preço - Concessionária Completa | Carplus',
+    desc: 'Melhor preço garantido em pneus originais Pirelli em Curitiba. Estoque completo Cinturato P1, P7, Scorpion a pronta entrega com bico grátis e geometria 3D computadorizada no Portão.',
+    keywords: 'pneus pirelli em curitiba melhor preco, pirelli cinturato curitiba, comprar pneu pirelli porto, oficina especialista em pirelli',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Pneus Pirelli em Curitiba Melhor Preço",
+          "url": `${DOMAIN}/pneus-pirelli-em-curitiba-melhor-preco`
+        }
+      ]
+    },
+    isIndexable: true
+  });
+
+  routes.push({
+    path: 'barao-pneus-e-oficina-portao',
+    title: 'Barão Pneus e Oficina Portão - Análise Técnica e Alternativas Sede | Carplus',
+    desc: 'Está procurando serviços automotivos no Portão de Curitiba semelhantes a Barão Pneus? Visite a Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.',
+    keywords: 'barao pneus e oficina portão, barao pneus portao, auto center portao curitiba, borracharia portão curitiba',
+    schema: {
+      "@context": "https://schema.org",
+      "@graph": [
+        makeLocalBusiness(),
+        {
+          "@type": "WebPage",
+          "name": "Barão Pneus e Oficina Portão - Alternativa Carplus",
+          "url": `${DOMAIN}/barao-pneus-e-oficina-portao`
         }
       ]
     },
