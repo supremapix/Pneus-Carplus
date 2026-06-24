@@ -15,6 +15,7 @@ import EnhancedSEO from './components/EnhancedSEO';
 import CarplusVideosSection from './components/CarplusVideosSection';
 import InstagramFeed from './components/InstagramFeed';
 import { Tire, CartItem } from './types';
+import FloatingShare from './components/FloatingShare';
 
 const BRAND_LOGOS: Record<string, string> = {
   BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
@@ -1708,6 +1709,7 @@ export default function App() {
       {/* Floating Live Chat & Booking trigger */}
       <LiveWhatsAppChat />
       <ScrollToTop />
+      <FloatingShare currentView={currentView} seoTarget={seoTarget} selectedTire={selectedTire} />
 
       {/* Structured Footer */}
       <Footer onNavigate={(page) => {
