@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CartItem, Tire } from '../types';
 import { X, ShoppingBag, Trash2, ShieldAlert, CheckCircle, Calendar, MessageSquare, ExternalLink } from 'lucide-react';
+import { getBrandFallbackImage } from '../data';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -155,6 +156,10 @@ export default function CartDrawer({
                         src={item.tire.image} 
                         alt={item.tire.name} 
                         className="w-12 h-12 object-contain bg-white rounded border border-gray-250 p-1 shrink-0"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = getBrandFallbackImage(item.tire.brand, item.tire.id);
+                        }}
                       />
 
                       <div className="flex-1 min-w-0">

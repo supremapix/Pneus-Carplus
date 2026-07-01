@@ -9,7 +9,7 @@ import LiveWhatsAppChat from './components/LiveWhatsAppChat';
 import ScrollToTop from './components/ScrollToTop';
 import CompanyPages from './components/CompanyPages';
 import TireDetail from './components/TireDetail';
-import { TIRES_DATA, MOST_SEARCHED_MEASURES } from './data';
+import { TIRES_DATA, MOST_SEARCHED_MEASURES, getBrandFallbackImage } from './data';
 import { toSlug, getTireSlug } from './utils/slugify';
 import EnhancedSEO from './components/EnhancedSEO';
 import CarplusVideosSection from './components/CarplusVideosSection';
@@ -709,7 +709,7 @@ export default function App() {
                           referrerPolicy="no-referrer"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.src = "https://www.carpluspneuseoficina.com.br/images/logos/logo-vertical.svg";
+                            target.src = getBrandFallbackImage(t.brand, t.id);
                           }}
                         />
                       </div>

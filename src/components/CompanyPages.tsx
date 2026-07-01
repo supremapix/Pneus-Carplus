@@ -16,7 +16,7 @@ import {
   getAllNeighborhoods, getAllCities, AROS as WAVE_AROS, CARS as WAVE_CARS
 } from '../utils/seoWaves';
 import ServiceHistory from './ServiceHistory';
-import { TIRES_DATA, CAR_MODELS_DATA } from '../data';
+import { TIRES_DATA, CAR_MODELS_DATA, getBrandFallbackImage } from '../data';
 import TireCard from './TireCard';
 import CarplusVideosSection from './CarplusVideosSection';
 import { motion, AnimatePresence } from 'motion/react';
@@ -1950,6 +1950,10 @@ export default function CompanyPages({
                                     alt={t.name} 
                                     className="h-28 object-contain"
                                     referrerPolicy="no-referrer"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.src = getBrandFallbackImage(t.brand, t.id);
+                                    }}
                                   />
                                 </div>
                                 <div className="text-center mt-3 space-y-0.5">
@@ -2719,6 +2723,10 @@ export default function CompanyPages({
                           alt={tire.name} 
                           className="w-20 h-20 object-contain p-1 shrink-0 bg-gray-50 rounded-xl"
                           referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = getBrandFallbackImage(tire.brand, tire.id);
+                          }}
                         />
                         <div className="flex-1 space-y-1 text-left min-w-0">
                           <span className="bg-gray-900 text-white font-mono font-black text-[8px] uppercase px-1.5 py-0.5 rounded">
@@ -2836,6 +2844,10 @@ export default function CompanyPages({
                         alt={tire.name} 
                         className="w-20 h-20 object-contain p-1 shrink-0 bg-gray-50 rounded-xl"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = getBrandFallbackImage(tire.brand, tire.id);
+                        }}
                       />
                       <div className="flex-1 space-y-0.5 text-left min-w-0">
                         <span className="bg-red-600 text-white font-mono font-bold text-[8px] uppercase px-1.5 py-0.5 rounded">

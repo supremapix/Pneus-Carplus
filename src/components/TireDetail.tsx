@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tire } from '../types';
 import { getTireSlug } from '../utils/slugify';
+import { getBrandFallbackImage } from '../data';
 import { 
   ArrowLeft, ShoppingCart, ShieldCheck, HelpCircle, 
   Tag, Clock, Phone, CheckCircle, Sparkles, MessageSquare,
@@ -75,6 +76,10 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                 alt={tire.name} 
                 className="max-h-72 sm:max-h-80 object-contain w-auto transform transition duration-500 hover:scale-105"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = getBrandFallbackImage(tire.brand, tire.id);
+                }}
               />
               
               <div className="absolute bottom-4 right-4 bg-gray-900 text-white text-[10px] font-black px-3 py-1 rounded uppercase tracking-wider">

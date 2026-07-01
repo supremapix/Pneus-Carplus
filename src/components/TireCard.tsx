@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tire } from '../types';
 import { ShoppingCart, Heart, ShieldCheck, ArrowRight, Tag } from 'lucide-react';
+import { getBrandFallbackImage } from '../data';
 
 const BRAND_LOGOS: Record<string, string> = {
   BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
@@ -65,9 +66,9 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
           className="max-h-40 object-contain w-auto transform transition duration-500 group-hover:scale-105"
           referrerPolicy="no-referrer"
           onError={(e) => {
-            // Fallback general tire drawing or placeholder if link blocks hotlink
+            // Fallback to same-brand tire image if link fails or blocks hotlinking
             const target = e.target as HTMLImageElement;
-            target.src = "https://www.carpluspneuseoficina.com.br/images/logos/logo-vertical.svg";
+            target.src = getBrandFallbackImage(tire.brand, tire.id);
           }}
         />
         <div className="absolute bottom-2 right-2 bg-neutral-900 text-[#f49e1a] text-xs font-black px-2.5 py-1 rounded uppercase tracking-wider shadow">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CAR_MODELS_DATA, TIRES_DATA } from '../data';
+import { CAR_MODELS_DATA, TIRES_DATA, getBrandFallbackImage } from '../data';
 import { CarModel, Tire } from '../types';
 import { Car, Search, CheckCircle, ArrowRight, HelpCircle } from 'lucide-react';
 
@@ -151,6 +151,10 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                       src={t.image} 
                       alt={t.name} 
                       className="w-12 h-12 object-contain bg-white rounded p-1 border border-gray-200"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = getBrandFallbackImage(t.brand, t.id);
+                      }}
                     />
                     <div>
                       <span className="bg-black text-[10px] sm:text-xs uppercase font-black text-white px-2.5 py-0.5 rounded border border-black font-mono">

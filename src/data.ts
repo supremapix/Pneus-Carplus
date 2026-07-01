@@ -1,7 +1,7 @@
 import { Tire, CarModel, ServiceRecord } from './types';
 
 // Large dataset of real tires from the provided Google Sheet (176 promotion tires):
-const RAW_TIRES_DATA: Tire[] = [
+export const RAW_TIRES_DATA: Tire[] = [
   {
     "id": "1001317",
     "brand": "BRIDGESTONE",
@@ -2307,6 +2307,53 @@ export const TIRES_DATA: Tire[] = RAW_TIRES_DATA.map(tire => {
     isOffer: true // Boost conversion: Show every single tire with dynamic, beautiful offers!
   };
 });
+
+export function getBrandFallbackImage(brand: string, id?: string): string {
+  const brandUpper = brand.toUpperCase();
+  const sameBrandTires = TIRES_DATA.filter(t => t.brand.toUpperCase() === brandUpper && t.image && !t.image.includes('logo-vertical.svg'));
+  
+  if (sameBrandTires.length > 0) {
+    if (id) {
+      const currentIndex = TIRES_DATA.findIndex(t => t.id === id);
+      if (currentIndex !== -1) {
+        // Search backwards
+        for (let i = currentIndex - 1; i >= 0; i--) {
+          if (TIRES_DATA[i].brand.toUpperCase() === brandUpper && TIRES_DATA[i].image && !TIRES_DATA[i].image.includes('logo-vertical.svg')) {
+            return TIRES_DATA[i].image;
+          }
+        }
+        // Search forwards
+        for (let i = currentIndex + 1; i < TIRES_DATA.length; i++) {
+          if (TIRES_DATA[i].brand.toUpperCase() === brandUpper && TIRES_DATA[i].image && !TIRES_DATA[i].image.includes('logo-vertical.svg')) {
+            return TIRES_DATA[i].image;
+          }
+        }
+      }
+    }
+    return sameBrandTires[0].image;
+  }
+
+  const brandFallbacks: Record<string, string> = {
+    'BRIDGESTONE': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Bridgestone-Ecopia-EP150.jpg',
+    'PIRELLI': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Pirelli-Cinturato-P7.jpg',
+    'GOODYEAR': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Goodyear-EfficientGrip-Performance.jpg',
+    'MICHELIN': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Michelin-Primacy-4.jpg',
+    'DUNLOP': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Dunlop-SP-Sport-LM705.jpg',
+    'CONTINENTAL': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Continental-PowerContact-2.jpg',
+    'KUMHO': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Kumho-Ecowing-ES31.jpg',
+    'HANKOOK': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Hankook-Kinergy-Eco-2.jpg',
+    'YOKOHAMA': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Yokohama-BluEarth-ES32.jpg',
+    'FIRESTONE': 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Firestone-F-600.jpg'
+  };
+
+  for (const [key, fallbackUrl] of Object.entries(brandFallbacks)) {
+    if (brandUpper.includes(key)) {
+      return fallbackUrl;
+    }
+  }
+
+  return 'https://www.tyrereviews.com/public/tyres/thumbs/x200-Pirelli-Cinturato-P7.jpg';
+}
 
 // Complete list of popular car brand models in Brazil with homologated tire ratios
 export const CAR_MODELS_DATA: CarModel[] = [
