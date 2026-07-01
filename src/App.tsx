@@ -496,14 +496,20 @@ export default function App() {
       }
     } else if (firstRoute === 'bairro' && parts[1]) {
       const slug = parts[1].toLowerCase();
-      const matchedOfficial = OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n) === slug);
+      let matchedOfficial = OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n) === slug);
+      if (slug === 'cic') {
+        matchedOfficial = "Cidade Industrial (CIC)";
+      }
       if (matchedOfficial) {
         setCurrentView('seo-landing');
         setSeoTarget({ type: 'bairro', name: matchedOfficial });
         setSelectedTire(null);
         return;
       }
-      const matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n.name) === slug);
+      let matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n.name) === slug);
+      if (slug === 'neo-ville') {
+        matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => n.name === 'Neoville');
+      }
       if (matchedNon) {
         setCurrentView('seo-landing');
         setSeoTarget({ type: 'bairro', name: matchedNon.name, region: matchedNon.region });

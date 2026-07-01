@@ -172,6 +172,9 @@ function generateSitemaps() {
   OFFICIAL_NEIGHBORHOODS.forEach(n => {
     if (isPageReleased(n, 'bairro', 80)) {
       bairroUrls.push({ loc: `${DOMAIN}/bairro/${toSlug(n)}`, priority: "0.7" });
+      if (n === "Cidade Industrial (CIC)") {
+        bairroUrls.push({ loc: `${DOMAIN}/bairro/cic`, priority: "0.7" });
+      }
     }
   });
   NON_OFFICIAL_NEIGHBORHOODS.forEach(n => {
@@ -728,14 +731,25 @@ function runPrerendering() {
 
   // Adding Official Neighborhoods (75)
   OFFICIAL_NEIGHBORHOODS.forEach(n => {
+    const isReleased = isPageReleased(n, 'bairro', 80);
     routes.push({
       path: `bairro/${toSlug(n)}`,
       title: `Pneus no Bairro ${n}, Curitiba - Entrega e Instalação Grátis | Carplus`,
       desc: `Precisa de pneus no bairro ${n} em Curitiba? Compre online na Carplus e ganhe montagem gratuita hoje mesmo em nossa loja física, localizada ao lado da sua região!`,
       keywords: `pneus no bairro ${n}, pneus em curitiba, pneus ${n} curitiba, pneus perto do ${n}, borracharia ${n}`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness(n)] },
-      isIndexable: isPageReleased(n, 'bairro', 80)
+      isIndexable: isReleased
     });
+    if (n === "Cidade Industrial (CIC)") {
+      routes.push({
+        path: `bairro/cic`,
+        title: `Pneus no CIC (Cidade Industrial de Curitiba) - Promoção e Montagem Grátis | Carplus`,
+        desc: `Buscando pneus novos no CIC em Curitiba? Compre na Carplus com os menores preços da região, montagem grátis e bico de ar novos inclusos no Portão!`,
+        keywords: `pneus no cic, pneus cidade industrial de curitiba, pneus cic, borracharia cic, pneus perto do cic`,
+        schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness("Cidade Industrial (CIC)")] },
+        isIndexable: isReleased
+      });
+    }
   });
 
   // Adding Non-Official Neighborhoods (29)
