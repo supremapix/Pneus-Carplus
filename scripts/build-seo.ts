@@ -100,7 +100,7 @@ const METROPOLITAN_CITIES = [
 ];
 
 function generateSitemaps() {
-  console.log("Generating segmented sitemaps according to Wave Indexing Rules (Phase 1, rate=50)...");
+  console.log("Generating segmented sitemaps according to Wave Indexing Rules (Phase 2, rate=80)...");
   
   const publicDir = path.join(process.cwd(), 'public');
   const distDir = path.join(process.cwd(), 'dist');
@@ -167,33 +167,33 @@ function generateSitemaps() {
   });
   writeSitemapFile('sitemap-institucional.xml', makeSitemapxml(instUrls));
 
-  // 2. sitemap-bairros.xml (Only indexable under Phase 1: Priority Neighborhoods)
+  // 2. sitemap-bairros.xml (Released under Phase 2: Priority Neighborhoods + Wave 2 Neighborhoods)
   const bairroUrls: { loc: string; priority: string }[] = [];
   OFFICIAL_NEIGHBORHOODS.forEach(n => {
-    if (isPageReleased(n, 'bairro', 50)) {
+    if (isPageReleased(n, 'bairro', 80)) {
       bairroUrls.push({ loc: `${DOMAIN}/bairro/${toSlug(n)}`, priority: "0.7" });
     }
   });
   NON_OFFICIAL_NEIGHBORHOODS.forEach(n => {
-    if (isPageReleased(n.name, 'bairro', 50)) {
+    if (isPageReleased(n.name, 'bairro', 80)) {
       bairroUrls.push({ loc: `${DOMAIN}/bairro/${toSlug(n.name)}`, priority: "0.7" });
     }
   });
   writeSitemapFile('sitemap-bairros.xml', makeSitemapxml(bairroUrls));
 
-  // 3. sitemap-cidades.xml (Only indexable under Phase 1: Priority Cities)
+  // 3. sitemap-cidades.xml (Released under Phase 2: Priority Cities + Wave 2 Cities)
   const cidadeUrls: { loc: string; priority: string }[] = [] as any;
   METROPOLITAN_CITIES.forEach(c => {
-    if (isPageReleased(c, 'cidade', 50)) {
+    if (isPageReleased(c, 'cidade', 80)) {
       cidadeUrls.push({ loc: `${DOMAIN}/cidade/${toSlug(c)}`, priority: "0.7" });
     }
   });
   writeSitemapFile('sitemap-cidades.xml', makeSitemapxml(cidadeUrls));
 
-  // 4. sitemap-carros.xml (None in Phase 1, empty with root URL to stay clean)
+  // 4. sitemap-carros.xml (None in Phase 2, empty with root URL to stay clean)
   const carroUrls: { loc: string; priority: string }[] = [];
   CARS.forEach(car => {
-    if (isPageReleased(car, 'carro', 50)) {
+    if (isPageReleased(car, 'carro', 80)) {
       carroUrls.push({ loc: `${DOMAIN}/carro/${toSlug(car)}`, priority: "0.6" });
     }
   });
@@ -202,10 +202,10 @@ function generateSitemaps() {
   }
   writeSitemapFile('sitemap-carros.xml', makeSitemapxml(carroUrls));
 
-  // 5. sitemap-aros.xml (None in Phase 1, empty with root URL to stay clean)
+  // 5. sitemap-aros.xml (None in Phase 2, empty with root URL to stay clean)
   const aroUrls: { loc: string; priority: string }[] = [];
   AROS.forEach(a => {
-    if (isPageReleased(a, 'aro', 50)) {
+    if (isPageReleased(a, 'aro', 80)) {
       aroUrls.push({ loc: `${DOMAIN}/aro/${a}`, priority: "0.6" });
     }
   });
@@ -734,7 +734,7 @@ function runPrerendering() {
       desc: `Precisa de pneus no bairro ${n} em Curitiba? Compre online na Carplus e ganhe montagem gratuita hoje mesmo em nossa loja física, localizada ao lado da sua região!`,
       keywords: `pneus no bairro ${n}, pneus em curitiba, pneus ${n} curitiba, pneus perto do ${n}, borracharia ${n}`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness(n)] },
-      isIndexable: isPageReleased(n, 'bairro', 50)
+      isIndexable: isPageReleased(n, 'bairro', 80)
     });
   });
 
@@ -746,7 +746,7 @@ function runPrerendering() {
       desc: `Precisa de pneus no bairro ${n.name} em Curitiba? Compre online na Carplus e ganhe montagem gratuita hoje mesmo em nossa loja física, localizada ao lado da sua região!`,
       keywords: `pneus no bairro ${n.name}, pneus em curitiba, pneus ${n.name} curitiba, pneus perto do ${n.name}, borracharia ${n.name}`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness(n.name)] },
-      isIndexable: isPageReleased(n.name, 'bairro', 50)
+      isIndexable: isPageReleased(n.name, 'bairro', 80)
     });
   });
 
@@ -758,7 +758,7 @@ function runPrerendering() {
       desc: `Encontre pneus novos para entrega ou instalação de fábrica com agendamento rápido em ${c}. Atendimento completo para motoristas da RMC na Carplus Pneus.`,
       keywords: `pneus em ${c}, pneus cidade ${c}, comprar pneus ${c}, borracharia em ${c}, pneus rmc`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness(c)] },
-      isIndexable: isPageReleased(c, 'cidade', 50)
+      isIndexable: isPageReleased(c, 'cidade', 80)
     });
   });
 
@@ -770,7 +770,7 @@ function runPrerendering() {
       desc: `Buscando pneus por aro? Veja ofertas irresistíveis de Pneus Aro ${a} em Curitiba com ampla garantia e montagem inclusa. Pirelli, Goodyear, Bridgestone e mais.`,
       keywords: `pneus aro ${a}, pneus por aro, pneus aro ${a} em curitiba, pneus r${a}, comprar pneu aro ${a}`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness()] },
-      isIndexable: isPageReleased(a, 'aro', 50)
+      isIndexable: isPageReleased(a, 'aro', 80)
     });
   });
 
@@ -782,7 +782,7 @@ function runPrerendering() {
       desc: `Tabela completa e preços imperdíveis de Pneus homologados para ${car} em Curitiba. Preserve a segurança de fábrica com pneus originais das melhores marcas.`,
       keywords: `pneus para ${car}, pneu original ${car}, pneu homologado ${car}, medida pneu ${car}`,
       schema: { "@context": "https://schema.org", "@graph": [makeLocalBusiness()] },
-      isIndexable: isPageReleased(car, 'carro', 50)
+      isIndexable: isPageReleased(car, 'carro', 80)
     });
   });
 

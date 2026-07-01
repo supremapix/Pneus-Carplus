@@ -148,6 +148,20 @@ export function getRouteInstructions(locationName: string, type: string): { rout
       time: "26 min"
     };
   }
+  if (norm.includes("neoville") || norm.includes("neo ville")) {
+    return {
+      route: "Siga pela Av. das Indústrias ou Av. Neoville, acesse a Av. Juscelino Kubitschek de Oliveira e suba pela Av. João Bettega sentido Portão. Vire à esquerda na Av. Arthur da Silva Bernardes buscando o número 1323.",
+      distance: "8.2 km",
+      time: "14 min"
+    };
+  }
+  if (norm.includes("portão") || norm.includes("portao")) {
+    return {
+      route: "Já estamos localizados no coração do Portão! Dirija-se à Avenida Presidente Arthur da Silva Bernardes, nº 1323, logo após o cruzamento com a rápida sentido Centro. Fácil acesso com estacionamento próprio e box rápido de atendimento.",
+      distance: "0 km (Estamos aqui!)",
+      time: "1 min"
+    };
+  }
   if (norm.includes("cic") || norm.includes("cidade industrial") || norm.includes("sandra") || norm.includes("verde") || norm.includes("régia")) {
     return {
       route: "Siga pela Av. Juscelino Kubitschek de Oliveira ou Av. João Bettega sentido Leste/Portão. Atravesse os cruzamentos principais da João Bettega e vire à esquerda na Av. Arthur da Silva Bernardes. Siga até o número 1323.",

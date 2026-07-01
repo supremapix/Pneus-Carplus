@@ -21,7 +21,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.carpluscwb.com.br/cidade/almirante-tamandare</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/cidade/campo-largo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/cidade/campo-magro</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.carpluscwb.com.br/cidade/fazenda-rio-grande</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/cidade/quatro-barras</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/cidade/campina-grande-do-sul</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

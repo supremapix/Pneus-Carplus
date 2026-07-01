@@ -44,7 +44,7 @@ export function calculateLocalScore(name: string, type: 'bairro' | 'cidade' | 'c
 
   if (type === 'bairro') {
     // Volume de busca weights
-    if (["portão", "batel", "água verde", "boqueirão", "centro", "santa felicidade", "cidade industrial (cic)", "cic"].some(v => lower.includes(v))) {
+    if (["portão", "batel", "água verde", "boqueirão", "centro", "santa felicidade", "cidade industrial (cic)", "cic", "neoville", "neo ville"].some(v => lower.includes(v))) {
       volumeBusca = 100;
     } else if (["cabral", "juvevê", "bigorrilho", "ecoville", "novo mundo", "xaxim", "hauer", "rebouças", "jardim das américas"].some(v => lower.includes(v))) {
       volumeBusca = 90;
@@ -57,7 +57,7 @@ export function calculateLocalScore(name: string, type: 'bairro' | 'cidade' | 'c
     // Proximidade to Av Presidente Arthur Bernardes, 1323 (Portão)
     if (["portão", "vila izabel", "água verde"].some(v => lower.includes(v))) {
       proximidade = 100;
-    } else if (["seminário", "novo mundo", "fazendinha", "santa quitéria", "lindóia", "fanny", "guaíra", "parolin"].some(v => lower.includes(v))) {
+    } else if (["seminário", "novo mundo", "fazendinha", "santa quitéria", "lindóia", "fanny", "guaíra", "parolin", "neoville", "neo ville"].some(v => lower.includes(v))) {
       proximidade = 90;
     } else if (["batel", "bigorrilho", "rebouças", "campina do siqueira"].some(v => lower.includes(v))) {
       proximidade = 85;
@@ -76,7 +76,7 @@ export function calculateLocalScore(name: string, type: 'bairro' | 'cidade' | 'c
     // Potencial de Conversão
     if (["batel", "cabral", "ecoville", "mossunguê", "bigorrilho", "juvevê", "jardim social", "alto da glória"].some(v => lower.includes(v))) {
       potencialConversao = 100;
-    } else if (["portão", "água verde", "centro", "boqueirão", "xaxim", "novo mundo", "cidade industrial", "cic"].some(v => lower.includes(v))) {
+    } else if (["portão", "água verde", "centro", "boqueirão", "xaxim", "novo mundo", "cidade industrial", "cic", "neoville", "neo ville"].some(v => lower.includes(v))) {
       potencialConversao = 95;
     } else if (["rebouças", "cristo rei", "hauer", "santa felicidade", "jardim das américas", "seminário", "vila izabel", "campina do siqueira", "mercês", "bacacheri"].some(v => lower.includes(v))) {
       potencialConversao = 85;
@@ -211,18 +211,18 @@ export function isPageReleased(name: string, type: 'bairro' | 'cidade' | 'carro'
   return false;
 }
 
-// Retrieve GSC indexing state from localStorage (client only) or fall back to standard Phase 1 rate (50%)
+// Retrieve GSC indexing state from localStorage (client only) or fall back to standard Phase 2 rate (80%)
 export function getSavedGSCRate(): number {
   if (typeof window === 'undefined') {
-    // In build-time (Node.js), we are always compiling Phase 1!
-    return 50;
+    // In build-time (Node.js), we are compiling Phase 2 (80%)!
+    return 80;
   }
   const saved = localStorage.getItem('carplus_gsc_indexing_rate');
   if (saved !== null) {
     const rate = parseFloat(saved);
     if (!isNaN(rate)) return rate;
   }
-  return 50; // default initial simulated indexation rate is 50% (Phase 1)
+  return 80; // default initial simulated indexation rate is 80% (Phase 2)
 }
 
 export function saveGSCRate(rate: number) {
