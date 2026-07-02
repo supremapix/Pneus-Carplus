@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Share2, X, Link2, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { toSlug } from '../utils/slugify';
 
 const SITE_GALLERY = [
   {
@@ -75,9 +76,18 @@ export default function FloatingShare({ currentView, seoTarget, selectedTire }: 
       title = 'Pneus Pirelli em Curitiba Melhor Preço - Concessionária Completa | Carplus';
       desc = 'Melhor preço garantido em pneus originais Pirelli em Curitiba. Estoque completo Cinturato P1, P7, Scorpion a pronta entrega com bico grátis e geometria 3D computadorizada no Portão.';
     } else if (currentView === 'seo-landing' && seoTarget) {
-      path = `/pneus-${seoTarget.slug}`;
-      title = `${seoTarget.title} | Carplus Pneus`;
-      desc = `Buscando pneus ${seoTarget.slug.replace(/-/g, ' ')} em Curitiba? Conheça as ofertas e serviços especiais de geometria e montagem rápida na Carplus Portão.`;
+      const slugName = toSlug(seoTarget.name);
+      const prefix = seoTarget.type === 'bairro' ? 'pneus-no-' : 'pneus-em-';
+      
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '';
+      if (currentPath === `/pneus-no-${slugName}` || currentPath === `/pneus-em-${slugName}`) {
+        path = window.location.pathname;
+      } else {
+        path = `/${prefix}${slugName}`;
+      }
+      
+      title = `Pneus em ${seoTarget.name} - Carplus Pneus`;
+      desc = `Buscando pneus em ${seoTarget.name}? Conheça as ofertas especiais, pneus novos com bico grátis e geometria 3D no Portão na Carplus.`;
     } else if (currentView !== 'home') {
       path = `/${currentView}`;
       // Format view name beautifully
