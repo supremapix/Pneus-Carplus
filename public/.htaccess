@@ -1,19 +1,7 @@
-# custom error page handling
-ErrorDocument 404 /404.html
-
-# react router spa and legacy redirects
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
-  # 301 Redirect for old contact page URLs to avoid search engine index decay
-  RewriteRule ^fale-conosco/?$ contato [R=301,L,NC]
-  RewriteRule ^faleconosco/?$ contato [R=301,L,NC]
-  
-  # 301 Redirect for old about us URL
-  RewriteRule ^quemsomos/?$ quem-somos [R=301,L,NC]
-
-  # If any request is not an actual file or directory, rewrite to index.html and let React manage it
+  RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]

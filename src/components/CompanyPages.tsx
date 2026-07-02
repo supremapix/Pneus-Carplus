@@ -3273,6 +3273,19 @@ Nossa equipe no Portão está equipada com calibradores digitais auditados e pre
           />
         )}
 
+        {view === 'seo-landing' && !seoTarget && (
+          <div className="max-w-2xl mx-auto text-center py-16 px-4" id="seo-landing-error-fallback">
+            <h2 className="text-3xl font-black text-gray-900 uppercase">Página Não Encontrada</h2>
+            <p className="mt-4 text-gray-600">A localidade ou página de pneus que você está procurando não foi encontrada em nossa base ativa.</p>
+            <button
+              onClick={onNavigateHome}
+              className="mt-8 bg-black hover:bg-[#f49e1a] hover:text-black text-white font-mono font-black text-xs uppercase px-6 py-3.5 rounded-xl transition cursor-pointer"
+            >
+              Voltar para a Página Inicial
+            </button>
+          </div>
+        )}
+
       </div>
 
       {/* MODAL 1: WHEEL SERVICE DETAILS */}

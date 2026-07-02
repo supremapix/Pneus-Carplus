@@ -494,6 +494,58 @@ export default function App() {
         setSeoTarget(null);
         setSelectedTire(null);
       }
+    } else if (firstRoute.startsWith('pneus-no-') || firstRoute.startsWith('pneus-em-')) {
+      const isPneusNo = firstRoute.startsWith('pneus-no-');
+      const locationSlug = isPneusNo 
+        ? firstRoute.substring('pneus-no-'.length) 
+        : firstRoute.substring('pneus-em-'.length);
+      
+      if (locationSlug === 'curitiba' || locationSlug === 'curitiba-melhor-preco') {
+        setCurrentView('curitiba');
+        setSeoTarget(null);
+        setSelectedTire(null);
+        return;
+      }
+
+      // Check official neighborhood
+      let matchedOfficial = OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n) === locationSlug);
+      if (locationSlug === 'cic') {
+        matchedOfficial = "Cidade Industrial (CIC)";
+      }
+      if (matchedOfficial) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'bairro', name: matchedOfficial });
+        setSelectedTire(null);
+        return;
+      }
+
+      // Check non-official neighborhood
+      let matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n.name) === locationSlug);
+      if (locationSlug === 'neo-ville') {
+        matchedNon = NON_OFFICIAL_NEIGHBORHOODS.find(n => n.name === 'Neoville');
+      }
+      if (matchedNon) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'bairro', name: matchedNon.name, region: matchedNon.region });
+        setSelectedTire(null);
+        return;
+      }
+
+      // Check city
+      const matchedCity = METROPOLITAN_CITIES.find(c => toSlug(c) === locationSlug);
+      if (matchedCity) {
+        setCurrentView('seo-landing');
+        setSeoTarget({ type: 'cidade', name: matchedCity });
+        setSelectedTire(null);
+        return;
+      }
+
+      // Fallback
+      const fallbackName = locationSlug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      const detectedType = isPneusNo ? 'bairro' : 'cidade';
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: detectedType, name: fallbackName });
+      setSelectedTire(null);
     } else if (firstRoute === 'bairro' && parts[1]) {
       const slug = parts[1].toLowerCase();
       let matchedOfficial = OFFICIAL_NEIGHBORHOODS.find(n => toSlug(n) === slug);
@@ -568,7 +620,14 @@ export default function App() {
       idealPath = `/pneu/${getTireSlug(selectedTire)}`;
     } else if (currentView === 'seo-landing' && seoTarget) {
       const slugName = toSlug(seoTarget.name);
-      idealPath = `/${seoTarget.type}/${slugName}`;
+      const currentPath = window.location.pathname.toLowerCase();
+      const expectedPneusNo = `/pneus-no-${slugName}`;
+      const expectedPneusEm = `/pneus-em-${slugName}`;
+      if (currentPath === expectedPneusNo || currentPath === expectedPneusEm) {
+        idealPath = window.location.pathname;
+      } else {
+        idealPath = `/${seoTarget.type}/${slugName}`;
+      }
     } else if (currentView === 'curitiba') {
       idealPath = '/curitiba';
     } else if (currentView === 'regiao-metropolitana') {

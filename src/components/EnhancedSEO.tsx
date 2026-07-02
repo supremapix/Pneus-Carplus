@@ -20,7 +20,12 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     canonicalUrl = `${domain}/pneu/${getTireSlug(selectedTire)}`;
   } else if (currentView === 'seo-landing' && seoTarget) {
     const slug = toSlug(seoTarget.name);
-    canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
+    const pathname = typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '';
+    if (pathname === `/pneus-no-${slug}` || pathname === `/pneus-em-${slug}`) {
+      canonicalUrl = `${domain}${window.location.pathname}`;
+    } else {
+      canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
+    }
   } else if (currentView !== 'home') {
     canonicalUrl = `${domain}/${currentView}`;
   }

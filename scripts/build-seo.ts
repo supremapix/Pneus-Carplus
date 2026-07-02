@@ -172,14 +172,17 @@ function generateSitemaps() {
   OFFICIAL_NEIGHBORHOODS.forEach(n => {
     if (isPageReleased(n, 'bairro', 80)) {
       bairroUrls.push({ loc: `${DOMAIN}/bairro/${toSlug(n)}`, priority: "0.7" });
+      bairroUrls.push({ loc: `${DOMAIN}/pneus-no-${toSlug(n)}`, priority: "0.8" });
       if (n === "Cidade Industrial (CIC)") {
         bairroUrls.push({ loc: `${DOMAIN}/bairro/cic`, priority: "0.7" });
+        bairroUrls.push({ loc: `${DOMAIN}/pneus-no-cic`, priority: "0.8" });
       }
     }
   });
   NON_OFFICIAL_NEIGHBORHOODS.forEach(n => {
     if (isPageReleased(n.name, 'bairro', 80)) {
       bairroUrls.push({ loc: `${DOMAIN}/bairro/${toSlug(n.name)}`, priority: "0.7" });
+      bairroUrls.push({ loc: `${DOMAIN}/pneus-no-${toSlug(n.name)}`, priority: "0.8" });
     }
   });
   writeSitemapFile('sitemap-bairros.xml', makeSitemapxml(bairroUrls));
@@ -189,6 +192,7 @@ function generateSitemaps() {
   METROPOLITAN_CITIES.forEach(c => {
     if (isPageReleased(c, 'cidade', 80)) {
       cidadeUrls.push({ loc: `${DOMAIN}/cidade/${toSlug(c)}`, priority: "0.7" });
+      cidadeUrls.push({ loc: `${DOMAIN}/pneus-em-${toSlug(c)}`, priority: "0.8" });
     }
   });
   writeSitemapFile('sitemap-cidades.xml', makeSitemapxml(cidadeUrls));
