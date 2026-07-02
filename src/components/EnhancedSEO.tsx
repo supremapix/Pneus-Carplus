@@ -646,17 +646,26 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       {/* 9. Structured Data JSON-LD Script tag */}
       <script type="application/ld+json">{structuredDataString}</script>
 
-      {/* 10. Service Worker inline initialization script */}
+      {/* 10. Service Worker cleanup script (fixes white screen / cached assets issues) */}
       <script>
         {`
           if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-              navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                console.log('ServiceWorker registrado com sucesso no escopo: ', registration.scope);
-              }, function(err) {
-                console.log('Erro ao registrar ServiceWorker: ', err);
-              });
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+              for (var i = 0; i < registrations.length; i++) {
+                registrations[i].unregister().then(function(success) {
+                  if (success) {
+                    console.log('ServiceWorker removido com sucesso para resolver tela branca.');
+                  }
+                });
+              }
             });
+            if ('caches' in window) {
+              caches.keys().then(function(keys) {
+                keys.forEach(function(key) {
+                  caches.delete(key);
+                });
+              });
+            }
           }
         `}
       </script>
