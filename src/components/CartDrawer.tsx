@@ -42,16 +42,14 @@ export default function CartDrawer({
     e.preventDefault();
     if (cartItems.length === 0) return;
 
-    let text = `Olá Carplus Pneus! Acabei de selecionar pneus no catálogo virtual e gostaria de agendar a instalação na loja do Portão.\n\n`;
-    text += `*MEU ORÇAMENTO:*\n`;
+    let text = `Olá Carplus Pneus! Acabei de selecionar pneus no catálogo virtual e gostaria de consultar o orçamento e agendar a instalação na loja do Portão.\n\n`;
+    text += `*ITENS INTERESSE:*\n`;
     
     cartItems.forEach((item) => {
-      const price = item.tire.promoPrice || item.tire.price;
-      text += `- *${item.quantity}x* Pneu ${item.tire.brand} ${item.tire.model} (Medida: ${item.tire.width}/${item.tire.aspectRatio} R${item.tire.rim}) - *R$ ${price.toFixed(2)}/un*\n`;
+      text += `- *${item.quantity}x* Pneu ${item.tire.brand} ${item.tire.model} (Medida: ${item.tire.width}/${item.tire.aspectRatio} R${item.tire.rim}) - *Preço sob consulta*\n`;
     });
 
-    text += `\n*VALOR TOTAL ESTIMADO:* R$ ${totalAmount.toFixed(2)}\n`;
-    text += `_(Montagem, Montagem de bicos comuns, e Instalação na loja inclusos gratuitamente!)_\n\n`;
+    text += `\n_(Montagem, Montagem de bicos comuns, e Instalação na loja inclusos gratuitamente!)_\n\n`;
 
     text += `*DADOS DO CLIENTE:*\n`;
     text += `- *Nome:* ${userName || 'Não informado'}\n`;
@@ -62,7 +60,7 @@ export default function CartDrawer({
     }
 
     text += `\n*Unidade do agendamento:* Av. Presid. Arthur da Silva Bernardes, 1323 - Portão, Curitiba.\n`;
-    text += `Confirma para mim a disponibilidade desse horário para eu subir o carro no elevador?`;
+    text += `Por favor, me informe o preço atualizado para esses pneus e a disponibilidade de horário.`;
 
     const encoded = encodeURIComponent(text);
     const link = `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`;
@@ -169,8 +167,8 @@ export default function CartDrawer({
                         <h4 className="text-xs font-black text-gray-900 truncate mt-1" title={item.tire.name}>
                           {item.tire.name}
                         </h4>
-                        <p className="text-xs text-yellow-600 font-bold font-mono">
-                          R$ {itemPrice.toFixed(2)} /un
+                        <p className="text-xs text-[#1ebd53] font-bold uppercase tracking-wider">
+                          Sob Consulta
                         </p>
                       </div>
                     </div>
@@ -272,7 +270,7 @@ export default function CartDrawer({
             <div className="bg-white border border-gray-200 p-3 rounded-xl flex justify-between items-center mt-2.5">
               <div>
                 <span className="text-[10px] text-gray-400 block font-semibold uppercase">Orçamento Estimado:</span>
-                <span className="text-2xl font-black text-gray-900 font-mono">R$ {totalAmount.toFixed(2)}</span>
+                <span className="text-xl font-black text-[#1ebd53] uppercase tracking-wider">Sob Consulta</span>
               </div>
               <div className="text-right text-[10px] text-yellow-600 font-bold bg-yellow-500/10 px-2.5 py-1.5 rounded-lg border border-yellow-500/20">
                 Instalação Inclusa!
@@ -282,11 +280,11 @@ export default function CartDrawer({
             {/* SEND BUDGET WA */}
             <button
               type="submit"
-              className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition duration-300 animate-pulse text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-yellow-500/10 border border-black"
+              className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition duration-300 text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-green-500/10 border border-[#1ebd53]"
               id="submit-wa-order-btn"
             >
-              <MessageSquare className="w-5 h-5 shrink-0" />
-              <span>Enviar Orçamento ao WhatsApp</span>
+              <MessageSquare className="w-5 h-5 shrink-0 fill-current" />
+              <span>Consultar no WhatsApp</span>
             </button>
           </form>
         )}

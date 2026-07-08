@@ -793,8 +793,7 @@ export default function App() {
                         </div>
                         
                         <div className="mt-3 flex items-baseline justify-center lg:justify-start gap-1.5">
-                          <span className="line-through text-xs text-gray-400 font-mono">R$ {t.price.toFixed(2)}</span>
-                          <span className="text-lg sm:text-xl font-black text-black font-mono">R$ {t.promoPrice?.toFixed(2)}</span>
+                          <span className="text-sm font-black text-[#1ebd53] uppercase tracking-wider">Sob Consulta</span>
                         </div>
                       </div>
                       
@@ -876,7 +875,7 @@ export default function App() {
                 </h2>
 
                 <p className="text-gray-700 text-lg sm:text-xl font-bold leading-relaxed text-justify max-w-2xl px-1 sm:px-0">
-                  Pneus novos das melhores marcas com preços imbatíveis a partir de <strong className="text-black text-2xl font-mono">R$ 239,00 à vista</strong>. Com montagem inclusa gratuita de bicos de ar novos, atendimento premium de oficina mecânica no Portão e parcelamento em até <strong className="text-gray-950">10x sem juros</strong> direto no ato da instalação física!
+                  Pneus novos das melhores marcas com preços imbatíveis sob consulta. Com montagem inclusa gratuita de bicos de ar novos, atendimento premium de oficina mecânica no Portão e parcelamento em até <strong className="text-gray-950">10x sem juros</strong> direto no ato da instalação física!
                 </p>
 
                 {/* Direct call layout */}
@@ -1068,19 +1067,19 @@ export default function App() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {[
-                    { name: 'BRIDGESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg", slogan: 'Suavidade Japonesa', style: 'Origem japonesa. Máxima durabilidade nas rodovias, frenagem macia e excelente controle acústico de ruídos.', color: 'from-white to-gray-50', pMin: 'R$ 489,00' },
-                    { name: 'PIRELLI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg", slogan: 'Desempenho Italiano', style: 'Tradição italiana mundial. Grande aderência em pistas secas e molhadas sob condições adversas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'MICHELIN', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg", slogan: 'Máxima Performance', style: 'Padrão mundial em segurança e durabilidade lendária. Menor desgaste e resistência a rolamentos.', color: 'from-white to-gray-50', pMin: 'R$ 749,00' },
-                    { name: 'CONTINENTAL', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg", slogan: 'Engenharia Alemã', style: 'Pneus alemães de alta proteção contra furos e aquaplanagens. Excelente tração em curvas sinuosas.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'GOODYEAR', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg", slogan: 'Segurança Longa Pista', style: 'Excelente estabilidade estrutural e aderência ideal em asfalto ondulado ou de terra.', color: 'from-white to-gray-50', pMin: 'R$ 789,00' },
-                    { name: 'YOKOHAMA', logo: "https://icon2.cleanpng.com/20180516/evq/avr9ddjh0.webp", slogan: 'Linha Premium Racing', style: 'Excelente esportividade e performance em alta velocidade para veículos esportivos e de luxo.', color: 'from-white to-gray-50', pMin: 'R$ 399,00' },
-                    { name: 'FIRESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg", slogan: 'Robustez Reconhecida', style: 'Subdivisão Bridgestone reconhecida pela alta durabilidade em veículos civis e comerciais leves.', color: 'from-white to-gray-50', pMin: 'R$ 379,00' },
-                    { name: 'DELINTE', logo: "https://s19532.pcdn.co/wp-content/uploads/2019/12/Delinte-Logo-1.jpg", slogan: 'Tecnologia Inovadora', style: 'Banda de rodagem inovadora, rodar extremamente seguro e ótimos custos de aquisição direta.', color: 'from-white to-gray-50', pMin: 'R$ 329,00' },
-                    { name: 'COMFORSER', logo: "https://www.gtiresinternational.us/wp-content/uploads/2022/10/Comforser-Tires.png", slogan: 'Durabilidade Diária', style: 'Excelente maciez e resistência na pavimentação urbana nacional. Custo-benefício de destaque.', color: 'from-white to-gray-50', pMin: 'R$ 239,00 à vista' },
-                    { name: 'XBRI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg", slogan: 'Excelente Tração Diária', style: 'Casing robusto projetado com asfalto nacional em mente. Ótimas notas de maciez diárias.', color: 'from-white to-gray-50', pMin: 'R$ 269,00' },
-                    { name: 'PRINX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRauciXYNudC8XaeVj_7c3o5urb17rrs_uw&s", slogan: 'Equilíbrio e Conforto', style: 'Pneus silenciosos inovadores excelentes para o dia-a-dia em metrópoles.', color: 'from-white to-gray-50', pMin: 'R$ 459,00' },
-                    { name: 'LINGLONG', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg", slogan: 'Inovação Silenciosa', style: 'Firme aderência e escoamento hídrico exemplar para curvas e frenagens em dias chuvosos.', color: 'from-white to-gray-50', pMin: 'R$ 319,05' },
-                    { name: 'SPEEDMAX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6La6GWmZDeZMCxlH4OA8rJcNjLj8mrjpW4A&s", slogan: 'Trabalho Pesado Eficiente', style: 'Marca robusta projetada para render mais quilometragem com desgaste lateral uniforme.', color: 'from-white to-gray-50', pMin: 'R$ 289,00' }
+                    { name: 'BRIDGESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg", slogan: 'Suavidade Japonesa', style: 'Origem japonesa. Máxima durabilidade nas rodovias, frenagem macia e excelente controle acústico de ruídos.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'PIRELLI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/pirelli.svg", slogan: 'Desempenho Italiano', style: 'Tradição italiana mundial. Grande aderência em pistas secas e molhadas sob condições adversas.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'MICHELIN', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/michelin.svg", slogan: 'Máxima Performance', style: 'Padrão mundial em segurança e durabilidade lendária. Menor desgaste e resistência a rolamentos.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'CONTINENTAL', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/continental.svg", slogan: 'Engenharia Alemã', style: 'Pneus alemães de alta proteção contra furos e aquaplanagens. Excelente tração em curvas sinuosas.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'GOODYEAR', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-goodyear.svg", slogan: 'Segurança Longa Pista', style: 'Excelente estabilidade estrutural e aderência ideal em asfalto ondulado ou de terra.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'YOKOHAMA', logo: "https://icon2.cleanpng.com/20180516/evq/avr9ddjh0.webp", slogan: 'Linha Premium Racing', style: 'Excelente esportividade e performance em alta velocidade para veículos esportivos e de luxo.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'FIRESTONE', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-firestone.svg", slogan: 'Robustez Reconhecida', style: 'Subdivisão Bridgestone reconhecida pela alta durabilidade em veículos civis e comerciais leves.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'DELINTE', logo: "https://s19532.pcdn.co/wp-content/uploads/2019/12/Delinte-Logo-1.jpg", slogan: 'Tecnologia Inovadora', style: 'Banda de rodagem inovadora, rodar extremamente seguro e ótimos custos de aquisição direta.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'COMFORSER', logo: "https://www.gtiresinternational.us/wp-content/uploads/2022/10/Comforser-Tires.png", slogan: 'Durabilidade Diária', style: 'Excelente maciez e resistência na pavimentação urbana nacional. Custo-benefício de destaque.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'XBRI', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/xbri.svg", slogan: 'Excelente Tração Diária', style: 'Casing robusto projetado com asfalto nacional em mente. Ótimas notas de maciez diárias.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'PRINX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKRauciXYNudC8XaeVj_7c3o5urb17rrs_uw&s", slogan: 'Equilíbrio e Conforto', style: 'Pneus silenciosos inovadores excelentes para o dia-a-dia em metrópoles.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'LINGLONG', logo: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/Quem-somos/marcas/lg-linglong.svg", slogan: 'Inovação Silenciosa', style: 'Firme aderência e escoamento hídrico exemplar para curvas e frenagens em dias chuvosos.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' },
+                    { name: 'SPEEDMAX', logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6La6GWmZDeZMCxlH4OA8rJcNjLj8mrjpW4A&s", slogan: 'Trabalho Pesado Eficiente', style: 'Marca robusta projetada para render mais quilometragem com desgaste lateral uniforme.', color: 'from-white to-gray-50', pMin: 'Sob Consulta' }
                   ].map((brandMeta) => {
                     const isSelected = selectedBrand.toUpperCase() === brandMeta.name;
                     return (
@@ -1111,8 +1110,8 @@ export default function App() {
                           {brandMeta.style}
                         </p>
                         <div className="mt-3 pt-2 border-t border-gray-200 flex justify-between items-center text-[10px]">
-                          <span className="text-gray-400 font-medium font-mono">A partir de:</span>
-                          <span className="font-extrabold text-gray-900 text-xs font-mono">{brandMeta.pMin}</span>
+                          <span className="text-gray-400 font-medium font-mono">Preço:</span>
+                          <span className="font-extrabold text-[#1ebd53] text-xs uppercase font-mono">{brandMeta.pMin}</span>
                         </div>
                       </button>
                     );

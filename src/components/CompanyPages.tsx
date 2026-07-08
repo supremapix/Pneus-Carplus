@@ -238,9 +238,9 @@ export default function CompanyPages({
           const buildCartWhatsAppMessage = () => {
             const listText = cartItems.map(item => {
               const cleanedName = `Pneu ${item.tire.brand} ${item.tire.width}/${item.tire.aspectRatio}R${item.tire.rim} ${item.tire.model}`;
-              return `• ${item.quantity}x ${cleanedName} - R$ ${(item.tire.promoPrice || item.tire.price).toFixed(2)} cada (Subtotal: R$ ${((item.tire.promoPrice || item.tire.price) * item.quantity).toFixed(2)})`;
+              return `• ${item.quantity}x ${cleanedName} - (Preço sob consulta)`;
             }).join('\n');
-            const message = `Olá equipe Carplus Pneus! Gostaria de agendar a instalação e garantir os bicos de ar grátis para os seguintes pneus do meu carrinho:\n\n${listText}\n\n*Valor Total:* R$ ${total.toFixed(2)}\n*À vista no PIX (com desconto):* R$ ${totalPix.toFixed(2)}\n*Ou no Cartão:* 10x sem juros de R$ ${totalInstallment.toFixed(2)}\n\nPor favor, confirmem o agendamento da montagem computadorizada na loja do Portão!`;
+            const message = `Olá equipe Carplus Pneus! Gostaria de consultar o preço, agendar a instalação e garantir os bicos de ar grátis para os seguintes pneus do meu carrinho:\n\n${listText}\n\nPor favor, me enviem o orçamento atualizado para pagamento facilitado em até 10x sem juros ou desconto considerável no PIX à vista!`;
             return `https://api.whatsapp.com/send?phone=554130827282&text=${encodeURIComponent(message)}`;
           };
 
@@ -346,8 +346,8 @@ export default function CompanyPages({
 
                               {/* Price Math block */}
                               <div className="text-right space-y-0.5 min-w-[100px]">
-                                <p className="text-[10px] text-gray-400 font-mono">Unitário: R$ {finalP.toFixed(2)}</p>
-                                <p className="text-sm font-black text-gray-950 font-mono">R$ {itemSub.toFixed(2)}</p>
+                                <p className="text-[10px] text-gray-400 font-mono">Unitário: Sob Consulta</p>
+                                <p className="text-sm font-black text-[#1ebd53] uppercase tracking-wider">Sob Consulta</p>
                               </div>
 
                               {/* Remove cross action button */}
@@ -396,7 +396,7 @@ export default function CompanyPages({
                       <div className="space-y-3 font-mono text-sm border-b border-gray-200 pb-4">
                         <div className="flex justify-between items-center text-gray-650">
                           <span>Subtotal de Itens</span>
-                          <span>R$ {total.toFixed(2)}</span>
+                          <span className="text-[#1ebd53] font-extrabold uppercase">Sob Consulta</span>
                         </div>
                         <div className="flex justify-between items-center text-gray-650">
                           <span>Montagem e Instalação</span>
@@ -416,15 +416,15 @@ export default function CompanyPages({
                       <div className="space-y-4">
                         {/* À Vista PIX */}
                         <div className="bg-green-50 border border-green-200 rounded-2xl p-4 space-y-1">
-                          <span className="text-[10px] text-green-700 font-mono uppercase font-black tracking-wider block">Desconto especial PIX (-5%)</span>
-                          <p className="text-2xl font-black text-green-800 font-mono">R$ {totalPix.toFixed(2)}</p>
-                          <p className="text-xs text-green-600 font-bold select-none">Economia líquida de R$ {(total * 0.05).toFixed(2)} à vista!</p>
+                          <span className="text-[10px] text-green-700 font-mono uppercase font-black tracking-wider block">À Vista PIX</span>
+                          <p className="text-lg font-black text-green-850 uppercase tracking-wide">Desconto Especial</p>
+                          <p className="text-xs text-green-600 font-bold select-none">Consulte desconto de 5% à vista no pix!</p>
                         </div>
 
                         {/* Cartão de Crédito */}
                         <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-1">
                           <span className="text-[10px] text-gray-500 font-mono uppercase font-black tracking-wider block">Parcelamento no Cartão</span>
-                          <p className="text-xl font-black text-gray-950 font-mono">10x R$ {totalInstallment.toFixed(2)}</p>
+                          <p className="text-lg font-black text-gray-950 uppercase tracking-wide">Até 10x sem juros</p>
                           <p className="text-xs text-gray-400 font-bold select-none">Sem juros adicionais em bandeiras oficiais.</p>
                         </div>
                       </div>
@@ -434,10 +434,10 @@ export default function CompanyPages({
                         href={buildCartWhatsAppMessage()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-[#f49e1a] hover:bg-[#e08b10] border-2 border-black text-gray-950 hover:text-black font-black py-4 rounded-2xl text-xs uppercase tracking-wider block text-center shadow-lg transition-all transform hover:scale-[1.01] cursor-pointer"
+                        className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-4 rounded-2xl text-xs uppercase tracking-wider block text-center shadow-lg transition-all transform hover:scale-[1.01] cursor-pointer border border-[#1ebd53]"
                         id="complete-order-button"
                       >
-                        Agendar Instalação via WhatsApp
+                        Consultar Orçamento via WhatsApp
                       </a>
 
                       <p className="text-[10px] text-gray-400 text-center leading-relaxed font-semibold">
@@ -1964,30 +1964,19 @@ export default function CompanyPages({
                                     {t.name}
                                   </h4>
                                   <div className="flex items-center justify-center gap-2 mt-1">
-                                    {t.promoPrice ? (
-                                      <>
-                                        <span className="line-through text-[10px] text-gray-400 font-mono font-bold">
-                                          R$ {t.price.toFixed(2)}
-                                        </span>
-                                        <span className="text-lg font-black text-black font-mono">
-                                          R$ {t.promoPrice.toFixed(2)}
-                                        </span>
-                                      </>
-                                    ) : (
-                                      <span className="text-base font-black text-gray-950 font-mono">
-                                        R$ {t.price.toFixed(2)}
-                                      </span>
-                                    )}
+                                    <span className="text-sm font-black text-[#1ebd53] uppercase tracking-wider">
+                                      Preço Sob Consulta
+                                    </span>
                                   </div>
                                 </div>
                                 <div className="pt-3">
                                   <a
-                                    href={formatWhatsApp(`Olá Carplus! Vi a Oferta Especial de ${t.name} nas buscas do bairro/cidade ${seoTarget.name} e gostaria de reservá-lo para instalação inclusa.`)}
+                                    href={formatWhatsApp(`Olá Carplus! Vi o Pneu ${t.name} nas buscas do bairro/cidade ${seoTarget.name} e gostaria de reservá-lo para instalação inclusa.`)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-full bg-gray-950 hover:bg-yellow-500 text-[#f49e1a] hover:text-gray-950 font-black py-2.5 rounded-xl text-[10px] uppercase tracking-wider transition text-center block cursor-pointer border border-black shadow-sm"
+                                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black py-2.5 rounded-xl text-[10px] uppercase tracking-wider transition text-center block cursor-pointer border border-[#1ebd53] shadow-sm"
                                   >
-                                    Reservar Pneu em Oferta
+                                    Consultar pelo WhatsApp
                                   </a>
                                 </div>
                               </motion.div>
@@ -2735,27 +2724,16 @@ export default function CompanyPages({
                           <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
                           <p className="text-xs text-gray-500 font-semibold font-mono tracking-wide">{tire.width}/{tire.aspectRatio} R{tire.rim}</p>
                           <div className="flex items-center gap-2 pt-1">
-                            <span className="font-mono font-black text-sm text-yellow-650">R$ {tire.promoPrice || tire.price}</span>
-                            {tire.promoPrice && <span className="text-[10px] text-gray-400 line-through font-mono">R$ {tire.price}</span>}
+                            <span className="font-black text-xs text-[#1ebd53] uppercase tracking-wider">Sob Consulta</span>
                           </div>
                         </div>
 
                         <div className="flex flex-col gap-1 shrink-0">
-                          <button
-                            onClick={() => {
-                              if (onAddToCart) {
-                                onAddToCart(tire, 1);
-                              }
-                            }}
-                            className="bg-black hover:bg-yellow-500 hover:text-black text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
-                          >
-                            Carrinho
-                          </button>
                           <a
-                            href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de reservar o pneu ${tire.brand} ${tire.model} medida ${tire.width}/${tire.aspectRatio} R${tire.rim} de R$ ${tire.promoPrice || tire.price} pelo WhatsApp.`)}
+                            href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de consultar o pneu ${tire.brand} ${tire.model} medida ${tire.width}/${tire.aspectRatio} R${tire.rim} pelo WhatsApp.`)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 border border-black/10 text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
+                            className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-[10px] font-black uppercase tracking-wider py-2 px-4 rounded-lg transition text-center cursor-pointer border border-[#1ebd53]"
                           >
                             Whats
                           </a>
@@ -2855,27 +2833,17 @@ export default function CompanyPages({
                         </span>
                         <h4 className="font-extrabold text-sm text-gray-950 truncate uppercase">{tire.model}</h4>
                         <p className="text-xs text-gray-500 font-semibold font-mono">{tire.width}/{tire.aspectRatio} R{tire.rim}</p>
-                        <span className="font-mono font-black text-sm text-yellow-650 block pt-1">R$ {tire.promoPrice || tire.price}</span>
+                        <span className="font-black text-xs text-[#1ebd53] uppercase tracking-wider block pt-1">Sob Consulta</span>
                       </div>
 
                       <div className="flex flex-col gap-1 shrink-0">
-                        <button
-                          onClick={() => {
-                            if (onAddToCart) {
-                              onAddToCart(tire, 1);
-                            }
-                          }}
-                          className="bg-black hover:bg-yellow-500 hover:text-black text-white text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition cursor-pointer"
-                        >
-                          Carrinho
-                        </button>
                         <a
-                          href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de reservar o pneu Pirelli ${tire.model} de medida ${tire.width}/${tire.aspectRatio} R${tire.rim} que vi no site.`)}
+                          href={formatWhatsApp(`Olá Carplus Curitiba! Gostaria de consultar o pneu Pirelli ${tire.model} de medida ${tire.width}/${tire.aspectRatio} R${tire.rim} que vi no site.`)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 border border-black/10 text-[10px] font-black uppercase tracking-wider py-1.5 px-3 rounded-lg transition text-center cursor-pointer"
+                          className="bg-[#25D366] hover:bg-[#20ba5a] text-white text-[10px] font-black uppercase tracking-wider py-2 px-4 rounded-lg transition text-center cursor-pointer border border-[#1ebd53]"
                         >
-                          WhatsApp
+                          Whats
                         </a>
                       </div>
                     </div>

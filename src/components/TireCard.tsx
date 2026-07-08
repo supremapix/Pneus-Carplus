@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Tire } from '../types';
-import { ShoppingCart, Heart, ShieldCheck, ArrowRight, Tag } from 'lucide-react';
+import { ShoppingCart, Heart, ShieldCheck, ArrowRight, Tag, MessageSquare } from 'lucide-react';
 import { getBrandFallbackImage } from '../data';
+import { formatWhatsApp } from '../utils/whatsapp';
 
 const BRAND_LOGOS: Record<string, string> = {
   BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
@@ -121,31 +122,20 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
           </div>
         </div>
 
-        {/* Pricing tag */}
+        {/* Pricing tag replaced with Consultation Message */}
         <div className="mt-4 border-t border-gray-200 pt-3 flex flex-col items-center md:items-start">
           <p className="text-xs sm:text-sm text-stone-800 font-bold capitalize mb-1 bg-yellow-500/10 px-2 py-0.5 rounded-md w-full text-center md:text-left">
             Instalação inclusa na loja do Portão!
           </p>
           
-          <div className="flex items-baseline gap-2 mt-1">
-            {hasPromo ? (
-              <>
-                <span className="text-xs sm:text-sm line-through text-gray-400 font-mono">
-                  R$ {tire.price.toFixed(2)}
-                </span>
-                <span className="text-xl sm:text-2xl font-black text-[#f49e1a] font-mono">
-                  R$ {tire.promoPrice!.toFixed(2)}
-                </span>
-              </>
-            ) : (
-              <span className="text-xl sm:text-2xl font-black text-gray-950 font-mono">
-                R$ {tire.price.toFixed(2)}
-              </span>
-            )}
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-lg sm:text-xl font-black text-[#f49e1a] uppercase tracking-wider">
+              Preço Sob Consulta
+            </span>
           </div>
 
           <p className="text-xs sm:text-sm text-gray-700 font-sans mt-1 font-bold">
-            ou até <strong className="text-black font-extrabold">10x sem juros</strong> no cartão físico
+            Consulte estoque, ofertas e os serviços adequados
           </p>
         </div>
 
@@ -170,20 +160,22 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
             </button>
           </div>
 
-          {/* Add to Cart CTA */}
-          <button
-            onClick={() => {
-              onAddToCart(tire, qty);
-              // reset back to default
-              setQty(2);
-            }}
-            className="flex-1 bg-gray-950 hover:bg-[#f49e1a] text-white hover:text-black font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-black"
-            style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
-            id={`add-to-cart-${tire.id}`}
+          {/* WhatsApp consultation CTA */}
+          <a
+            href={formatWhatsApp(
+              `Olá Carplus! Gostaria de consultar o preço, estoque e o serviço correto para meu carro.\n\n` +
+              `Item: Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim})\n` +
+              `Quantidade desejada: ${qty} unidade(s)\n` +
+              `Por favor, informe a disponibilidade de instalação rápida inclusa na loja do Portão.`
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-[#1ebd53] text-center"
+            id={`whatsapp-consult-${tire.id}`}
           >
-            <ShoppingCart className="w-4 h-4 shrink-0" />
-            <span>Adicionar</span>
-          </button>
+            <MessageSquare className="w-4 h-4 shrink-0 fill-current" />
+            <span>Consultar</span>
+          </a>
         </div>
       </div>
     </div>

@@ -130,38 +130,23 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
               </p>
             </div>
 
-            {/* Pricing Section - Ultra Highlighted & Readable */}
-            <div className="bg-yellow-500/5 border border-[#f49e1a]/25 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
+            {/* Pricing Section replaced with WhatsApp request */}
+            <div className="bg-[#25D366]/5 border border-[#1ebd53]/25 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
               <div className="text-center sm:text-left">
-                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black">Orçamento de Instalação:</p>
+                <p className="text-[10px] text-gray-500 uppercase tracking-widest font-black">Preço de Instalação:</p>
                 <div className="flex items-baseline gap-2 mt-1 justify-center sm:justify-start">
-                  {hasPromo ? (
-                    <>
-                      <span className="text-sm line-through text-gray-400 font-mono">
-                        R$ {tire.price.toFixed(2)}
-                      </span>
-                      <span className="text-3xl sm:text-4xl font-black text-black font-mono leading-none">
-                        R$ {tire.promoPrice!.toFixed(2)}
-                      </span>
-                      <span className="text-xs bg-black text-white px-2 py-0.5 rounded font-black uppercase font-mono">
-                        -{discountPercentage}%
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-3xl sm:text-4xl font-black text-gray-950 font-mono leading-none">
-                      R$ {tire.price.toFixed(2)}
-                    </span>
-                  )}
-                  <span className="text-xs text-gray-500 font-bold">/un</span>
+                  <span className="text-2xl sm:text-3xl font-black text-[#1ebd53] leading-none uppercase tracking-wider">
+                    Preço Sob Consulta
+                  </span>
                 </div>
-                <p className="text-[11px] text-gray-600 mt-1.5 font-sans">
-                  Preço real sem acréscimos. Pague em até <strong>10 vezes sem juros</strong> no cartão físico na autocenter.
+                <p className="text-[11px] text-gray-650 mt-1.5 font-sans">
+                  Consulte estoque, ofertas vigentes e o serviço correto para seu carro via WhatsApp. Instalação e bicos inclusos!
                 </p>
               </div>
 
               <div className="bg-white border border-gray-200 px-4 py-2 rounded-xl text-center shadow-inner">
                 <span className="text-[9px] text-gray-400 uppercase font-black block">Atendimento</span>
-                <span className="text-gray-950 font-bold text-xs uppercase">Estoque Imediato</span>
+                <span className="text-[#1ebd53] font-bold text-xs uppercase">Estoque Imediato</span>
               </div>
             </div>
 
@@ -279,31 +264,17 @@ export default function TireDetail({ tire, onBack, onAddToCart }: TireDetailProp
                   </button>
                 </div>
 
-                {/* Add to Cart CTA Button */}
+                {/* WhatsApp consultation CTA Button */}
                 <button
-                  onClick={() => {
-                    onAddToCart(tire, quantity);
-                    onBack();
-                  }}
-                  className="w-full bg-gray-950 hover:bg-gray-800 text-white font-black h-[52px] rounded-2xl flex items-center justify-center gap-2.5 text-xs sm:text-sm uppercase tracking-wide transition border border-black shadow-md"
-                  style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.9)' }}
-                  id="add-cart-detail-btn"
+                  onClick={handleWhatsAppInquiry}
+                  className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-black h-[52px] rounded-2xl flex items-center justify-center gap-2.5 text-xs sm:text-sm uppercase tracking-wide transition border border-[#1ebd53] shadow-md cursor-pointer"
+                  id="whatsapp-detail-btn"
                 >
-                  <ShoppingCart className="w-5 h-5" />
-                  <span>Adicionar {quantity} pneus ao carrinho</span>
+                  <MessageSquare className="w-5 h-5 shrink-0 fill-current" />
+                  <span>Consultar no WhatsApp • {quantity} pneu(s)</span>
                 </button>
 
               </div>
-
-              {/* WhatsApp instant inquiry button */}
-              <button
-                onClick={handleWhatsAppInquiry}
-                className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black h-[52px] rounded-2xl flex items-center justify-center gap-2 transition text-xs sm:text-sm uppercase tracking-wider shadow-md shadow-yellow-500/10 border border-yellow-600"
-                id="whatsapp-detail-btn"
-              >
-                <MessageSquare className="w-5 h-5" />
-                <span>Reservar ou Simular no WhatsApp</span>
-              </button>
 
               {/* Social Sharing block */}
               <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4.5 space-y-3" id="social-share-section">

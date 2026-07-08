@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CAR_MODELS_DATA, TIRES_DATA, getBrandFallbackImage } from '../data';
 import { CarModel, Tire } from '../types';
 import { Car, Search, CheckCircle, ArrowRight, HelpCircle } from 'lucide-react';
+import { formatWhatsApp } from '../utils/whatsapp';
 
 const BRANDS = [
   'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Honda', 'Renault', 'Ford', 'Jeep'
@@ -161,25 +162,24 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
                         {t.brand}
                       </span>
                       <h5 className="text-sm font-black text-gray-900 line-clamp-1 mt-0.5">{t.name}</h5>
-                      <p className="text-xs sm:text-sm text-gray-800 font-mono font-bold">
-                        {t.promoPrice ? (
-                          <>
-                            <span className="line-through text-gray-400 mr-2">R$ {t.price.toFixed(2)}</span>
-                            <span className="text-black font-black">R$ {t.promoPrice.toFixed(2)}</span>
-                          </>
-                        ) : (
-                          <span className="text-black font-black">R$ {t.price.toFixed(2)}</span>
-                        )}
+                      <p className="text-xs sm:text-sm text-[#1ebd53] font-black uppercase">
+                        Preço Sob Consulta
                       </p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => onAddToCart(t, 2)}
-                    className="bg-[#f49e1a] hover:bg-yellow-500 text-black border border-black font-black px-4 py-2.5 rounded-xl text-xs tracking-wider uppercase transition"
-                    id={`add-matched-to-cart-${t.id}`}
+                  <a
+                    href={formatWhatsApp(
+                      `Olá Carplus! Utilizei o recomendador de pneus do site para o meu veículo ${selectedCar?.brand} ${selectedCar?.name}.\n\n` +
+                      `O recomendador sugeriu o pneu: ${t.brand} ${t.model} (${t.width}/${t.aspectRatio} R${t.rim}).\n` +
+                      `Ggostaria de consultar o valor, estoque e o serviço de instalação correto para meu carro.`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#25D366] hover:bg-[#20ba5a] text-white border border-[#1ebd53] font-black px-4 py-2.5 rounded-xl text-xs tracking-wider uppercase transition flex items-center justify-center text-center"
+                    id={`whatsapp-matched-${t.id}`}
                   >
-                    +2 Pneu
-                  </button>
+                    Consultar WhatsApp
+                  </a>
                 </div>
               ))}
             </div>
