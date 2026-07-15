@@ -1,6 +1,6 @@
 {
   "name": "Carplus Pneus",
-  "description": "Loja virtual de pneus com catálogo por medida, busca por montadora, carrinho e agendamento via WhatsApp.",
+  "description": "Loja virtual de pneus com catálogo por medida, busca por montadora, carrinho, agendamento via WhatsApp e compra e venda de veículos com procedência.",
   "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

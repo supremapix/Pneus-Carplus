@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Play, 
   ExternalLink, 
@@ -12,27 +13,58 @@ import {
   Fuel,
   Shield,
   Ruler,
-  Handshake
+  Handshake,
+  Car,
+  ArrowRight,
+  CheckCircle2
 } from 'lucide-react';
 
 const VIDEOS = [
   {
+    id: "TL490QZpGlc",
+    tag: "NOVIDADE EXCLUSIVA",
+    title: "Agora a Carplus Compra e Vende Veículos com Procedência!",
+    desc: "Grande novidade na Carplus de Curitiba! Além de sermos o seu autocenter de confiança para pneus e serviços mecânicos, agora expandimos para a compra e venda de veículos seminovos. Oferecemos um estoque selecionado com rigor absoluto, garantindo procedência indiscutível e vistoria cautelar 100% aprovada.",
+    link: "https://www.carplusautos.com.br/",
+    linkLabel: "Conhecer Estoque de Veículos",
+    bullets: [
+      "Procedência Garantida: Carros minuciosamente checados contra leilões, sinistros ou adulterações.",
+      "Vistoria Cautelar 100% Aprovada: Certificação completa da saúde estrutural e mecânica.",
+      "Negociação Segura: Avaliação justa, documentação rápida e a honestidade tradicional da marca."
+    ]
+  },
+  {
     id: "v72kI13VyAU",
     tag: "PROVA REAL DA LOJA",
     title: "Sua Segurança em Primeiro Lugar: Veja Nossa Troca de Pneus de Alta Performance",
-    desc: "Acompanhe de perto a precisão cirúrgica de nossos profissionais na troca e alinhamento de pneus novos de alta durabilidade. Transparência operacional completa de quem é referência em Curitiba!"
+    desc: "Acompanhe de perto a precisão cirúrgica de nossos profissionais na troca e alinhamento de pneus novos de alta durabilidade. Transparência operacional completa de quem é referência em Curitiba!",
+    bullets: [
+      "Profissionais qualificados com maquinário de fixação pneumática avançada.",
+      "Substituição gratuita do bico de borracha contra vazamentos residuais.",
+      "Checklist preventivo de suspensão e freios sem custo adicional."
+    ]
   },
   {
     id: "1fWqUJdCdRg",
     tag: "TECNOLOGIA RIGOROSA",
     title: "Balanceamento Computadorizado a Laser para Rodar sem Nenhuma Vibração",
-    desc: "Sinta o conforto absoluto de uma rodagem perfeitamente lisa sob asfalto irregular. Assista como nossa tecnologia a laser corrige micro-oscilações para economizar combustível do seu carro!"
+    desc: "Sinta o conforto absoluto de uma rodagem perfeitamente lisa sob asfalto irregular. Assista como nossa tecnologia a laser corrige micro-oscilações para economizar combustível do seu carro!",
+    bullets: [
+      "Mapeamento tridimensional da roda para aplicação precisa de pesos corretivos.",
+      "Evita o desgaste irregular prematuro dos pneus e poupa componentes de direção.",
+      "Garante estabilidade extrema em alta velocidade nas rodovias."
+    ]
   },
   {
     id: "4FpPSM5vYE8",
     tag: "NOSSO SHOWROOM",
     title: "Megaestrutura Carplus no Portão Curitiba: Sua Experiência Conforto VIP",
-    desc: "Mais de 800m² dedicados à saúde do seu veículo. Visite nossos boxes de atendimento rápido, desfrute de nossa sala de espera climatizada e experimente o padrão de atendimento premium."
+    desc: "Mais de 800m² dedicados à saúde do seu veículo. Visite nossos boxes de atendimento rápido, desfrute de nossa sala de espera climatizada e experimente o padrão de atendimento premium.",
+    bullets: [
+      "Sala de espera confortável climatizada com café espresso, Wi-Fi e visão da oficina.",
+      "Mais de 10 boxes ativos para atendimento simultâneo rápido, reduzindo esperas.",
+      "Localização privilegiada na Arthur Bernardes com pátio amplo e seguro."
+    ]
   }
 ];
 
@@ -66,18 +98,17 @@ const SECRET_ACCORDIONS = [
 
 export default function CarplusVideosSection() {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [activeAccordionIndex, setActiveAccordionIndex] = useState<number | null>(null);
 
   const handleNextVideo = () => {
     setActiveVideoIndex((prev) => (prev + 1) % VIDEOS.length);
+    setIsPlaying(false);
   };
 
   const handlePrevVideo = () => {
     setActiveVideoIndex((prev) => (prev - 1 + VIDEOS.length) % VIDEOS.length);
-  };
-
-  const handleWatchVideo = (id: string) => {
-    window.open(`https://www.youtube.com/shorts/${id}`, '_blank', 'noopener,noreferrer');
+    setIsPlaying(false);
   };
 
   const toggleAccordion = (idx: number) => {
@@ -91,142 +122,231 @@ export default function CarplusVideosSection() {
   return (
     <div className="space-y-12 my-10 select-none" id="neuro-marketing-video-accordion-section">
       
-      {/* 1. SLIDER VIDEOS COMPACT (MOBILE + PC SLIDER COMBINED SECTION) */}
+      {/* 1. SLIDER VIDEOS COMPACT (MOBILE + PC SLIDER COMBINED SECTION WITH 2-COL SHOWCASE) */}
       <div className="bg-neutral-900 border-2 border-[#f49e1a]/30 rounded-3xl p-6 sm:p-8 text-white relative shadow-2xl" id="carplus-compact-video-slider">
         
-        {/* Glowing Badge Design */}
+        {/* Glowing Header Badge Design */}
         <div className="text-center sm:text-left space-y-2 mb-8">
           <span className="bg-gradient-to-r from-yellow-500 to-[#f49e1a] text-black font-mono font-black text-[11px] uppercase tracking-widest px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-md">
             <Sparkles className="w-3.5 h-3.5" />
-            Transparência & Risco Absolutamente Zero
+            OFERTAS EXCLUSIVAS & NOVIDADES IMPORTANTES
           </span>
-          <h3 className="text-2xl sm:text-3xl font-black uppercase text-white tracking-tight pt-1 leading-snug">
-            Vídeos Reais da Estrutura: <span className="text-[#f49e1a]">Veja em Ação!</span>
+          <h3 className="text-2xl sm:text-3.5xl font-black uppercase text-white tracking-tight pt-1 leading-snug">
+            Agora a Carplus <span className="text-[#f49e1a]">Compra & Vende Veículos!</span>
           </h3>
           <p className="text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed text-justify sm:text-left">
-            Assista pelas lentes reais a infraestrutura e o rigor técnico que tornaram a Carplus o autocenter mais recomendado de Curitiba. <strong>Nenhum pagamento online é feito hoje</strong>: reserve sem compromisso e pague somente na loja após ver os pneus novos montados!
+            Grande marco em Curitiba! Além de sermos referência em pneus nacionais e importados com oficina mecânica avançada, agora nós também <strong>compramos e vendemos veículos seminovos com procedência garantida e vistoria 100% aprovada</strong>. Assista aos vídeos explicativos e confira as nossas ofertas exclusivas abaixo!
           </p>
         </div>
 
-        {/* The Compact Interactive Slider Container */}
-        <div className="relative max-w-md mx-auto bg-neutral-950 border border-neutral-800 rounded-3xl p-5 shadow-2xl transition duration-300 hover:border-[#f49e1a]/40" id="video-slider-stage">
+        {/* 2-Column Responsive Layout for Desktop Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center max-w-6xl mx-auto" id="video-showcase-grid">
           
-          {/* Main Video Presentation Card */}
-          <div 
-            className="flex flex-col justify-between cursor-pointer group"
-            onClick={() => handleWatchVideo(activeVideo.id)}
-          >
-            {/* Visual Aspect Screen */}
-            <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-xl group/thumb">
-              {/* HQ Cover Image */}
-              <img
-                src={activeThumbnailUrl}
-                alt={activeVideo.title}
-                className="absolute inset-0 w-full h-full object-cover filter brightness-[0.70] group-hover/thumb:brightness-[0.55] group-hover/thumb:scale-105 transition-all duration-500"
-                referrerPolicy="no-referrer"
-              />
+          {/* Left Side: Mockup 9:16 (Phone Shell with Glowing Neon Effect) */}
+          <div className="lg:col-span-5 relative flex justify-center items-center py-4">
+            
+            {/* Pulsing Ambient Background Glow */}
+            <div className="absolute inset-0 bg-yellow-500/10 blur-[60px] rounded-full pointer-events-none animate-pulse" />
+
+            {/* Smartphone Shell with detailed borders and shadows */}
+            <div className="relative w-full max-w-[280px] sm:max-w-[300px] bg-neutral-950 border-[8px] border-neutral-800 rounded-[44px] p-2 shadow-[0_0_40px_rgba(244,158,26,0.3)] hover:shadow-[0_0_60px_rgba(244,158,26,0.4)] transition-all duration-500 overflow-hidden ring-4 ring-neutral-900" id="phone-shell">
               
-              {/* Dynamic Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-
-              {/* Pulsing Play Button */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <div className="bg-red-650 hover:bg-red-600 text-white p-5 rounded-full shadow-2xl scale-95 group-hover/thumb:scale-110 transition-all duration-300 border-2 border-white/40 flex items-center justify-center relative">
-                  <span className="absolute inset-0 rounded-full bg-red-600 animate-ping opacity-25"></span>
-                  <Play className="w-8 h-8 fill-current text-white translate-x-0.5" />
+              {/* Smartphone Notch */}
+              <div className="absolute top-1 left-1/2 -translate-x-1/2 w-28 h-4.5 bg-neutral-850 rounded-full z-30 flex items-center justify-center gap-1.5 shadow-inner">
+                <div className="w-2 h-2 rounded-full bg-neutral-950 flex items-center justify-center">
+                  <div className="w-0.5 h-0.5 rounded-full bg-blue-900/65 animate-pulse" />
                 </div>
-                <span className="text-[11px] bg-black/80 text-[#f49e1a] px-3.5 py-1.5 rounded-full font-mono font-black uppercase tracking-widest text-center border border-white/10 shadow-lg group-hover/thumb:border-[#f49e1a]/40 transition">
-                  Assistir no YouTube Shorts
-                </span>
+                <div className="w-10 h-0.5 bg-neutral-950 rounded-full" />
               </div>
 
-              {/* Tag Overlays */}
-              <div className="absolute top-4 left-4">
-                <span className="bg-[#f49e1a] text-black font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded shadow">
-                  {activeVideo.tag}
-                </span>
+              {/* Aspect Ratio Screen */}
+              <div className="relative aspect-[9/16] w-full rounded-[30px] overflow-hidden bg-neutral-950 shadow-inner group/screen">
+                <AnimatePresence mode="wait">
+                  {isPlaying ? (
+                    <motion.div
+                      key={`player-${activeVideo.id}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute inset-0 w-full h-full bg-black"
+                    >
+                      <iframe
+                        src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1`}
+                        title={activeVideo.title}
+                        className="absolute inset-0 w-full h-full rounded-[28px]"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      ></iframe>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={`thumb-${activeVideo.id}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onClick={() => setIsPlaying(true)}
+                      className="absolute inset-0 w-full h-full cursor-pointer"
+                    >
+                      {/* Thumbnail with overlay gradient */}
+                      <img
+                        src={activeThumbnailUrl}
+                        alt={activeVideo.title}
+                        className="absolute inset-0 w-full h-full object-cover filter brightness-[0.70] group-hover/screen:brightness-[0.55] group-hover/screen:scale-105 transition-all duration-500 rounded-[28px]"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15" />
+
+                      {/* Play Button */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
+                        <div className="bg-red-650 hover:bg-red-600 text-white p-5 rounded-full shadow-2xl scale-100 group-hover/screen:scale-110 transition-all duration-300 border-2 border-white/40 flex items-center justify-center relative">
+                          <span className="absolute inset-0 rounded-full bg-red-650 animate-ping opacity-35"></span>
+                          <Play className="w-8 h-8 fill-current text-white translate-x-0.5" />
+                        </div>
+                        <div className="text-center">
+                          <span className="text-[9px] bg-black/80 text-[#f49e1a] px-3 py-1.5 rounded-full font-mono font-black uppercase tracking-widest border border-white/10 shadow-lg group-hover/screen:border-[#f49e1a]/50 transition duration-300">
+                            Assistir no Celular
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Tag Overlay */}
+                      <div className="absolute top-8 left-4 z-15">
+                        <span className="bg-[#f49e1a] text-black font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded shadow">
+                          {activeVideo.tag}
+                        </span>
+                      </div>
+
+                      {/* Mobile instructions overlay */}
+                      <div className="absolute bottom-6 left-4 right-4 text-left z-15">
+                        <span className="bg-red-600 text-white font-mono font-black text-[9px] uppercase px-2 py-0.5 rounded shadow">
+                          Shorts 9:16
+                        </span>
+                        <p className="text-[11px] text-white/95 font-extrabold mt-1.5 leading-snug">
+                          Toque no play para assistir a demonstração de forma totalmente interativa.
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 text-left">
-                <span className="bg-red-600 text-white font-mono font-black text-[9px] uppercase px-2 py-0.5 rounded shadow">
-                  Shorts 9:16
-                </span>
-                <p className="text-xs text-white/95 font-bold mt-1.5 leading-tight">
-                  Toque para iniciar a demonstração gravada diretamente do autocenter.
-                </p>
-              </div>
             </div>
 
-            {/* Video Copy Details (Neuromarketing Triggered) */}
-            <div className="mt-5 text-center sm:text-left flex flex-col justify-between flex-1">
-              <div>
-                <span className="bg-[#f49e1a]/15 text-[#f49e1a] font-mono font-black text-[10px] uppercase px-2.5 py-1 rounded border border-[#f49e1a]/25 inline-block">
+            {/* Touch-Friendly Slider Navigation Arrows */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevVideo();
+              }}
+              className="absolute left-[-16px] sm:left-[-24px] lg:left-[-10px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90 z-40"
+              title="Vídeo Anterior"
+            >
+              <ChevronLeft className="w-6 h-6 stroke-[3]" />
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextVideo();
+              }}
+              className="absolute right-[-16px] sm:right-[-24px] lg:right-[-10px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90 z-40"
+              title="Próximo Vídeo"
+            >
+              <ChevronRight className="w-6 h-6 stroke-[3]" />
+            </button>
+
+          </div>
+
+          {/* Right Side: Detailed Copy & Call To Action Buttons */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-6 text-center lg:text-left">
+            
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                <span className="bg-[#f49e1a]/20 text-[#f49e1a] font-mono font-black text-[10px] uppercase px-3 py-1 rounded border border-[#f49e1a]/30">
+                  {activeVideo.tag}
+                </span>
+                <span className="bg-white/10 text-gray-300 font-mono font-black text-[10px] uppercase px-3 py-1 rounded border border-white/10">
                   Vídeo {activeVideoIndex + 1} de {VIDEOS.length}
                 </span>
-                <h4 className="text-base sm:text-lg font-black uppercase tracking-tight text-white mt-1.5 leading-snug group-hover:text-[#f49e1a] transition">
-                  {activeVideo.title}
-                </h4>
-                <p className="text-xs text-gray-300 mt-2 leading-relaxed text-justify">
-                  {activeVideo.desc}
-                </p>
               </div>
+              
+              <h4 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white leading-tight">
+                {activeVideo.title}
+              </h4>
+              
+              <p className="text-sm text-gray-300 leading-relaxed text-justify lg:text-left">
+                {activeVideo.desc}
+              </p>
+            </div>
 
-              {/* Instant High Trust Conversion Call to Action */}
+            {/* Bullet List for Premium Trust highlights */}
+            <div className="bg-neutral-950 border border-neutral-850 rounded-2xl p-4 space-y-3 text-left">
+              {activeVideo.bullets?.map((bullet, bIdx) => {
+                const [titlePart, contentPart] = bullet.split(': ');
+                return (
+                  <div key={bIdx} className="flex items-start gap-2.5 text-xs">
+                    <CheckCircle2 className="w-4 h-4 shrink-0 text-[#1ebd53] mt-0.5" />
+                    <p className="text-gray-300 leading-relaxed">
+                      <strong className="text-white uppercase tracking-wider">{titlePart}:</strong> {contentPart}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Dynamic Interactive Call to Action buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
+              {activeVideo.link ? (
+                <a
+                  href={activeVideo.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-[#f49e1a] hover:from-yellow-400 hover:to-yellow-500 text-black font-black text-xs uppercase py-4 px-6 rounded-xl flex items-center justify-center gap-2.5 transition-all border border-[#d68516] shadow-lg shadow-yellow-500/10 hover:scale-[1.02] active:scale-95 cursor-pointer"
+                >
+                  <Car className="w-4 h-4 shrink-0 text-black" />
+                  <span>{activeVideo.linkLabel}</span>
+                  <ArrowRight className="w-4.5 h-4.5 shrink-0 stroke-[3]" />
+                </a>
+              ) : null}
+
               <a
                 href={activeWatchUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="mt-5 w-full bg-red-650 hover:bg-red-600 text-white font-black text-xs uppercase py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all border-2 border-transparent hover:border-white/20 shadow-md transform active:scale-95"
+                className={`w-full sm:w-auto font-black text-xs uppercase py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all border active:scale-95 cursor-pointer ${
+                  activeVideo.link 
+                    ? 'bg-transparent border-neutral-700 text-gray-300 hover:bg-white/5 hover:text-white' 
+                    : 'bg-red-650 hover:bg-red-600 text-white border-transparent shadow-lg shadow-red-600/10 hover:scale-[1.02]'
+                }`}
               >
-                <Play className="w-4 h-4 fill-current shrink-0" />
-                <span>Iniciar Vídeo Real no YouTube</span>
+                <Play className="w-3.5 h-3.5 fill-current shrink-0" />
+                <span>Assistir no YouTube</span>
                 <ExternalLink className="w-3.5 h-3.5 shrink-0" />
               </a>
             </div>
+
+            {/* Slider Dots Indicator */}
+            <div className="flex justify-center lg:justify-start items-center gap-2.5 pt-1">
+              {VIDEOS.map((_, dotIdx) => (
+                <button
+                  key={`dot-filter-${dotIdx}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveVideoIndex(dotIdx);
+                    setIsPlaying(false);
+                  }}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    dotIdx === activeVideoIndex ? 'w-8 bg-[#f49e1a]' : 'w-2 bg-neutral-700 hover:bg-neutral-500'
+                  }`}
+                />
+              ))}
+            </div>
+
           </div>
 
-          {/* Touch-Friendly Slider Arrows inside the Card */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrevVideo();
-            }}
-            className="absolute left-[-18px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90"
-            title="Vídeo Anterior"
-          >
-            <ChevronLeft className="w-6 h-6 stroke-[3]" />
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNextVideo();
-            }}
-            className="absolute right-[-18px] sm:right-[-24px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90"
-            title="Próximo Vídeo"
-          >
-            <ChevronRight className="w-6 h-6 stroke-[3]" />
-          </button>
-
-          {/* Dots Indicators Indicator */}
-          <div className="flex justify-center items-center gap-2 mt-4">
-            {VIDEOS.map((_, dotIdx) => (
-              <button
-                key={`dot-filter-${dotIdx}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveVideoIndex(dotIdx);
-                }}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  dotIdx === activeVideoIndex ? 'w-6 bg-[#f49e1a]' : 'w-2 bg-neutral-700 hover:bg-neutral-500'
-                }`}
-              />
-            ))}
-          </div>
         </div>
       </div>
-
+      
       {/* 2. THE 5 ACCORDIONS CURIOUSITY / SECRETS OF TIRES WITH ULTRA PREMIUM MOBILE LAYOUT */}
       <div className="bg-white border-2 border-gray-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm text-gray-900 select-none" id="secrets-tires-accordion">
         
