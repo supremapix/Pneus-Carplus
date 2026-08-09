@@ -473,7 +473,7 @@ export default function App() {
       setCurrentView('pneus-pirelli-em-curitiba-melhor-preco');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'barao-pneus-e-oficina-portao') {
+    } else if (firstRoute === 'barao-pneus-e-oficina-portao' || firstRoute === 'pneus-portao-curitiba' || firstRoute === 'pneus-no-portao-curitiba') {
       setCurrentView('barao-pneus-e-oficina-portao');
       setSeoTarget(null);
       setSelectedTire(null);

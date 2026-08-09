@@ -227,9 +227,9 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     desc = "Melhor preço garantido em pneus originais Pirelli em Curitiba. Estoque completo Cinturato P1, P7, Scorpion a pronta entrega com bico grátis e geometria 3D computadorizada no Portão.";
     keywords = "pneus pirelli em curitiba melhor preco, pirelli cinturato curitiba, comprar pneu pirelli porto, oficina especialista em pirelli";
   } else if (currentView === 'barao-pneus-e-oficina-portao') {
-    title = "Alternativa a Barão Pneus e Oficina Portão | Carplus";
-    desc = "Procurando serviços no Portão semelhantes a Barão Pneus? Conheça a alternativa Carplus Arthur Bernardes para Geometria 3D de alta precisão e bicos grátis.";
-    keywords = "barao pneus e oficina portão, barao pneus portao, auto center portao curitiba, borracharia portão curitiba";
+    title = "Pneus no Portão Curitiba - Loja de Pneus no Portão | Carplus Pneus";
+    desc = "Loja de pneus no Portão em Curitiba. Troca de pneus com pronta entrega, montagem grátis, bicos novos, alinhamento 3D e balanceamento na Av. Arthur Bernardes.";
+    keywords = "pneus no portao curitiba, loja de pneus no portao, troca de pneus no portao, instalacao de pneus no portao, alinhamento e balanceamento no portao, pneu portao curitiba";
   } else if (currentView === 'curitiba') {
     title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";
     desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone com montagem, bicos de vedação e calibragem digital grátis.";

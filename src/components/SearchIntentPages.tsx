@@ -508,27 +508,44 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'barao-pneus-e-oficina-portao': {
-      title: "Alternativa a Barão Pneus e Oficina Portão",
-      subtitle: "Seu carro desalinhado? Visite a rampa 3D computadorizada da Carplus Arthur Bernardes.",
-      tag: "Liderança Mecânica Autocenter",
+      title: "Pneus no Portão Curitiba - Loja de Pneus no Portão",
+      subtitle: "Estoque a pronta entrega, montagem técnica com bicos novos grátis, alinhamento 3D e balanceamento na Av. Arthur Bernardes.",
+      tag: "Loja de Pneus no Portão",
       bgGradient: "from-zinc-900 to-gray-950",
       content: (
         <div className="space-y-6 text-left">
           <p className="text-sm text-gray-650 leading-relaxed font-semibold">
-            Se você está pesquisando por <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">Barão Pneus e Oficina Portão</strong>, sabe que contar com serviços competentes e ágeis no mesmo bairro é sinônimo de tranquilidade. Ao lado da Arthur Bernardes, a Carplus Pneus oferece o melhor em revisão técnica mecânica de suspensões, troca de amortecedores e geometria tridimensional 3D computadorizada sem tarifas ocultas de montagem.
+            Procurando por <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">pneus no Portão em Curitiba</strong>? A Carplus Pneus é sua loja especializada no bairro Portão, localizada na Av. Presidente Arthur da Silva Bernardes, 1323. Oferecemos pronta entrega das melhores marcas de pneus (Pirelli, Bridgestone, Goodyear, Michelin, Continental, Firestone, Dunlop, Delinte, Xbri e Hankook) com bicos de borracha novos e montagem totalmente gratuita.
           </p>
 
-          <div className="bg-yellow-500/5 border border-yellow-500/15 p-5 rounded-3xl text-xs text-gray-800 font-extrabold leading-relaxed text-justify">
-            <p>
-              A rampa tridimensional computadorizada Carplus faz a leitura perfeita do alinhamento geométrico, salvando seu conjunto de freios e suspensão da ação do desgaste irregular. Venha nos visitar próximo ao cruzamento da rápida do Portão para uma avaliação sem custos das buchas, bandejas e estado geral dos pivôs de balança!
-            </p>
+          <div className="bg-yellow-500/5 border border-yellow-500/15 p-5 rounded-3xl space-y-3">
+            <h3 className="text-sm font-black text-gray-950 uppercase font-mono">Por que comprar e instalar seus pneus no Portão com a Carplus?</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-700 font-medium">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
+                <span><strong>Pronta entrega no Portão:</strong> pneus aro 13 a 20 em estoque físico imediato.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
+                <span><strong>Montagem e Válvulas Grátis:</strong> trocamos seus pneus sem taxas escondidas com máquinas anti-risco.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
+                <span><strong>Alinhamento e Balanceamento no Portão:</strong> rampa 3D tridimensional de alta precisão.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
+                <span><strong>Atendimento a Bairros Próximos:</strong> localização estratégica no Portão para clientes do Água Verde, Vila Izabel, Batel, Capão Raso e Novo Mundo.</span>
+              </li>
+            </ul>
           </div>
         </div>
       ),
-      whatsappText: "Olá Carplus! Moro no Portão e procuro uma oficina mecânica com rampa 3D e troca de pneus. Podem me passar orçamentos de serviços?",
+      whatsappText: "Olá Carplus! Moro no Portão e gostaria de cotar pneus a pronta entrega na loja da Av. Arthur Bernardes.",
       faqs: [
-        { q: "Onde fica a Carplus Portão exatamente?", a: "Nossa rampa automotiva principal situa-se na Av. General Arthur Bernardes, proporcionando fácil acesso aos moradores e comerciantes do Portão." },
-        { q: "Fazem balanceamento de roda?", a: "Sim, balanceamento estático e dinâmico feito em garras computadorizadas sensíveis com chumbo adesivo limpo." }
+        { q: "Onde fica a loja de pneus da Carplus no Portão?", a: "Nossa loja física situa-se na Av. Presidente Arthur da Silva Bernardes, 1323, bairro Portão, Curitiba - PR, CEP 80320-300." },
+        { q: "Quais serviços de pneu são feitos no Portão?", a: "Fazemos montagem técnica, troca de bicos/válvulas, balanceamento computadorizado e alinhamento 3D tridimensional." },
+        { q: "Possuem pneus a pronta entrega no Portão para carros e SUVs?", a: "Sim, mantemos estoque próprio a pronta entrega de pneus passeio, SUV e caminhonete do aro 13 ao 20." }
       ]
     }
   };
