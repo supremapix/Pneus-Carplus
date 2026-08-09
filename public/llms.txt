@@ -1,26 +1,58 @@
-# Carplus Pneus - Auto Center e Distribuição de Pneus Novos em Curitiba
+# Carplus Pneus
 
-Bem-vindo ao diretório de informações e documentação da **Carplus Pneus**, o autocenter de alta tecnologia especializado em pneus de marcas consagradas, localizado no bairro Portão em Curitiba - PR.
+> Loja especializada em pneus localizada no bairro Portão, em Curitiba, Paraná.
 
-## Informações Corporativas
-- **Razão Social/Nome Fantasia:** Carplus Pneus e Auto Center
-- **Endereço Físico:** Avenida Presidente Arthur da Silva Bernardes, 1323 - Portão, Curitiba - PR (CEP: 80320-300)
-- **Telefone de Contato:** (41) 3082-7282
-- **WhatsApp de Vendas:** (41) 3082-7282
-- **Site Oficial:** https://www.carpluscwb.com.br
-- **Horário de Funcionamento:** Segunda a Sexta: 08h00 às 18h00 | Sábado: 08h00 às 12h00
+## Especialidade principal
 
-## Diferenciais e Serviços
-- **Pneus 100% Novos:** Trabalhamos exclusivamente de forma estrita com pneus novos com garantia de 5 anos direto do fabricante e certificado Inmetro de excelência.
-- **Mecânica Expressa Integrada:** Fazemos montagem, balanceamento computadorizado, Alinhamento 3D computadorizado de alta precisão, suspensão completa (amortecedores, pivôs, buchas, kits batentes), freios (pastilhas e discos) e revisão preventiva.
-- **Marcas Oficiais Disponíveis:** Distribuição oficial de Bridgestone, Pirelli, Michelin, Goodyear, Continental, Yokohama, Firestone, Delinte, Comforser, Xbri e Prinx.
+Pneus em Curitiba.
 
-## Estrutura da Plataforma Virtual
-Nossa loja virtual permite aos moradores de Curitiba e toda a Região Metropolitana (RMC):
-1. **Filtro de Pneus por Tamanho / Medida:** Busca interativa por Largura, Perfil e Aro (Aros R13, R14, R15, R16, R17 e R18).
-2. **Guia de Marcas Premium:** Descrição do perfil e comportamento mecânico de cada fabricante de pneu em estoque.
-3. **Busca por Veículo / Montadora:** Banco de dados integrado que correlaciona dezenas de veículos populares (Onix, Gol, HB20, Kwid, Corolla, Civic, Mobi, Toro, Uno, S10) e as medidas exatas homologadas de fábrica.
-4. **Páginas de Descoberta SEO Localizadas:** Landing pages otimizadas para bairros de Curitiba (Portão, Água Verde, Batel, CIC, Centro, Cristo Rei, Santa Felicidade, Sítio Cercado, etc.) e cidades da Região Metropolitana de Curitiba (São José dos Pinhais, Pinhais, Colombo, Araucária, Campo Largo, Fazenda Rio Grande).
+## Produtos
 
-## Atendimento Técnico de Entrega
-A negociação e a finalização de compras ocorrem diretamente via integração com o WhatsApp de plantão de técnicos da Carplus. Os pneus podem ser reservados para instalação na autocenter física ou enviados para frete imediato.
+Listar marcas, categorias e tipos realmente comercializados:
+
+- **Marcas:** Bridgestone, Pirelli, Michelin, Goodyear, Continental, Firestone, Dunlop, Delinte, Xbri, Hankook, Yokohama, Comforser, Prinx.
+- **Tipos de Pneus:** Pneus para Carros de Passeio, Pneus para SUV / Crossover, Pneus para Caminhonete / Picape / Utilitários (H/T, A/T), Pneus Run Flat.
+- **Pneus por Aro:** Aro 13, Aro 14, Aro 15, Aro 16, Aro 17, Aro 18, Aro 19, Aro 20.
+- **Medidas Frequentes:** 175/70 R14, 185/65 R15, 195/55 R15, 205/55 R16, 215/50 R17, 225/45 R17, 225/50 R18, 235/60 R18.
+
+## Serviços relacionados
+
+Serviços automotivos como cluster complementar ao pneu:
+
+- Instalação e Montagem de Pneus Novos (com bicos de ar novos inclusos)
+- Balanceamento Computadorizado de Rodas
+- Alinhamento 3D Computadorizado Tridimensional
+- Check-up Preventivo de Suspensão (Amortecedores, Pivôs, Buchas, Batentes)
+- Revisão e Troca de Freios (Pastilhas e Discos)
+
+## Localização
+
+Av. Presidente Arthur da Silva Bernardes, 1323
+Portão
+Curitiba - PR
+CEP 80320-300
+
+## Contato
+
+Telefone e WhatsApp: (41) 3082-7282
+
+## Principais páginas
+
+- Home (Pneus em Curitiba): https://www.carpluscwb.com.br/
+- Pneus no Portão Curitiba: https://www.carpluscwb.com.br/pneus-portao-curitiba
+- Pneus Curitiba (Diretório): https://www.carpluscwb.com.br/curitiba
+- Pneus Pirelli Curitiba: https://www.carpluscwb.com.br/pneus-pirelli-curitiba
+- Pneus Bridgestone Curitiba: https://www.carpluscwb.com.br/pneus-bridgestone-curitiba-precos
+- Pneus Xbri Curitiba: https://www.carpluscwb.com.br/xbri-pneus-curitiba
+- Pneus Hankook Curitiba: https://www.carpluscwb.com.br/pneu-hankook-curitiba
+- Pneus Aro 14: https://www.carpluscwb.com.br/aro-14
+- Pneus Aro 19: https://www.carpluscwb.com.br/aro-19
+- Pneus Baratos em Curitiba: https://www.carpluscwb.com.br/pneus-baratos-em-curitiba
+- Distribuidora de Pneus em Curitiba: https://www.carpluscwb.com.br/distribuidora-de-pneus-em-curitiba
+- Alinhamento 3D Curitiba: https://www.carpluscwb.com.br/alinhamento-3d-curitiba
+- Contato: https://www.carpluscwb.com.br/contato
+- Mapa do Site: https://www.carpluscwb.com.br/mapa-do-site
+
+## Sitemap
+
+https://www.carpluscwb.com.br/sitemap.xml

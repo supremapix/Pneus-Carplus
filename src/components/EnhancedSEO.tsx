@@ -291,9 +291,10 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
 
   // 3. Structured Data Models Creation (JSON-LD JSON Objects)
   const baseLocalBusiness = {
-    "@type": "AutoPartsStore",
-    "name": "Carplus Pneus e Auto Center",
-    "image": "https://www.carpluspneuseoficina.com.br/images/galeria/fachada-logo.webp",
+    "@type": ["TireShop", "AutomotiveBusiness"],
+    "name": "Carplus Pneus",
+    "legalName": "Carplus Pneus e Auto Center",
+    "image": `${domain}/og-carplus.webp`,
     "@id": `${domain}/#loja`,
     "url": domain,
     "telephone": "+55-41-3082-7282",
@@ -311,13 +312,6 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       "latitude": -25.477815,
       "longitude": -49.299557
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "184",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -331,11 +325,29 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         "opens": "08:00",
         "closes": "12:00"
       }
-    ],
-    "sameAs": [
-      "https://www.instagram.com/carpluspneus.curitiba",
-      "https://www.facebook.com/carpluspneus.curitiba"
     ]
+  };
+
+  const webSiteSchema = {
+    "@type": "WebSite",
+    "@id": `${domain}/#website`,
+    "url": domain,
+    "name": "Carplus Pneus",
+    "description": "Loja especializada em pneus novos em Curitiba com pronta entrega no Portão e montagem grátis.",
+    "publisher": {
+      "@id": `${domain}/#loja`
+    }
+  };
+
+  const webPageSchema = {
+    "@type": "WebPage",
+    "@id": `${canonicalUrl}#webpage`,
+    "url": canonicalUrl,
+    "name": title,
+    "description": desc,
+    "isPartOf": {
+      "@id": `${domain}/#website`
+    }
   };
 
   const breadcrumbList = {
@@ -428,16 +440,16 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
   }
 
   // Compose dynamic graphs
-  const graph: any[] = [breadcrumbList, baseLocalBusiness];
+  const graph: any[] = [breadcrumbList, baseLocalBusiness, webSiteSchema, webPageSchema];
 
-  // If viewing a tire, add a Product Schema with comprehensive details and AggregateRating
+  // If viewing a tire, add a Product Schema with comprehensive details
   if (selectedTire) {
     const finalP = selectedTire.promoPrice || selectedTire.price;
     const prodSchema = {
       "@type": "Product",
       "@id": `${domain}/pneu/${getTireSlug(selectedTire)}#produto`,
       "name": `Pneu ${selectedTire.brand} ${selectedTire.model} ${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}`,
-      "image": selectedTire.image || "https://www.carpluspneuseoficina.com.br/images/galeria/fachada-logo.webp",
+      "image": selectedTire.image || `${domain}/og-carplus.webp`,
       "description": `Pneu novo modelo ${selectedTire.model} marca ${selectedTire.brand}, medida ${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}. Montagem técnica e válvulas grátis inclusas no Portão.`,
       "brand": {
         "@type": "Brand",
@@ -445,13 +457,6 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       },
       "mpn": selectedTire.id,
       "sku": `${selectedTire.width}${selectedTire.aspectRatio}${selectedTire.rim}`,
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "184",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "offers": {
         "@type": "Offer",
         "url": `${domain}/pneu/${getTireSlug(selectedTire)}`,
@@ -461,7 +466,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
         "itemCondition": "https://schema.org/NewCondition",
         "availability": "https://schema.org/InStock",
         "seller": {
-          "@type": "AutoPartsStore",
+          "@type": "TireShop",
           "name": "Carplus Pneus",
           "url": domain
         }
