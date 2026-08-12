@@ -211,18 +211,18 @@ export function isPageReleased(name: string, type: 'bairro' | 'cidade' | 'carro'
   return false;
 }
 
-// Retrieve GSC indexing state from localStorage (client only) or fall back to standard Phase 2 rate (80%)
+// Retrieve GSC indexing state from localStorage (client only) or fall back to Phase 3 rate (100%)
 export function getSavedGSCRate(): number {
   if (typeof window === 'undefined') {
-    // In build-time (Node.js), we are compiling Phase 2 (80%)!
-    return 80;
+    // In build-time (Node.js), we compile Phase 3 (100% - Escalabilidade Enterprise Total)
+    return 100;
   }
   const saved = localStorage.getItem('carplus_gsc_indexing_rate');
   if (saved !== null) {
     const rate = parseFloat(saved);
     if (!isNaN(rate)) return rate;
   }
-  return 80; // default initial simulated indexation rate is 80% (Phase 2)
+  return 100; // default indexation rate is 100% (Fase 3 - Escalabilidade Enterprise Total)
 }
 
 export function saveGSCRate(rate: number) {
