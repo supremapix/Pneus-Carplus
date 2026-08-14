@@ -15,6 +15,9 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
   };
 
   const navLinks = [
+    { label: 'Início', id: 'home' },
+    { label: 'Pneus e Ofertas', id: 'catalog' },
+    { label: 'Serviços & Oficina', id: 'alinhamento-3d-curitiba' },
     { label: 'Quem Somos', id: 'quem-somos' },
     { label: 'Blog', id: 'blog' },
     { label: 'Contato', id: 'contato' }
@@ -90,7 +93,14 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
           {/* Brand Logo responsive picker */}
           <div className="flex items-center">
             {/* Desktop Logo */}
-            <a href="#home" onClick={() => onScrollToSection('home')} className="hidden sm:block">
+            <a 
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault();
+                onScrollToSection('home');
+              }} 
+              className="hidden sm:block cursor-pointer"
+            >
               <img
                 src="https://www.carpluspneuseoficina.com.br/images/logos/logo-horizontal.svg"
                 alt="Carplus Pneus Oficina Mecânica"
@@ -99,7 +109,14 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
               />
             </a>
             {/* Mobile Header Logo */}
-            <a href="#home" onClick={() => onScrollToSection('home')} className="block sm:hidden">
+            <a 
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault();
+                onScrollToSection('home');
+              }} 
+              className="block sm:hidden cursor-pointer"
+            >
               <img
                 src="https://www.carpluspneuseoficina.com.br/carplus-pneus-oficina-mecanica-full-service-horizontal.svg"
                 alt="Carplus Pneus Mobile"
@@ -110,12 +127,12 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
           </div>
 
           {/* Core Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => onScrollToSection(link.id)}
-                className="text-xs uppercase font-extrabold tracking-wider text-gray-200 hover:text-[#f49e1a] transition duration-150"
+                className="text-xs uppercase font-extrabold tracking-wider text-gray-200 hover:text-[#f49e1a] transition duration-150 cursor-pointer"
               >
                 {link.label}
               </button>
@@ -227,7 +244,27 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                 <ArrowUpRight className="w-5 h-5 text-gray-500 shrink-0" />
               </button>
 
-              {/* 3. Ligar direto */}
+              {/* 3. Serviços e Oficina */}
+              <button
+                onClick={() => {
+                  onScrollToSection('alinhamento-3d-curitiba');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-between p-4 bg-neutral-900 border-2 border-neutral-700 hover:border-[#f49e1a] rounded-2xl text-left active:bg-neutral-800 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-[#f49e1a] text-black p-2.5 rounded-xl">
+                    <FileText className="w-6 h-6 shrink-0" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-white">Serviços e Alinhamento 3D</span>
+                    <span className="block text-[11px] text-gray-400 font-medium">Suspensão, freios, troca de óleo e revisão geral</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-gray-500 shrink-0" />
+              </button>
+
+              {/* 4. Ligar direto */}
               <a
                 href="tel:554130827282"
                 className="w-full flex items-center justify-between p-4 bg-green-950 border-2 border-green-700 hover:border-green-400 rounded-2xl text-left active:bg-green-900 transition duration-200"
@@ -244,7 +281,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                 <Phone className="w-5 h-5 text-green-400 shrink-0" />
               </a>
 
-              {/* 4. WhatsApp */}
+              {/* 5. WhatsApp */}
               <a
                 href={formatWhatsApp('Olá Carplus! Quero agendar serviços ou orçamento para o meu carro.')}
                 target="_blank"
@@ -263,7 +300,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                 <ArrowUpRight className="w-5 h-5 text-emerald-400 shrink-0" />
               </a>
 
-              {/* 5. Endereço / Localização */}
+              {/* 6. Endereço / Localização */}
               <button
                 onClick={() => {
                   onScrollToSection('maps-section');
@@ -284,25 +321,35 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
               </button>
 
               {/* Outros links de texto grandes */}
-              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-neutral-800">
+              <div className="grid grid-cols-4 gap-2 pt-2 border-t border-neutral-800">
+                <button
+                  onClick={() => {
+                    onScrollToSection('home');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-2.5 text-center active:bg-neutral-800 transition text-xs font-black text-white flex flex-col items-center gap-1 cursor-pointer"
+                >
+                  <Navigation className="w-4 h-4 text-[#f49e1a]" />
+                  <span>Início</span>
+                </button>
                 <button
                   onClick={() => {
                     onScrollToSection('quem-somos');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-2.5 text-center active:bg-neutral-800 transition text-xs font-black text-white flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <FileText className="w-5 h-5 text-[#f49e1a]" />
-                  <span>Quem Somos</span>
+                  <FileText className="w-4 h-4 text-[#f49e1a]" />
+                  <span>Sobre</span>
                 </button>
                 <button
                   onClick={() => {
                     onScrollToSection('blog');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-2.5 text-center active:bg-neutral-800 transition text-xs font-black text-white flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <FileText className="w-5 h-5 text-[#f49e1a]" />
+                  <FileText className="w-4 h-4 text-[#f49e1a]" />
                   <span>Blog</span>
                 </button>
                 <button
@@ -310,9 +357,9 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
                     onScrollToSection('contato');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-2.5 text-center active:bg-neutral-800 transition text-xs font-black text-white flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <Calendar className="w-5 h-5 text-[#f49e1a]" />
+                  <Calendar className="w-4 h-4 text-[#f49e1a]" />
                   <span>Contato</span>
                 </button>
               </div>

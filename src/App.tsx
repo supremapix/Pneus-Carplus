@@ -191,19 +191,62 @@ export default function App() {
     saveCart([]);
   };
 
-  // Scroll handler mapping
+  // Dedicated standalone views that switch the main layout view
+  const PAGE_VIEWS = [
+    'quem-somos',
+    'blog',
+    'contato',
+    'alinhamento-3d-curitiba',
+    'curitiba',
+    'regiao-metropolitana',
+    'politica-privacidades',
+    'politica-devolucao',
+    'mapa-do-site',
+    'oficina-do-pneu-curitiba',
+    'garagem-de-pneus-curitiba',
+    'pneus-pirelli-curitiba',
+    'xbri-pneus-curitiba',
+    'pneus-baratos-em-curitiba',
+    'melhor-site-para-comprar-pneus',
+    'distribuidora-de-pneus-importados-atacado-curitiba',
+    'pneu-hankook-curitiba',
+    'pneus-bridgestone-curitiba-precos',
+    'barao-pneus-e-oficina-bacacheri-curitiba',
+    'barao-pneus-sao-jose-pinhais',
+    'pneus-em-curitiba-melhor-preco',
+    'distribuidora-de-pneus-em-curitiba',
+    'bana-pneus',
+    'loja-de-pneus-em-curitiba',
+    'pneus-pirelli-em-curitiba-melhor-preco',
+    'barao-pneus-e-oficina-portao',
+    'admin-indexacao'
+  ];
+
+  // Scroll handler and page navigation mapping
   const handleScrollToSection = (sectionId: string) => {
-    if (sectionId === 'quem-somos') {
-      setCurrentView('quem-somos');
+    // Normalization & Aliases
+    let targetView = sectionId;
+    if (sectionId === 'servicos' || sectionId === 'alinhamento') {
+      targetView = 'alinhamento-3d-curitiba';
+    } else if (sectionId === 'fale-conosco' || sectionId === 'faleconosco') {
+      targetView = 'contato';
+    }
+
+    // 1. Check if it is a standalone company/institutional page
+    if (PAGE_VIEWS.includes(targetView)) {
+      setSelectedTire(null);
+      setSeoTarget(null);
+      setSelectedBlogSlug(null);
+      setCurrentView(targetView as any);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    if (sectionId === 'contato') {
-      setCurrentView('contato');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    if (sectionId === 'home') {
+
+    // 2. Home page top
+    if (sectionId === 'home' || sectionId === '#home') {
+      setSelectedTire(null);
+      setSeoTarget(null);
+      setSelectedBlogSlug(null);
       setCurrentView('home');
       setTimeout(() => {
         const targetElement = homeRef.current;
@@ -212,35 +255,29 @@ export default function App() {
         } else {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      }, 100);
+      }, 80);
       return;
     }
 
-    if (currentView !== 'home') {
-      setCurrentView('home');
-      setTimeout(() => {
-        let targetElement: HTMLElement | null = null;
-        if (sectionId === 'finder') targetElement = finderRef.current;
-        else if (sectionId === 'catalog') targetElement = catalogRef.current;
-        else if (sectionId === 'categories') targetElement = categoriesRef.current;
-        else if (sectionId === 'maps-section') targetElement = mapsRef.current || document.getElementById('maps-section');
+    // 3. Section on the home page ('catalog', 'finder', 'categories', 'maps-section', etc.)
+    setSelectedTire(null);
+    setSeoTarget(null);
+    setSelectedBlogSlug(null);
+    setCurrentView('home');
 
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return;
-    }
+    setTimeout(() => {
+      let targetElement: HTMLElement | null = null;
+      if (sectionId === 'finder' || sectionId === 'simulador') targetElement = finderRef.current;
+      else if (sectionId === 'catalog' || sectionId === 'ofertas' || sectionId === 'estoque') targetElement = catalogRef.current;
+      else if (sectionId === 'categories' || sectionId === 'categorias') targetElement = categoriesRef.current;
+      else if (sectionId === 'maps-section' || sectionId === 'endereco' || sectionId === 'localizacao') targetElement = mapsRef.current || document.getElementById('maps-section');
 
-    let targetElement: HTMLElement | null = null;
-    if (sectionId === 'finder') targetElement = finderRef.current;
-    if (sectionId === 'catalog') targetElement = catalogRef.current;
-    if (sectionId === 'categories') targetElement = categoriesRef.current;
-    if (sectionId === 'maps-section') targetElement = mapsRef.current || document.getElementById('maps-section');
-
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   // Quick measure filter applier (e.g. from Google searched list)
