@@ -2993,6 +2993,19 @@ export default function CompanyPages({
               }
             }}
             onNavigateHome={onNavigateHome}
+            onNavigateUrl={(url) => {
+              const clean = url.replace(/^\//, '').replace(/\/$/, '');
+              if (!clean || clean === 'home') {
+                onNavigateHome();
+              } else if (clean === 'contato' || clean === 'fale-conosco') {
+                onNavigateToPage('contato');
+              } else if (clean.startsWith('blog/')) {
+                const slug = clean.replace('blog/', '');
+                if (onSelectBlogSlug) onSelectBlogSlug(slug);
+              } else {
+                onNavigateToPage(clean as any);
+              }
+            }}
           />
         )}
 

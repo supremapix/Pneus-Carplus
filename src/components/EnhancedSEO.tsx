@@ -28,28 +28,17 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     }
   } else if (currentView === 'seo-landing' && seoTarget) {
     const slug = toSlug(seoTarget.name);
-    const pathname = typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '';
-    if (pathname === `/pneus-no-${slug}` || pathname === `/pneus-em-${slug}`) {
-      canonicalUrl = `${domain}${window.location.pathname}`;
-    } else {
-      canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
-    }
+    canonicalUrl = `${domain}/${seoTarget.type}/${slug}`;
   } else if (currentView !== 'home') {
     canonicalUrl = `${domain}/${currentView}`;
   }
 
-  // 1b. Determine Wave Indexability Robots Control
+  // 1b. Determine Robots Control (Indexable vs Technical/Admin/Cart)
   let robotsContent = "index, follow";
   if (currentView === 'carrinho') {
-    robotsContent = "noindex, follow"; // Force noindex, follow on Carrinho to preserve Link Juice while saving crawl budget
-  } else if (currentView === 'seo-landing' && seoTarget) {
-    const rate = getSavedGSCRate();
-    const isReleased = isPageReleased(seoTarget.name, seoTarget.type, rate);
-    if (!isReleased) {
-      robotsContent = "noindex, follow";
-    }
+    robotsContent = "noindex, follow"; // Transacional / Carrinho: preserva link equity sem gastar crawl budget
   } else if (currentView === 'admin-indexacao') {
-    robotsContent = "noindex, nofollow"; // never index admin page
+    robotsContent = "noindex, nofollow"; // Painel técnico administrativo
   }
 
   // 2. Determine Title, Description, and Keywords
@@ -60,16 +49,16 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
 
   if (selectedTire) {
     // ----------------------------------------------------------------------
-    // WOOCOMMERCE PRODUCT PROGRAMMATIC SEO ENGINE (Rigorously compliant text)
-    // Format: [Pneu] + [Marca] + [Medida] + [Modelo] | Car Plus
+    // WOOCOMMERCE / PRODUCT SEO ENGINE
+    // Standard format: Pneu + Marca + Medida + [Modelo] + em Curitiba | Car Plus
     // ----------------------------------------------------------------------
     const pBrand = selectedTire.brand.charAt(0).toUpperCase() + selectedTire.brand.slice(1).toLowerCase();
-    const pMedida = `${selectedTire.width}/${selectedTire.aspectRatio}R${selectedTire.rim}`;
-    const pModel = selectedTire.model;
+    const pMedida = `${selectedTire.width}/${selectedTire.aspectRatio} R${selectedTire.rim}`;
+    const pModel = selectedTire.model || "";
 
     // Detect load speed rating inside name (e.g., 88V, 91W, etc.)
     let loadSpeed = "";
-    const nameWords = selectedTire.name.split(' ');
+    const nameWords = (selectedTire.name || "").split(' ');
     for (const w of nameWords) {
       if (/^\d{2,3}[A-Z]$/i.test(w)) {
         loadSpeed = " " + w.toUpperCase();
@@ -79,7 +68,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
 
     // Run flat check and format
     let runFlatText = "";
-    if (/run\s*flat/i.test(selectedTire.name) || /run\s*flat/i.test(selectedTire.model)) {
+    if (/run\s*flat/i.test(selectedTire.name || "") || /run\s*flat/i.test(selectedTire.model || "")) {
       runFlatText = " Run Flat";
     }
 
@@ -91,49 +80,21 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     cleanedModel = cleanedModel.replace(new RegExp(`r${selectedTire.rim}`, 'i'), '');
     cleanedModel = cleanedModel.trim();
 
-    const tireProdName = `Pneu ${pBrand} ${pMedida} ${cleanedModel}${runFlatText}${loadSpeed}`.replace(/\s+/g, ' ').trim();
-    title = `${tireProdName} | Car Plus`;
+    const modelSuffix = cleanedModel ? ` ${cleanedModel}` : '';
+    title = `Pneu ${pBrand} ${pMedida}${modelSuffix}${runFlatText} em Curitiba | Car Plus`;
 
-    // Metadescription length auto-scaler loop (target 145 to 160 characters)
-    const templates = [
-      "Compre %s com garantia de 5 anos de fábrica, parcelamento facilitado em até 10x sem juros e instalação especializada em Curitiba. Atendimento ágil na Car Plus.",
-      "Compre %s com garantia total de fabricação, parcelamento em até 10x sem juros e montagem computadorizada inclusa em Curitiba. Atendimento rápido na Car Plus.",
-      "Compre %s com ampla garantia oficial, parcelamento facilitado em até 10x e instalação de pista grátis em Curitiba. Adquira na Car Plus de forma rápida.",
-      "Compre %s com garantia oficial de 5 anos, parcelamento facilitado em até 10x sem juros e instalação rápida em Curitiba. Conheça a nossa loja Car Plus.",
-      "Compre %s com garantia de fábrica, parcelamento facilitado e instalação especializada rápida em Curitiba. Atendimento profissional na Car Plus.",
-      "Compre %s com garantia estendida e instalação especial computadorizada inclusa no Portão em Curitiba. Atendimento ágil e seguro na Car Plus.",
-      "Compre %s com garantia total, parcelamento facilitado e instalação especializada rápida em Curitiba. Atendimento de confiança na Car Plus.",
-      "Compre %s com garantia oficial de fábrica e instalação expressa inclusa em Curitiba. Acesse agora a loja Car Plus.",
-    ];
-
-    let matchedDesc = "";
-    for (const t of templates) {
-      const candidate = t.replace('%s', tireProdName);
-      if (candidate.length >= 145 && candidate.length <= 160) {
-        matchedDesc = candidate;
-        break;
-      }
+    // Factual meta description based only on confirmed product data
+    const priceText = selectedTire.price ? ` A partir de R$ ${selectedTire.price.toFixed(2).replace('.', ',')}.` : '';
+    let factualDesc = `Pneu ${pBrand} ${pMedida}${modelSuffix}${loadSpeed}${runFlatText} em Curitiba.${priceText} Veja especificações técnicas e atendimento na Car Plus no Portão.`;
+    if (factualDesc.length < 135) {
+      factualDesc = `Encontre Pneu ${pBrand} ${pMedida}${modelSuffix}${loadSpeed}${runFlatText} na Car Plus em Curitiba.${priceText} Atendimento na Av. Presidente Arthur Bernardes, Portão.`;
+    }
+    if (factualDesc.length > 160) {
+      factualDesc = factualDesc.substring(0, 157) + "...";
     }
 
-    if (!matchedDesc) {
-      // Fallback fallback generator adjusting characters directly
-      const basicDesc = `Compre ${tireProdName} com garantia, parcelamento e instalação especializada em Curitiba. Atendimento rápido na Car Plus.`;
-      if (basicDesc.length < 145) {
-        const paddingText = " Estoque oficial com nota, bicos de borracha grátis e montagem inclusa.";
-        let padded = basicDesc + paddingText;
-        if (padded.length > 160) {
-          padded = padded.substring(0, 157) + "...";
-        }
-        matchedDesc = padded;
-      } else if (basicDesc.length > 160) {
-        matchedDesc = basicDesc.substring(0, 157) + "...";
-      } else {
-        matchedDesc = basicDesc;
-      }
-    }
-
-    desc = matchedDesc;
-    keywords = `pneu ${selectedTire.brand}, pneu ${selectedTire.brand} ${selectedTire.model}, pneu ${selectedTire.width} ${selectedTire.aspectRatio} r${selectedTire.rim}, comprar pneu ${selectedTire.brand}, auto center curitiba`;
+    desc = factualDesc;
+    keywords = `pneu ${selectedTire.brand.toLowerCase()}, pneu ${selectedTire.brand.toLowerCase()} ${pMedida.toLowerCase()}, pneu ${selectedTire.width} ${selectedTire.aspectRatio} r${selectedTire.rim}, pneu curitiba, car plus pneus`;
 
   } else if (currentView === 'quem-somos') {
     // Overrides for Sobre a Car Plus (Sobre-a-carplus)
@@ -145,8 +106,8 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     desc = "Conheça nossas diretrizes de privacidade, confidencialidade e segurança de dados pessoais na Carplus Pneus Auto Center.";
     keywords = "privacidade carplus, termos de uso carplus, segurança site de pneus, dados protegidos";
   } else if (currentView === 'politica-devolucao') {
-    title = "Política de Troca, Devolução e Garantia de 5 Anos | Carplus Pneus";
-    desc = "Confira a regulamentação para garantia oficial de 5 anos de fábrica contra defeitos, trocas de medidas e termos de devoluções da Carplus Pneus.";
+    title = "Política de Troca e Devolução | Carplus Pneus";
+    desc = "Confira a regulamentação para garantia de fábrica contra defeitos, trocas de medidas e termos de devoluções da Carplus Pneus em Curitiba.";
     keywords = "garantia de pneus, troca de medida de pneus, carplus garantia, devolucoes pneus curitiba";
   } else if (currentView === 'mapa-do-site') {
     title = "Mapa do Site - Catálogo e Páginas de Pneus em Curitiba | Carplus";
@@ -154,29 +115,29 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     keywords = "mapa do site, catalogo de pneus, bairros de curitiba pneus, busca de pneus por aro";
   } else if (currentView === 'contato') {
     // Overrides for Contato / Fale Conosco
-    title = "Fale com a Car Plus | Atendimento em Curitiba";
-    desc = "Entre em contato com a Car Plus para solicitar orçamento, tirar de imediato suas dúvidas ou agendar serviços mecânicos e de troca de pneus em Curitiba."; // exactly 155 characters
+    title = "Contato e Atendimento em Curitiba | Car Plus Pneus";
+    desc = "Fale com a Car Plus Pneus em Curitiba para orçamentos, dúvidas ou agendamentos de serviços no Portão. Atendimento rápido e equipe técnica especializada.";
     keywords = "contato carplus, telefone carplus, whatsapp carplus, como chegar carplus, agendar revisao";
   } else if (currentView === 'carrinho') {
     // Overrides for Carrinho de Compras
     title = "Carrinho de Compras | Car Plus";
-    desc = "Visualize seu carrinho de compras de pneus novos na Car Plus. Finalize o pedido com bicos grátis agendando a sua instalação rápida em Curitiba hoje mesmo."; // exactly 155 characters
+    desc = "Visualize seu carrinho de compras de pneus na Car Plus. Finalize o pedido e agende o atendimento em nossa loja física no Portão em Curitiba.";
     keywords = "carrinho carplus, comprar pneus, finalizar compra pneus curitiba";
   } else if (currentView === 'oficina-do-pneu-curitiba') {
-    title = "Oficina do Pneu Curitiba - Serviços Especializados de Auto Center | Carplus";
-    desc = "Procurando oficina do pneu em Curitiba? A Carplus no Portão oferece serviços mecânicos completos de suspensão, freios, alinhamento 3D e troca de pneus com garantia.";
+    title = "Oficina do Pneu em Curitiba - Serviços de Auto Center | Carplus";
+    desc = "Oficina mecânica especializada em pneus no Portão em Curitiba. Serviços de suspensão, freios, alinhamento 3D e troca de pneus na Car Plus.";
     keywords = "oficina do pneu curitiba, borracharia curitiba, mecanica curitiba, conserto de pneu curitiba, vulcanização";
   } else if (currentView === 'garagem-de-pneus-curitiba') {
-    title = "Garagem de Pneus Curitiba - Amplo Estoque a Pronta Entrega | Carplus";
-    desc = "A maior garagem de pneus de Curitiba. Estoque completo de pneus novos originais Pirelli, Goodyear, Michelin, Bridgestone de todas as medidas com bicos e montagem gratuita.";
+    title = "Garagem de Pneus em Curitiba - Catálogo de Pneus | Carplus";
+    desc = "Catálogo de pneus novos em Curitiba. Opções de pneus para veículos de passeio, SUVs e utilitários com atendimento especializado na Car Plus Portão.";
     keywords = "garagem de pneus curitiba, estoque de pneus curitiba, pneus baratos, pneus pronta entrega curitiba";
   } else if (currentView === 'pneus-pirelli-curitiba') {
-    title = "Pneus Pirelli Curitiba - Modelos Cinturato, Scorpion e P-Zero | Carplus";
-    desc = "Compre pneus Pirelli novos originais em Curitiba com o melhor custo-benefício. Revendedor especialista de pneus Pirelli para todas as marcas com montagem grátis.";
+    title = "Pneus Pirelli em Curitiba - Modelos Cinturato e Scorpion | Carplus";
+    desc = "Pneus Pirelli em Curitiba. Modelos Cinturato, Scorpion e linhas para diversas medidas na loja Car Plus no bairro Portão.";
     keywords = "pneus pirelli curitiba, pirelli cinturato, pirelli scorpion, pneu pirelli r14, pneu pirelli r15, pneu pirelli r16";
   } else if (currentView === 'alinhamento-3d-curitiba') {
-    title = "Alinhamento 3D Curitiba - Geometria e Balanceamento Preciso | Carplus";
-    desc = "Melhore a dirigibilidade e economize pneus com o Alinhamento 3D em Curitiba. Equipamentos computadorizados de alta precisão de fábrica na Carplus Pneus Portão.";
+    title = "Alinhamento 3D em Curitiba - Geometria e Balanceamento | Carplus";
+    desc = "Alinhamento 3D e balanceamento computadorizado em Curitiba. Serviços de geometria veicular e revisão de suspensão na Car Plus no Portão.";
     keywords = "alinhamento 3d curitiba, geometria curitiba, balanceamento de pneus curitiba, cambagem curitiba, rampa de alinhamento";
   } else if (currentView === 'blog') {
     if (selectedBlogSlug) {
@@ -197,68 +158,68 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
       keywords = "blog de carros, dicas de pneus, quando trocar pneu, alinhamento de roda, calibragem de pneu Curitiba";
     }
   } else if (currentView === 'xbri-pneus-curitiba') {
-    title = "Xbri Pneus Curitiba - Ampla Linha de Medidas e Modelos | Carplus";
-    desc = "Buscando pneus Xbri em Curitiba com o melhor custo-benefício, alta durabilidade e aderência garantida? Ganhe bicos de borracha novos e montagem grátis no Portão.";
+    title = "Pneus Xbri em Curitiba - Catálogo e Medidas | Carplus";
+    desc = "Pneus Xbri em Curitiba com ampla linha de medidas para carros de passeio e utilitários. Atendimento e consultoria técnica na Car Plus Portão.";
     keywords = "xbri pneus curitiba, pneu xbri curitiba, comprar pneu xbri, marcas de pneus baratos curitiba";
   } else if (currentView === 'pneus-baratos-em-curitiba') {
-    title = "Pneus Baratos em Curitiba - Preço de Atacado Completo | Carplus";
-    desc = "Onde comprar pneus baratos em Curitiba? Seleção de pneus importados e nacionais pelo menor preço à pronta entrega. Ganhe bicos novos e instalação expressa sem pagar mais nada.";
+    title = "Pneus em Curitiba - Opções e Medidas Disponíveis | Carplus";
+    desc = "Procurando pneus em Curitiba? Conheça opções de pneus nacionais e importados de diversas marcas e medidas na loja física da Car Plus no Portão.";
     keywords = "pneus baratos em curitiba, comprar pneu barato, borracharia barata curitiba, pneu promocao curitiba, pneu aro 13 barato";
   } else if (currentView === 'melhor-site-para-comprar-pneus') {
-    title = "Melhor Site para Comprar Pneus no Brasil - Reserva Online Segura | Carplus";
-    desc = "Descubra a Carplus Pneus como o melhor site para comprar pneus: pesquise com transparência total de preços, faça sua reserva online e pague apenas pós-montagem com bicos gratuitos.";
+    title = "Melhor Site para Comprar Pneus em Curitiba | Carplus";
+    desc = "Encontre pneus na Carplus Pneus: pesquise com transparência de catálogo, veja especificações e faça seu atendimento na loja física no Portão.";
     keywords = "melhor site para comprar pneus, comprar pneu online, onde comprar pneu de carro, reserva pneu internet";
   } else if (currentView === 'distribuidora-de-pneus-importados-atacado-curitiba') {
-    title = "Distribuidora de Pneus Importados Atacado Curitiba - Faturado CNPJ | Carplus";
-    desc = "Importação direta e venda corporativa de pneus em Curitiba. Condições de atacado imbatíveis no faturamento empresarial, frotistas e revendas com envio ágil para todo o estado.";
+    title = "Distribuidora de Pneus em Curitiba - Atacado e Varejo | Carplus";
+    desc = "Distribuição e comercialização de pneus em Curitiba. Atendimento a frotistas, empresas e motoristas na loja física Car Plus no Portão.";
     keywords = "distribuidora de pneus importados atacado curitiba, atacado de pneus curitiba, pneus importados atacado parana, pneu CNPJ curitiba";
   } else if (currentView === 'pneu-hankook-curitiba') {
-    title = "Pneu Hankook Curitiba - Linha Premium Dynapro e Ventus | Carplus Pneus";
-    desc = "Encontre pneus Hankook em Curitiba. Alta durabilidade, altíssima performance asiática homologada como equipamento original de montadoras mundiais de luxo. Montagem rápida grátis no Portão.";
+    title = "Pneu Hankook em Curitiba - Modelos e Medidas | Carplus";
+    desc = "Encontre pneus Hankook em Curitiba. Modelos para veículos de passeio e SUVs com atendimento especializado na Car Plus no Portão.";
     keywords = "pneu hankook curitiba, hankook ventus curitiba, comprar pneu hankook, distribuidor hankook parana";
   } else if (currentView === 'pneus-bridgestone-curitiba-precos') {
-    title = "Pneus Bridgestone Curitiba Preços - Modelos Turanza e Ecopia | Carplus";
-    desc = "Precisa de pneus Bridgestone em Curitiba? Faça simulações e compre com preços imbatíveis. Instalação profissional expressa com troca gratuita de bicos inclusa em nossa loja física.";
+    title = "Pneus Bridgestone em Curitiba - Linha Turanza e Ecopia | Carplus";
+    desc = "Pneus Bridgestone em Curitiba. Linha de modelos Turanza, Ecopia e medidas para veículos de passeio com atendimento na Car Plus Portão.";
     keywords = "pneus bridgestone curitiba precos, bridgestone turanza preco curitiba, comprar pneus bridgestone, pneus ecopia curitiba";
   } else if (currentView === 'barao-pneus-e-oficina-bacacheri-curitiba') {
-    title = "Alternativa a Barão Pneus e Oficina Bacacheri Curitiba | Carplus";
-    desc = "Buscando alternativa a Barão Pneus e Oficina Bacacheri no norte de Curitiba? Compare e descubra as vantagens exclusivas e equipamentos 3D da Carplus Portão.";
+    title = "Auto Center e Pneus em Curitiba | Carplus Portão";
+    desc = "Conheça a estrutura da Carplus Pneus e Oficina no Portão em Curitiba. Equipamentos computadorizados 3D e atendimento automotivo completo.";
     keywords = "barao pneus e oficina bacacheri curitiba, barao pneus bacacheri, rodagem norte curitiba, auto center bacacheri";
   } else if (currentView === 'barao-pneus-sao-jose-pinhais') {
-    title = "Conheça Alternativa a Barão Pneus São José Pinhais | Carplus";
-    desc = "Pesquisando Barão Pneus em São José dos Pinhais? Conheça a alternativa de pneus novos na Carplus. Localização de fácil acesso pela rápida do Portão.";
+    title = "Pneus e Auto Center em Curitiba e Região | Carplus";
+    desc = "Pneus novos e serviços mecânicos com acesso rápido pela Presidente Arthur Bernardes na Carplus Pneus no Portão, Curitiba.";
     keywords = "barao pneus sao jose pinhais, pneus sao jose dos pinhais, auto center sao jose, comprar pneus sao jose pinhais";
   } else if (currentView === 'pneus-em-curitiba-melhor-preco') {
-    title = "Pneus em Curitiba com Melhor Preço - Cobrimos Orçamentos | Carplus";
-    desc = "Garantia absoluta de pneus em Curitiba com o melhor preço real do mercado! Linha completa Pirelli, Delinte, Goodyear de aro 13 a 20 com montagem e bicos novos grátis hoje.";
+    title = "Pneus em Curitiba - Catálogo de Marcas e Medidas | Carplus";
+    desc = "Catálogo de pneus em Curitiba. Linha completa de marcas como Pirelli, Delinte, Xbri e Goodyear com atendimento especializado na Car Plus Portão.";
     keywords = "pneus em curitiba melhor preco, comprar pneu curitiba barato, orçamento pneu curitiba, pneu nacional importado parana";
   } else if (currentView === 'distribuidora-de-pneus-em-curitiba') {
-    title = "Distribuidora de Pneus em Curitiba - Estoque Completo Portão | Carplus";
-    desc = "Distribuidora ágil de pneus novos com venda varejo direta pelo menor custo para o motorista de Curitiba. Isenção total de taxas de montagem e suporte técnico em suspensões.";
+    title = "Distribuidora de Pneus em Curitiba - Loja no Portão | Carplus";
+    desc = "Pneus novos com atendimento direto para o motorista de Curitiba. Amplo catálogo de medidas com suporte técnico na Car Plus Portão.";
     keywords = "distribuidora de pneus em curitiba, loja distribuidora pneus, pneus pronta entrega, marcas premium atacado curitiba";
   } else if (currentView === 'bana-pneus') {
-    title = "Alternativa a Bana Pneus Curitiba - Serviços e Preços | Carplus";
-    desc = "Procurando alternativa a Bana Pneus em Curitiba? Conheça diferenciais de qualidade, prazos de garantia de 5 anos e condições exclusivas da Carplus Portão com serviços expressos.";
+    title = "Pneus e Serviços Automotivos em Curitiba | Carplus";
+    desc = "Conheça o atendimento da Carplus no Portão em Curitiba: linha variada de pneus e serviços de geometria 3D, freios e suspensão.";
     keywords = "bana pneus, bana pneus curitiba, pneus goodyear curitiba, loja goodyear curitiba";
   } else if (currentView === 'loja-de-pneus-em-curitiba') {
-    title = "Loja de Pneus em Curitiba - Box Rápido e Atendimento Sede | Carplus";
-    desc = "Venha conhecer sua melhor loja de pneus novos em Curitiba ao lado da Arthur Bernardes. Troca veloz, maquinários modernos anti-riscos e bico premium grátis com total comodidade.";
+    title = "Loja de Pneus em Curitiba - Atendimento no Portão | Carplus";
+    desc = "Venha conhecer a loja de pneus novos Carplus em Curitiba na Av. Presidente Arthur Bernardes, Portão. Serviços automotivos e linha completa de pneus.";
     keywords = "loja de pneus em curitiba, melhor borracharia curitiba, loja rodas de liga leve curitiba, pneus portao loja fisica";
   } else if (currentView === 'pneus-pirelli-em-curitiba-melhor-preco') {
-    title = "Pneus Pirelli em Curitiba Melhor Preço - Concessionária Completa | Carplus";
-    desc = "Melhor preço garantido em pneus originais Pirelli em Curitiba. Estoque completo Cinturato P1, P7, Scorpion a pronta entrega com bico grátis e geometria 3D computadorizada no Portão.";
+    title = "Pneus Pirelli em Curitiba - Linha Completa | Carplus";
+    desc = "Pneus originais Pirelli em Curitiba. Modelos Cinturato P1, P7 e Scorpion com suporte técnico e geometria 3D computadorizada no Portão.";
     keywords = "pneus pirelli em curitiba melhor preco, pirelli cinturato curitiba, comprar pneu pirelli porto, oficina especialista em pirelli";
   } else if (currentView === 'barao-pneus-e-oficina-portao') {
     title = "Pneus no Portão Curitiba - Loja de Pneus no Portão | Carplus Pneus";
-    desc = "Loja de pneus no Portão em Curitiba. Troca de pneus com pronta entrega, montagem grátis, bicos novos, alinhamento 3D e balanceamento na Av. Arthur Bernardes.";
+    desc = "Loja de pneus no Portão em Curitiba. Troca de pneus, alinhamento 3D e balanceamento na Av. Presidente Arthur Bernardes na Carplus.";
     keywords = "pneus no portao curitiba, loja de pneus no portao, troca de pneus no portao, instalacao de pneus no portao, alinhamento e balanceamento no portao, pneu portao curitiba";
   } else if (currentView === 'curitiba') {
     title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";
-    desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone com montagem, bicos de vedação e calibragem digital grátis.";
+    desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone e mais com atendimento no Portão.";
     keywords = "pneus curitiba, pneus na cidade de curitiba, borracharia curitiba, alinhamento curitiba";
   } else if (currentView === 'regiao-metropolitana') {
     title = "Pneus na Região Metropolitana de Curitiba (RMC) - Atendimento Auto Center | Carplus";
-    desc = "Comprou pneu na RMC? Agende a montagem técnica expressa gratuita em nossa loja sede do Portão, Curitiba. Pirelli, Goodyear, Michelin em Colombo, Araucária, Pinhais e mais.";
+    desc = "Pneus para motoristas da RMC. Atendimento especializado em nossa loja sede do Portão, Curitiba, para Colombo, Araucária, Pinhais e São José dos Pinhais.";
     keywords = "pneus rmc, pneus regiao metropolitana curitiba, pneus colombo, pneus sjp, pneus araucaria, pneus pinhais";
   } else if (currentView === 'admin-indexacao') {
     title = "Painel de Indexação Progressiva em Ondas - Área de Gestão | Carplus";

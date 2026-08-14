@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin-indexacao
 
 Sitemap: https://www.carpluscwb.com.br/sitemap-index.xml
 Sitemap: https://www.carpluscwb.com.br/sitemap.xml

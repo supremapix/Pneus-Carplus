@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.carpluscwb.com.br/curitiba</loc>
+    <loc>https://www.carpluscwb.com.br/carro/fiat</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.1</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/volkswagen</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/chevrolet</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/hyundai</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/toyota</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/honda</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/renault</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/ford</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.carpluscwb.com.br/carro/jeep</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

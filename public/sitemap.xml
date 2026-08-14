@@ -10,9 +10,12 @@
     <loc>https://www.carpluscwb.com.br/sitemap-cidades.xml</loc>
   </sitemap>
   <sitemap>
+    <loc>https://www.carpluscwb.com.br/sitemap-aros.xml</loc>
+  </sitemap>
+  <sitemap>
     <loc>https://www.carpluscwb.com.br/sitemap-carros.xml</loc>
   </sitemap>
   <sitemap>
-    <loc>https://www.carpluscwb.com.br/sitemap-aros.xml</loc>
+    <loc>https://www.carpluscwb.com.br/sitemap-blog.xml</loc>
   </sitemap>
 </sitemapindex>
