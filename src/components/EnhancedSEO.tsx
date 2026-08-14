@@ -3,21 +3,29 @@ import { Helmet } from 'react-helmet-async';
 import { Tire } from '../types';
 import { toSlug, getTireSlug } from '../utils/slugify';
 import { isPageReleased, getSavedGSCRate } from '../utils/seoWaves';
+import { getBlogPostBySlug } from '../blog-data';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
   currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   selectedTire: Tire | null;
+  selectedBlogSlug?: string | null;
 }
 
-export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: EnhancedSEOProps) {
+export default function EnhancedSEO({ currentView, seoTarget, selectedTire, selectedBlogSlug }: EnhancedSEOProps) {
   const domain = "https://www.carpluscwb.com.br";
   
   // 1. Calculate Individual Canonical URL
   let canonicalUrl = domain;
   if (selectedTire) {
     canonicalUrl = `${domain}/pneu/${getTireSlug(selectedTire)}`;
+  } else if (currentView === 'blog') {
+    if (selectedBlogSlug) {
+      canonicalUrl = `${domain}/blog/${selectedBlogSlug}`;
+    } else {
+      canonicalUrl = `${domain}/blog`;
+    }
   } else if (currentView === 'seo-landing' && seoTarget) {
     const slug = toSlug(seoTarget.name);
     const pathname = typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '';
@@ -171,9 +179,23 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
     desc = "Melhore a dirigibilidade e economize pneus com o Alinhamento 3D em Curitiba. Equipamentos computadorizados de alta precisão de fábrica na Carplus Pneus Portão.";
     keywords = "alinhamento 3d curitiba, geometria curitiba, balanceamento de pneus curitiba, cambagem curitiba, rampa de alinhamento";
   } else if (currentView === 'blog') {
-    title = "Blog da Carplus Pneus Curitiba - Dicas e Guias Automotivos";
-    desc = "Dicas para aumentar a vida útil dos pneus, saiba tudo sobre alinhamento 3D, balanceamento, marcas parceiras e curiosidades para motoristas de Curitiba.";
-    keywords = "blog de carros, dicas de pneus, quando trocar pneu, alinhamento de roda, calibragem de pneu Curitiba";
+    if (selectedBlogSlug) {
+      const activePost = getBlogPostBySlug(selectedBlogSlug);
+      if (activePost) {
+        title = activePost.metaTitle;
+        desc = activePost.metaDescription;
+        keywords = `${activePost.category.toLowerCase()}, oficina mecanica curitiba, ${activePost.title.toLowerCase()}, carplus blog, manutencao automotiva curitiba, pneus curitiba`;
+        ogImage = activePost.featuredImage;
+      } else {
+        title = "Blog Automotivo e Dicas Mecânicas em Curitiba | Carplus";
+        desc = "Artigos técnicos, dicas de manutenção preventiva, cuidados com pneus, suspensão, freios e alinhamento em Curitiba pela Carplus Pneus.";
+        keywords = "blog automotivo curitiba, dicas mecanica, oficina mecanica portao curitiba, manutencao preventiva";
+      }
+    } else {
+      title = "Blog da Carplus Pneus Curitiba - Dicas e Guias Automotivos";
+      desc = "Dicas para aumentar a vida útil dos pneus, saiba tudo sobre alinhamento 3D, balanceamento, marcas parceiras e curiosidades para motoristas de Curitiba.";
+      keywords = "blog de carros, dicas de pneus, quando trocar pneu, alinhamento de roda, calibragem de pneu Curitiba";
+    }
   } else if (currentView === 'xbri-pneus-curitiba') {
     title = "Xbri Pneus Curitiba - Ampla Linha de Medidas e Modelos | Carplus";
     desc = "Buscando pneus Xbri em Curitiba com o melhor custo-benefício, alta durabilidade e aderência garantida? Ganhe bicos de borracha novos e montagem grátis no Portão.";
@@ -589,6 +611,57 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       ]
     };
     graph.push(defaultFaq);
+  } else if (currentView === 'blog') {
+    if (selectedBlogSlug) {
+      const activePost = getBlogPostBySlug(selectedBlogSlug);
+      if (activePost) {
+        const blogPostingSchema = {
+          "@type": "BlogPosting",
+          "@id": `${canonicalUrl}#article`,
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalUrl
+          },
+          "headline": activePost.h1 || activePost.title,
+          "description": activePost.metaDescription || activePost.summary,
+          "image": [activePost.featuredImage],
+          "datePublished": activePost.publishedIso,
+          "dateModified": activePost.updatedIso || activePost.publishedIso,
+          "inLanguage": "pt-BR",
+          "author": {
+            "@type": "Organization",
+            "name": "Equipe Técnica Carplus Pneus e Oficina Mecânica",
+            "url": domain
+          },
+          "publisher": {
+            "@type": "AutoRepair",
+            "name": "Carplus Pneus e Oficina Mecânica",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.carpluspneuseoficina.com.br/images/logos/logo-horizontal.svg"
+            }
+          },
+          "articleSection": activePost.category
+        };
+        graph.push(blogPostingSchema);
+
+        if (activePost.faqs && activePost.faqs.length > 0) {
+          const blogFaqSchema = {
+            "@type": "FAQPage",
+            "@id": `${canonicalUrl}#faq`,
+            "mainEntity": activePost.faqs.map(f => ({
+              "@type": "Question",
+              "name": f.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": f.answer
+              }
+            }))
+          };
+          graph.push(blogFaqSchema);
+        }
+      }
+    }
   }
 
   const structuredDataString = JSON.stringify({
@@ -605,6 +678,11 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire }: En
       <meta name="keywords" content={keywords} />
       <meta name="robots" content={robotsContent} />
       <link rel="canonical" href={canonicalUrl} />
+
+      {/* Dynamic Favicon */}
+      <link rel="icon" type="image/png" sizes="512x512" href="https://img.supremasite.com.br/favicon-512x512.png" />
+      <link rel="shortcut icon" type="image/png" href="https://img.supremasite.com.br/favicon-512x512.png" />
+      <link rel="apple-touch-icon" href="https://img.supremasite.com.br/favicon-512x512.png" />
 
       {/* 5. Open Graph Meta Tags (Facebook & general social preview) */}
       <meta property="og:locale" content="pt_BR" />

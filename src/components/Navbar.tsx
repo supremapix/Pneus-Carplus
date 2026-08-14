@@ -16,6 +16,7 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
 
   const navLinks = [
     { label: 'Quem Somos', id: 'quem-somos' },
+    { label: 'Blog', id: 'blog' },
     { label: 'Contato', id: 'contato' }
   ];
 
@@ -283,26 +284,36 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
               </button>
 
               {/* Outros links de texto grandes */}
-              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-800">
+              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-neutral-800">
                 <button
                   onClick={() => {
                     onScrollToSection('quem-somos');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-4 text-center active:bg-neutral-800 transition text-base font-black text-white flex flex-col items-center gap-1"
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
                 >
                   <FileText className="w-5 h-5 text-[#f49e1a]" />
                   <span>Quem Somos</span>
                 </button>
                 <button
                   onClick={() => {
+                    onScrollToSection('blog');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
+                >
+                  <FileText className="w-5 h-5 text-[#f49e1a]" />
+                  <span>Blog</span>
+                </button>
+                <button
+                  onClick={() => {
                     onScrollToSection('contato');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-4 text-center active:bg-neutral-800 transition text-base font-black text-white flex flex-col items-center gap-1"
+                  className="bg-neutral-900 border-2 border-neutral-800 hover:border-[#f49e1a] rounded-2xl p-3 text-center active:bg-neutral-800 transition text-sm font-black text-white flex flex-col items-center gap-1"
                 >
                   <Calendar className="w-5 h-5 text-[#f49e1a]" />
-                  <span>Fale Conosco</span>
+                  <span>Contato</span>
                 </button>
               </div>
             </div>

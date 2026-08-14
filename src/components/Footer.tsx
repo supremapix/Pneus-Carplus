@@ -115,6 +115,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             Quem Somos
           </button>
           <button 
+            onClick={() => { onNavigate('blog' as any); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
+            className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
+          >
+            Blog
+          </button>
+          <button 
             onClick={() => { onNavigate('politica-privacidades'); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
             className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
           >

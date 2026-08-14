@@ -21,6 +21,7 @@ import TireCard from './TireCard';
 import CarplusVideosSection from './CarplusVideosSection';
 import { motion, AnimatePresence } from 'motion/react';
 import SearchIntentPages from './SearchIntentPages';
+import BlogView from './BlogView';
 
 
 const WHEEL_SERVICES = [
@@ -127,6 +128,8 @@ interface CompanyPagesProps {
   onUpdateQuantity?: (tireId: string, quantity: number) => void;
   onRemoveFromCart?: (tireId: string) => void;
   onClearCart?: () => void;
+  selectedBlogSlug?: string | null;
+  onSelectBlogSlug?: (slug: string | null) => void;
 }
 
 export default function CompanyPages({ 
@@ -142,7 +145,9 @@ export default function CompanyPages({
   cartItems = [],
   onUpdateQuantity,
   onRemoveFromCart,
-  onClearCart
+  onClearCart,
+  selectedBlogSlug,
+  onSelectBlogSlug
 }: CompanyPagesProps) {
   // Aros 13 to 23
   const AROS = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
@@ -2979,245 +2984,17 @@ export default function CompanyPages({
         })()}
 
         {/* 5. DYNAMIC BLOG AND READ-POST VIEWS */}
-        {view === 'blog' && (() => {
-          const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
-
-          const articles = [
-            {
-              id: 1,
-              title: "Alinhamento 3D vs Alinhamento Convencional: Qual a real diferença?",
-              date: "12 de Junho, 2026",
-              category: "Manutenção Preventiva",
-              summary: "Descubra como projetores tridimensionais de laser trazem precisão milimétrica incomparável frente aos painéis ópticos de antigamente, prolongando a vida dos pneus.",
-              image: "https://www.carpluspneuseoficina.com.br/images/galeria/alinhamento-jeep.webp",
-              content: `
-O alinhamento e a geometria das rodas do seu automóvel são fatores fundamentais para garantir uma condução suave, estável e livre de perigos, além de impedir o desgaste irregular das bandas de rodagem. No entanto, muitos motoristas ainda hesitam quando chegam ao auto center e são confrontados entre escolher o alinhamento óptico convencional e o moderno **Alinhamento Tridimensional (3D)** computadorizado.
-
-## O Que é o Alinhamento Convencional?
-No método tradicional, projetores de luz ou painéis óticos magnéticos são manualmente ancorados aos flanges de ferro da roda. O alinhador de pista ajusta os ângulos baseando-se em indicações analógicas visuais projetadas na parede da oficina. Embora funcional para reparos simples de urgência, esse sistema analógico está sujeito a acidentes mecânicos de calibragem, pequenas deformações nas pinças e, principalmente, à paralaxe humana de posicionamento do visor.
-
-## A Revolução Científica do Alinhamento 3D
-No Alinhamento 3D de última geração, garras reflexivas dotadas de alvos fotossensíveis são acopladas aos pneus de forma muito sutil, sem gerar riscos no acabamento diamantado de suas rodas de liga leve. Câmeras infravermelhas de varredura industrial leem as coordenadas desses alvos em tempo real e criam um modelo virtual perfeito do comportamento geométrico tridimensional do veículo.
-
-O computador compara esse mapa contra a gigantesca base de dados de fábrica, indicando com tolerância decimal exatamente quanto girar nas porcas dos tirantes de direção, barra de torção e braços oscilantes.
-
-## Benefícios Práticos Inegáveis:
-1. **Conservação da Banda de Rodagem:** O alinhamento perfeito impede o arraste perpendicular da borracha contra o asfalto por desalinhamento, estendendo a vida útil dos pneus em até 30%.
-2. **Economia em Abastecimento:** Menos atrito e resistência de rolagem reduzem o esforço do motor, poupando combustível valioso nas ruas de Curitiba.
-3. **Integridade de Peças Complexas:** Impede o estresse prematuro de pivôs de bandeja, terminais axiais e buchas.
-
-Na Carplus Pneus Portão, nossa rampa de Alinhamento 3D é constantemente auditada e calibrada de acordo com as especificações exigidas por montadoras premium. Agende hoje mesmo seu exame sem compromisso!
-              `
-            },
-            {
-              id: 2,
-              title: "TWI do Pneu: Como identificar pneus carecas e evitar multas severas",
-              date: "05 de Junho, 2026",
-              category: "Legislação e Segurança",
-              summary: "Aprenda a inspecionar os indicadores TWI incorporados nos sulcos dos pneus novos. Garanta aderência no solo molhado sob as rígidas chuvas de Curitiba.",
-              image: "https://www.carpluspneuseoficina.com.br/images/galeria/troca-pneu.webp",
-              content: `
-O asfalto de Curitiba e região metropolitana sofre constantemente com chuvas repentinas, deixando as pistas da Linha Verde e das avenidas rápidas escorregadias em questão de minutos. Por isso, rodar com pneus dotados de profundidade adequada nos sulcos não é apenas uma questão de evitar multas pesadas de trânsito — é uma necessidade de segurança ativa e preservação da vida contra aquaplanagens.
-
-## O Que Significa a Sigla TWI?
-A sigla **TWI** (Tread Wear Indicator, ou Indicador de Desgaste da Banda de Rodagem) refere-se a pequenos blocos transversais de borracha sólida posicionados de forma estratégica no fundo dos sulcos principais do pneu. Eles servem de medição científica para estipular o desgaste do composto de carbono ativo.
-
-Para localizar o TWI em seu automóvel, basta observar a lateral do pneu perto da junção da banda. Há pequenas setas estampadas, triângulos pequenos ou a própria inscrição em relevo "TWI".
-
-## Como Fazer a Medição Correta?
-Quando a banda de rodagem gasta até atingir o mesmo nível desses blocos do TWI, o pneu atingiu o limite legal crítico estabelecido por lei: **1,6 milímetros de profundidade**. A partir deste momento, a capacidade de escoar a lâmina de água de chuva reduz drasticamente, tornando as manobras evasivas perigosas.
-
-## Implicações Legais no Código de Trânsito Brasileiro (CTB)
-Conduzir veículo com pneu abaixo do limite legal é uma infração considerada grave pelo Artigo 230 do CTB. Resulta em:
-- Perda de 5 pontos na carteira nacional de habilitação (CNH).
-- Multa pecuniária significativa por pneu em desacordo.
-- Retenção imediata do veículo para regularização de segurança.
-
-## Diferenciais da Borracharia Técnica Carplus Curitiba:
-Substituímos bicos ressecados por novos inteiramente comuns de borracha premium gratuitas na montagem computadorizada na Arthur Bernardes. Mapeamos as ranhuras e apresentamos soluções reais em pneus homologados originais Pirelli, Delinte, Goodyear, Bridgestone com faturamento ágil e facilitado.
-              `
-            },
-            {
-              id: 3,
-              title: "O Clima de Curitiba e Seus Pneus: Cuidados fundamentais no frio e umidade",
-              date: "28 de Maio, 2026",
-              category: "Dicas de Direção",
-              summary: "As baixas temperaturas de inverno afetam diretamente a pressão do ar nos talões dos pneus. Entenda as pressões recomendadas para dias frios e úmidos.",
-              image: "https://www.carpluspneuseoficina.com.br/images/galeria/montagem-pneu.webp",
-              content: `
-Quem reside ou transita de carro pelas ruas de Curitiba conhece bem a instabilidade térmica que define nosso clima regional automotivo. Em um único dia, podemos encarar frio intenso na parte da manhã, calor moderado à tarde e chuva torrencial no retorno para casa. No entanto, poucos conhecem o impacto real que a oscilação de temperatura externa gera no interior do pneu do seu veículo.
-
-## A Física por Trás da Calibragem
-O ar atmosférico é composto por gases que se expandem com o calor e se contraem sob temperaturas geladas de inverno. Na prática automotiva, para cada **5°C de redução** nos termômetros da cidade de Curitiba, a pressão estática interna do seu pneu diminui em cerca de **1 PSI** (libra de pressão por polegada).
-
-Se você calibrou seus pneus há algumas semanas em um dia ensolarado e a temperatura caiu drasticamente no inverno, a borracha poderá estar subcalibrada pela manhã e rodar gerando desgaste lateral precoce.
-
-## Problemas Clássicos da Subcalibragem:
-1. **Desgaste Prematuro nos Ombros:** Pneus murchos dobram mais suas laterais, acelerando a deterioração dos ombros e diminuindo em milhares de quilômetros sua vida útil.
-2. **Perigo de Aquaplanagem:** Com menor pressão, a área de contato útil no asfalto molhado central se retira, de forma a elevar a chance de escorregar sobre poças de água.
-3. **Consumo de Combustível Maior:** Pneus mais moles elevam a área de atrito ativo, exercendo maior resistência e demandando força mecânica adicional do motor.
-
-## A Importância de Calibrar a Frio
-Efetue a aferição de calibragem sempre pela manhã ou tendo rodado menos de 3 quilômetros até nossa autocenter física Carplus. Isso garante que a leitura dos sensores represente a pressão real de repouso físico sem influência térmica da rolagem.
-
-Nossa equipe no Portão está equipada com calibradores digitais auditados e precisos. Passe em nossa ampla garagem no Portão para calibrar seus pneus Pirelli, Goodyear ou importados inteiramente de graça e ganhe maior durabilidade!
-              `
-            }
-          ];
-
-          const activePost = articles.find(a => a.id === selectedArticleId);
-
-          if (activePost) {
-            return (
-              <div className="max-w-3xl mx-auto px-4 py-8 space-y-6 animate-fade-in font-sans text-left text-gray-900 leading-relaxed text-xs sm:text-sm">
-                <button
-                  onClick={() => setSelectedArticleId(null)}
-                  className="flex items-center gap-1.5 text-xs font-black uppercase text-gray-500 hover:text-black transition cursor-pointer font-mono"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  Voltar para Artigos do Blog
-                </button>
-
-                <div className="space-y-3">
-                  <span className="bg-yellow-500 text-gray-950 font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded inline-block">
-                    {activePost.category}
-                  </span>
-                  <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase text-gray-900 font-mono leading-tight tracking-tight">
-                    {activePost.title}
-                  </h1>
-                  <p className="text-[10px] text-gray-400 font-bold uppercase font-mono tracking-wider">
-                    Carplus Autocenter | Publicado em {activePost.date}
-                  </p>
-                </div>
-
-                <div className="border border-gray-200 rounded-3xl overflow-hidden shadow-sm h-64 sm:h-80 bg-gray-150">
-                  <img 
-                    src={activePost.image} 
-                    alt={activePost.title} 
-                    className="w-full h-full object-cover opacity-95"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-
-                {/* Formatted Article Body */}
-                <div className="space-y-4 text-justify font-sans text-gray-750 font-medium">
-                  {activePost.content.split('\n\n').map((paragraph, pIdx) => {
-                    const cleanP = paragraph.trim();
-                    if (!cleanP) return null;
-
-                    if (cleanP.startsWith('##')) {
-                      return (
-                        <h2 key={pIdx} className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono pt-4 border-b border-gray-150 pb-1 text-left">
-                          {cleanP.replace('##', '').trim()}
-                        </h2>
-                      );
-                    }
-
-                    if (cleanP.startsWith('1.') || cleanP.startsWith('*')) {
-                      return (
-                        <ul key={pIdx} className="list-disc pl-5 space-y-1 my-2">
-                          {cleanP.split('\n').map((li, lIdx) => (
-                            <li key={lIdx} className="text-xs sm:text-sm text-gray-700 leading-relaxed text-justify">
-                              {li.replace(/^(\d+\.|\*)/, '').trim()}
-                            </li>
-                          ))}
-                        </ul>
-                      );
-                    }
-
-                    return (
-                      <p key={pIdx} className="text-xs sm:text-sm text-gray-700 leading-relaxed text-justify">
-                        {cleanP.replace(/\*\*/g, '')}
-                      </p>
-                    );
-                  })}
-                </div>
-
-                {/* Article CTA */}
-                <div className="border-t border-gray-150 pt-6 mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="text-left space-y-0.5">
-                    <p className="text-xs font-black text-gray-900 uppercase">Gostou da leitura técnica e quer tirar dúvidas?</p>
-                    <p className="text-[10px] text-gray-500 font-medium">Peça orçamento ou agende montagem expressa de bicos grátis no Portão.</p>
-                  </div>
-                  <a
-                    href={formatWhatsApp(`Olá Carplus Curitiba! Li seu artigo "${activePost.title}" no blog e gostaria de realizar um agendamento preventivo computadorizado.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#f49e1a] hover:bg-yellow-400 text-gray-950 border border-black font-black text-xs uppercase px-5 py-3 rounded-xl tracking-wider transition cursor-pointer"
-                  >
-                    Falar com Consultor via WhatsApp ➔
-                  </a>
-                </div>
-              </div>
-            );
-          }
-
-          return (
-            <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
-              <div className="text-center space-y-2">
-                <span className="bg-[#f49e1a]/10 text-yellow-650 font-mono font-black text-[10px] uppercase px-3.5 py-1.5 rounded-full border border-yellow-500/25">
-                  Artigos e Guias Especializados
-                </span>
-                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
-                  Blog da Carplus Pneus
-                </h1>
-                <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm">
-                  Educação automotiva, leis de trânsito, e dicas práticas dos nossos engenheiros técnicos para você rodar com dirigibilidade milimétrica e máxima segurança ativa em Curitiba.
-                </p>
-              </div>
-
-              {/* Magazine Style Main Index Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {articles.map(article => (
-                  <div 
-                    key={article.id} 
-                    className="bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm flex flex-col hover:border-[#f49e1a]/55 transition duration-300"
-                  >
-                    <div className="h-44 bg-gray-100 relative">
-                      <img 
-                        src={article.image} 
-                        alt={article.title}
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                      <span className="absolute top-3 left-3 bg-black text-white font-mono font-bold text-[8px] uppercase px-2 py-1 rounded">
-                        {article.category}
-                      </span>
-                    </div>
-
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div className="space-y-1.5 text-left">
-                        <span className="text-[10px] text-gray-400 font-mono font-semibold block">{article.date}</span>
-                        <h3 className="text-sm font-black uppercase text-gray-950 line-clamp-2 leading-snug font-mono">
-                          {article.title}
-                        </h3>
-                        <p className="text-xs text-gray-650 line-clamp-3 leading-relaxed">
-                          {article.summary}
-                        </p>
-                      </div>
-
-                      <button
-                        onClick={() => setSelectedArticleId(article.id)}
-                        className="w-full bg-gray-100 border border-gray-200 text-gray-900 hover:bg-[#f49e1a] hover:text-black font-mono font-black text-xs uppercase py-2 rounded-xl transition cursor-pointer mt-auto"
-                      >
-                        Ler Artigo Completo ➔
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="border-t border-gray-150 pt-5 text-center">
-                <button
-                  onClick={onNavigateHome}
-                  className="bg-black hover:bg-[#f49e1a] hover:text-black text-white font-mono font-black text-xs uppercase px-5 py-3 rounded-xl transition cursor-pointer"
-                >
-                  Voltar para o Início
-                </button>
-              </div>
-            </div>
-          );
-        })()}
+        {view === 'blog' && (
+          <BlogView 
+            currentSlug={selectedBlogSlug}
+            onNavigateBlog={(slug) => {
+              if (onSelectBlogSlug) {
+                onSelectBlogSlug(slug || null);
+              }
+            }}
+            onNavigateHome={onNavigateHome}
+          />
+        )}
 
         {[
           'xbri-pneus-curitiba',

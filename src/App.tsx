@@ -48,6 +48,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
   const [isConveyorPaused, setIsConveyorPaused] = useState(false);
@@ -415,14 +416,22 @@ export default function App() {
       setSelectedTire(null);
     } else if (firstRoute === 'alinhamento-3d-curitiba') {
       setCurrentView('alinhamento-3d-curitiba');
+      setSelectedBlogSlug(null);
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'blog') {
       setCurrentView('blog');
+      const secondPart = parts[1];
+      if (secondPart) {
+        setSelectedBlogSlug(secondPart);
+      } else {
+        setSelectedBlogSlug(null);
+      }
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'xbri-pneus-curitiba') {
       setCurrentView('xbri-pneus-curitiba');
+      setSelectedBlogSlug(null);
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneus-baratos-em-curitiba') {
@@ -634,6 +643,8 @@ export default function App() {
       idealPath = '/regiao-metropolitana';
     } else if (currentView === 'admin-indexacao') {
       idealPath = '/admin/indexacao';
+    } else if (currentView === 'blog') {
+      idealPath = selectedBlogSlug ? `/blog/${selectedBlogSlug}` : '/blog';
     } else if (currentView !== 'home') {
       idealPath = `/${currentView}`;
     }
@@ -642,7 +653,7 @@ export default function App() {
       window.history.pushState(null, '', idealPath);
     }
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [currentView, seoTarget, selectedTire]);
+  }, [currentView, seoTarget, selectedTire, selectedBlogSlug]);
 
   // Hot offers in stock to highlight
   const spotlightOffers = TIRES_DATA.filter(t => t.isOffer);
@@ -651,7 +662,12 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans selection:bg-[#f49e1a] selection:text-gray-950" id="carplus-root">
       
       {/* Dynamic Advanced Helmet-driven Head & Structured Data Management */}
-      <EnhancedSEO currentView={currentView} seoTarget={seoTarget} selectedTire={selectedTire} />
+      <EnhancedSEO 
+        currentView={currentView} 
+        seoTarget={seoTarget} 
+        selectedTire={selectedTire} 
+        selectedBlogSlug={selectedBlogSlug}
+      />
       
       {/* Dynamic Navbar */}
       <Navbar 
@@ -677,13 +693,19 @@ export default function App() {
           <CompanyPages 
             view={currentView}
             seoTarget={seoTarget}
+            selectedBlogSlug={selectedBlogSlug}
+            onSelectBlogSlug={(slug) => {
+              setSelectedBlogSlug(slug);
+            }}
             onNavigateHome={() => {
               setCurrentView('home');
               setSeoTarget(null);
+              setSelectedBlogSlug(null);
             }}
             onNavigateToPage={(page) => {
               setCurrentView(page);
               setSeoTarget(null);
+              setSelectedBlogSlug(null);
             }}
             onSelectSeoTarget={(target) => {
               setCurrentView('seo-landing');
