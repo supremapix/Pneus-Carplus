@@ -1668,6 +1668,13 @@ export default function CompanyPages({
                 >
                   Política de Trocas & Devolução
                 </button>
+                <button
+                  onClick={() => onNavigateToPage('admin-indexacao')}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer flex items-center justify-between"
+                >
+                  <span>⚙️ Painel de Indexação (GSC)</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                </button>
                 <a
                   href="/sitemap.xml"
                   target="_blank"
