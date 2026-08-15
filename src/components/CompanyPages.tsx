@@ -4,7 +4,8 @@ import {
   Phone, Globe, Sparkles, AlertCircle, Send, CheckCircle2, Star,
   ChevronDown, ChevronUp, Tag, Flame, HelpCircle as InfoIcon,
   ChevronLeft, ChevronRight, Wrench, Users, Clock, Info, X,
-  Map, BarChart3, Settings2, FileText, Signal
+  Map, BarChart3, Settings2, FileText, Signal, Zap, Car,
+  ShoppingBag, Layers, ExternalLink, ArrowRight, BookOpen, Gauge, BatteryCharging
 } from 'lucide-react';
 import { 
   OFFICIAL_NEIGHBORHOODS, NON_OFFICIAL_NEIGHBORHOODS, POPULAR_REGIONS, 
@@ -904,17 +905,395 @@ export default function CompanyPages({
 
         {/* VIEW: MAPA DO SITE */}
         {view === 'mapa-do-site' && (
-          <div className="space-y-8" id="view-sitemap-portal">
-            <div className="text-center sm:text-left">
-              <span className="bg-yellow-500/10 text-yellow-600 border border-yellow-500/20 font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full">
-                Diretório de Links & SEO Integrado
-              </span>
-              <h2 className="text-3xl font-black uppercase text-gray-950 mt-3 select-none">
-                Mapa do Site • <span className="text-yellow-600">Sitemap Portal Completo</span>
-              </h2>
-              <p className="text-sm text-gray-600 mt-1 max-w-2xl text-justify leading-relaxed">
-                Navegue rapidamente de forma integrada por todas as páginas institucionais, guias de pneus novos por aros, regiões populares não oficiais de Curitiba e cidades metropolitanas de fácil conectividade física.
+          <div className="space-y-10 animate-fade-in" id="view-sitemap-portal">
+            
+            {/* Header / Intro Banner */}
+            <div className="bg-gradient-to-r from-gray-950 via-gray-900 to-black text-white p-6 sm:p-8 rounded-3xl border border-gray-800 shadow-xl space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="bg-yellow-500 text-gray-950 font-black text-xs uppercase tracking-widest px-3 py-1 rounded-full font-mono">
+                  Diretório Geral & Hubs Oficiais
+                </span>
+                <span className="bg-white/10 text-gray-300 font-bold text-xs px-3 py-1 rounded-full">
+                  Atualizado com Novo Cluster BYD Elétricos
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-4xl font-black uppercase text-white tracking-tight">
+                Mapa do Site • <span className="text-yellow-500">Hubs Principais e Páginas do Portal</span>
+              </h1>
+              <p className="text-xs sm:text-sm text-gray-300 max-w-3xl leading-relaxed">
+                Navegue com facilidade por todos os <strong>Hubs Principais</strong> temáticos da Carplus em Curitiba: páginas pilares de veículos elétricos e híbridos (BYD), serviços de centro automotivo no Portão, marcas de pneus, comparativos comerciais, catálogo por montadora, medidas de aros e o diretório geolocalizado de 75 bairros e 29 cidades metropolitanas.
               </p>
+            </div>
+
+            {/* SEÇÃO 1: HUBS PRINCIPAIS E PILARES ESTRATÉGICOS */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b-2 border-yellow-500 pb-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 bg-yellow-500 text-gray-950 rounded-xl">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-black uppercase text-gray-950 tracking-tight font-mono">
+                      Hubs Principais & Páginas Pilares do Portal
+                    </h2>
+                    <p className="text-xs text-gray-500">
+                      As páginas centrais de navegação, categorias estratégicas e serviços da Carplus em Curitiba.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                {/* Hub 1: BYD & Veículos Elétricos */}
+                <div className="bg-gradient-to-br from-yellow-500/10 via-white to-yellow-500/5 border-2 border-yellow-500 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-yellow-500 text-gray-950 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Novo Cluster 2025/2026
+                      </span>
+                      <Zap className="w-5 h-5 text-yellow-600 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Pneus BYD & Veículos Elétricos
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Guia completo para elétricos e híbridos: Dolphin, Dolphin Mini, GS, King e medidas recomendadas para o asfalto de Curitiba.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-yellow-500/20">
+                    <button 
+                      onClick={() => onNavigateToPage('pneus-byd-curitiba')}
+                      className="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 shadow cursor-pointer"
+                    >
+                      <span>Acessar Hub BYD</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 2: Hub Curitiba Central */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Geolocalização
+                      </span>
+                      <Map className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Curitiba (Bairros e Rotas)
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Diretório unificado com rotas e orientações de percurso saindo de todos os 75 bairros e vilas de Curitiba até o Portão.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('curitiba')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Acessar Hub Curitiba</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 3: Região Metropolitana */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        RMC • 29 Cidades
+                      </span>
+                      <Globe className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Região Metropolitana (RMC)
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Atendimento expresso para São José dos Pinhais, Colombo, Pinhais, Araucária, Fazenda Rio Grande e municípios vizinhos.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('regiao-metropolitana')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Acessar Hub RMC</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 4: Alinhamento 3D */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Geometria a Laser
+                      </span>
+                      <Gauge className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Alinhamento 3D Computadorizado
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Convergência, cambagem e cáster com tecnologia de sensores reflexivos e banco de dados de montadoras globais.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('alinhamento-3d-curitiba')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Ver Alinhamento 3D</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 5: Oficina do Pneu */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Auto Center no Portão
+                      </span>
+                      <Wrench className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Oficina do Pneu & Mecânica
+                    </h3>
+                    <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+                      Montagem técnica sem custo de bicos novos, balanceamento dinâmico, revisão preventiva de freios e amortecedores.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('oficina-do-pneu-curitiba')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Ver Oficina do Pneu</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 6: Loja de Pneus no Portão */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Arthur Bernardes 1323
+                      </span>
+                      <Building className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Loja de Pneus em Curitiba
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Estoque próprio a pronta entrega, ponta de estoque e condições em até 10x sem juros no cartão físico.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('loja-de-pneus-em-curitiba')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Ver Loja Física</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 7: Garagem de Pneus */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Estrutura & Agilidade
+                      </span>
+                      <ShieldCheck className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Garagem de Pneus Curitiba
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Pátio estruturado com elevadores rápidos para trocas ágeis e atendimento sem perda de tempo.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('garagem-de-pneus-curitiba')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Ver Garagem de Pneus</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Hub 8: Blog Automotivo */}
+                <div className="bg-white border border-gray-250 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:border-gray-400 transition group">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-gray-100 text-gray-800 text-[10px] font-black uppercase px-2.5 py-0.5 rounded font-mono">
+                        Conteúdo & Dicas
+                      </span>
+                      <BookOpen className="w-5 h-5 text-gray-700 group-hover:scale-110 transition" />
+                    </div>
+                    <h3 className="text-base font-black text-gray-950 uppercase leading-snug">
+                      Hub Blog & Dicas Automotivas
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Artigos especializados sobre calibragem ideal, tempo de troca, alinhamento e economia de combustível.
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-2 border-t border-gray-150">
+                    <button 
+                      onClick={() => onNavigateToPage('blog')}
+                      className="w-full bg-gray-900 hover:bg-black text-white font-black text-xs uppercase py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>Ler Artigos do Blog</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* SEÇÃO 2: CLUSTER BYD - PÁGINAS DE MODELOS E MEDIDAS ESPECÍFICAS */}
+            <div className="bg-gray-950 text-white rounded-3xl p-6 sm:p-8 space-y-6 border border-gray-800 shadow-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-800 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-yellow-500 text-gray-950 rounded-2xl">
+                    <Zap className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-black uppercase text-yellow-500 font-mono">
+                      Cluster Especializado • Linha BYD & Medidas em Curitiba
+                    </h2>
+                    <p className="text-xs text-gray-400">
+                      Páginas dedicadas com especificações por modelo e medidas frequentes de veículos elétricos e híbridos.
+                    </p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => onNavigateToPage('pneus-byd-curitiba')}
+                  className="bg-yellow-500 hover:bg-yellow-400 text-gray-950 font-black text-xs uppercase px-4 py-2 rounded-xl transition flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+                >
+                  <span>Abrir Hub BYD Completo</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                {/* Modelos BYD */}
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 space-y-3">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-yellow-400 font-mono flex items-center gap-2 border-b border-gray-800 pb-2">
+                    <Car className="w-4 h-4" />
+                    <span>Páginas por Modelo BYD</span>
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                    <button
+                      onClick={() => onNavigateToPage('pneu-byd-dolphin-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-3 rounded-xl text-left transition cursor-pointer group"
+                    >
+                      <div className="text-xs font-black uppercase flex items-center justify-between">
+                        <span>BYD Dolphin</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                      </div>
+                      <p className="text-[10px] text-gray-400 group-hover:text-gray-900 mt-1 font-mono">Medida 195/60 R16 & Aro 16</p>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-byd-dolphin-mini-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-3 rounded-xl text-left transition cursor-pointer group"
+                    >
+                      <div className="text-xs font-black uppercase flex items-center justify-between">
+                        <span>BYD Dolphin Mini</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                      </div>
+                      <p className="text-[10px] text-gray-400 group-hover:text-gray-900 mt-1 font-mono">Medida 175/55 R16 Aro 16</p>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-byd-dolphin-gs-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-3 rounded-xl text-left transition cursor-pointer group"
+                    >
+                      <div className="text-xs font-black uppercase flex items-center justify-between">
+                        <span>BYD Dolphin GS</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                      </div>
+                      <p className="text-[10px] text-gray-400 group-hover:text-gray-900 mt-1 font-mono">Versões e Medidas de Rodagem</p>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-byd-king-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-3 rounded-xl text-left transition cursor-pointer group"
+                    >
+                      <div className="text-xs font-black uppercase flex items-center justify-between">
+                        <span>BYD King (Sedan DM-i)</span>
+                        <ArrowRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                      </div>
+                      <p className="text-[10px] text-gray-400 group-hover:text-gray-900 mt-1 font-mono">Medida 215/55 R17 Aro 17</p>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Medidas Frequentes */}
+                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 space-y-3">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-yellow-400 font-mono flex items-center gap-2 border-b border-gray-800 pb-2">
+                    <Sparkles className="w-4 h-4" />
+                    <span>Páginas de Medidas Frequentes Elétricas/Híbridas</span>
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1">
+                    <button
+                      onClick={() => onNavigateToPage('pneu-175-55-r16-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-2.5 rounded-xl text-center transition cursor-pointer"
+                    >
+                      <span className="block text-xs font-black font-mono">175/55 R16</span>
+                      <span className="text-[9px] text-gray-400 block mt-0.5">Dolphin Mini</span>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-195-60-r16-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-2.5 rounded-xl text-center transition cursor-pointer"
+                    >
+                      <span className="block text-xs font-black font-mono">195/60 R16</span>
+                      <span className="text-[9px] text-gray-400 block mt-0.5">Dolphin EV</span>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-205-50-r17-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-2.5 rounded-xl text-center transition cursor-pointer"
+                    >
+                      <span className="block text-xs font-black font-mono">205/50 R17</span>
+                      <span className="text-[9px] text-gray-400 block mt-0.5">Aro 17 Sport</span>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-215-55-r17-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-2.5 rounded-xl text-center transition cursor-pointer"
+                    >
+                      <span className="block text-xs font-black font-mono">215/55 R17</span>
+                      <span className="text-[9px] text-gray-400 block mt-0.5">BYD King DM-i</span>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigateToPage('pneu-225-60-r16-curitiba')}
+                      className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 hover:border-yellow-500 p-2.5 rounded-xl text-center transition cursor-pointer"
+                    >
+                      <span className="block text-xs font-black font-mono">225/60 R16</span>
+                      <span className="text-[9px] text-gray-400 block mt-0.5">Sedans & SUVs</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
             {/* CRITICAL INTEGRATION: SERVICE HISTORY */}
@@ -924,7 +1303,7 @@ export default function CompanyPages({
                   <span className="bg-yellow-500 text-gray-950 font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded border border-black inline-block">
                     Área Exclusiva do Cliente
                   </span>
-                  <h4 className="text-sm font-black text-gray-900 uppercase mt-1">Busque seu Histórico Digital nesta Página</h4>
+                  <h3 className="text-sm font-black text-gray-900 uppercase mt-1">Busque seu Histórico Digital nesta Página</h3>
                 </div>
                 <div className="text-[10px] text-gray-500 font-mono font-bold">
                   Consultas locais de placa gravadas diretamente no seu aparelho.
@@ -935,84 +1314,264 @@ export default function CompanyPages({
               </div>
             </div>
 
-            {/* Sitemap grid index of key links */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
-              
-              {/* Box 1: Institutional Core and raw XML link */}
-              <div className="bg-gray-55 border border-gray-200 p-5 rounded-2xl space-y-3 shadow-sm bg-gray-50 text-gray-800">
-                <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2 flex items-center gap-1.5 font-mono">
-                  <Building className="w-4 h-4 text-yellow-600" />
-                  <span>Canais Principais</span>
-                </h4>
-                <ul className="space-y-2 text-xs font-bold text-gray-650">
-                  <li><button onClick={onNavigateHome} className="hover:text-yellow-600 transition cursor-pointer text-left">Catálogo de Vendas & Início</button></li>
-                  <li><button onClick={() => onSelectSeoTarget({ type: 'bairro', name: 'Portão' })} className="hover:text-yellow-600 transition cursor-pointer text-left">Como Chegar Carplus Portão</button></li>
-                  <li><button onClick={() => onSelectSeoTarget({ type: 'bairro', name: 'Água Verde' })} className="hover:text-yellow-600 transition cursor-pointer text-left">Revisão para o Água Verde</button></li>
-                  <li><a href="/sitemap.xml" target="_blank" className="hover:text-yellow-600 transition flex items-center gap-1 font-mono text-[10px] text-yellow-650 py-1 border-t border-gray-200 mt-2 font-bold">Ver Sitemap.xml Técnico</a></li>
-                </ul>
+            {/* SEÇÃO 3: HUBS DE MARCAS, OFERTAS & COMPARATIVOS (SEARCH INTENT) */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 border-b border-gray-200 pb-2">
+                <Tag className="w-5 h-5 text-yellow-600" />
+                <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono">
+                  Hubs de Marcas, Busca Comercial & Comparativos de Preço
+                </h3>
               </div>
 
-              {/* Box 2: Tire Rims range Aro 13 - 23 */}
-              <div className="bg-gray-50 border border-gray-200 p-5 rounded-2xl space-y-3 shadow-sm text-gray-800">
-                <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2 flex items-center gap-1.5 font-mono">
-                  <Sparkles className="w-4 h-4 text-yellow-600" />
-                  <span>Destaques por Aro</span>
-                </h4>
-                <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-mono">
-                  {AROS.map((aro) => (
-                    <button
-                      key={`aro-link-${aro}`}
-                      onClick={() => {
-                        if (onSelectRimFromSeo) {
-                          onSelectRimFromSeo(aro);
-                        } else {
-                          onSelectSeoTarget({ type: 'aro', name: `Aro ${aro}` });
-                        }
-                      }}
-                      className="bg-white border border-gray-200 hover:border-yellow-600 py-2 rounded text-gray-700 hover:text-yellow-650 font-black uppercase text-[9px] cursor-pointer shadow-sm transition"
-                    >
-                      R{aro}
-                    </button>
-                  ))}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                {/* Coluna 1: Marcas Líderes */}
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-3 shadow-sm">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-gray-900 font-mono flex items-center gap-1.5 border-b border-gray-150 pb-2">
+                    <Sparkles className="w-4 h-4 text-yellow-600" />
+                    <span>Grandes Fabricantes</span>
+                  </h4>
+                  <ul className="space-y-2 text-xs font-bold text-gray-700">
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneus-pirelli-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pneus Pirelli Curitiba</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneus-pirelli-em-curitiba-melhor-preco')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pirelli em Curitiba Melhor Preço</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneus-bridgestone-curitiba-precos')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pneus Bridgestone Preços</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneu-hankook-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pneus Hankook Curitiba</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('xbri-pneus-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>XBRI Pneus Curitiba</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-              </div>
 
-              {/* Box 3: Regiões Metropolitanas de Curitiba (RMC) */}
-              <div className="bg-gray-55 border border-gray-200 p-5 rounded-2xl space-y-3 lg:col-span-2 shadow-sm bg-gray-50 text-gray-800">
-                <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2 flex items-center gap-1.5 font-mono">
-                  <Globe className="w-4 h-4 text-yellow-600" />
-                  <span>Cidades Região Metropolitana (RMC)</span>
-                </h4>
-                <div className="flex flex-wrap gap-1.5 text-[10px] font-extrabold">
-                  {METROPOLITAN_CITIES.map((cidade) => (
-                    <button
-                      key={`cidade-link-${cidade}`}
-                      onClick={() => onSelectSeoTarget({ type: 'cidade', name: cidade })}
-                      className="bg-white border border-gray-200 hover:border-yellow-600 px-2.5 py-1.5 rounded text-gray-700 hover:text-yellow-650 cursor-pointer shadow-sm transition"
-                    >
-                      {cidade}
-                    </button>
-                  ))}
+                {/* Coluna 2: Preço & Distribuição */}
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-3 shadow-sm">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-gray-900 font-mono flex items-center gap-1.5 border-b border-gray-150 pb-2">
+                    <ShoppingBag className="w-4 h-4 text-yellow-600" />
+                    <span>Preço, Atacado & Compras</span>
+                  </h4>
+                  <ul className="space-y-2 text-xs font-bold text-gray-700">
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneus-baratos-em-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pneus Baratos em Curitiba</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('pneus-em-curitiba-melhor-preco')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Pneus em Curitiba Melhor Preço</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('distribuidora-de-pneus-em-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Distribuidora de Pneus Curitiba</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('distribuidora-de-pneus-importados-atacado-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Atacado de Pneus Importados</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('melhor-site-para-comprar-pneus')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Melhor Site para Comprar Pneus</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-              </div>
 
+                {/* Coluna 3: Comparativos de Mercado */}
+                <div className="bg-white border border-gray-200 p-5 rounded-2xl space-y-3 shadow-sm">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-gray-900 font-mono flex items-center gap-1.5 border-b border-gray-150 pb-2">
+                    <Building className="w-4 h-4 text-yellow-600" />
+                    <span>Comparativos Comerciais</span>
+                  </h4>
+                  <ul className="space-y-2 text-xs font-bold text-gray-700">
+                    <li>
+                      <button onClick={() => onNavigateToPage('bana-pneus')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Bana Pneus Curitiba Comparativo</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('barao-pneus-e-oficina-bacacheri-curitiba')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Barão Pneus Bacacheri Comparativo</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('barao-pneus-sao-jose-pinhais')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Barão Pneus São José dos Pinhais</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => onNavigateToPage('barao-pneus-e-oficina-portao')} className="hover:text-yellow-600 transition cursor-pointer text-left flex items-center justify-between w-full">
+                        <span>Barão Pneus Portão Comparativo</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
             </div>
 
-            {/* Bairros de Curitiba SEO list */}
-            <div className="bg-gray-50 border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
-              <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2">
-                Páginas de Geolocalização de Bairros Oficiais (75 Bairros Curitiba)
-              </h4>
-              <p className="text-[11px] text-gray-650 text-justify font-medium">
-                Clique sobre qualquer bairro de Curitiba reconhecido para carregar o guia de vantagens e instruções de percurso direto até a nossa unidade de portabilidade mecânica.
+            {/* SEÇÃO 4: HUBS POR MONTADORA & VEÍCULOS */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm">
+              <div className="flex items-center gap-2 border-b border-gray-200 pb-2">
+                <Car className="w-5 h-5 text-yellow-600" />
+                <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono">
+                  Hubs por Montadora de Veículos
+                </h3>
+              </div>
+              <p className="text-xs text-gray-600 font-medium">
+                Selecione a montadora do seu carro para carregar medidas originais, modelos recomendados e promoções de pneus compatíveis:
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {[
+                  { brand: 'BYD', label: 'BYD Elétricos/Híbridos', isSpecial: true },
+                  { brand: 'Volkswagen', label: 'Volkswagen' },
+                  { brand: 'Chevrolet', label: 'Chevrolet' },
+                  { brand: 'Fiat', label: 'Fiat' },
+                  { brand: 'Toyota', label: 'Toyota' },
+                  { brand: 'Honda', label: 'Honda' },
+                  { brand: 'Hyundai', label: 'Hyundai' },
+                  { brand: 'Renault', label: 'Renault' },
+                  { brand: 'Ford', label: 'Ford' },
+                  { brand: 'Jeep', label: 'Jeep' },
+                ].map((item) => (
+                  <button
+                    key={item.brand}
+                    onClick={() => {
+                      if (item.brand === 'BYD') {
+                        onNavigateToPage('pneus-byd-curitiba');
+                      } else {
+                        onSelectSeoTarget({ type: 'carro', name: item.brand });
+                      }
+                    }}
+                    className={`p-3 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between ${
+                      item.isSpecial 
+                        ? 'bg-yellow-500/10 border-yellow-500 hover:bg-yellow-500/20 text-gray-950 font-black' 
+                        : 'bg-gray-50 border-gray-200 hover:border-gray-400 hover:bg-white text-gray-800 font-bold'
+                    }`}
+                  >
+                    <span className="text-xs uppercase">{item.label}</span>
+                    <span className="text-[9px] text-gray-400 font-mono mt-1">Ver modelos & pneus →</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* SEÇÃO 5: HUBS POR ARO (R13 - R23) */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-yellow-600" />
+                  <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono">
+                    Destaques por Medida de Aro (R13 a R23)
+                  </h3>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-11 gap-2 text-center font-mono">
+                {AROS.map((aro) => (
+                  <button
+                    key={`aro-link-${aro}`}
+                    onClick={() => {
+                      if (onSelectRimFromSeo) {
+                        onSelectRimFromSeo(aro);
+                      } else {
+                        onSelectSeoTarget({ type: 'aro', name: `Aro ${aro}` });
+                      }
+                    }}
+                    className="bg-gray-50 border border-gray-200 hover:border-yellow-600 hover:bg-yellow-500/10 py-3 rounded-xl text-gray-900 hover:text-yellow-650 font-black uppercase text-xs cursor-pointer shadow-sm transition"
+                  >
+                    R{aro}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* SEÇÃO 6: CIDADES DA REGIÃO METROPOLITANA (RMC) */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-800">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+                <div className="flex items-center gap-2">
+                  <Globe className="w-5 h-5 text-yellow-600" />
+                  <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono">
+                    Cidades da Região Metropolitana de Curitiba (RMC)
+                  </h3>
+                </div>
+                <button
+                  onClick={() => onNavigateToPage('regiao-metropolitana')}
+                  className="text-xs font-mono font-bold text-yellow-650 hover:underline cursor-pointer"
+                >
+                  Ver Hub RMC Completo →
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2 text-xs font-bold">
+                {METROPOLITAN_CITIES.map((cidade) => (
+                  <button
+                    key={`cidade-link-${cidade}`}
+                    onClick={() => onSelectSeoTarget({ type: 'cidade', name: cidade })}
+                    className="bg-gray-50 border border-gray-200 hover:border-yellow-600 hover:bg-yellow-500/10 px-3 py-2 rounded-xl text-gray-750 hover:text-yellow-650 cursor-pointer shadow-sm transition"
+                  >
+                    {cidade}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* SEÇÃO 7: BAIRROS OFICIAIS DE CURITIBA (75 BAIRROS) */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-2">
+                <div className="flex items-center gap-2">
+                  <Map className="w-5 h-5 text-yellow-600" />
+                  <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono">
+                    Geolocalização: 75 Bairros Oficiais de Curitiba
+                  </h3>
+                </div>
+                <button
+                  onClick={() => onNavigateToPage('curitiba')}
+                  className="text-xs font-mono font-bold text-yellow-650 hover:underline cursor-pointer"
+                >
+                  Ver Hub Curitiba Completo →
+                </button>
+              </div>
+              <p className="text-xs text-gray-600 text-justify font-medium">
+                Clique sobre qualquer bairro de Curitiba para carregar instruções de percurso e vantagens até a nossa loja na Av. Pres. Arthur da Silva Bernardes, 1323 (Portão).
               </p>
               
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 text-[10px] font-bold text-gray-600">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 text-xs font-bold text-gray-700">
                 {OFFICIAL_NEIGHBORHOODS.map((bairro) => (
                   <button
                     key={`bairro-link-${bairro}`}
                     onClick={() => onSelectSeoTarget({ type: 'bairro', name: bairro })}
-                    className="text-left hover:text-yellow-600 transition py-1 cursor-pointer flex items-center gap-1.5 truncate text-gray-805"
+                    className="text-left hover:text-yellow-600 transition py-1.5 px-2 rounded-lg hover:bg-yellow-500/5 cursor-pointer flex items-center gap-1.5 truncate border border-transparent hover:border-yellow-200"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 inline-block shrink-0"></span>
                     <span className="truncate">{bairro}</span>
@@ -1021,48 +1580,48 @@ export default function CompanyPages({
               </div>
             </div>
 
-            {/* Bairros Não Oficiais & Vilas de Curitiba */}
-            <div className="bg-gray-50 border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
-              <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2">
+            {/* SEÇÃO 8: VILAS, LOTEAMENTOS & BAIRROS NÃO OFICIAIS */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
+              <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono border-b border-gray-200 pb-2">
                 Vilas, Loteamentos & Bairros Não Oficiais (Buscas Populares em Curitiba)
-              </h4>
-              <p className="text-[11px] text-gray-650 text-justify font-medium">
-                Termos regionais e imobiliários muito consultados pelos moradores locais. Conectamos estas micro-regiões de forma rápida:
+              </h3>
+              <p className="text-xs text-gray-600 text-justify font-medium">
+                Termos regionais e microrregiões de grande circulação em Curitiba:
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 text-[10px] font-bold text-gray-600">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 text-xs font-bold text-gray-700">
                 {NON_OFFICIAL_NEIGHBORHOODS.map((v) => (
                   <button
                     key={`non-off-link-${v.name}`}
                     onClick={() => onSelectSeoTarget({ type: 'bairro', name: v.name, region: v.region })}
-                    className="text-left hover:text-yellow-600 transition py-1 cursor-pointer flex flex-col bg-white p-2 rounded-lg border border-gray-150 shadow-sm"
+                    className="text-left hover:text-yellow-600 transition py-2 px-2.5 cursor-pointer flex flex-col bg-gray-50 hover:bg-white rounded-xl border border-gray-200 hover:border-yellow-500 shadow-sm"
                   >
                     <span className="text-gray-900 font-extrabold truncate">{v.name}</span>
-                    <span className="text-[8px] text-gray-400 truncate">Região {v.region}</span>
+                    <span className="text-[9px] text-gray-400 truncate">Região {v.region}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Regions subdivisions Group list */}
-            <div className="bg-gray-50 border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
-              <h4 className="text-gray-900 font-black text-xs uppercase tracking-wide border-b border-gray-200 pb-2">
-                Subdivisões e Regiões de Grande Densidade Demográfica
-              </h4>
+            {/* SEÇÃO 9: SUBDIVISÕES E MACRORREGIÕES */}
+            <div className="bg-white border border-gray-200 p-5 sm:p-6 rounded-2xl space-y-4 shadow-sm text-gray-850">
+              <h3 className="text-base sm:text-lg font-black uppercase text-gray-950 font-mono border-b border-gray-200 pb-2">
+                Subdivisões e Macrorregiões de Curitiba
+              </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {POPULAR_REGIONS.map((reg) => (
-                  <div key={reg.name} className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col justify-between shadow-inner">
+                  <div key={reg.name} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between">
                     <div>
-                      <h5 className="text-xs font-black text-[#f49e1a] uppercase">{reg.name}</h5>
-                      <p className="text-[10px] text-gray-400 mt-0.5">{reg.subtitle}</p>
+                      <h4 className="text-xs font-black text-yellow-600 uppercase font-mono">{reg.name}</h4>
+                      <p className="text-[10px] text-gray-500 mt-0.5">{reg.subtitle}</p>
                     </div>
                     <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-gray-200">
                       {reg.subAreas.map((sa) => (
                         <button
                           key={sa}
                           onClick={() => onSelectSeoTarget({ type: 'bairro', name: sa, region: reg.name })}
-                          className="bg-gray-50 border border-gray-150 hover:bg-yellow-500/10 px-2 py-0.5 rounded text-[8px] text-gray-700 hover:text-yellow-650 font-bold transition cursor-pointer"
+                          className="bg-white border border-gray-200 hover:bg-yellow-500/10 px-2 py-1 rounded-lg text-[10px] text-gray-750 hover:text-yellow-650 font-bold transition cursor-pointer"
                         >
                           {sa}
                         </button>
@@ -1072,6 +1631,73 @@ export default function CompanyPages({
                 ))}
               </div>
             </div>
+
+            {/* SEÇÃO 10: INSTITUCIONAL & DOCUMENTAÇÃO TÉCNICA */}
+            <div className="bg-gray-900 text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-gray-800 shadow-md">
+              <h3 className="text-base sm:text-lg font-black uppercase text-yellow-500 font-mono border-b border-gray-800 pb-2">
+                Páginas Institucionais, Políticas & Sitemaps XML Técnicos
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs font-bold">
+                <button
+                  onClick={onNavigateHome}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer"
+                >
+                  Catálogo & Início
+                </button>
+                <button
+                  onClick={() => onNavigateToPage('quem-somos')}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer"
+                >
+                  Quem Somos • Sobre a Carplus
+                </button>
+                <button
+                  onClick={() => onNavigateToPage('contato')}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer"
+                >
+                  Fale Conosco & Contato Oficial
+                </button>
+                <button
+                  onClick={() => onNavigateToPage('politica-privacidades')}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer"
+                >
+                  Política de Privacidade
+                </button>
+                <button
+                  onClick={() => onNavigateToPage('politica-devolucao')}
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition cursor-pointer"
+                >
+                  Política de Trocas & Devolução
+                </button>
+                <a
+                  href="/sitemap.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition flex items-center justify-between"
+                >
+                  <span>Sitemap XML Geral</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                </a>
+                <a
+                  href="/sitemap-institucional.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition flex items-center justify-between"
+                >
+                  <span>Sitemap Institucional XML</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                </a>
+                <a
+                  href="/sitemap-carros.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-950 hover:bg-yellow-500 hover:text-gray-950 border border-gray-800 p-3 rounded-xl text-left transition flex items-center justify-between"
+                >
+                  <span>Sitemap Carros/BYD XML</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                </a>
+              </div>
+            </div>
+
           </div>
         )}
 
