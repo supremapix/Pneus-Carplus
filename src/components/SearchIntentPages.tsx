@@ -22,14 +22,29 @@ interface SearchIntentPagesProps {
     | 'pneus-pirelli-em-curitiba-melhor-preco'
     | 'barao-pneus-e-oficina-portao';
   onNavigateHome: () => void;
+  onNavigateToPage?: (page: string) => void;
 }
 
-export default function SearchIntentPages({ view, onNavigateHome }: SearchIntentPagesProps) {
+export default function SearchIntentPages({ view, onNavigateHome, onNavigateToPage }: SearchIntentPagesProps) {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // Helper inside WhatsApp formatting
   const formatWhatsApp = (text: string) => {
     return `https://wa.me/5541999999999?text=${encodeURIComponent(text)}`;
+  };
+
+  const handleInternalNav = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    e.preventDefault();
+    if (target === 'home' || target === '/') {
+      onNavigateHome();
+      window.history.pushState(null, '', '/');
+    } else if (onNavigateToPage) {
+      const clean = target.replace(/^\//, '');
+      onNavigateToPage(clean);
+      window.history.pushState(null, '', `/${clean}`);
+    } else {
+      window.location.href = target.startsWith('/') ? target : `/${target}`;
+    }
   };
 
   // Structured Content for each page to maximize relevance
@@ -369,32 +384,112 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
       ]
     },
     'pneus-em-curitiba-melhor-preco': {
-      title: "Pneus com o Melhor Preço em Curitiba",
-      subtitle: "Cobrimos propostas impressas de compostos novos com bicos inclusos e montagem física no box.",
-      tag: "Menor Preço Líquido",
+      title: "Pneus em Curitiba com o Melhor Preço",
+      subtitle: "Estoque amplo de pneus novos a pronta entrega, com montagem computadorizada e bicos de borracha inclusos no Portão.",
+      tag: "Compra de Pneus em Curitiba",
       bgGradient: "from-emerald-950 to-gray-950",
       content: (
         <div className="space-y-6 text-left">
           <p className="text-sm text-gray-650 leading-relaxed font-semibold">
-            O asfalto urbano exige pneus resistentes e seguros no asfalto molhado. A busca pelo <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">melhor preço de pneus em Curitiba</strong> costuma esbarrar em propostas complicadas que escondem taxas surpresa de instalação. Aqui na Carplus Pneus, o valor de tabela é transparente e cobre as necessidades reais do veículo.
+            Se você está pesquisando por <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">pneus em Curitiba</strong> ou quer saber <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">onde comprar pneus com o melhor preço</strong>, a Carplus Pneus oferece atendimento transparente, estoque próprio e suporte técnico especializado na Av. Presidente Arthur Bernardes, 1323 (Portão).
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border border-green-500/15 bg-green-500/5 p-4 rounded-2xl text-left space-y-2">
-              <h4 className="text-xs font-bold uppercase text-green-950 font-mono">Diferença de Venda Carplus</h4>
-              <p className="text-[10px] text-gray-500 leading-relaxed">Sourcing direto com grandes fábricas e portos de importação, encurtando intermediários e reduzindo taxas de comercialização repassadas ao consumidor.</p>
+          {/* Destaques comerciais */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="border border-green-500/15 bg-green-500/5 p-4 rounded-2xl text-left space-y-1.5">
+              <span className="text-[10px] font-black uppercase text-green-800 font-mono">01. Procedência Garantida</span>
+              <h4 className="text-xs font-bold uppercase text-green-950 font-mono">Pneus 100% Novos</h4>
+              <p className="text-[11px] text-gray-600 leading-relaxed font-medium">Trabalhamos exclusivamente com pneus novos com 5 anos de garantia de fábrica e selo do Inmetro.</p>
             </div>
-            <div className="border border-yellow-500/15 bg-yellow-500/5 p-4 rounded-2xl text-left space-y-2">
-              <h4 className="text-xs font-bold uppercase text-yellow-950 font-mono">Eliminação de Tarifas de Montagem</h4>
-              <p className="text-[10px] text-gray-500 leading-relaxed">Diga adeus a cobrar taxas avulsas de bicos novos, descarte ecológico ou utilização de elevador. Inteiramente inclusos cortesias!</p>
+            <div className="border border-yellow-500/15 bg-yellow-500/5 p-4 rounded-2xl text-left space-y-1.5">
+              <span className="text-[10px] font-black uppercase text-yellow-800 font-mono">02. Sem Taxas Ocultas</span>
+              <h4 className="text-xs font-bold uppercase text-yellow-950 font-mono">Montagem e Válvulas Grátis</h4>
+              <p className="text-[11px] text-gray-600 leading-relaxed font-medium">Ao comprar seus pneus, a montagem técnica e os bicos novos de borracha são cortesia em nossa loja física.</p>
             </div>
+            <div className="border border-gray-200 bg-gray-50 p-4 rounded-2xl text-left space-y-1.5">
+              <span className="text-[10px] font-black uppercase text-gray-700 font-mono">03. Geometria Computadorizada</span>
+              <h4 className="text-xs font-bold uppercase text-gray-950 font-mono">Rampa de Alinhamento 3D</h4>
+              <p className="text-[11px] text-gray-600 leading-relaxed font-medium">Alinhamento tridimensional de precisão para evitar desgaste irregular e economizar combustível.</p>
+            </div>
+          </div>
+
+          {/* Opções de pneus por tipo de veículo */}
+          <div className="bg-gray-50 border border-gray-200 p-5 rounded-3xl space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950 flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-yellow-600" />
+              Pneus para Todos os Tipos de Veículos em Curitiba
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-gray-750 font-medium">
+              <div className="bg-white p-3.5 rounded-xl border border-gray-150 space-y-1">
+                <strong className="text-gray-950 block uppercase text-[11px] font-mono">Carros de Passeio (Hatches e Sedãs)</strong>
+                <p className="text-gray-600 text-[11px]">Medidas populares e de alto rendimento como 175/70 R13, 175/65 R14, 185/65 R14, 185/60 R15 e 205/55 R16.</p>
+              </div>
+              <div className="bg-white p-3.5 rounded-xl border border-gray-150 space-y-1">
+                <strong className="text-gray-950 block uppercase text-[11px] font-mono">SUVs, Crossovers e Picapes 4x4</strong>
+                <p className="text-gray-600 text-[11px]">Linhas reforçadas para rodagem urbana e mista, incluindo aros 16, 17, 18, 19 e 20 (225/65 R17, 235/60 R18, etc.).</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Marcas disponíveis com links internos */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950">Principais Marcas Disponíveis em Estoque</h3>
+            <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+              Dispomos de marcas consagradas nacionais e importadas para pronta entrega:
+            </p>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <a 
+                href="/pneus-pirelli-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'pneus-pirelli-curitiba')}
+                className="bg-red-50 text-red-900 border border-red-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition"
+              >
+                Pneus Pirelli Curitiba ➔
+              </a>
+              <a 
+                href="/pneus-bridgestone-curitiba-precos" 
+                onClick={(e) => handleInternalNav(e, 'pneus-bridgestone-curitiba-precos')}
+                className="bg-gray-100 text-gray-900 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 transition"
+              >
+                Pneus Bridgestone ➔
+              </a>
+              <a 
+                href="/pneu-hankook-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'pneu-hankook-curitiba')}
+                className="bg-amber-50 text-amber-900 border border-amber-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-amber-100 transition"
+              >
+                Pneus Hankook ➔
+              </a>
+              <a 
+                href="/xbri-pneus-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'xbri-pneus-curitiba')}
+                className="bg-emerald-50 text-emerald-900 border border-emerald-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-100 transition"
+              >
+                Pneus Xbri ➔
+              </a>
+              <a 
+                href="/pneus-baratos-em-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'pneus-baratos-em-curitiba')}
+                className="bg-yellow-50 text-yellow-900 border border-yellow-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-yellow-100 transition"
+              >
+                Opções Econômicas ➔
+              </a>
+            </div>
+          </div>
+
+          {/* Serviços e Localização */}
+          <div className="bg-yellow-500/5 border border-yellow-500/15 p-5 rounded-3xl space-y-2">
+            <span className="font-mono text-[9px] text-[#f49e1a] uppercase font-black tracking-widest block">Atendimento em Curitiba</span>
+            <p className="text-xs text-gray-800 leading-relaxed font-bold">
+              Visite nossa loja no bairro Portão (Av. Pres. Arthur Bernardes, 1323) ou consulte a equipe pelo WhatsApp. Atendemos motoristas de toda Curitiba e Região Metropolitana com facilidade de pagamento em até 10x sem juros ou desconto à vista no Pix.
+            </p>
           </div>
         </div>
       ),
-      whatsappText: "Olá Carplus! Estou pesquisando pneus na cidade de Curitiba e quero fechar o melhor preço nacional ou importado com vocês.",
+      whatsappText: "Olá Carplus Curitiba! Gostaria de consultar o preço de pneus novos para o meu carro com montagem inclusa.",
       faqs: [
-        { q: "O preço anunciado cobre faturamento parcelado?", a: "Trabalhamos com excelentes condições em até 10x sem juros ou desconto considerável à vista para Pix." },
-        { q: "Quais os aros disponíveis à pronta entrega?", a: "Abastecemos aros do compacto 13 ao utilitário picape aro 20 de alta performance com estoque real em loja." }
+        { q: "Onde comprar pneus baratos e confiáveis em Curitiba?", a: "Na Carplus Pneus, localizada na Av. Presidente Arthur Bernardes, 1323 (Portão). Todos os pneus são novos, com 5 anos de garantia e instalação gratuita." },
+        { q: "A montagem e os bicos de ar são realmente gratuitos?", a: "Sim! Ao adquirir os pneus em nossa loja, você não paga nada pela montagem nem pelos bicos novos de borracha comuns." },
+        { q: "Quais medidas de pneus vocês têm a pronta entrega?", a: "Temos estoque permanente dos aros 13, 14, 15, 16, 17, 18, 19 e 20 para veículos de passeio, SUVs e picapes." }
       ]
     },
     'distribuidora-de-pneus-em-curitiba': {
@@ -452,59 +547,171 @@ export default function SearchIntentPages({ view, onNavigateHome }: SearchIntent
     },
     'loja-de-pneus-em-curitiba': {
       title: "Loja de Pneus em Curitiba",
-      subtitle: "Seu centro automotivo especializado na Av. Arthur Bernardes, no Portão. Transparência técnica.",
-      tag: "Estrutura Moderna Portão",
+      subtitle: "Centro automotivo especializado no bairro Portão (Av. Arthur Bernardes). Amplo estoque de pneus novos com montagem técnica.",
+      tag: "Loja de Pneus em Curitiba",
       bgGradient: "from-zinc-900 to-gray-950",
       content: (
         <div className="space-y-6 text-left">
           <p className="text-sm text-gray-650 leading-relaxed font-semibold">
-            Na nossa <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">loja de pneus em Curitiba</strong>, aliamos o atendimento atencioso da bacia de bairros ao que há de mais tecnológico em termos de alinhamento tridimensional, balanceamento eletrônico de massa de precisão e troca profissional de óleo do motor, filtros e pastilhas de freio.
+            Procurando uma <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">loja de pneus em Curitiba</strong> com procedência garantida, infraestrutura completa e atendimento ágil? A <strong>Carplus Pneus & Auto Center</strong> está localizada estrategicamente na Av. Presidente Arthur Bernardes, 1323, no bairro Portão, atendendo com facilidade clientes de bairros como Água Verde, Batel, Seminário, Vila Izabel, Capão Raso, Santa Quitéria e Cidade Industrial.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="border border-gray-150 p-4 rounded-2xl bg-gray-50 text-left space-y-2">
-              <h4 className="text-xs font-black uppercase text-gray-950 font-mono">Infraestrutura Ampla</h4>
-              <p className="text-[10px] text-gray-500 leading-relaxed font-semibold">Amplo box de estacionamento rápido no Portão, projetado para que você possa acompanhar no piso de loja cada detalhe da execução técnica do carro.</p>
+          {/* Onde comprar pneus em Curitiba */}
+          <div className="border border-gray-200 bg-white p-5 rounded-3xl space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950 flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-yellow-600" />
+              Onde Comprar Pneus em Curitiba com Segurança?
+            </h3>
+            <p className="text-xs text-gray-700 leading-relaxed font-medium">
+              Comprar pneus na Carplus garante que seu veículo receba pneus novos de fábrica com 5 anos de garantia e montagem por profissionais qualificados. Nossa loja conta com maquinário pneumático macio que não danifica as rodas de liga leve ou de ferro durante o processo de troca.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+              <div className="bg-gray-50 p-3 rounded-xl border border-gray-150 space-y-1">
+                <span className="font-bold text-gray-900 font-mono block">Localização Fácil</span>
+                <p className="text-gray-600 text-[11px]">Av. Pres. Arthur da Silva Bernardes, 1323 - Portão, Curitiba - PR. Acesso facilitado pelas rápidas do Portão e República Argentina.</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded-xl border border-gray-150 space-y-1">
+                <span className="font-bold text-gray-900 font-mono block">Como Solicitar Orçamento</span>
+                <p className="text-gray-600 text-[11px]">Basta informar a medida do pneu ou o modelo do seu carro pelo WhatsApp para receber cotação instantânea com opções de marcas.</p>
+              </div>
             </div>
-            <div className="border border-gray-150 p-4 rounded-2xl bg-gray-50 text-left space-y-2">
-              <h4 className="text-xs font-black uppercase text-gray-950 font-mono">Maquinário Anti-Riscos</h4>
-              <p className="text-[10px] text-gray-500 leading-relaxed font-semibold">Desmontadoras automotivas pneumáticas modernas dotadas de braço auxiliar auxiliar, que desmontam os pneus sem forçar ou riscar o aro.</p>
+          </div>
+
+          {/* Medidas e Veículos */}
+          <div className="bg-gray-50 border border-gray-200 p-5 rounded-3xl space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950">Medidas de Pneus e Aplicações</h3>
+            <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+              Dispomos de catálogo completo para todas as categorias de veículos automotores:
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-mono font-bold">
+              <div className="bg-white border border-gray-200 p-2 rounded-lg">Aro 13 & 14 (Compactos)</div>
+              <div className="bg-white border border-gray-200 p-2 rounded-lg">Aro 15 & 16 (Sedãs/Hatches)</div>
+              <div className="bg-white border border-gray-200 p-2 rounded-lg">Aro 17 & 18 (SUVs/Médios)</div>
+              <div className="bg-white border border-gray-200 p-2 rounded-lg">Aro 19 & 20 (Picapes/Luxo)</div>
+            </div>
+          </div>
+
+          {/* Marcas e Serviços Integrados */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950">Marcas em Destaque e Serviços no Auto Center</h3>
+            <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+              Trabalhamos com as marcas mais recomendadas do mercado e oferecemos serviços completos para que seu carro saia pronto para rodar:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <a 
+                href="/pneus-pirelli-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'pneus-pirelli-curitiba')}
+                className="bg-red-50 text-red-900 border border-red-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition"
+              >
+                Pneus Pirelli ➔
+              </a>
+              <a 
+                href="/pneus-bridgestone-curitiba-precos" 
+                onClick={(e) => handleInternalNav(e, 'pneus-bridgestone-curitiba-precos')}
+                className="bg-gray-100 text-gray-900 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 transition"
+              >
+                Pneus Bridgestone ➔
+              </a>
+              <a 
+                href="/alinhamento-3d-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'alinhamento-3d-curitiba')}
+                className="bg-yellow-50 text-yellow-900 border border-yellow-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-yellow-100 transition"
+              >
+                Alinhamento 3D Computadorizado ➔
+              </a>
+              <a 
+                href="/oficina-do-pneu-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'oficina-do-pneu-curitiba')}
+                className="bg-blue-50 text-blue-900 border border-blue-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition"
+              >
+                Oficina e Balanceamento ➔
+              </a>
+              <a 
+                href="/contato" 
+                onClick={(e) => handleInternalNav(e, 'contato')}
+                className="bg-gray-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-black transition"
+              >
+                Fale Conosco / Como Chegar ➔
+              </a>
             </div>
           </div>
         </div>
       ),
-      whatsappText: "Olá Carplus! Gostaria de agendar uma visita em sua loja física de pneus no Portão para trocar os pneus e revisar minha suspensão.",
+      whatsappText: "Olá Carplus! Gostaria de agendar uma visita na loja de pneus no Portão para consultar opções e realizar a montagem.",
       faqs: [
-        { q: "Onde fica a loja exatamente?", a: "Nosso auto center unificado está situado na Av. General Arthur Bernardes, facilitando o acesso instantâneo para moradores do Portão, Seminário e Água Verde." },
-        { q: "Precisa agendar a montagem de pneu murcho?", a: "Não é obrigatório, mas agendando pelo WhatsApp você ganha prioridade de rampa instantânea no box de pista!" }
+        { q: "Onde fica a loja de pneus da Carplus em Curitiba?", a: "Nossa loja física situa-se na Av. Presidente Arthur da Silva Bernardes, 1323, bairro Portão, Curitiba - PR (CEP 80320-300)." },
+        { q: "É necessário agendar para trocar os pneus na loja?", a: "Você pode comparecer diretamente ou agendar seu horário pelo WhatsApp para ter atendimento prioritário no elevador." },
+        { q: "Quais marcas de pneus a loja comercializa?", a: "Trabalhamos com Pirelli, Bridgestone, Goodyear, Continental, Michelin, Firestone, Dunlop, Delinte, Xbri e Hankook." },
+        { q: "A loja faz alinhamento e balanceamento?", a: "Sim, dispomos de rampa computadorizada de Alinhamento 3D Tridimensional e balanceadoras de alta precisão." }
       ]
     },
     'pneus-pirelli-em-curitiba-melhor-preco': {
-      title: "Pneus Pirelli Curitiba Melhor Preço",
-      subtitle: "Linhas oficiais Cinturato, Scorpion e P-Zero à pronta entrega homologadas pelas grandes montadoras.",
-      tag: "Esportividade e Segurança Pirelli",
+      title: "Pneus Pirelli em Curitiba - Preços e Modelos",
+      subtitle: "Linhas Cinturato, Scorpion e Chrono com montagem expressa e bicos de cortesia no Portão.",
+      tag: "Pneus Pirelli em Curitiba",
       bgGradient: "from-amber-950 to-gray-950",
       content: (
         <div className="space-y-6 text-left">
           <p className="text-sm text-gray-650 leading-relaxed font-semibold">
-            Os pneus <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">Pirelli em Curitiba pelo melhor preço</strong> estão concentrados na Carplus Pneus. Como a Pirelli é a marca líder preferencial do motorista paranaense, mantemos estoques amplos para frotas de passeio e picapes de passeio imediatos.
+            Buscando <strong className="text-gray-955 bg-yellow-500/10 px-1 py-0.5 rounded">pneus Pirelli em Curitiba</strong> com preços competitivos e montagem no mesmo dia? Na Carplus Pneus você encontra catálogo variado de compostos Pirelli novos, homologados para veículos nacionais e importados.
           </p>
 
-          <div className="bg-amber-500/5 border border-amber-500/10 p-5 rounded-3xl space-y-3">
+          <div className="bg-amber-500/5 border border-amber-500/15 p-5 rounded-3xl space-y-3">
             <h4 className="text-xs font-black uppercase text-amber-900 font-mono tracking-widest text-left">
-              Linha Pirelli Homologada Oficial:
+              Linhas Pirelli em Estoque na Loja do Portão:
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-650 font-medium">
-              <p><strong>Pirelli Cinturato P1 e P7:</strong> Modelos duráveis para sedãs, hatchbacks médios e populares, unindo alta tração mecânica seca ao conforto acústico suave.</p>
-              <p><strong>Pirelli Scorpion:</strong> Focado no asfalto misto e terra para veículos SUV, utilitários, picapes Oroch, Toro, Duster, Compass com excelente aderência útil.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-gray-700 font-medium">
+              <div className="bg-white p-3 rounded-xl border border-amber-200/60 space-y-1">
+                <strong className="text-gray-950 block uppercase text-[11px] font-mono">Pirelli Cinturato P1 / P7</strong>
+                <p className="text-gray-600 text-[11px]">Ideais para compactos, sedãs e hatches médios. Destaque em frenagem no molhado e durabilidade quilométrica.</p>
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-amber-200/60 space-y-1">
+                <strong className="text-gray-950 block uppercase text-[11px] font-mono">Pirelli Scorpion (ATR / HT)</strong>
+                <p className="text-gray-600 text-[11px]">Desenvolvidos para SUVs e picapes (Compass, Toro, Renegade, Duster), com tração segura no asfalto e terra.</p>
+              </div>
+              <div className="bg-white p-3 rounded-xl border border-amber-200/60 space-y-1">
+                <strong className="text-gray-950 block uppercase text-[11px] font-mono">Pirelli Chrono</strong>
+                <p className="text-gray-600 text-[11px]">Linha reforçada para frotas comerciais, vans e utilitários leves com alta resistência de carga.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-sm font-black uppercase font-mono text-gray-950">Links Úteis e Serviços Complementares</h3>
+            <p className="text-xs text-gray-650 leading-relaxed font-semibold">
+              Consulte nosso catálogo completo e aproveite os serviços de geometria veicular:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <a 
+                href="/pneus-pirelli-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'pneus-pirelli-curitiba')}
+                className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-700 transition"
+              >
+                Ver Catálogo Pirelli Curitiba ➔
+              </a>
+              <a 
+                href="/alinhamento-3d-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'alinhamento-3d-curitiba')}
+                className="bg-yellow-50 text-yellow-900 border border-yellow-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-yellow-100 transition"
+              >
+                Alinhamento 3D para Pneus Pirelli ➔
+              </a>
+              <a 
+                href="/loja-de-pneus-em-curitiba" 
+                onClick={(e) => handleInternalNav(e, 'loja-de-pneus-em-curitiba')}
+                className="bg-gray-100 text-gray-800 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 transition"
+              >
+                Loja de Pneus no Portão ➔
+              </a>
             </div>
           </div>
         </div>
       ),
-      whatsappText: "Olá Carplus! Gostaria de cotar o melhor preço de pneus Pirelli Cinturato / Scorpion em Curitiba para o meu veículo hoje.",
+      whatsappText: "Olá Carplus! Gostaria de cotar pneus Pirelli em Curitiba para o meu carro com montagem inclusa.",
       faqs: [
-        { q: "Os pneus Pirelli têm garantia?", a: "Sim, todos os pneus Pirelli novos possuem garantia integral oficial direto de fábrica de 5 anos via auditoria da marca." },
-        { q: "Qual a vantagen da linha Cinturato?", a: "Frenagens ágeis em pistas úmidas, escoamento instantâneo da lâmina de chuva e alta resistência contra desgaste acelerado de banda." }
+        { q: "Os pneus Pirelli vendidos pela Carplus têm garantia?", a: "Sim, todos os pneus Pirelli comercializados são 100% novos e possuem 5 anos de garantia oficial de fábrica contra defeitos de fabricação." },
+        { q: "Onde comprar pneus Pirelli no bairro Portão em Curitiba?", a: "Na loja física da Carplus Pneus, na Av. Presidente Arthur Bernardes, 1323 (Portão, Curitiba)." },
+        { q: "A montagem é cobrada a parte?", a: "Não, ao adquirir os pneus Pirelli na Carplus, a montagem e as válvulas de borracha novas são gratuitas." }
       ]
     },
     'barao-pneus-e-oficina-portao': {

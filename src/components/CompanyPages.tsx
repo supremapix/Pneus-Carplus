@@ -2544,6 +2544,70 @@ export default function CompanyPages({
                 </div>
               </div>
 
+              {/* Seção Conserto e Reforma de Rodas em Curitiba */}
+              <div className="bg-white border border-gray-200 p-6 rounded-3xl space-y-4 text-left shadow-sm">
+                <div className="space-y-1">
+                  <span className="font-mono text-[9px] text-[#f49e1a] uppercase font-black tracking-widest block">Serviço Especializado</span>
+                  <h3 className="text-lg font-black uppercase font-mono text-gray-950">
+                    Conserto e Reforma de Rodas em Curitiba
+                  </h3>
+                  <p className="text-xs text-gray-650 leading-relaxed font-medium">
+                    Impactos em buracos e desníveis no asfalto frequentemente causam amassados, empenamentos e danos às bordas das rodas de liga leve ou de ferro. Na Carplus realizamos diagnóstico e reparação técnica de precisão no bairro Portão:
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl space-y-1.5">
+                    <strong className="text-gray-950 block uppercase text-[11px] font-mono">Desempeno de Rodas Amassadas</strong>
+                    <p className="text-gray-600 text-[11px] leading-relaxed">Prensa hidráulica progressiva e relógio comparador centesimal para recuperar a concentricidade da roda sem aquecimento nocivo que enfraqueça a liga.</p>
+                  </div>
+                  <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl space-y-1.5">
+                    <strong className="text-gray-950 block uppercase text-[11px] font-mono">Diamantação CNC & Pintura</strong>
+                    <p className="text-gray-600 text-[11px] leading-relaxed">Eliminação de arranhões profundos de guia e acabamento estético com torno diamantador CNC e estufa térmica.</p>
+                  </div>
+                  <div className="bg-gray-50 border border-gray-150 p-4 rounded-xl space-y-1.5">
+                    <strong className="text-gray-950 block uppercase text-[11px] font-mono">Avaliação Técnica de Danos</strong>
+                    <p className="text-gray-600 text-[11px] leading-relaxed">Inspeção criteriosa em trincas e fissuras com orientação técnica transparente para garantir a segurança estrutural do condutor.</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <a
+                    href="/alinhamento-3d-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('alinhamento-3d-curitiba');
+                      window.history.pushState(null, '', '/alinhamento-3d-curitiba');
+                    }}
+                    className="bg-yellow-500/15 text-yellow-900 border border-yellow-500/30 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-yellow-500/25 transition"
+                  >
+                    Alinhamento 3D Computadorizado ➔
+                  </a>
+                  <a
+                    href="/loja-de-pneus-em-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('loja-de-pneus-em-curitiba');
+                      window.history.pushState(null, '', '/loja-de-pneus-em-curitiba');
+                    }}
+                    className="bg-gray-100 text-gray-800 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 transition"
+                  >
+                    Loja de Pneus no Portão ➔
+                  </a>
+                  <a
+                    href="/contato"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('contato');
+                      window.history.pushState(null, '', '/contato');
+                    }}
+                    className="bg-gray-900 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-black transition"
+                  >
+                    Como Chegar na Oficina ➔
+                  </a>
+                </div>
+              </div>
+
               {/* Interactive Symptom Simulator */}
               <div className="bg-gray-100 border border-gray-200 p-6 rounded-3xl space-y-4">
                 <div className="space-y-1">
@@ -2790,29 +2854,72 @@ export default function CompanyPages({
             <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in font-sans text-gray-900">
               <div className="text-center space-y-2">
                 <span className="bg-red-600 text-white font-mono font-bold text-[9px] uppercase px-3.5 py-1.5 rounded inline-block tracking-widest">
-                  Pirelli Premium
+                  Catálogo Pirelli em Curitiba
                 </span>
                 <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight uppercase font-mono">
                   Pneus Pirelli Curitiba
                 </h1>
                 <p className="text-gray-600 font-medium max-w-2xl mx-auto leading-relaxed text-sm">
-                  Adquira pneus Pirelli originais novos Cinturato, Scorpion e P-Zero. Garantia oficial de 5 anos de fábrica contra defeitos, bicos novos de borracha e instalação computadorizada grátis em nosso autocenter no Portão.
+                  Encontre pneus Pirelli novos para pronta entrega em Curitiba: linhas Cinturato, Scorpion e Chrono. Pneus 100% novos com 5 anos de garantia de fábrica, bicos de borracha inclusos e montagem especializada no bairro Portão.
                 </p>
               </div>
 
               {/* Informational Column Copy */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-3xl border border-gray-200 shadow-sm text-xs sm:text-sm">
                 <div className="space-y-3">
-                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Cinturato & Scorpion</h3>
+                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Cinturato, Scorpion & Chrono</h3>
                   <p className="text-gray-700 leading-relaxed text-justify">
-                    A Pirelli é líder em homologação original para veículos sofisticados. A linha <strong>Cinturato</strong> oferece excepcional rendimento quilométrico e excelente frenagem no solo molhado, ótimo para as constantes chuvas de Curitiba. Já a linha <strong>Scorpion</strong> foi rigorosamente pensada para SUVs e picapes robustos, garantindo tração firme e baixíssimo ruído interno.
+                    A Pirelli é reconhecida mundialmente pela excelente aderência e estabilidade dinâmica. A linha <strong>Cinturato (P1 e P7)</strong> oferece rendimento quilométrico e frenagem eficiente no asfalto molhado de Curitiba. A linha <strong>Scorpion</strong> atende SUVs e picapes (Toro, Renegade, Compass, Duster), combinando tração e silêncio de rodagem. Já a linha <strong>Chrono</strong> atende vans e frotas comerciais com alta durabilidade sob carga.
                   </p>
                 </div>
                 <div className="space-y-3">
-                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Benefícios Exclusivos Carplus</h3>
+                  <h3 className="text-sm font-black uppercase text-gray-950 font-mono border-l-4 border-red-600 pl-3 leading-none">Loja de Pneus Pirelli no Portão</h3>
                   <p className="text-gray-700 leading-relaxed text-justify">
-                    Reservando seus pneus Pirelli novos de forma online, garantimos a você a montagem expressa computadorizada de alta precisão e as válvulas de ar inteiramente gratuitas. Nosso pátio do Portão conta com elevadores pantográficos calibrados e equipe homologada para atendimento de automóveis importados e esportivos.
+                    Em nossa loja física na Av. Presidente Arthur Bernardes, 1323, você conta com elevadores pantográficos calibrados e técnicos capacitados. Na compra dos seus pneus Pirelli, a montagem e as válvulas novas de borracha são cortesia. Também realizamos alinhamento 3D tridimensional e balanceamento computadorizado no mesmo local.
                   </p>
+                </div>
+              </div>
+
+              {/* Guia Rápido de Onde Comprar e Medidas */}
+              <div className="bg-gray-50 border border-gray-200 p-5 rounded-3xl space-y-3 text-left">
+                <h3 className="text-sm font-black uppercase font-mono text-gray-950">Onde Comprar Pneus Pirelli em Curitiba</h3>
+                <p className="text-xs text-gray-700 leading-relaxed font-medium">
+                  A Carplus Pneus está situada na Av. Presidente Arthur da Silva Bernardes, 1323 (Portão), com fácil acesso para moradores de bairros vizinhos como Água Verde, Batel, Seminário, Santa Quitéria e CIC. Você pode consultar medidas pelo WhatsApp e reservar seus pneus com instalação imediata no box.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <a
+                    href="/alinhamento-3d-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('alinhamento-3d-curitiba');
+                      window.history.pushState(null, '', '/alinhamento-3d-curitiba');
+                    }}
+                    className="bg-yellow-500/15 text-yellow-900 border border-yellow-500/30 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-yellow-500/25 transition"
+                  >
+                    Alinhamento 3D para Pirelli ➔
+                  </a>
+                  <a
+                    href="/oficina-do-pneu-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('oficina-do-pneu-curitiba');
+                      window.history.pushState(null, '', '/oficina-do-pneu-curitiba');
+                    }}
+                    className="bg-gray-100 text-gray-800 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-200 transition"
+                  >
+                    Serviços de Oficina e Montagem ➔
+                  </a>
+                  <a
+                    href="/loja-de-pneus-em-curitiba"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToPage('loja-de-pneus-em-curitiba');
+                      window.history.pushState(null, '', '/loja-de-pneus-em-curitiba');
+                    }}
+                    className="bg-red-50 text-red-900 border border-red-200 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition"
+                  >
+                    Loja de Pneus no Portão ➔
+                  </a>
                 </div>
               </div>
 
@@ -3028,6 +3135,7 @@ export default function CompanyPages({
           <SearchIntentPages 
             view={view as any} 
             onNavigateHome={onNavigateHome} 
+            onNavigateToPage={onNavigateToPage}
           />
         )}
 
