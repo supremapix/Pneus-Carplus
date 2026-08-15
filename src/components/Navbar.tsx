@@ -156,18 +156,6 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
               )}
             </button>
 
-            {/* WhatsApp direct booking link */}
-            <a
-              href={formatWhatsApp('Olá Carplus! Gostaria de agendar uma revisão ou orçamento de pneus pela loja do Portão.')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex bg-[#f49e1a] hover:bg-white hover:text-black hover:border-white text-gray-950 font-black text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl items-center gap-2 transition border border-transparent"
-              id="header-whatsapp-cta"
-            >
-              <span>WHATSAPP</span>
-              <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
-            </a>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
