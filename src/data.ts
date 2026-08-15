@@ -2427,7 +2427,13 @@ export const CAR_MODELS_DATA: CarModel[] = [
   { id: 'jp2', brand: 'Jeep', name: 'Compass (Aro 19)', yearRange: '2016 - 2026', recommendedTireRatio: '235/45/19' },
   { id: 'jp3', brand: 'Jeep', name: 'Renegade (Aro 16)', yearRange: '2015 - 2026', recommendedTireRatio: '215/65/16' },
   { id: 'jp4', brand: 'Jeep', name: 'Renegade (Aro 17)', yearRange: '2015 - 2026', recommendedTireRatio: '215/60/17' },
-  { id: 'jp5', brand: 'Jeep', name: 'Renegade (Aro 18)', yearRange: '2015 - 2026', recommendedTireRatio: '225/55/18' }
+  { id: 'jp5', brand: 'Jeep', name: 'Renegade (Aro 18)', yearRange: '2015 - 2026', recommendedTireRatio: '225/55/18' },
+
+  // BYD
+  { id: 'byd1', brand: 'BYD', name: 'Dolphin Mini', yearRange: '2024 - 2026', recommendedTireRatio: '175/55/16' },
+  { id: 'byd2', brand: 'BYD', name: 'Dolphin', yearRange: '2023 - 2026', recommendedTireRatio: '205/50/17' },
+  { id: 'byd3', brand: 'BYD', name: 'Dolphin GS', yearRange: '2023 - 2026', recommendedTireRatio: '205/50/17' },
+  { id: 'byd4', brand: 'BYD', name: 'King', yearRange: '2024 - 2026', recommendedTireRatio: '215/55/17' }
 ];
 
 // google most searched tire measures in Brazil / Curitiba

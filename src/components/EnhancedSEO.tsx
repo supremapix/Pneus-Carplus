@@ -7,7 +7,7 @@ import { getBlogPostBySlug } from '../blog-data';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
-  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao';
+  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao' | 'pneus-byd-curitiba' | 'pneu-byd-dolphin-curitiba' | 'pneu-byd-dolphin-mini-curitiba' | 'pneu-byd-dolphin-gs-curitiba' | 'pneu-byd-king-curitiba' | 'pneu-175-55-r16-curitiba' | 'pneu-195-60-r16-curitiba' | 'pneu-205-50-r17-curitiba' | 'pneu-215-55-r17-curitiba' | 'pneu-225-60-r16-curitiba';
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   selectedTire: Tire | null;
   selectedBlogSlug?: string | null;
@@ -213,6 +213,46 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     title = "Pneus no Portão Curitiba - Loja de Pneus no Portão | Carplus Pneus";
     desc = "Loja de pneus no Portão em Curitiba. Troca de pneus, alinhamento 3D e balanceamento na Av. Presidente Arthur Bernardes na Carplus.";
     keywords = "pneus no portao curitiba, loja de pneus no portao, troca de pneus no portao, instalacao de pneus no portao, alinhamento e balanceamento no portao, pneu portao curitiba";
+  } else if (currentView === 'pneus-byd-curitiba') {
+    title = "Pneus para BYD em Curitiba | Dolphin, Dolphin Mini, King | Carplus";
+    desc = "Encontre pneus para veículos BYD em Curitiba. Medidas para Dolphin, Dolphin Mini, Dolphin GS e King com montagem técnica, bicos novos e alinhamento 3D no Portão.";
+    keywords = "pneu byd curitiba, pneus byd curitiba, pneu byd dolphin curitiba, pneu byd dolphin mini, pneu byd king, pneu 175 55 r16 curitiba, pneu 205 50 r17 curitiba, pneu 215 55 r17 curitiba, onde trocar pneu byd curitiba";
+  } else if (currentView === 'pneu-byd-dolphin-curitiba') {
+    title = "Pneu para BYD Dolphin em Curitiba | Medida 205/50 R17 | Carplus";
+    desc = "Pneus compatíveis com BYD Dolphin em Curitiba. Medida oficial 205/50 R17 e 195/60 R16 com garantia, montagem computadorizada e alinhamento 3D no Portão.";
+    keywords = "pneu byd dolphin curitiba, pneu byd dolphin preco, qual pneu usa o byd dolphin, pneu 205 50 r17 byd dolphin curitiba, onde comprar pneu byd dolphin";
+  } else if (currentView === 'pneu-byd-dolphin-mini-curitiba') {
+    title = "Pneu para BYD Dolphin Mini em Curitiba | Medida 175/55 R16 | Carplus";
+    desc = "Pneu para BYD Dolphin Mini em Curitiba na medida 175/55 R16 80H. Pneus novos para EV com montagem de precisão, balanceamento e alinhamento 3D na Carplus.";
+    keywords = "pneu byd dolphin mini, pneu byd dolphin mini curitiba, qual pneu usa o byd dolphin mini, medida pneu byd dolphin mini, pneu 175 55 r16 curitiba dolphin mini";
+  } else if (currentView === 'pneu-byd-dolphin-gs-curitiba') {
+    title = "Pneu para BYD Dolphin GS em Curitiba | Medidas e Modelos | Carplus";
+    desc = "Opções de pneus para o BYD Dolphin GS em Curitiba. Medidas 205/50 R17 e 195/60 R16 com bicos novos, garantia de fábrica e instalação especializada no Portão.";
+    keywords = "pneu byd dolphin gs, pneu byd dolphin gs original, pneu byd dolphin gs preco, pneu dolphin gs curitiba, medida pneu byd dolphin gs";
+  } else if (currentView === 'pneu-byd-king-curitiba') {
+    title = "Pneu para BYD King em Curitiba | Medida 215/55 R17 | Carplus";
+    desc = "Pneus para o sedã híbrido BYD King em Curitiba. Medidas 215/55 R17 e 225/60 R16 com consultoria técnica, montagem especializada e alinhamento 3D no Portão.";
+    keywords = "pneu byd king, pneu byd king curitiba, pneu byd king 215 55 r17, qual pneu usa o byd king, medida pneu byd king, pneu 215 55 r17 curitiba";
+  } else if (currentView === 'pneu-175-55-r16-curitiba') {
+    title = "Pneu 175/55 R16 em Curitiba | Aplicações e Modelos | Carplus Pneus";
+    desc = "Pneu 175/55 R16 em Curitiba. Medida utilizada no BYD Dolphin Mini e compactos aro 16. Pneus novos com bicos de borracha inclusos e montagem grátis no Portão.";
+    keywords = "pneu 175 55 r16 curitiba, comprar pneu 175 55 r16, pneu 175 55 16 curitiba, pneu aro 16 175 55 r16, pneu 175 55 r16 80h";
+  } else if (currentView === 'pneu-195-60-r16-curitiba') {
+    title = "Pneu 195/60 R16 em Curitiba | Melhores Marcas e Instalação | Carplus";
+    desc = "Pneu 195/60 R16 em Curitiba com ampla disponibilidade de marcas. Aplicação para BYD Dolphin, Nissan Kicks e crossovers com montagem técnica no Portão.";
+    keywords = "pneu 195 60 r16 curitiba, comprar pneu 195 60 16, pneu aro 16 195 60, pneus 195 60 r16 curitiba preco";
+  } else if (currentView === 'pneu-205-50-r17-curitiba') {
+    title = "Pneu 205/50 R17 em Curitiba | Medida para BYD Dolphin e Sedãs | Carplus";
+    desc = "Pneu 205/50 R17 em Curitiba. Medida compatível com BYD Dolphin, Focus, Volvo e sedãs médios. Pneus novos com garantia e alinhamento 3D no Portão.";
+    keywords = "pneu 205 50 r17 curitiba, comprar pneu 205 50 17, pneu 205 50 r17 byd dolphin, pneu aro 17 205 50 r17";
+  } else if (currentView === 'pneu-215-55-r17-curitiba') {
+    title = "Pneu 215/55 R17 em Curitiba | BYD King, HR-V, T-Cross | Carplus Pneus";
+    desc = "Pneu 215/55 R17 em Curitiba. Aplicação para BYD King, Honda HR-V, VW T-Cross e sedãs com pneus de primeira linha, bicos inclusos e geometria 3D no Portão.";
+    keywords = "pneu 215 55 r17 curitiba, comprar pneu 215 55 17, pneu byd king 215 55 r17, pneu aro 17 215 55 r17, michelin 215 55 r17, pirelli 215 55 r17";
+  } else if (currentView === 'pneu-225-60-r16-curitiba') {
+    title = "Pneu 225/60 R16 em Curitiba | Aplicações e Disponibilidade | Carplus";
+    desc = "Pneu 225/60 R16 em Curitiba. Medida contemplada no manual do BYD King e veículos de grande porte. Pneus novos com montagem profissional no Portão.";
+    keywords = "pneu 225 60 r16 curitiba, comprar pneu 225 60 16, pneu aro 16 225 60 r16, pneu 225 60 r16 byd king";
   } else if (currentView === 'curitiba') {
     title = "Pneus na Cidade de Curitiba - Diretório por Regiões e Bairros | Carplus";
     desc = "O guia completo de pneus em Curitiba. Adquira pneus novos Pirelli, Goodyear, Bridgestone e mais com atendimento no Portão.";

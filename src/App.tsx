@@ -46,7 +46,7 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao' | 'pneus-byd-curitiba' | 'pneu-byd-dolphin-curitiba' | 'pneu-byd-dolphin-mini-curitiba' | 'pneu-byd-dolphin-gs-curitiba' | 'pneu-byd-king-curitiba' | 'pneu-175-55-r16-curitiba' | 'pneu-195-60-r16-curitiba' | 'pneu-205-50-r17-curitiba' | 'pneu-215-55-r17-curitiba' | 'pneu-225-60-r16-curitiba'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
@@ -123,11 +123,19 @@ export default function App() {
     { brand: 'Honda', model: 'Fit LX', years: '2008-2021', measure: '185/60/15', engine: '1.5 i-VTEC' },
     { brand: 'Honda', model: 'Fit EXL / Twist', years: '2015-2021', measure: '185/55/16', engine: '1.5 Flex' },
     { brand: 'Honda', model: 'Civic LXS / LXR G9', years: '2012-2016', measure: '205/55/16', engine: '1.8 / 2.0' },
-    { brand: 'Honda', model: 'Civic EX / Sporting G10', years: '2016-2021', measure: '215/50/17', engine: '2.0 i-VTEC' }
+    { brand: 'Honda', model: 'Civic EX / Sporting G10', years: '2016-2021', measure: '215/50/17', engine: '2.0 i-VTEC' },
+
+    { brand: 'BYD', model: 'Dolphin Mini EV', years: '2024-2026', measure: '175/55/16', engine: 'Elétrico 75cv' },
+    { brand: 'BYD', model: 'Dolphin GS / EV', years: '2023-2026', measure: '195/60/16', engine: 'Elétrico 95cv' },
+    { brand: 'BYD', model: 'Dolphin Plus EV', years: '2023-2026', measure: '205/50/17', engine: 'Elétrico 204cv' },
+    { brand: 'BYD', model: 'King DM-i (GL / GS)', years: '2024-2026', measure: '215/55/17', engine: 'Híbrido DM-i' },
+    { brand: 'BYD', model: 'Song Plus DM-i', years: '2022-2026', measure: '235/50/19', engine: 'Híbrido DM-i' },
+    { brand: 'BYD', model: 'Yuan Plus EV', years: '2022-2026', measure: '215/55/18', engine: 'Elétrico 204cv' },
+    { brand: 'BYD', model: 'Seal EV AWD', years: '2023-2026', measure: '235/45/19', engine: 'Elétrico 530cv' }
   ];
 
   // Unique manufacturers in our listing
-  const carManufacturers = ['Todos', 'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Renault', 'Ford', 'Toyota', 'Honda'];
+  const carManufacturers = ['Todos', 'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Renault', 'Ford', 'Toyota', 'Honda', 'BYD'];
 
   // Filter lists mapped from original dataset
   const uniqueBrands = ['Todas', ...Array.from(new Set(TIRES_DATA.map(t => t.brand)))];
@@ -521,6 +529,46 @@ export default function App() {
       setSelectedTire(null);
     } else if (firstRoute === 'barao-pneus-e-oficina-portao' || firstRoute === 'pneus-portao-curitiba' || firstRoute === 'pneus-no-portao-curitiba') {
       setCurrentView('barao-pneus-e-oficina-portao');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneus-byd-curitiba' || firstRoute === 'pneu-byd-curitiba' || firstRoute === 'pneus-byd' || (firstRoute === 'carro' && parts[1]?.toLowerCase() === 'byd')) {
+      setCurrentView('pneus-byd-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-byd-dolphin-curitiba' || firstRoute === 'pneus-byd-dolphin' || firstRoute === 'pneu-byd-dolphin') {
+      setCurrentView('pneu-byd-dolphin-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-byd-dolphin-mini-curitiba' || firstRoute === 'pneus-byd-dolphin-mini' || firstRoute === 'pneu-byd-dolphin-mini') {
+      setCurrentView('pneu-byd-dolphin-mini-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-byd-dolphin-gs-curitiba' || firstRoute === 'pneu-byd-dolphin-gs' || firstRoute === 'pneus-byd-dolphin-gs') {
+      setCurrentView('pneu-byd-dolphin-gs-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-byd-king-curitiba' || firstRoute === 'pneu-byd-king' || firstRoute === 'pneus-byd-king') {
+      setCurrentView('pneu-byd-king-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-175-55-r16-curitiba' || firstRoute === 'pneu-175-55-r16' || firstRoute === 'pneu-175-55-16') {
+      setCurrentView('pneu-175-55-r16-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-195-60-r16-curitiba' || firstRoute === 'pneu-195-60-r16' || firstRoute === 'pneu-195-60-16') {
+      setCurrentView('pneu-195-60-r16-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-205-50-r17-curitiba' || firstRoute === 'pneu-205-50-r17' || firstRoute === 'pneu-205-50-17') {
+      setCurrentView('pneu-205-50-r17-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-215-55-r17-curitiba' || firstRoute === 'pneu-215-55-r17' || firstRoute === 'pneu-215-55-17') {
+      setCurrentView('pneu-215-55-r17-curitiba');
+      setSeoTarget(null);
+      setSelectedTire(null);
+    } else if (firstRoute === 'pneu-225-60-r16-curitiba' || firstRoute === 'pneu-225-60-r16' || firstRoute === 'pneu-225-60-16') {
+      setCurrentView('pneu-225-60-r16-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneu' && parts[1]) {
