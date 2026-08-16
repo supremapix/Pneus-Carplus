@@ -11,19 +11,19 @@ export default function RimAuthoritySection({ aroName, onSelectAro }: RimAuthori
   const cleanAro = aroName.replace(/\D/g, '');
   const rimConfig: RimSeoConfig | undefined = RIM_SEO_DATA[cleanAro] || RIM_SEO_DATA['16'];
 
-  const allAros = ['16', '17', '18', '19', '20', '21', '22', '23'];
+  const allAros = ['13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
 
   const formatWhatsApp = (msg: string) => `https://wa.me/554130827282?text=${encodeURIComponent(msg)}`;
 
   return (
     <div className="space-y-8 text-gray-900" id={`rim-authority-hub-${cleanAro}`}>
       
-      {/* Navegação Rápida de Interlinking Mesh entre Aros 16 ao 23 */}
+      {/* Navegação Rápida de Interlinking Mesh entre Aros 13 ao 23 */}
       <div className="bg-gray-100 border border-gray-250 p-3 sm:p-4 rounded-2xl">
         <div className="flex items-center justify-between gap-2 mb-2.5">
           <span className="text-[11px] font-black uppercase tracking-wider text-gray-700 font-mono flex items-center gap-1.5">
             <Layers className="w-3.5 h-3.5 text-[#f49e1a]" />
-            Rede de Autoridade por Medida (Aros 16 ao 23):
+            Rede de Autoridade por Medida (Aros 13 ao 23):
           </span>
           <span className="text-[10px] font-bold text-gray-500 hidden sm:inline">
             Pronta Entrega no Bairro Portão

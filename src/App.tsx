@@ -391,14 +391,11 @@ export default function App() {
 
     const firstRoute = parts[0].toLowerCase();
 
-    // Specific SEO vanity URLs matching
-    if (firstRoute === 'aro-14') {
+    // Specific SEO vanity URLs matching for Aros (13 to 23)
+    const aroMatch = firstRoute.match(/^(?:pneus?-aro-|aro-)(\d{2})(?:-curitiba)?$/);
+    if (aroMatch && aroMatch[1]) {
       setCurrentView('seo-landing');
-      setSeoTarget({ type: 'aro', name: '14' });
-      setSelectedTire(null);
-    } else if (firstRoute === 'aro-19') {
-      setCurrentView('seo-landing');
-      setSeoTarget({ type: 'aro', name: '19' });
+      setSeoTarget({ type: 'aro', name: aroMatch[1] });
       setSelectedTire(null);
     } else if (firstRoute === 'pirelli') {
       setCurrentView('seo-landing');
