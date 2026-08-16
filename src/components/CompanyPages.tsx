@@ -24,6 +24,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import SearchIntentPages from './SearchIntentPages';
 import BlogView from './BlogView';
 import BydClusterPages, { BydClusterView } from './BydClusterPages';
+import RimAuthoritySection from './RimAuthoritySection';
 
 
 const WHEEL_SERVICES = [
@@ -2528,118 +2529,129 @@ export default function CompanyPages({
           return (
             <div className="space-y-8 animate-fade-in" id="view-seo-landing">
               
+              {/* If it's an Aro page (16 to 23), display the complete Authority Hub Component */}
+              {seoTarget.type === 'aro' && (
+                <RimAuthoritySection 
+                  aroName={seoTarget.name}
+                  onSelectAro={(newAro) => {
+                    window.history.pushState(null, '', `/aro/${newAro}`);
+                    window.dispatchEvent(new Event('popstate'));
+                  }}
+                />
+              )}
+
               {/* Dynamic content rendering with Premium Hero Carousel (Pure White / Crisp Style) */}
               <div className="bg-white border-2 border-gray-200 rounded-3xl p-6 sm:p-8 space-y-8 shadow-sm text-gray-900" id="seo-hero-whitesection">
                 
-                {/* Hero section splits in two */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-gray-200 pb-8">
-                  <div className="lg:col-span-7 space-y-4 text-center sm:text-left">
-                    <span className="bg-yellow-500/15 text-gray-900 border border-[#f49e1a]/35 font-mono font-black text-[10px] uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block">
-                      {seoTarget.type === 'bairro' ? 'Bairro / Região de Curitiba' : 
-                       seoTarget.type === 'cidade' ? 'Município Região Metropolitana (RMC)' : 
-                       seoTarget.type === 'aro' ? 'Medida de Roda Especial (Aros)' : 
-                       'Guia Homologado de Automóvel'}
-                    </span>
-                    
-                    <h2 className="text-2xl sm:text-4xl font-black text-gray-950 uppercase tracking-tight leading-tight select-none">
-                      {seoTarget.type === 'bairro' && `Pneus em Curitiba - Bairro ${seoTarget.name}`}
-                      {seoTarget.type === 'cidade' && `Pneus na Região Metropolitana - Fácil Acesso em ${seoTarget.name}`}
-                      {seoTarget.type === 'aro' && `Pneus de Alta Tração ${seoTarget.name} em Curitiba`}
-                      {seoTarget.type === 'carro' && `Pneus Homologados Originais para ${seoTarget.name}`}
-                    </h2>
-                    
-                    <p className="text-xs text-yellow-600 uppercase font-mono font-black tracking-wider">
-                      Serviços de Troca de Pneus, Alinhamento 3D e Freios para condutores de {seoTarget.name}
-                    </p>
-
-                    <div className="space-y-4 text-xs sm:text-sm text-gray-650 text-justify leading-relaxed font-semibold">
-                      <p>
-                        A <strong className="text-gray-900">Carplus Pneus</strong> é uma referência histórica em mecânica expressa e reposição de borrachas homologadas que atende com maestria moradores do bairro ou região de <strong className="text-yellow-650">{seoTarget.name}</strong> há mais de <strong className="text-gray-905 font-mono">35 anos de atuação comercial sólida em Curitiba</strong>.
+                {/* Hero section splits in two - shown only for non-aro pages */}
+                {seoTarget.type !== 'aro' && (
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-gray-200 pb-8">
+                    <div className="lg:col-span-7 space-y-4 text-center sm:text-left">
+                      <span className="bg-yellow-500/15 text-gray-900 border border-[#f49e1a]/35 font-mono font-black text-[10px] uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block">
+                        {seoTarget.type === 'bairro' ? 'Bairro / Região de Curitiba' : 
+                         seoTarget.type === 'cidade' ? 'Município Região Metropolitana (RMC)' : 
+                         'Guia Homologado de Automóvel'}
+                      </span>
+                      
+                      <h2 className="text-2xl sm:text-4xl font-black text-gray-950 uppercase tracking-tight leading-tight select-none">
+                        {seoTarget.type === 'bairro' && `Pneus em Curitiba - Bairro ${seoTarget.name}`}
+                        {seoTarget.type === 'cidade' && `Pneus na Região Metropolitana - Fácil Acesso em ${seoTarget.name}`}
+                        {seoTarget.type === 'carro' && `Pneus Homologados Originais para ${seoTarget.name}`}
+                      </h2>
+                      
+                      <p className="text-xs text-yellow-600 uppercase font-mono font-black tracking-wider">
+                        Serviços de Troca de Pneus, Alinhamento 3D e Freios para condutores de {seoTarget.name}
                       </p>
-                      <p>
-                        Oferecemos um portfólio completo com as melhores marcas mundiais em estoque (Bridgestone, Michelin, Pirelli, Dunlop e muito mais). Todos os pneus comprados em nosso portal já incluem montagem técnica gratuita e troca de bicos mágicos em nossa sede na Arthur Bernardes. Contamos com técnicos qualificados para cuidar do seu automóvel.
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Spotlight Offers premium animated container - Styled to White/Grey */}
-                  <div className="lg:col-span-5 bg-gray-50 border border-gray-250 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between h-[360px] shadow-sm">
-                    <div className="absolute top-0 right-0 bg-[#f49e1a] text-gray-950 font-black text-[9px] uppercase tracking-wider px-3.5 py-1 rounded-bl-xl font-mono flex items-center gap-1 z-10 border-b border-l border-gray-300">
-                      <Flame className="w-3 h-3 animate-pulse text-gray-950" />
-                      <span>Oferta Especial Local</span>
-                    </div>
-
-                    {offersOnSale.length > 0 && (
-                      <div className="relative flex-grow flex flex-col justify-center">
-                        <AnimatePresence mode="wait">
-                          {offersOnSale.map((t, idx) => {
-                            if (idx !== activeOfferIdx) return null;
-                            return (
-                              <motion.div
-                                key={t.id}
-                                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                                transition={{ duration: 0.3 }}
-                                className="flex flex-col justify-between h-full pt-4"
-                              >
-                                <div className="flex justify-center flex-grow items-center bg-white rounded-2xl p-2 border border-gray-200">
-                                  <img 
-                                    src={t.image} 
-                                    alt={t.name} 
-                                    className="h-28 object-contain"
-                                    referrerPolicy="no-referrer"
-                                    onError={(e) => {
-                                      const target = e.target as HTMLImageElement;
-                                      target.src = getBrandFallbackImage(t.brand, t.id);
-                                    }}
-                                  />
-                                </div>
-                                <div className="text-center mt-3 space-y-0.5">
-                                  <span className="text-[10px] text-yellow-600 font-mono tracking-widest font-black uppercase">
-                                    {t.brand}
-                                  </span>
-                                  <h4 className="text-gray-900 font-black text-xs uppercase truncate max-w-xs mx-auto">
-                                    {t.name}
-                                  </h4>
-                                  <div className="flex items-center justify-center gap-2 mt-1">
-                                    <span className="text-sm font-black text-[#1ebd53] uppercase tracking-wider">
-                                      Preço Sob Consulta
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="pt-3">
-                                  <a
-                                    href={formatWhatsApp(`Olá Carplus! Vi o Pneu ${t.name} nas buscas do bairro/cidade ${seoTarget.name} e gostaria de reservá-lo para instalação inclusa.`)}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black py-2.5 rounded-xl text-[10px] uppercase tracking-wider transition text-center block cursor-pointer border border-[#1ebd53] shadow-sm"
-                                  >
-                                    Consultar pelo WhatsApp
-                                  </a>
-                                </div>
-                              </motion.div>
-                            );
-                          })}
-                        </AnimatePresence>
+                      <div className="space-y-4 text-xs sm:text-sm text-gray-650 text-justify leading-relaxed font-semibold">
+                        <p>
+                          A <strong className="text-gray-900">Carplus Pneus</strong> é uma referência histórica em mecânica expressa e reposição de borrachas homologadas que atende com maestria moradores do bairro ou região de <strong className="text-yellow-650">{seoTarget.name}</strong> há mais de <strong className="text-gray-905 font-mono">35 anos de atuação comercial sólida em Curitiba</strong>.
+                        </p>
+                        <p>
+                          Oferecemos um portfólio completo com as melhores marcas mundiais em estoque (Bridgestone, Michelin, Pirelli, Dunlop e muito mais). Todos os pneus comprados em nosso portal já incluem montagem técnica gratuita e troca de bicos mágicos em nossa sede na Arthur Bernardes. Contamos com técnicos qualificados para cuidar do seu automóvel.
+                        </p>
                       </div>
-                    )}
+                    </div>
 
-                    {/* Dot Indicators */}
-                    <div className="flex justify-center gap-1.5 mt-2 z-10">
-                      {offersOnSale.map((_, dotIdx) => (
-                        <button
-                          key={dotIdx}
-                          onClick={() => setActiveOfferIdx(dotIdx)}
-                          className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
-                            dotIdx === activeOfferIdx ? 'bg-yellow-600 w-3' : 'bg-gray-300'
-                          }`}
-                          aria-label={`Slide ${dotIdx}`}
-                        />
-                      ))}
+                    {/* Spotlight Offers premium animated container - Styled to White/Grey */}
+                    <div className="lg:col-span-5 bg-gray-50 border border-gray-250 p-5 rounded-3xl relative overflow-hidden flex flex-col justify-between h-[360px] shadow-sm">
+                      <div className="absolute top-0 right-0 bg-[#f49e1a] text-gray-950 font-black text-[9px] uppercase tracking-wider px-3.5 py-1 rounded-bl-xl font-mono flex items-center gap-1 z-10 border-b border-l border-gray-300">
+                        <Flame className="w-3 h-3 animate-pulse text-gray-950" />
+                        <span>Oferta Especial Local</span>
+                      </div>
+
+                      {offersOnSale.length > 0 && (
+                        <div className="relative flex-grow flex flex-col justify-center">
+                          <AnimatePresence mode="wait">
+                            {offersOnSale.map((t, idx) => {
+                              if (idx !== activeOfferIdx) return null;
+                              return (
+                                <motion.div
+                                  key={t.id}
+                                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                  transition={{ duration: 0.3 }}
+                                  className="flex flex-col justify-between h-full pt-4"
+                                >
+                                  <div className="flex justify-center flex-grow items-center bg-white rounded-2xl p-2 border border-gray-200">
+                                    <img 
+                                      src={t.image} 
+                                      alt={t.name} 
+                                      className="h-28 object-contain"
+                                      referrerPolicy="no-referrer"
+                                      onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = getBrandFallbackImage(t.brand, t.id);
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="text-center mt-3 space-y-0.5">
+                                    <span className="text-[10px] text-yellow-600 font-mono tracking-widest font-black uppercase">
+                                      {t.brand}
+                                    </span>
+                                    <h4 className="text-gray-900 font-black text-xs uppercase truncate max-w-xs mx-auto">
+                                      {t.name}
+                                    </h4>
+                                    <div className="flex items-center justify-center gap-2 mt-1">
+                                      <span className="text-sm font-black text-[#1ebd53] uppercase tracking-wider">
+                                        Preço Sob Consulta
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="pt-3">
+                                    <a
+                                      href={formatWhatsApp(`Olá Carplus! Vi o Pneu ${t.name} nas buscas do bairro/cidade ${seoTarget.name} e gostaria de reservá-lo para instalação inclusa.`)}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black py-2.5 rounded-xl text-[10px] uppercase tracking-wider transition text-center block cursor-pointer border border-[#1ebd53] shadow-sm"
+                                    >
+                                      Consultar pelo WhatsApp
+                                    </a>
+                                  </div>
+                                </motion.div>
+                              );
+                            })}
+                          </AnimatePresence>
+                        </div>
+                      )}
+
+                      {/* Dot Indicators */}
+                      <div className="flex justify-center gap-1.5 mt-2 z-10">
+                        {offersOnSale.map((_, dotIdx) => (
+                          <button
+                            key={dotIdx}
+                            onClick={() => setActiveOfferIdx(dotIdx)}
+                            className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                              dotIdx === activeOfferIdx ? 'bg-yellow-600 w-3' : 'bg-gray-300'
+                            }`}
+                            aria-label={`Slide ${dotIdx}`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* Specific local most searched tires section */}
                 <div className="space-y-4">

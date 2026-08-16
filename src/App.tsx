@@ -568,6 +568,10 @@ export default function App() {
       setCurrentView('pneu-215-55-r17-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
+    } else if (firstRoute === 'pneus-aro-16-curitiba' || firstRoute === 'pneus-aro-16' || firstRoute === 'pneu-aro-16-curitiba' || (firstRoute === 'pneus' && parts[1] && (parts[1].startsWith('aro-16') || parts[1] === '16'))) {
+      setCurrentView('seo-landing');
+      setSeoTarget({ type: 'aro', name: '16' });
+      setSelectedTire(null);
     } else if (firstRoute === 'pneu-225-60-r16-curitiba' || firstRoute === 'pneu-225-60-r16' || firstRoute === 'pneu-225-60-16') {
       setCurrentView('pneu-225-60-r16-curitiba');
       setSeoTarget(null);

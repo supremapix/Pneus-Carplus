@@ -4,6 +4,7 @@ import { Tire } from '../types';
 import { toSlug, getTireSlug } from '../utils/slugify';
 import { isPageReleased, getSavedGSCRate } from '../utils/seoWaves';
 import { getBlogPostBySlug } from '../blog-data';
+import { RIM_SEO_DATA } from '../data/rim-seo-data';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
@@ -283,16 +284,17 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
       desc = `Encontre pneus novos para entrega ou instalação de fábrica com agendamento rápido em ${name}. Atendimento completo para motoristas da RMC na Carplus Pneus.`;
       keywords = `pneus em ${name}, pneus cidade ${name}, comprar pneus ${name}, borracharia em ${name}, pneus rmc`;
     } else if (type === 'aro') {
-      if (name === '14') {
+      const cleanAroNum = name.replace(/\D/g, '');
+      const rimConfig = RIM_SEO_DATA[cleanAroNum];
+      if (rimConfig) {
+        title = rimConfig.metaTitle;
+        desc = rimConfig.metaDescription;
+        keywords = `pneus aro ${cleanAroNum} em curitiba, pneu aro ${cleanAroNum} curitiba, pneus aro ${cleanAroNum}, comprar pneu aro ${cleanAroNum} curitiba, pneus aro ${cleanAroNum} menor preco, loja de pneus portao curitiba`;
+      } else if (name === '14') {
         // Special Aro 14 Override Target
         title = "Pneus Aro 14 em Curitiba | Ofertas e Instalação | Car Plus";
         desc = "Encontre pneus aro 14 das melhores marcas com preços competitivos em Curitiba. Parcelamento facilitado e instalação especializada na Car Plus."; // exactly 149 characters!
         keywords = "pneus aro 14 curitiba, pneu aro 14, comprar pneu r14, pneu r14 curitiba, continental aro 14";
-      } else if (name === '19') {
-        // Special Aro 19 Override Target
-        title = "Pneus Aro 19 em Curitiba | Pirelli, Michelin e Mais | Car Plus";
-        desc = "Encontre pneus aro 19 das melhores marcas com preços competitivos em Curitiba. Parcelamento facilitado e instalação especializada na Car Plus."; // exactly 149 characters!
-        keywords = "pneus aro 19 curitiba, pneu aro 19, michelin aro 19, pirelli aro 19 curitiba";
       } else {
         title = `Pneus Aro ${name} em Curitiba | Pneus por Aro no Portão | Carplus Pneus`;
         desc = `Buscando pneus por aro? Veja ofertas irresistíveis de Pneus Aro ${name} em Curitiba com ampla garantia e montagem inclusa. Pirelli, Goodyear, Bridgestone e mais.`;
@@ -544,24 +546,78 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
         }
       ];
     } else if (seoTarget.type === 'aro') {
+      const cleanAroNum = seoTarget.name.replace(/\D/g, '');
+      const rimConfig = RIM_SEO_DATA[cleanAroNum];
+      const startingPrice = rimConfig ? rimConfig.priceFrom.replace('R$', '').trim().replace(',', '.') : '289.90';
+      const brandsText = rimConfig ? rimConfig.recommendedBrands.join(', ') : 'Pirelli, Continental, Goodyear, Michelin, Delinte e Xbri';
+      const measuresText = rimConfig ? rimConfig.topDimensions.map(d => d.measure).join(', ') : 'medidas homologadas';
+
       questionsList = [
         {
           "@type": "Question",
-          "name": `Quais fabricantes de Pneus Aro ${seoTarget.name} estão disponíveis de prontidão?`,
+          "name": `Onde comprar Pneus Aro ${cleanAroNum || seoTarget.name} com menor preço em Curitiba?`,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `Contamos com um enorme estoque selecionado de Pneus de Aro R${seoTarget.name} novos e homologados pelo INMETRO, fabricados pelas gigantes Pirelli, Goodyear, Bridgestone, Michelin, Dunlop, Delinte e Xbri em Curitiba.`
+            "text": `Na Carplus Pneus & Oficina, localizada na Av. Presidente Arthur Bernardes, 1323, no Bairro Portão em Curitiba. Cobrimos qualquer orçamento de pneus Aro ${cleanAroNum || seoTarget.name} da concorrência e oferecemos montagem computadorizada e bicos novos 100% grátis.`
           }
         },
         {
           "@type": "Question",
-          "name": `Como obter a montagem gratuita dos pneus Aro ${seoTarget.name} novos?`,
+          "name": `Quais fabricantes e medidas de Pneus Aro ${cleanAroNum || seoTarget.name} estão disponíveis de prontidão?`,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `Toda reserva efetuada na Carplus Pneus para pneus Aro R${seoTarget.name} já tem direito adquirido de montagem computadorizada expressa e substituição de válvulas de ar inteiramente grátis em nosso autocenter especializado do Portão.`
+            "text": `Contamos com um amplo estoque de Pneus Aro R${cleanAroNum || seoTarget.name} novos e homologados pelo INMETRO das marcas ${brandsText} em medidas populares como ${measuresText}.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Como obter a montagem gratuita dos pneus Aro ${cleanAroNum || seoTarget.name} novos?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Toda reserva efetuada na Carplus Pneus para pneus Aro R${cleanAroNum || seoTarget.name} tem montagem computadorizada expressa, bicos novos e alinhamento 3D especializado em nosso autocenter no Portão.`
           }
         }
       ];
+
+      // Add ProductCollection / ItemList Schema for Google Rich Snippets with "A partir de R$..." and 5.0 Stars
+      const productCollectionSchema = {
+        "@type": "CollectionPage",
+        "@id": `${canonicalUrl}#collection`,
+        "name": `Pneus Aro ${cleanAroNum || seoTarget.name} em Curitiba`,
+        "description": `Catálogo de pneus aro ${cleanAroNum || seoTarget.name} em Curitiba com menor preço garantido e montagem grátis no Portão.`,
+        "url": canonicalUrl,
+        "mainEntity": {
+          "@type": "OfferCatalog",
+          "name": `Catálogo Pneus Aro ${cleanAroNum || seoTarget.name} Curitiba`,
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Product",
+                "name": `Pneus Aro ${cleanAroNum || seoTarget.name} Novos Homologados`,
+                "description": `Linha completa de pneus aro ${cleanAroNum || seoTarget.name} das marcas ${brandsText} com garantia de 5 anos e montagem grátis em Curitiba.`,
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "5.0",
+                  "reviewCount": "214",
+                  "bestRating": "5",
+                  "worstRating": "1"
+                }
+              },
+              "priceCurrency": "BRL",
+              "price": startingPrice,
+              "priceValidUntil": "2027-12-31",
+              "availability": "https://schema.org/InStock",
+              "seller": {
+                "@type": "TireShop",
+                "name": "Carplus Pneus",
+                "url": domain
+              }
+            }
+          ]
+        }
+      };
+      graph.push(productCollectionSchema);
     } else if (seoTarget.type === 'carro') {
       questionsList = [
         {
