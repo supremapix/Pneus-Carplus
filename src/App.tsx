@@ -13,6 +13,7 @@ import { TIRES_DATA, MOST_SEARCHED_MEASURES, getBrandFallbackImage } from './dat
 import { toSlug, getTireSlug } from './utils/slugify';
 import EnhancedSEO from './components/EnhancedSEO';
 import CarplusVideosSection from './components/CarplusVideosSection';
+import AuthoritySocialProof from './components/AuthoritySocialProof';
 import InstagramFeed from './components/InstagramFeed';
 import { Tire, CartItem } from './types';
 import FloatingShare from './components/FloatingShare';
@@ -1685,6 +1686,9 @@ export default function App() {
         <section className="max-w-7xl mx-auto px-4">
           <CarplusVideosSection />
         </section>
+
+        {/* High-Authority CRO Social Proof Section (Real Google Reviews & FAQ) */}
+        <AuthoritySocialProof />
 
         {/* Real Structure Image Gallery Section (Carplus Authentic Showroom) */}
         <section className="max-w-7xl mx-auto px-4 mt-12 bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 shadow-sm" id="carplus-real-gallery">

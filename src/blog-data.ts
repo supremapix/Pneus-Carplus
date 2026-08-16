@@ -69,6 +69,113 @@ export const BLOG_CATEGORIES = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    id: 'pneus-para-carro-eletrico-em-curitiba',
+    slug: 'pneus-para-carro-eletrico-em-curitiba',
+    title: 'Pneus para Carro Elétrico em Curitiba: Por que a Carplus é a Escolha Nº 1 (e tem o menor preço)?',
+    h1: 'Pneus para Carro Elétrico em Curitiba: Por que a Carplus é a Escolha Nº 1 (e tem o menor preço)?',
+    category: 'Pneus',
+    summary: 'Guia completo para proprietários de BYD, GWM, Volvo e Tesla em Curitiba e RMC. Descubra a tecnologia dos pneus HL para elétricos, Pirelli Elect com menor preço garantido e alinhamento 3D especializado no Portão.',
+    metaTitle: 'Pneus para Carro Elétrico em Curitiba | Menor Preço | Carplus',
+    metaDescription: 'Buscando pneus para seu BYD, GWM ou Volvo em Curitiba? Conheça a oficina especializada Carplus. Menor preço em Pirelli e Continental. Ligue (41) 3082-7282.',
+    publishedDate: '16 de Agosto de 2026',
+    publishedIso: '2026-08-16',
+    readingTime: '7 min de leitura',
+    featuredImage: 'https://www.carpluspneuseoficina.com.br/images/galeria/loja-de-pneus-portao-curitiba-pirelli.png',
+    imageAlt: 'Oficina Carplus Curitiba: instalação de pneus Pirelli Elect em carro elétrico com menor preço da região',
+    intro: 'Se você dirige um veículo elétrico ou híbrido plug-in pelas ruas de Curitiba e Região Metropolitana, já deve ter notado que a dinâmica de condução é completamente diferente de um carro a combustão tradicional. A aceleração instantânea e o silêncio da cabine são fascinantes, mas impõem um desafio brutal sobre a borracha: os pneus de carros elétricos sofrem um desgaste até 30% mais rápido se não forem o modelo homologado correto. É por isso que a Carplus Pneus & Oficina se consolidou como a principal oficina especializada em carros elétricos em Curitiba, combinando consultoria técnica de alto nível, estrutura para elevação segura de baterias e a garantia incondicional do menor preço da cidade.',
+    sections: [
+      {
+        title: '1. O Desafio dos EVs: Por que Pneus Convencionais Não Aguentam Carros Elétricos?',
+        level: 'h2',
+        paragraphs: [
+          'Veículos como BYD Dolphin, Dolphin Mini, Song Plus, Seal, GWM Haval H6, Ora 03, Volvo EX30, XC40 Recharge e modelos Tesla possuem duas características determinantes de engenharia: peso elevado das baterias e entrega de torque imediato a zero RPM.',
+          'Em um carro elétrico, o conjunto de baterias de íons de lítio adiciona entre 300 kg e 600 kg ao peso bruto do veículo. Ao mesmo tempo, toda a força de tração é despejada instantaneamente sobre os eixos nas saídas de semáforo e ultrapassagens. Montar pneus de passeio comuns resulta em deformação prematura da banda de rodagem, perda drástica de estabilidade em curvas nas canaletas e rodovias de Curitiba e ruído ensurdecedor no habitáculo.',
+          'Por isso, a indústria desenvolveu pneus com índice de carga HL (High Load / Extra Load), carcaça com cintas de aço reforçadas e compostos de sílica de terceira geração que equilibram baixa resistência ao rolamento (ampliando a autonomia da bateria em até 10%) com aderência máxima no asfalto molhado característico de Curitiba.'
+        ],
+        callout: {
+          type: 'info',
+          title: 'Você Sabia? O Selo EV / Elect',
+          text: 'Pneus com tecnologia dedicada — como a linha Pirelli Elect e Continental EVc — trazem marcações específicas na lateral. Eles contam com espumas internas absorvedoras de som que reduzem o ruído de rolagem em até 20%, preservando o conforto acústico do seu elétrico.'
+        }
+      },
+      {
+        title: '2. Pneus BYD e GWM em Curitiba: As Melhores Marcas com Menor Preço Garantido',
+        level: 'h2',
+        paragraphs: [
+          'Se você busca pneus BYD Curitiba ou pneus GWM Curitiba com medidas originais de fábrica — desde o 175/55 R16 do Dolphin Mini até os aros 17, 18, 19 e 20 do Seal, Yuan Plus e Haval H6 —, a Carplus tem estoque a pronta entrega no bairro Portão.',
+          'Somos revendedores oficiais e especialistas em tecnologia Pirelli Elect menor preço e Continental EcoContact 6 Q. Nossa política comercial é clara e transparente: cobrimos qualquer orçamento comprovado da concorrência em Curitiba e Região Metropolitana, além de oferecer montagem computadorizada gratuita e condições em até 10x sem juros no cartão de crédito.'
+        ],
+        internalLinks: [
+          {
+            text: 'Consulte nosso Guia Completo e Estoque de Pneus BYD em Curitiba',
+            url: '/pneus-byd-curitiba',
+            description: 'Medidas originais para Dolphin, Dolphin Mini, Song Plus, Seal e King.'
+          },
+          {
+            text: 'Conheça os pneus Pirelli em Curitiba com o menor preço garantido',
+            url: '/pneus-pirelli-em-curitiba-melhor-preco',
+            description: 'Modelos Cinturato, Scorpion e linhas homologadas Elect para veículos eletrificados.'
+          }
+        ]
+      },
+      {
+        title: '3. Alinhamento 3D para Carros Elétricos em Curitiba: Precisão Milimétrica e Elevação Segura',
+        level: 'h2',
+        paragraphs: [
+          'Trocar os pneus do seu veículo elétrico sem um ajuste rigoroso de geometria suspensiva é jogar dinheiro fora. Devido ao centro de gravidade rebaixado e ao peso das baterias, qualquer desvio de 1 grau na cambagem ou convergência causa desgaste excessivo na borda interna dos pneus em poucos milhares de quilômetros.',
+          'Na Carplus, contamos com sistema de alinhamento 3D carro elétrico Curitiba com rampas pantográficas de acesso ultra suave e calços de borracha específicos para evitar qualquer contato com o assoalho onde ficam alojadas as células de alta voltagem. Nossos técnicos são treinados para aferir a geometria respeitando as tolerâncias micrométricas dos fabricantes chineses, europeus e americanos.'
+        ],
+        internalLinks: [
+          {
+            text: 'Agende seu Alinhamento 3D Computadorizado no Portão',
+            url: '/alinhamento-3d-curitiba',
+            description: 'Geometria a laser de alta precisão para carros elétricos, SUVs e sedãs.'
+          }
+        ]
+      },
+      {
+        title: '4. Atendimento Geolocalizado: Do Portão para Toda Curitiba e Região Metropolitana',
+        level: 'h2',
+        paragraphs: [
+          'Estrategicamente localizada na Av. Presidente Arthur da Silva Bernardes, 1323 (esquina com o Bairro Portão), a Carplus recebe diariamente motoristas de todos os quadrantes de Curitiba — incluindo Água Verde, Batel, Santa Quitéria, Fazendinha, Novo Mundo, Cidade Industrial (CIC), Mercês e Champagnat.',
+          'Além disso, motoristas de toda a Região Metropolitana de Curitiba — como São José dos Pinhais, Araucária, Pinhais, Colombo, Campo Largo e Fazenda Rio Grande — encontram na Carplus o ponto de parada ideal, com fácil acesso pela Linha Verde e Av. República Argentina, sala de espera climatizada com Wi-Fi de alta velocidade e atendimento ágil de pit stop.'
+        ],
+        callout: {
+          type: 'tip',
+          title: 'Mais de 200 Avaliações 5.0 Estrelas no Google',
+          text: 'A confiança de quem já fez serviços na Carplus é comprovada no Google Maps. Transparência no orçamento, sem empurrar serviços desnecessários e com preços justos de verdade.'
+        }
+      }
+    ],
+    faqs: [
+      {
+        question: 'Posso colocar pneus comuns em um carro elétrico como BYD ou GWM?',
+        answer: 'Não é recomendado. Pneus comuns sofrem sobrecarga pelo peso extra das baterias e pelo torque instantâneo, resultando em desgaste acelerado em até 30%, menor autonomia da bateria e ruído elevado de rodagem na cabine.'
+      },
+      {
+        question: 'Onde comprar pneus Pirelli Elect com menor preço em Curitiba?',
+        answer: 'Na Carplus Pneus & Oficina, localizada na Av. Arthur Bernardes, 1323, no Bairro Portão em Curitiba. Cobrimos qualquer orçamento da concorrência e oferecemos montagem grátis na hora.'
+      },
+      {
+        question: 'Quanto tempo dura o pneu de um carro elétrico?',
+        answer: 'Com pneus homologados (EV/Elect), calibragem quinzenal correta e alinhamento 3D a cada 10.000 km, a vida útil varia de 35.000 km a 50.000 km, dependendo do estilo de condução.'
+      },
+      {
+        question: 'A oficina Carplus tem estrutura segura para levantar carros elétricos?',
+        answer: 'Sim. Possuímos rampas especiais e apoios de borracha específicos para os pontos de ancoragem do chassi de elétricos, protegendo 100% o pack de baterias inferior contra qualquer impacto ou compressão.'
+      }
+    ],
+    ctaTitle: 'Vai trocar os pneus do seu Elétrico ou Híbrido em Curitiba?',
+    ctaText: 'Fale direto com nossos consultores técnicos no WhatsApp. Informe o modelo do seu carro elétrico e receba na hora a cotação com o menor preço garantido de Curitiba e montagem grátis!',
+    ctaButtonText: 'Garantir Menor Preço no WhatsApp',
+    whatsappMessage: 'Olá Carplus! Vi a matéria no blog sobre pneus para carros elétricos e gostaria de um orçamento para o meu carro com o menor preço garantido.',
+    relatedSlugs: [
+      'carro-puxando-para-o-lado',
+      'quando-fazer-alinhamento-balanceamento',
+      'pneu-desgastando-de-um-lado'
+    ]
+  },
+  {
     id: '1',
     slug: 'carro-puxando-para-o-lado',
     title: 'Carro puxando para o lado: o que pode ser e quando procurar uma oficina?',
