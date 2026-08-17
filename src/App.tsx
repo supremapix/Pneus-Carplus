@@ -40,7 +40,7 @@ import {
 import { 
   Search, ShieldCheck, Settings, PenTool as Tool, Sparkles, Navigation, 
   Map, Phone, Bookmark, Zap, SlidersHorizontal, CheckCircle, Info, Flame, ThumbsUp,
-  ChevronUp, ChevronDown, Globe, Award, Car
+  ChevronUp, ChevronDown, Globe, Award, Car, ArrowRight
 } from 'lucide-react';
 
 export default function App() {
@@ -130,13 +130,21 @@ export default function App() {
     { brand: 'BYD', model: 'Dolphin GS / EV', years: '2023-2026', measure: '195/60/16', engine: 'Elétrico 95cv' },
     { brand: 'BYD', model: 'Dolphin Plus EV', years: '2023-2026', measure: '205/50/17', engine: 'Elétrico 204cv' },
     { brand: 'BYD', model: 'King DM-i (GL / GS)', years: '2024-2026', measure: '215/55/17', engine: 'Híbrido DM-i' },
+    { brand: 'BYD', model: 'King DM-i (R16)', years: '2024-2026', measure: '225/60/16', engine: 'Híbrido DM-i' },
     { brand: 'BYD', model: 'Song Plus DM-i', years: '2022-2026', measure: '235/50/19', engine: 'Híbrido DM-i' },
     { brand: 'BYD', model: 'Yuan Plus EV', years: '2022-2026', measure: '215/55/18', engine: 'Elétrico 204cv' },
-    { brand: 'BYD', model: 'Seal EV AWD', years: '2023-2026', measure: '235/45/19', engine: 'Elétrico 530cv' }
+    { brand: 'BYD', model: 'Seal EV AWD', years: '2023-2026', measure: '235/45/19', engine: 'Elétrico 530cv' },
+
+    { brand: 'GWM', model: 'Haval H6 HEV', years: '2023-2026', measure: '225/65/17', engine: 'Híbrido HEV 243cv' },
+    { brand: 'GWM', model: 'Haval H6 PHEV', years: '2023-2026', measure: '235/55/19', engine: 'Híbrido Plug-in 393cv' },
+    { brand: 'GWM', model: 'Haval H6 GT', years: '2023-2026', measure: '235/55/19', engine: 'Híbrido Plug-in 393cv' },
+    { brand: 'GWM', model: 'Ora 03 Skin / GT', years: '2023-2026', measure: '215/50/18', engine: 'Elétrico 171cv' },
+    { brand: 'GWM', model: 'Tank 300', years: '2024-2026', measure: '265/65/17', engine: 'Híbrido 4x4' },
+    { brand: 'GWM', model: 'Poer Picape', years: '2024-2026', measure: '265/60/18', engine: 'Diesel 4x4' }
   ];
 
   // Unique manufacturers in our listing
-  const carManufacturers = ['Todos', 'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Renault', 'Ford', 'Toyota', 'Honda', 'BYD'];
+  const carManufacturers = ['Todos', 'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Renault', 'Ford', 'Toyota', 'Honda', 'BYD', 'GWM'];
 
   // Filter lists mapped from original dataset
   const uniqueBrands = ['Todas', ...Array.from(new Set(TIRES_DATA.map(t => t.brand)))];
@@ -533,15 +541,35 @@ export default function App() {
       setCurrentView('pneus-byd-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'pneu-byd-dolphin-curitiba' || firstRoute === 'pneus-byd-dolphin' || firstRoute === 'pneu-byd-dolphin') {
+    } else if (
+      firstRoute === 'pneu-byd-dolphin-curitiba' || 
+      firstRoute === 'pneus-byd-dolphin' || 
+      firstRoute === 'pneu-byd-dolphin' ||
+      firstRoute === 'pneu-byd-dolphin-original' ||
+      firstRoute === 'pneu-byd-dolphin-preco' ||
+      firstRoute === 'valor-pneu-byd-dolphin'
+    ) {
       setCurrentView('pneu-byd-dolphin-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'pneu-byd-dolphin-mini-curitiba' || firstRoute === 'pneus-byd-dolphin-mini' || firstRoute === 'pneu-byd-dolphin-mini') {
+    } else if (
+      firstRoute === 'pneu-byd-dolphin-mini-curitiba' || 
+      firstRoute === 'pneus-byd-dolphin-mini' || 
+      firstRoute === 'pneu-byd-dolphin-mini' ||
+      firstRoute === 'valor-do-pneu-do-byd-dolphin-mini' ||
+      firstRoute === 'valor-pneu-byd-dolphin-mini' ||
+      firstRoute === 'preco-pneu-byd-dolphin-mini'
+    ) {
       setCurrentView('pneu-byd-dolphin-mini-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'pneu-byd-dolphin-gs-curitiba' || firstRoute === 'pneu-byd-dolphin-gs' || firstRoute === 'pneus-byd-dolphin-gs') {
+    } else if (
+      firstRoute === 'pneu-byd-dolphin-gs-curitiba' || 
+      firstRoute === 'pneu-byd-dolphin-gs' || 
+      firstRoute === 'pneus-byd-dolphin-gs' ||
+      firstRoute === 'pneu-byd-dolphin-gs-original' ||
+      firstRoute === 'pneu-dolphin-gs-195-60-r16'
+    ) {
       setCurrentView('pneu-byd-dolphin-gs-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
@@ -553,7 +581,13 @@ export default function App() {
       setCurrentView('pneu-175-55-r16-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'pneu-195-60-r16-curitiba' || firstRoute === 'pneu-195-60-r16' || firstRoute === 'pneu-195-60-16') {
+    } else if (
+      firstRoute === 'pneu-195-60-r16-curitiba' || 
+      firstRoute === 'pneu-195-60-r16' || 
+      firstRoute === 'pneu-195-60-16' ||
+      firstRoute === 'pneu-byd-dolphin-195-60-r16-89h' ||
+      firstRoute === 'pneu-byd-dolphin-195-60-r16'
+    ) {
       setCurrentView('pneu-195-60-r16-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
@@ -565,9 +599,11 @@ export default function App() {
       setCurrentView('pneu-215-55-r17-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (firstRoute === 'pneus-aro-16-curitiba' || firstRoute === 'pneus-aro-16' || firstRoute === 'pneu-aro-16-curitiba' || (firstRoute === 'pneus' && parts[1] && (parts[1].startsWith('aro-16') || parts[1] === '16'))) {
+    } else if (/^pneus?-aro-(\d+)(-curitiba)?$/.test(firstRoute) || (firstRoute === 'pneus' && parts[1] && (/^aro-(\d+)/.test(parts[1]) || /^\d+$/.test(parts[1])))) {
+      const match = firstRoute.match(/^pneus?-aro-(\d+)/) || (parts[1] && parts[1].match(/(?:aro-)?(\d+)/));
+      const rimNumber = match ? match[1] : '16';
       setCurrentView('seo-landing');
-      setSeoTarget({ type: 'aro', name: '16' });
+      setSeoTarget({ type: 'aro', name: rimNumber });
       setSelectedTire(null);
     } else if (firstRoute === 'pneu-225-60-r16-curitiba' || firstRoute === 'pneu-225-60-r16' || firstRoute === 'pneu-225-60-16') {
       setCurrentView('pneu-225-60-r16-curitiba');
@@ -695,6 +731,12 @@ export default function App() {
       setSeoTarget(null);
       setSelectedTire(null);
     }
+  };
+
+  const handleNavigateInternal = (path: string) => {
+    window.history.pushState(null, '', path);
+    parsePathAndSetState();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   useEffect(() => {
@@ -1060,6 +1102,60 @@ export default function App() {
               <p className="text-xs text-gray-500 mt-1 max-w-3xl text-justify leading-relaxed">
                 Navegue pelas páginas oficiais de marcas consagradas, filtre pneus novos pelo tamanho do aro da sua roda ou consulte em nosso guia qual a rota ideal para o modelo de seu veículo.
               </p>
+
+              {/* Destaques Rápidos: BYD, GWM e Aros */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 pt-3 border-t border-gray-150 text-left">
+                <button
+                  onClick={() => handleNavigateInternal('/pneu-byd-king-curitiba')}
+                  className="bg-gray-900 hover:bg-black text-white p-3 rounded-2xl border border-yellow-500/30 transition flex flex-col justify-between group shadow-sm"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#f49e1a]">BYD King</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#f49e1a] group-hover:translate-x-1 transition" />
+                  </div>
+                  <span className="text-xs font-bold text-gray-100 mt-1">215/55 R17 Original</span>
+                  <span className="text-[9px] text-gray-400">Menor Preço Garantido</span>
+                </button>
+
+                <button
+                  onClick={() => handleNavigateInternal('/pneus-byd-curitiba')}
+                  className="bg-gray-900 hover:bg-black text-white p-3 rounded-2xl border border-yellow-500/30 transition flex flex-col justify-between group shadow-sm"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#f49e1a]">Linha BYD</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#f49e1a] group-hover:translate-x-1 transition" />
+                  </div>
+                  <span className="text-xs font-bold text-gray-100 mt-1">Dolphin, Mini & Plus</span>
+                  <span className="text-[9px] text-gray-400">Aros 16, 17 e 18</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setCarSelectedBrand('GWM');
+                    setActiveCategoryTab('carros');
+                  }}
+                  className="bg-gray-900 hover:bg-black text-white p-3 rounded-2xl border border-yellow-500/30 transition flex flex-col justify-between group shadow-sm"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#f49e1a]">GWM Brasil</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#f49e1a] group-hover:translate-x-1 transition" />
+                  </div>
+                  <span className="text-xs font-bold text-gray-100 mt-1">Haval H6 & Ora 03</span>
+                  <span className="text-[9px] text-gray-400">Guia Híbridos & Elétricos</span>
+                </button>
+
+                <button
+                  onClick={() => handleNavigateInternal('/pneus-aro-16-curitiba')}
+                  className="bg-gray-900 hover:bg-black text-white p-3 rounded-2xl border border-yellow-500/30 transition flex flex-col justify-between group shadow-sm"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#f49e1a]">Pneus por Aro</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#f49e1a] group-hover:translate-x-1 transition" />
+                  </div>
+                  <span className="text-xs font-bold text-gray-100 mt-1">Pneus Aro 16 e 17</span>
+                  <span className="text-[9px] text-gray-400">Páginas Oficiais em Curitiba</span>
+                </button>
+              </div>
             </div>
 
             {/* Quick switcher buttons */}
@@ -1103,7 +1199,7 @@ export default function App() {
             {activeCategoryTab === 'aro' && (
               <div className="mt-6 space-y-6" id="tab-pneus-aro">
                 <div className="bg-gray-50 border border-gray-200 p-4 rounded-2xl text-xs text-gray-600 text-justify">
-                  Selecione um tamanho de <strong>Aro (Rín)</strong> abaixo para aplicar o filtro imediatamente ao nosso catálogo de vendas. Atendemos desde dimensões populares portabilidade até pick-ups robustas de passeio urbano e de carga.
+                  Selecione um tamanho de <strong>Aro (Rín)</strong> abaixo para aplicar o filtro imediatamente ao nosso catálogo de vendas ou acerte o link direto para navegar na página oficial de ranking em Curitiba.
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-9 gap-3">
@@ -1140,13 +1236,36 @@ export default function App() {
                   })}
                 </div>
 
+                {/* Páginas Dedicadas por Aro para Rankings no Google */}
+                <div className="bg-yellow-500/5 border border-yellow-500/20 p-4 rounded-2xl space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black uppercase text-gray-900 flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-yellow-600" />
+                      Páginas Dedicadas por Aro em Curitiba:
+                    </span>
+                    <span className="text-[10px] text-gray-500 font-bold">SEO Oficial</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map((rimNum) => (
+                      <button
+                        key={`rim-seo-btn-${rimNum}`}
+                        onClick={() => handleNavigateInternal(`/pneus-aro-${rimNum}-curitiba`)}
+                        className="bg-white hover:bg-[#f49e1a] text-gray-800 hover:text-black border border-gray-250 hover:border-black text-xs font-bold px-3 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1"
+                      >
+                        <span>Pneus Aro {rimNum}</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Sub-meta details box of current Rims */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
                   {[
                     { rim: '13 e 14', desc: 'Siena, Uno, Gol, Palio, Classic, Celta, Kwid', common: '175/65/R14, 175/70/R13, 185/60/R14', badge: 'Retífica & Compactos' },
-                    { rim: '15 e 16', desc: 'Argo, Polo, Fox, Civic, Corolla, Sandero, HB20, Spin', common: '185/60/R15, 195/55/R15, 205/55/R16', badge: 'Hatchs & Sedans Médios' },
-                    { rim: '17 e 18', desc: 'T-Cross, Nivus, Corolla Altis, Jeep Compass, Hilux, S10', common: '205/55/R17, 215/50/R17, 265/60/R18', badge: 'SUVs & Pickups' },
-                    { rim: '19 e 20', desc: 'Jeep Compass S, Equinox, Mercedes GLA, Tiguan, SUVs Premium', common: '235/45/R19, 245/40/R20, 265/50/R20', badge: 'Premium & EV High Performance' },
+                    { rim: '15 e 16', desc: 'Argo, Polo, Fox, Civic, Corolla, Sandero, HB20, BYD Dolphin Mini (175/55 R16)', common: '185/60/R15, 195/55/R15, 205/55/R16, 195/60/R16', badge: 'Hatchs & Sedans Médios' },
+                    { rim: '17 e 18', desc: 'BYD King (215/55 R17), Dolphin Plus, T-Cross, Nivus, Corolla Altis, Jeep Compass, Haval H6', common: '205/55/R17, 215/55/R17, 215/50/R17, 225/65/R17, 265/60/R18', badge: 'SUVs, Sedãs & Híbridos' },
+                    { rim: '19 e 20', desc: 'BYD Song Plus (235/50 R19), Seal (235/45 R19), Haval H6 PHEV, Equinox, Tiguan', common: '235/50/R19, 235/45/R19, 235/55/R19, 245/40/R20', badge: 'Premium & EV High Performance' },
                   ].map((det, id) => (
                     <div key={id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between">
                       <div>
@@ -1171,7 +1290,67 @@ export default function App() {
             {activeCategoryTab === 'marcas' && (
               <div className="mt-6 space-y-4" id="tab-marcas">
                 <div className="bg-gray-50 border border-gray-200 p-4 rounded-2xl text-xs text-gray-650 text-justify">
-                  Trabalhamos com marcas certificadas com a maior nota do Inmetro. Selecione uma fabricante de pneus oficial abaixo para navegar diretamente em seus produtos correspondentes em estoque.
+                  Trabalhamos com marcas certificadas com a maior nota do Inmetro. Selecione uma fabricante de pneus oficial abaixo para navegar diretamente em seus produtos correspondentes em estoque, ou confira nossos guias especializados para montadoras de alta tecnologia como <strong>BYD</strong> e <strong>GWM</strong>.
+                </div>
+
+                {/* Montadoras em Destaque: BYD e GWM */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
+                  <div className="bg-gray-900 text-white p-4 rounded-2xl border border-yellow-500/40 flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-mono font-bold text-[#f49e1a] uppercase">Guia de Aplicação</span>
+                        <span className="bg-yellow-500/20 text-[#f49e1a] text-[10px] px-2 py-0.5 rounded font-bold">100% Elétricos & Híbridos</span>
+                      </div>
+                      <h4 className="text-base font-black text-white mt-1">Pneus para BYD em Curitiba</h4>
+                      <p className="text-xs text-gray-300 mt-1 leading-relaxed">
+                        Medidas originais homologadas para BYD King (215/55 R17), Dolphin (205/50 R17, 195/60 R16), Dolphin Mini (175/55 R16) e Seal com montagem inclusa.
+                      </p>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        onClick={() => handleNavigateInternal('/pneu-byd-king-curitiba')}
+                        className="bg-[#f49e1a] hover:bg-[#d88912] text-black font-black text-xs px-3 py-1.5 rounded-xl transition"
+                      >
+                        BYD King 215/55 R17
+                      </button>
+                      <button
+                        onClick={() => handleNavigateInternal('/pneus-byd-curitiba')}
+                        className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-3 py-1.5 rounded-xl transition"
+                      >
+                        Hub Completo BYD
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-900 text-white p-4 rounded-2xl border border-gray-700 flex flex-col justify-between">
+                    <div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-mono font-bold text-gray-300 uppercase">Guia de Aplicação</span>
+                        <span className="bg-gray-700 text-gray-200 text-[10px] px-2 py-0.5 rounded font-bold">Híbridos & Elétricos GWM</span>
+                      </div>
+                      <h4 className="text-base font-black text-white mt-1">Pneus para GWM em Curitiba</h4>
+                      <p className="text-xs text-gray-300 mt-1 leading-relaxed">
+                        Pneus reforçados para Haval H6 HEV (225/65 R17), Haval H6 PHEV / GT (235/55 R19), Ora 03 Skin/GT (215/50 R18) e Tank 300 (265/65 R17).
+                      </p>
+                    </div>
+                    <div className="mt-3 flex gap-2">
+                      <button
+                        onClick={() => {
+                          setCarSelectedBrand('GWM');
+                          setActiveCategoryTab('carros');
+                        }}
+                        className="bg-white hover:bg-gray-100 text-black font-black text-xs px-3 py-1.5 rounded-xl transition"
+                      >
+                        Ver Modelos GWM
+                      </button>
+                      <button
+                        onClick={() => handleSearchMeasure('225/65/17')}
+                        className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs px-3 py-1.5 rounded-xl transition"
+                      >
+                        Medida Haval 225/65 R17
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

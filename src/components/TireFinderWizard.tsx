@@ -5,7 +5,7 @@ import { Car, Search, CheckCircle, ArrowRight, HelpCircle } from 'lucide-react';
 import { formatWhatsApp } from '../utils/whatsapp';
 
 const BRANDS = [
-  'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Honda', 'Renault', 'Ford', 'Jeep'
+  'Fiat', 'Volkswagen', 'Chevrolet', 'Hyundai', 'Toyota', 'Honda', 'Renault', 'Ford', 'Jeep', 'BYD', 'GWM'
 ] as const;
 
 type AllowedBrands = typeof BRANDS[number];
@@ -52,7 +52,7 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
         <p className="block text-xs uppercase tracking-wider font-extrabold text-black mb-2 text-center sm:text-left">
           Selecione a montadora:
         </p>
-        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-9 gap-1.5" id="wizard-brand-toggles">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11 gap-1.5" id="wizard-brand-toggles">
           {BRANDS.map(brand => {
             const isSelected = selectedBrand === brand;
             return (

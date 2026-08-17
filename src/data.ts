@@ -2435,10 +2435,22 @@ export const CAR_MODELS_DATA: CarModel[] = [
   { id: 'jp5', brand: 'Jeep', name: 'Renegade (Aro 18)', yearRange: '2015 - 2026', recommendedTireRatio: '225/55/18' },
 
   // BYD
-  { id: 'byd1', brand: 'BYD', name: 'Dolphin Mini', yearRange: '2024 - 2026', recommendedTireRatio: '175/55/16' },
-  { id: 'byd2', brand: 'BYD', name: 'Dolphin', yearRange: '2023 - 2026', recommendedTireRatio: '205/50/17' },
-  { id: 'byd3', brand: 'BYD', name: 'Dolphin GS', yearRange: '2023 - 2026', recommendedTireRatio: '205/50/17' },
-  { id: 'byd4', brand: 'BYD', name: 'King', yearRange: '2024 - 2026', recommendedTireRatio: '215/55/17' }
+  { id: 'byd1', brand: 'BYD', name: 'Dolphin Mini EV (Aro 16)', yearRange: '2024 - 2026', recommendedTireRatio: '175/55/16' },
+  { id: 'byd2', brand: 'BYD', name: 'Dolphin / Dolphin GS (Aro 16)', yearRange: '2023 - 2026', recommendedTireRatio: '195/60/16' },
+  { id: 'byd3', brand: 'BYD', name: 'Dolphin Plus / GS (Aro 17)', yearRange: '2023 - 2026', recommendedTireRatio: '205/50/17' },
+  { id: 'byd4', brand: 'BYD', name: 'King DM-i (Aro 17)', yearRange: '2024 - 2026', recommendedTireRatio: '215/55/17' },
+  { id: 'byd5', brand: 'BYD', name: 'King DM-i (Aro 16)', yearRange: '2024 - 2026', recommendedTireRatio: '225/60/16' },
+  { id: 'byd6', brand: 'BYD', name: 'Song Plus DM-i (Aro 19)', yearRange: '2022 - 2026', recommendedTireRatio: '235/50/19' },
+  { id: 'byd7', brand: 'BYD', name: 'Yuan Plus EV (Aro 18)', yearRange: '2022 - 2026', recommendedTireRatio: '215/55/18' },
+  { id: 'byd8', brand: 'BYD', name: 'Seal EV AWD (Aro 19)', yearRange: '2023 - 2026', recommendedTireRatio: '235/45/19' },
+
+  // GWM (Great Wall Motors)
+  { id: 'gwm1', brand: 'GWM', name: 'Haval H6 HEV (Aro 17)', yearRange: '2023 - 2026', recommendedTireRatio: '225/65/17' },
+  { id: 'gwm2', brand: 'GWM', name: 'Haval H6 PHEV (Aro 19)', yearRange: '2023 - 2026', recommendedTireRatio: '235/55/19' },
+  { id: 'gwm3', brand: 'GWM', name: 'Haval H6 GT (Aro 19)', yearRange: '2023 - 2026', recommendedTireRatio: '235/55/19' },
+  { id: 'gwm4', brand: 'GWM', name: 'Ora 03 Skin / GT (Aro 18)', yearRange: '2023 - 2026', recommendedTireRatio: '215/50/18' },
+  { id: 'gwm5', brand: 'GWM', name: 'Tank 300 (Aro 17)', yearRange: '2024 - 2026', recommendedTireRatio: '265/65/17' },
+  { id: 'gwm6', brand: 'GWM', name: 'Poer Picape (Aro 18)', yearRange: '2024 - 2026', recommendedTireRatio: '265/60/18' }
 ];
 
 // google most searched tire measures in Brazil / Curitiba

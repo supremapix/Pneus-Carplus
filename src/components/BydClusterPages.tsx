@@ -4,7 +4,7 @@ import {
   ShoppingBag, Flame, ThumbsUp, MessageSquare, CornerDownRight,
   ArrowRight, Sparkles, Scale, Info, HelpCircle, ChevronRight, CheckCircle,
   Car, Wrench, AlertTriangle, Disc, Gauge, Clock, ChevronDown, ChevronUp,
-  Tag, Calendar, ExternalLink
+  Tag, Calendar, ExternalLink, Search
 } from 'lucide-react';
 import { TIRES_DATA } from '../data';
 import TireCard from './TireCard';
@@ -255,6 +255,155 @@ export default function BydClusterPages({
             </div>
           </div>
 
+          {/* Outras Pessoas Pesquisaram / Intenções de Busca em Curitiba */}
+          <div className="bg-white border-2 border-yellow-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
+            <div className="space-y-1">
+              <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#f49e1a] flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> Outras Pessoas Pesquisaram no Google em Curitiba
+              </span>
+              <h2 className="text-xl sm:text-2xl font-black font-mono text-gray-950">
+                Respostas Diretas para as Buscas Mais Frequentes de Pneus BYD
+              </h2>
+              <p className="text-xs text-gray-650">
+                Confira preços, medidas originais e especificações de homologação dos modelos BYD Dolphin, Dolphin GS e Dolphin Mini em Curitiba:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              {/* Intent 1: Pneu BYD Dolphin original */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-2 hover:border-yellow-500/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-black uppercase text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                    Homologação de Fábrica
+                  </span>
+                  <span className="text-[10px] font-bold text-gray-500">Aro 17 / Aro 16</span>
+                </div>
+                <h3 className="font-black text-gray-950 text-sm">
+                  Pneu BYD Dolphin Original: Qual a Medida de Fábrica?
+                </h3>
+                <p className="text-gray-700 text-xs leading-relaxed">
+                  A especificação original mais comum no Brasil é a <strong>205/50 R17 (93V/W XL)</strong> com composto EV de baixa resistência ao rolamento. Lotes com rodas aro 16 utilizam a medida original <strong>195/60 R16 89H</strong>. Na Carplus você encontra as marcas homologadas com montagem grátis no Portão.
+                </p>
+                <div className="pt-1">
+                  <a
+                    href={formatWhatsAppUrl("Olá Carplus! Gostaria de consultar o Pneu BYD Dolphin Original homologado com montagem grátis.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+                  >
+                    Consultar Pneu Original no WhatsApp ➔
+                  </a>
+                </div>
+              </div>
+
+              {/* Intent 2: Pneu BYD Dolphin preço */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-2 hover:border-yellow-500/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Menor Preço Garantido
+                  </span>
+                  <span className="text-[10px] font-bold text-gray-500">Atacarejo Portão</span>
+                </div>
+                <h3 className="font-black text-gray-950 text-sm">
+                  Pneu BYD Dolphin Preço em Curitiba: Quanto Custa a Troca?
+                </h3>
+                <p className="text-gray-700 text-xs leading-relaxed">
+                  Os valores para o BYD Dolphin variam de <strong>R$ 389,00 a R$ 689,00</strong> dependendo da marca (Delinte, Xbri, Continental ou Pirelli Elect) e aro. A Carplus cobre orçamentos do Mercado Livre e Carrefour, já com montagem e bicos inclusos em até 10x sem juros.
+                </p>
+                <div className="pt-1">
+                  <a
+                    href={formatWhatsAppUrl("Olá Carplus! Gostaria de saber o preço atualizado do Pneu BYD Dolphin com cobertura de orçamento.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+                  >
+                    Receber Tabela de Preços no WhatsApp ➔
+                  </a>
+                </div>
+              </div>
+
+              {/* Intent 3: Pneu BYD Dolphin GS original */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-2 hover:border-yellow-500/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-black uppercase text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                    Versão GS
+                  </span>
+                  <span className="text-[10px] font-bold text-gray-500">Aro 16 / 17</span>
+                </div>
+                <h3 className="font-black text-gray-950 text-sm">
+                  Pneu BYD Dolphin GS Original: O que muda na versão GS?
+                </h3>
+                <p className="text-gray-700 text-xs leading-relaxed">
+                  O <strong>BYD Dolphin GS</strong> exige compostos certificados para alto torque instantâneo e redução de decibéis na cabine. As configurações originais contemplam <strong>205/50 R17</strong> ou <strong>195/60 R16</strong> com índices de carga reforçados XL.
+                </p>
+                <div className="pt-1">
+                  <button
+                    onClick={() => handleNav('/pneu-byd-dolphin-gs-curitiba')}
+                    className="text-xs font-bold text-gray-900 hover:text-yellow-650 flex items-center gap-1"
+                  >
+                    Ver Página Especial do Dolphin GS ➔
+                  </button>
+                </div>
+              </div>
+
+              {/* Intent 4 & 5: Pneu byd Dolphin 195 60 R16 89H & Pneu Dolphin GS 195 60 R16 */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-2 hover:border-yellow-500/50 transition">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                    Medida Exata 195/60 R16 89H
+                  </span>
+                  <span className="text-[10px] font-bold text-gray-500">Pronta Entrega</span>
+                </div>
+                <h3 className="font-black text-gray-950 text-sm">
+                  Pneu Dolphin GS 195/60 R16 89H: Medida e Aplicação
+                </h3>
+                <p className="text-gray-700 text-xs leading-relaxed">
+                  A especificação <strong>195/60 R16 com índice de carga 89 (580 kg) e velocidade H (210 km/h)</strong> garante máxima absorção de impacto no asfalto de Curitiba, protegendo a suspensão e preservando a autonomia da bateria.
+                </p>
+                <div className="pt-1 flex items-center gap-3">
+                  <button
+                    onClick={() => handleNav('/pneu-195-60-r16-curitiba')}
+                    className="text-xs font-bold text-gray-900 hover:text-yellow-650 flex items-center gap-1"
+                  >
+                    Ver Estoque 195/60 R16 ➔
+                  </button>
+                </div>
+              </div>
+
+              {/* Intent 6: Valor do pneu do BYD Dolphin Mini */}
+              <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 space-y-2 hover:border-yellow-500/50 transition md:col-span-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-black uppercase text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                    Dolphin Mini • 175/55 R16 80H
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-600 font-mono">A partir de R$ 289,90</span>
+                </div>
+                <h3 className="font-black text-gray-950 text-sm">
+                  Valor do Pneu do BYD Dolphin Mini em Curitiba: Quanto Custa?
+                </h3>
+                <p className="text-gray-700 text-xs leading-relaxed">
+                  O valor do pneu para o <strong>BYD Dolphin Mini (medida 175/55 R16 80H)</strong> varia entre <strong>R$ 289,90 e R$ 499,00</strong>. Na Carplus Portão, o valor inclui instalação técnica anti-risco, bicos novos de cortesia e geometria 3D no mesmo dia. Cobrimos qualquer orçamento!
+                </p>
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <a
+                    href={formatWhatsAppUrl("Olá Carplus! Gostaria de consultar o valor do pneu do BYD Dolphin Mini (175/55 R16) com montagem grátis no Portão.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" /> Cotar Valor Dolphin Mini no WhatsApp
+                  </a>
+                  <button
+                    onClick={() => handleNav('/pneu-byd-dolphin-mini-curitiba')}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-900 px-4 py-2 rounded-xl text-xs font-bold transition"
+                  >
+                    Página do Dolphin Mini ➔
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Factual Answers Block for GEO / AI Engines */}
           <div className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div className="space-y-1">
@@ -388,6 +537,135 @@ export default function BydClusterPages({
               >
                 Serviços de Oficina ➔
               </button>
+            </div>
+          </div>
+
+          {/* Outras pessoas pesquisaram (Search Intent Cluster Component) */}
+          <div className="bg-gradient-to-br from-gray-900 to-black text-white border border-yellow-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl" id="outras-pessoas-pesquisaram-section">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gray-800 pb-4">
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono font-black uppercase tracking-widest text-[#f49e1a] flex items-center gap-2">
+                  <Search className="w-4 h-4 text-[#f49e1a]" /> Intenções de Busca em Curitiba (Google)
+                </span>
+                <h2 className="text-xl sm:text-2xl font-black text-white">
+                  Outras pessoas pesquisaram sobre Pneus BYD
+                </h2>
+              </div>
+              <span className="text-[11px] font-bold bg-yellow-500/20 text-[#f49e1a] px-3 py-1.5 rounded-full border border-yellow-500/30">
+                Respostas Imediatas com Estoque no Portão
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+              {[
+                {
+                  query: "Pneu BYD King 215 55 r17",
+                  badge: "Original BYD King",
+                  answer: "A medida original homologada para o BYD King DM-i é 215/55 R17. Suporta o torque instantâneo do motor híbrido com banda otimizada para baixo atrito e economia de combustível.",
+                  actionLabel: "Ver Pneu 215/55 R17",
+                  slug: "/pneu-215-55-r17-curitiba"
+                },
+                {
+                  query: "Qual o pneu do BYD KING",
+                  badge: "Especificação Oficial",
+                  answer: "O BYD King sai de fábrica principalmente com a medida 215/55 R17 (aro 17), existindo também versões com homologação 225/60 R16. Ambas estão disponíveis na Carplus com montagem gratuita.",
+                  actionLabel: "Guia Técnico BYD King",
+                  slug: "/pneu-byd-king-curitiba"
+                },
+                {
+                  query: "Pneu BYD King preço",
+                  badge: "Menor Preço Garantido",
+                  answer: "Cobrimos os preços de grandes redes (Carrefour, Mercado Livre) com o diferencial da montagem computadorizada gratuita, troca de bicos e alinhamento 3D de alta precisão na loja.",
+                  actionLabel: "Cotar Preço no WhatsApp",
+                  slug: "/pneu-byd-king-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin original",
+                  badge: "Original Dolphin",
+                  answer: "A especificação original mais comum é a medida 205/50 R17 (para o Dolphin Plus/GS) e 195/60 R16, desenvolvida com carcaça reforçada para a tração direta de carros elétricos.",
+                  actionLabel: "Ver Pneu 205/50 R17",
+                  slug: "/pneu-205-50-r17-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin GS original",
+                  badge: "Versão GS",
+                  answer: "O Dolphin GS conta com pneus nas dimensões 195/60 R16 89H ou 205/50 R17 dependendo do lote. Garantimos estoque à pronta entrega e instalação imediata sem fila.",
+                  actionLabel: "Ver Dolphin GS",
+                  slug: "/pneu-byd-dolphin-gs-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin preço",
+                  badge: "Oferta Especial",
+                  answer: "Preços competitivos com parcelamento em até 10x sem juros no cartão de crédito direto na loja do Portão, sem frete e com montagem técnica inclusa.",
+                  actionLabel: "Consultar Valores Dolphin",
+                  slug: "/pneu-byd-dolphin-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin GS preço",
+                  badge: "Condição Especial",
+                  answer: "Consulte nossos valores exclusivos para o Dolphin GS com desconto especial para pagamento à vista no Pix ou facilitado em até 10x.",
+                  actionLabel: "Ver Ofertas GS",
+                  slug: "/pneu-byd-dolphin-gs-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin Mini",
+                  badge: "Aro 16 Mini",
+                  answer: "Utiliza a medida exclusiva 175/55 R16 80H, focada em máxima eficiência energética, menor arrasto aerodinâmico e frenagem segura no trânsito de Curitiba.",
+                  actionLabel: "Ver Pneu Dolphin Mini",
+                  slug: "/pneu-byd-dolphin-mini-curitiba"
+                },
+                {
+                  query: "Pneu BYD Dolphin 195 60 R16 89H",
+                  badge: "Índice 89H",
+                  answer: "Pneu na medida 195/60 R16 com índice de carga 89 (580 kg por roda) e velocidade H (até 210 km/h), perfeito para o torque do motor elétrico do Dolphin.",
+                  actionLabel: "Ver Pneu 195/60 R16",
+                  slug: "/pneu-195-60-r16-curitiba"
+                },
+                {
+                  query: "Pneu Dolphin GS 195 60 R16",
+                  badge: "GS Aro 16",
+                  answer: "Opção recomendada para o Dolphin GS aro 16. Mantém a altura correta do solo, o conforto de rodagem e a calibragem do controle de tração (ESP).",
+                  actionLabel: "Ver Medida 195/60 R16",
+                  slug: "/pneu-195-60-r16-curitiba"
+                },
+                {
+                  query: "Valor do pneu do BYD Dolphin Mini",
+                  badge: "Cotação Imediata",
+                  answer: "Valores atualizados diariamente com estoque físico em Curitiba. Entre em contato no WhatsApp (41) 3082-7282 para receber cotação com montagem inclusa.",
+                  actionLabel: "Cotar Dolphin Mini",
+                  slug: "/pneu-byd-dolphin-mini-curitiba"
+                },
+                {
+                  query: "Pneus para carros elétricos Curitiba",
+                  badge: "Tecnologia EV",
+                  answer: "Pneus específicos para EV com compostos siliciosos para redução de ruído, carcaça reforçada para o peso das baterias e frenagem regenerativa.",
+                  actionLabel: "Explorar Linha EV",
+                  slug: "/pneus-byd-curitiba"
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-gray-800/80 border border-gray-700 p-4 rounded-2xl flex flex-col justify-between hover:border-[#f49e1a] transition duration-300">
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="text-[10px] font-mono font-bold uppercase bg-yellow-500/20 text-[#f49e1a] px-2 py-0.5 rounded">
+                        {item.badge}
+                      </span>
+                    </div>
+                    <strong className="block text-sm font-bold text-white leading-snug">
+                      "{item.query}"
+                    </strong>
+                    <p className="text-gray-300 text-[11px] leading-relaxed text-justify">
+                      {item.answer}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => handleNav(item.slug)}
+                    className="mt-3 w-full bg-white/10 hover:bg-[#f49e1a] hover:text-black text-white font-bold py-2 rounded-xl text-center transition flex items-center justify-center gap-1.5 border border-white/15"
+                  >
+                    <span>{item.actionLabel}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
