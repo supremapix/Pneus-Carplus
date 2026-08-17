@@ -580,13 +580,13 @@ export default function BydClusterPages({
       recommendedMeasureSlug: "pneu-205-50-r17-curitiba"
     },
     'pneu-byd-king-curitiba': {
-      title: "Pneu para BYD King em Curitiba | Medida 215/55 R17 e 225/60 R16",
-      modelName: "BYD King",
-      badge: "Sedã Híbrido DM-i",
-      measures: ["215/55 R17", "225/60 R16"],
+      title: "Pneu para BYD King em Curitiba: Medida Original 215/55 R17 com Menor Preço Garantido",
+      modelName: "BYD King DM-i",
+      badge: "Sedã Híbrido Plug-in",
+      measures: ["215/55 R17 (Original)", "225/60 R16"],
       rims: [17, 16],
-      description: "Pneus para o sedã híbrido BYD King em Curitiba. A medida 215/55 R17 (aro 17) aparece nas configurações comercializadas no Brasil, com manual contemplando também 225/60 R16.",
-      technicalDetails: "O BYD King combina motor a combustão e elétrico com alto nível de conforto. Pneus na medida 215/55 R17 oferecem estabilidade em velocidades de cruzeiro e frenagens seguras na chuva.",
+      description: "Pneu para BYD King em Curitiba na medida original 215/55 R17. Cobrimos qualquer oferta de grandes redes como Carrefour e Mercado Livre, com montagem computadorizada gratuita e alinhamento 3D especializado no Portão.",
+      technicalDetails: "O BYD King combina motor híbrido com entrega de torque instantâneo e exige pneus com carcaça reforçada e composto de baixa resistência ao rolamento para maximizar a autonomia elétrica. Na Carplus você encontra a medida original 215/55 R17 a pronta entrega com montagem anti-risco sem encostar no verniz das rodas.",
       recommendedMeasureSlug: "pneu-215-55-r17-curitiba"
     }
   };
@@ -632,10 +632,14 @@ export default function BydClusterPages({
             </p>
             <div className="pt-2 flex flex-wrap justify-center gap-3">
               <a
-                href={formatWhatsAppUrl(`Olá! Gostaria de consultar pneus para o ${config.modelName} em Curitiba.`)}
+                href={formatWhatsAppUrl(
+                  view === 'pneu-byd-king-curitiba'
+                    ? "Olá Carplus! Sou dono de BYD King e gostaria de cotar o pneu na medida original 215/55 R17 com montagem grátis e menor preço garantido."
+                    : `Olá Carplus! Gostaria de consultar pneus para o ${config.modelName} em Curitiba com montagem grátis.`
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm cursor-pointer"
               >
                 <MessageSquare className="w-4 h-4" /> Consultar Preço no WhatsApp
               </a>
