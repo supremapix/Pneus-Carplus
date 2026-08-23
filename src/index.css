@@ -66,3 +66,7 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+
+*, ::before, ::after {
+  border-radius: 0 !important;
+}
