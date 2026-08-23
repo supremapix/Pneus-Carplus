@@ -1339,7 +1339,7 @@ export default function App() {
             {/* Tab content 1: Pneus por Aro */}
             {activeCategoryTab === 'aro' && (
               <div className="mt-6 space-y-6" id="tab-pneus-aro">
-                <div className="bg-gray-50 border border-gray-200 p-4 rounded-2xl text-xs text-gray-600 text-justify">
+                <div className="bg-white border-2 border-black p-4 text-xs text-black font-bold">
                   Selecione um tamanho de <strong>Aro (Rín)</strong> abaixo para aplicar o filtro imediatamente ao nosso catálogo de vendas ou acerte o link direto para navegar na página oficial de ranking em Curitiba.
                 </div>
 
@@ -1355,21 +1355,21 @@ export default function App() {
                           setSelectedRim(isAll ? 'Todos' : Number(rimVal) as any);
                           handleScrollToSection('catalog');
                         }}
-                        className={`p-3 rounded-2xl transition-all duration-300 border text-center flex flex-col justify-between items-center gap-1.5 relative overflow-hidden group cursor-pointer ${
+                        className={`p-3 transition-all duration-300 border-2 text-center flex flex-col justify-between items-center gap-1.5 relative overflow-hidden group cursor-pointer ${
                           isSelected 
-                            ? 'bg-[#f49e1a] border-[#f49e1a] text-black shadow-lg scale-102 font-black' 
-                            : 'bg-white border-gray-200 hover:border-gray-300 text-gray-800'
+                            ? 'bg-[#f49e1a] border-black text-black font-black' 
+                            : 'bg-white border-black hover:border-[#f49e1a] text-black'
                         }`}
                       >
                         {/* Tread decorative icon wheel */}
-                        <div className={`w-9 h-9 rounded-full border-4 border-dashed flex items-center justify-center font-black text-xs font-mono group-hover:rotate-45 transition duration-500 ${
-                          isSelected ? 'border-black text-black' : 'border-gray-200 text-gray-400 bg-gray-50'
+                        <div className={`w-9 h-9 border-2 border-dashed flex items-center justify-center font-black text-xs font-mono group-hover:rotate-45 transition duration-500 ${
+                          isSelected ? 'border-black text-black bg-white' : 'border-black text-black bg-white'
                         }`}>
                           {isAll ? 'ALL' : `R${rimVal}`}
                         </div>
                         <div className="mt-1">
                           <div className="text-xs font-bold leading-none">{isAll ? 'Todos' : `Aro ${rimVal}`}</div>
-                          <div className={`text-[9px] mt-1 ${isSelected ? 'text-black/80 font-medium' : 'text-gray-500 font-mono'}`}>
+                          <div className={`text-[9px] mt-1 ${isSelected ? 'text-black font-black' : 'text-black font-mono'}`}>
                             {isAll ? `${CATALOGO_PNEUS.length}` : `${rimCount}`} mod.
                           </div>
                         </div>
@@ -1379,23 +1379,23 @@ export default function App() {
                 </div>
 
                 {/* Páginas Dedicadas por Aro para Rankings no Google */}
-                <div className="bg-yellow-500/5 border border-yellow-500/20 p-4 rounded-2xl space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black uppercase text-gray-900 flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-yellow-600" />
+                <div className="bg-white border-2 border-black p-4 sm:p-6 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-black pb-3">
+                    <span className="text-xs sm:text-sm font-black uppercase text-black flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#f49e1a] shrink-0" />
                       Páginas Dedicadas por Aro em Curitiba (Catálogo Completo):
                     </span>
-                    <span className="text-[10px] text-gray-500 font-bold">1.962 Pneus Homologados</span>
+                    <span className="text-xs text-black font-bold font-mono bg-[#f49e1a] px-2.5 py-1 border-2 border-black inline-block w-fit">1.962 Pneus Homologados</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23].map((rimNum) => (
                       <button
                         key={`rim-seo-btn-${rimNum}`}
                         onClick={() => handleNavigateInternal(`/pneus-aro-${rimNum}-curitiba`)}
-                        className="bg-white hover:bg-[#f49e1a] text-gray-800 hover:text-black border border-gray-250 hover:border-black text-xs font-bold px-3 py-1.5 rounded-xl transition shadow-xs flex items-center gap-1"
+                        className="w-full bg-white hover:bg-[#f49e1a] text-black hover:text-black border-2 border-black text-xs font-black py-3 px-4 transition flex items-center justify-between cursor-pointer group"
                       >
-                        <span>Pneus Aro {rimNum}</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span className="uppercase tracking-wider">Pneus Aro {rimNum}</span>
+                        <ArrowRight className="w-4 h-4 text-black group-hover:text-black shrink-0" />
                       </button>
                     ))}
                   </div>
@@ -1409,17 +1409,17 @@ export default function App() {
                     { rim: '17 e 18', desc: 'BYD King (215/55 R17), Dolphin Plus, T-Cross, Nivus, Corolla Altis, Jeep Compass, Haval H6', common: '205/55/R17, 215/55/R17, 215/50/R17, 225/65/R17, 265/60/R18', badge: 'SUVs, Sedãs & Híbridos' },
                     { rim: '19 e 20', desc: 'BYD Song Plus (235/50 R19), Seal (235/45 R19), Haval H6 PHEV, Equinox, Tiguan', common: '235/50/R19, 235/45/R19, 235/55/R19, 245/40/R20', badge: 'Premium & EV High Performance' },
                   ].map((det, id) => (
-                    <div key={id} className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col justify-between">
+                    <div key={id} className="bg-white p-4 border-2 border-black flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-center mb-1">
-                          <span className="font-mono text-xs uppercase text-gray-900 border-b-2 border-[#f49e1a] pb-0.5 font-bold">{det.badge}</span>
-                          <span className="text-[10px] text-gray-500">Aro {det.rim}</span>
+                          <span className="font-mono text-xs uppercase text-black border-b-2 border-[#f49e1a] pb-0.5 font-bold">{det.badge}</span>
+                          <span className="text-[10px] text-black font-bold">Aro {det.rim}</span>
                         </div>
-                        <p className="text-[11px] text-gray-650 text-justify mt-1">
+                        <p className="text-[11px] text-black text-justify mt-1">
                           <strong>Principais:</strong> {det.desc}
                         </p>
                       </div>
-                      <div className="border-t border-gray-200 mt-2 pt-2 text-[10px] text-gray-500 font-mono">
+                      <div className="border-t-2 border-black mt-2 pt-2 text-[10px] text-black font-mono">
                         Medidas recomendadas: {det.common}
                       </div>
                     </div>
@@ -1690,19 +1690,19 @@ export default function App() {
             </div>
 
             {/* Quick Brand Logo Filter row styling */}
-            <div className="mb-6 bg-gray-50 border border-gray-150 p-4 rounded-2xl select-none" id="brand-logo-filtering-row">
-              <p className="text-[11px] font-black uppercase text-gray-700 mb-2.5 tracking-wider font-mono flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#f49e1a]" />
+            <div className="mb-6 bg-white border-2 border-black p-4 select-none" id="brand-logo-filtering-row">
+              <p className="text-[11px] font-black uppercase text-black mb-3 tracking-wider font-mono flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-[#f49e1a]" />
                 Filtrar com 1 Toque por Fabricante Oficial:
               </p>
-              <div className="flex flex-wrap gap-2 items-center justify-start">
+              <div className="grid grid-cols-2 gap-3 items-stretch justify-start">
                 <button
                   onClick={() => setSelectedBrand('Todas')}
                   style={selectedBrand === 'Todas' ? { textShadow: '1px 1px 2px rgba(0,0,0,0.9)' } : undefined}
-                  className={`px-3 py-1.5 rounded-xl border text-[10px] font-black uppercase transition-all duration-300 cursor-pointer ${
+                  className={`h-14 px-3 py-2 border-2 text-xs font-black uppercase transition-all duration-300 cursor-pointer flex items-center justify-center text-center ${
                     selectedBrand === 'Todas'
-                      ? 'bg-black text-white border-black shadow'
-                      : 'bg-white border-gray-200 text-gray-700 hover:border-gray-400'
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white border-black text-black hover:border-[#f49e1a]'
                   }`}
                 >
                   Todas Marcas
@@ -1713,17 +1713,17 @@ export default function App() {
                     <button
                       key={`btn-logo-filter-${bName}`}
                       onClick={() => setSelectedBrand(bName)}
-                      className={`h-11 px-3 py-1.5 rounded-xl border bg-white flex items-center justify-center transition-all duration-300 cursor-pointer hover:shadow-xs ${
+                      className={`h-14 px-3 py-2 border-2 bg-white flex items-center justify-center transition-all duration-300 cursor-pointer ${
                         isSelected
-                          ? 'border-[#f49e1a] ring-2 ring-[#f49e1a]/25 scale-105 shadow-xs bg-yellow-50/5'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-[#f49e1a] bg-yellow-50/10'
+                          : 'border-black hover:border-[#f49e1a]'
                       }`}
                       title={`Filtrar somente ${bName}`}
                     >
                       <img
                         src={bUrl}
                         alt={bName}
-                        className="h-full max-h-[22px] w-auto max-w-[80px] object-contain"
+                        className="h-full max-h-[32px] w-auto max-w-[120px] object-contain"
                         referrerPolicy="no-referrer"
                       />
                     </button>
