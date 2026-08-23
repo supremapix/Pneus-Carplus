@@ -45,11 +45,11 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
           </div>
         </div>
 
-        {/* Tire Image with original ratio & lazy loading */}
-        <div className="relative w-full h-44 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center p-3 border border-gray-100 group-hover:bg-yellow-500/5 transition">
+        {/* Tire Image with seamless white floating presentation */}
+        <div className="relative w-full h-48 bg-white rounded-xl overflow-hidden flex items-center justify-center p-2 transition group-hover:scale-102 duration-300">
           {!imageLoaded && !imageError && (
-            <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
-              <span className="text-[10px] text-gray-400 font-mono">Carregando imagem...</span>
+            <div className="absolute inset-0 bg-white animate-pulse flex items-center justify-center">
+              <span className="text-[10px] text-gray-300 font-mono">Carregando imagem...</span>
             </div>
           )}
           <img
@@ -62,10 +62,10 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
               setImageError(true);
               setImageLoaded(true);
             }}
-            className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain filter drop-shadow-xs group-hover:scale-105 transition-transform duration-300"
           />
           {tire.novoModelo && (
-            <span className="absolute top-2 right-2 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded shadow-xs">
+            <span className="absolute top-1 right-1 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded shadow-xs">
               Novo
             </span>
           )}
@@ -97,24 +97,28 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
 
       {/* Action Buttons */}
       <div className="p-4 pt-2 bg-gray-50/70 border-t border-gray-100 grid grid-cols-2 gap-2">
-        <button
-          type="button"
-          onClick={() => onSelect(tire)}
-          className="w-full bg-white hover:bg-gray-100 text-gray-900 text-xs font-bold py-2.5 px-2 rounded-xl border border-gray-250 transition flex items-center justify-center gap-1 shadow-2xs"
-          title="Ver ficha técnica completa e compatibilidade"
-        >
-          <Eye className="w-3.5 h-3.5 text-gray-700" />
-          <span>Ver detalhes</span>
-        </button>
-        <button
-          type="button"
-          onClick={handleWhatsAppClick}
-          className="w-full bg-[#f49e1a] hover:bg-[#d88912] text-black text-xs font-black py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1 shadow-2xs group-hover:shadow-xs"
-          title="Solicitar cotação imediata com consultor no WhatsApp"
-        >
-          <MessageSquare className="w-3.5 h-3.5 text-black" />
-          <span>Orçamento</span>
-        </button>
+        <div className="flex flex-col">
+          <button
+            type="button"
+            onClick={() => onSelect(tire)}
+            className="w-full bg-white hover:bg-gray-100 text-gray-900 text-xs font-bold py-2 px-2 rounded-xl border border-gray-250 transition flex items-center justify-center gap-1 shadow-2xs"
+          >
+            <Eye className="w-3.5 h-3.5 text-gray-700" />
+            <span>Ver</span>
+          </button>
+          <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Ficha técnica completa.</span>
+        </div>
+        <div className="flex flex-col">
+          <button
+            type="button"
+            onClick={handleWhatsAppClick}
+            className="w-full bg-[#f49e1a] hover:bg-[#d88912] text-black text-xs font-black py-2 px-2 rounded-xl transition flex items-center justify-center gap-1 shadow-2xs group-hover:shadow-xs"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-black" />
+            <span>Cotar</span>
+          </button>
+          <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Pedir preço imediato.</span>
+        </div>
       </div>
     </article>
   );

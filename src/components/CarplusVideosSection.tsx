@@ -142,25 +142,17 @@ export default function CarplusVideosSection() {
         {/* 2-Column Responsive Layout for Desktop Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center max-w-6xl mx-auto" id="video-showcase-grid">
           
-          {/* Left Side: Mockup 9:16 (Phone Shell with Glowing Neon Effect) */}
-          <div className="lg:col-span-5 relative flex justify-center items-center py-4">
+          {/* Left Side: Cinematic Video Card (Refined, Sleek, No Amateur Phone Shell) */}
+          <div className="lg:col-span-6 relative flex justify-center items-center">
             
-            {/* Pulsing Ambient Background Glow */}
-            <div className="absolute inset-0 bg-yellow-500/10 blur-[60px] rounded-full pointer-events-none animate-pulse" />
+            {/* Subtle Atmospheric Glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/10 via-amber-500/5 to-transparent blur-[40px] rounded-3xl pointer-events-none" />
 
-            {/* Smartphone Shell with detailed borders and shadows */}
-            <div className="relative w-full max-w-[280px] sm:max-w-[300px] bg-neutral-950 border-[8px] border-neutral-800 rounded-[44px] p-2 shadow-[0_0_40px_rgba(244,158,26,0.3)] hover:shadow-[0_0_60px_rgba(244,158,26,0.4)] transition-all duration-500 overflow-hidden ring-4 ring-neutral-900" id="phone-shell">
+            {/* Cinematic Media Card Frame */}
+            <div className="relative w-full max-w-[380px] bg-neutral-950 border border-neutral-800 rounded-3xl p-3 shadow-2xl overflow-hidden group/cinematic">
               
-              {/* Smartphone Notch */}
-              <div className="absolute top-1 left-1/2 -translate-x-1/2 w-28 h-4.5 bg-neutral-850 rounded-full z-30 flex items-center justify-center gap-1.5 shadow-inner">
-                <div className="w-2 h-2 rounded-full bg-neutral-950 flex items-center justify-center">
-                  <div className="w-0.5 h-0.5 rounded-full bg-blue-900/65 animate-pulse" />
-                </div>
-                <div className="w-10 h-0.5 bg-neutral-950 rounded-full" />
-              </div>
-
-              {/* Aspect Ratio Screen */}
-              <div className="relative aspect-[9/16] w-full rounded-[30px] overflow-hidden bg-neutral-950 shadow-inner group/screen">
+              {/* Aspect Ratio Screen (9:16 or cinematic vertical) */}
+              <div className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-neutral-900 shadow-inner group/screen">
                 <AnimatePresence mode="wait">
                   {isPlaying ? (
                     <motion.div
@@ -173,7 +165,7 @@ export default function CarplusVideosSection() {
                       <iframe
                         src={`https://www.youtube.com/embed/${activeVideo.id}?autoplay=1&mute=0&rel=0&modestbranding=1&playsinline=1`}
                         title={activeVideo.title}
-                        className="absolute inset-0 w-full h-full rounded-[28px]"
+                        className="absolute inset-0 w-full h-full rounded-2xl"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                       ></iframe>
@@ -187,42 +179,39 @@ export default function CarplusVideosSection() {
                       onClick={() => setIsPlaying(true)}
                       className="absolute inset-0 w-full h-full cursor-pointer"
                     >
-                      {/* Thumbnail with overlay gradient */}
+                      {/* Thumbnail with cinematic gradient */}
                       <img
                         src={activeThumbnailUrl}
                         alt={activeVideo.title}
-                        className="absolute inset-0 w-full h-full object-cover filter brightness-[0.70] group-hover/screen:brightness-[0.55] group-hover/screen:scale-105 transition-all duration-500 rounded-[28px]"
+                        className="absolute inset-0 w-full h-full object-cover filter brightness-[0.75] group-hover/screen:brightness-[0.85] group-hover/screen:scale-105 transition-all duration-700 rounded-2xl"
                         referrerPolicy="no-referrer"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/15" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20" />
 
-                      {/* Play Button */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10">
-                        <div className="bg-red-650 hover:bg-red-600 text-white p-5 rounded-full shadow-2xl scale-100 group-hover/screen:scale-110 transition-all duration-300 border-2 border-white/40 flex items-center justify-center relative">
-                          <span className="absolute inset-0 rounded-full bg-red-650 animate-ping opacity-35"></span>
-                          <Play className="w-8 h-8 fill-current text-white translate-x-0.5" />
-                        </div>
-                        <div className="text-center">
-                          <span className="text-[9px] bg-black/80 text-[#f49e1a] px-3 py-1.5 rounded-full font-mono font-black uppercase tracking-widest border border-white/10 shadow-lg group-hover/screen:border-[#f49e1a]/50 transition duration-300">
-                            Assistir no Celular
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Tag Overlay */}
-                      <div className="absolute top-8 left-4 z-15">
-                        <span className="bg-[#f49e1a] text-black font-mono font-black text-[9px] uppercase px-2.5 py-1 rounded shadow">
+                      {/* Top Badge Overlay */}
+                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
+                        <span className="bg-[#f49e1a] text-black font-mono font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
                           {activeVideo.tag}
                         </span>
+                        <span className="bg-black/60 backdrop-blur-md text-white/90 font-mono text-[10px] px-2.5 py-1 rounded-full border border-white/10">
+                          {activeVideoIndex + 1} / {VIDEOS.length}
+                        </span>
                       </div>
 
-                      {/* Mobile instructions overlay */}
-                      <div className="absolute bottom-6 left-4 right-4 text-left z-15">
-                        <span className="bg-red-600 text-white font-mono font-black text-[9px] uppercase px-2 py-0.5 rounded shadow">
-                          Shorts 9:16
+                      {/* Central Play Trigger Button (Clean, Elegant, Premium Glass) */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-20">
+                        <div className="w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-2xl group-hover/screen:scale-110 group-hover/screen:bg-[#f49e1a] group-hover/screen:text-black group-hover/screen:border-[#f49e1a] transition-all duration-300">
+                          <Play className="w-7 h-7 fill-current translate-x-0.5" />
+                        </div>
+                        <span className="text-[11px] font-medium text-white/95 tracking-wide bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-lg group-hover/screen:border-yellow-500/40 transition">
+                          Reproduzir Apresentação
                         </span>
-                        <p className="text-[11px] text-white/95 font-extrabold mt-1.5 leading-snug">
-                          Toque no play para assistir a demonstração de forma totalmente interativa.
+                      </div>
+
+                      {/* Bottom Info Overlay */}
+                      <div className="absolute bottom-4 left-4 right-4 z-20 text-left">
+                        <p className="text-xs font-bold text-white leading-snug line-clamp-2">
+                          {activeVideo.title}
                         </p>
                       </div>
                     </motion.div>
@@ -232,16 +221,16 @@ export default function CarplusVideosSection() {
 
             </div>
 
-            {/* Touch-Friendly Slider Navigation Arrows */}
+            {/* Slider Navigation Arrows - Positioned Elegantly */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 handlePrevVideo();
               }}
-              className="absolute left-[-16px] sm:left-[-24px] lg:left-[-10px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90 z-40"
+              className="absolute left-[-12px] sm:left-[-18px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-neutral-900 border border-neutral-700 text-[#f49e1a] shadow-xl flex items-center justify-center hover:bg-neutral-800 hover:border-[#f49e1a] transition cursor-pointer hover:scale-105 z-40"
               title="Vídeo Anterior"
             >
-              <ChevronLeft className="w-6 h-6 stroke-[3]" />
+              <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
             </button>
 
             <button
@@ -249,16 +238,16 @@ export default function CarplusVideosSection() {
                 e.stopPropagation();
                 handleNextVideo();
               }}
-              className="absolute right-[-16px] sm:right-[-24px] lg:right-[-10px] top-1/2 -translate-y-1/2 w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-[#f49e1a] text-black border-2 border-neutral-900 shadow-xl flex items-center justify-center hover:bg-yellow-400 transition cursor-pointer hover:scale-105 active:scale-90 z-40"
+              className="absolute right-[-12px] sm:right-[-18px] top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-neutral-900 border border-neutral-700 text-[#f49e1a] shadow-xl flex items-center justify-center hover:bg-neutral-800 hover:border-[#f49e1a] transition cursor-pointer hover:scale-105 z-40"
               title="Próximo Vídeo"
             >
-              <ChevronRight className="w-6 h-6 stroke-[3]" />
+              <ChevronRight className="w-5 h-5 stroke-[2.5]" />
             </button>
 
           </div>
 
           {/* Right Side: Detailed Copy & Call To Action Buttons */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-6 flex flex-col justify-center space-y-6 text-center lg:text-left">
             
             <div className="space-y-3">
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
@@ -266,7 +255,7 @@ export default function CarplusVideosSection() {
                   {activeVideo.tag}
                 </span>
                 <span className="bg-white/10 text-gray-300 font-mono font-black text-[10px] uppercase px-3 py-1 rounded border border-white/10">
-                  Vídeo {activeVideoIndex + 1} de {VIDEOS.length}
+                  Destaque {activeVideoIndex + 1} de {VIDEOS.length}
                 </span>
               </div>
               
@@ -315,8 +304,8 @@ export default function CarplusVideosSection() {
                 rel="noopener noreferrer"
                 className={`w-full sm:w-auto font-black text-xs uppercase py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all border active:scale-95 cursor-pointer ${
                   activeVideo.link 
-                    ? 'bg-transparent border-neutral-700 text-gray-300 hover:bg-white/5 hover:text-white' 
-                    : 'bg-red-650 hover:bg-red-600 text-white border-transparent shadow-lg shadow-red-600/10 hover:scale-[1.02]'
+                    ? 'bg-neutral-900 border-neutral-700 text-gray-300 hover:bg-neutral-800 hover:text-white' 
+                    : 'bg-red-600 hover:bg-red-500 text-white border-transparent shadow-lg shadow-red-600/10 hover:scale-[1.02]'
                 }`}
               >
                 <Play className="w-3.5 h-3.5 fill-current shrink-0" />

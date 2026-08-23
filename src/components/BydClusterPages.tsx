@@ -6,9 +6,9 @@ import {
   Car, Wrench, AlertTriangle, Disc, Gauge, Clock, ChevronDown, ChevronUp,
   Tag, Calendar, ExternalLink, Search
 } from 'lucide-react';
-import { TIRES_DATA } from '../data';
-import TireCard from './TireCard';
-import { Tire } from '../types';
+import { CATALOGO_PNEUS } from '../data/catalogo-pneus';
+import CatalogTireCard from './CatalogTireCard';
+import { CatalogTire, Tire } from '../types';
 
 export type BydClusterView = 
   | 'pneus-byd-curitiba'
@@ -56,13 +56,19 @@ export default function BydClusterPages({
     }
   };
 
+  const handleSelectCatalogTire = (tire: CatalogTire) => {
+    window.history.pushState(null, '', `/pneu/${tire.slug}`);
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   const formatWhatsAppUrl = (msg: string) => {
     return `https://wa.me/554130827282?text=${encodeURIComponent(msg)}`;
   };
 
-  // Helper to filter matching tires in catalog
-  const getMatchingTires = (width: number, aspect: number, rim: number) => {
-    return TIRES_DATA.filter(t => t.width === width && t.aspectRatio === aspect && t.rim === rim);
+  // Helper to filter matching tires in official catalog
+  const getMatchingCatalogTires = (width: number, aspect: number, rim: number): CatalogTire[] => {
+    return CATALOGO_PNEUS.filter(t => t.largura === width && t.perfil === aspect && t.aro === rim);
   };
 
   // Common warning text
@@ -70,10 +76,24 @@ export default function BydClusterPages({
 
   // RENDER: HUB PRINCIPAL /pneus-byd-curitiba
   if (view === 'pneus-byd-curitiba') {
-    const tires16 = getMatchingTires(175, 55, 16);
-    const tires17Dolphin = getMatchingTires(205, 50, 17);
-    const tires17King = getMatchingTires(215, 55, 17);
-    const allBydRelatedTires = [...tires16, ...tires17Dolphin, ...tires17King];
+    const tires16 = getMatchingCatalogTires(175, 55, 16);
+    const tires16Gs = getMatchingCatalogTires(195, 60, 16);
+    const tires17Dolphin = getMatchingCatalogTires(205, 50, 17);
+    const tires17King = getMatchingCatalogTires(215, 55, 17);
+    const tires16King = getMatchingCatalogTires(225, 60, 16);
+    const tires19Song = getMatchingCatalogTires(235, 50, 19);
+    const tires19Seal = getMatchingCatalogTires(235, 45, 19);
+    const tires18Yuan = getMatchingCatalogTires(215, 55, 18);
+    const allBydRelatedTires = [
+      ...tires16,
+      ...tires16Gs,
+      ...tires17Dolphin,
+      ...tires17King,
+      ...tires16King,
+      ...tires19Song,
+      ...tires19Seal,
+      ...tires18Yuan
+    ];
 
     return (
       <div className="bg-gray-50 min-h-screen pb-16 font-sans text-gray-900">
@@ -469,11 +489,10 @@ export default function BydClusterPages({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {allBydRelatedTires.map((tire) => (
-                  <TireCard 
+                  <CatalogTireCard 
                     key={tire.id} 
                     tire={tire} 
-                    onAddToCart={onAddToCart || (() => {})} 
-                    onSelectTire={onShowTireDetail}
+                    onSelect={handleSelectCatalogTire}
                   />
                 ))}
               </div>
@@ -873,14 +892,14 @@ export default function BydClusterPages({
   if (view in modelConfig) {
     const config = modelConfig[view];
     
-    // Find tires matching the primary measure
-    let matchedTires: Tire[] = [];
+    // Find tires matching the primary measure from official catalog
+    let matchedTires: CatalogTire[] = [];
     if (view === 'pneu-byd-dolphin-mini-curitiba') {
-      matchedTires = getMatchingTires(175, 55, 16);
+      matchedTires = getMatchingCatalogTires(175, 55, 16);
     } else if (view === 'pneu-byd-dolphin-curitiba' || view === 'pneu-byd-dolphin-gs-curitiba') {
-      matchedTires = [...getMatchingTires(205, 50, 17), ...getMatchingTires(195, 60, 16)];
+      matchedTires = [...getMatchingCatalogTires(205, 50, 17), ...getMatchingCatalogTires(195, 60, 16)];
     } else if (view === 'pneu-byd-king-curitiba') {
-      matchedTires = [...getMatchingTires(215, 55, 17), ...getMatchingTires(225, 60, 16)];
+      matchedTires = [...getMatchingCatalogTires(215, 55, 17), ...getMatchingCatalogTires(225, 60, 16)];
     }
 
     return (
@@ -977,11 +996,10 @@ export default function BydClusterPages({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {matchedTires.map(t => (
-                  <TireCard 
+                  <CatalogTireCard 
                     key={t.id} 
                     tire={t} 
-                    onAddToCart={onAddToCart || (() => {})} 
-                    onSelectTire={onShowTireDetail}
+                    onSelect={handleSelectCatalogTire}
                   />
                 ))}
               </div>
@@ -1108,7 +1126,7 @@ export default function BydClusterPages({
   // RENDER: PÁGINAS DE MEDIDAS (/pneu-175-55-r16-curitiba, /pneu-215-55-r17-curitiba, etc.)
   if (view in measureConfig) {
     const mConfig = measureConfig[view];
-    const matchedTires = getMatchingTires(mConfig.width, mConfig.aspect, mConfig.rim);
+    const matchedTires = getMatchingCatalogTires(mConfig.width, mConfig.aspect, mConfig.rim);
 
     return (
       <div className="bg-gray-50 min-h-screen pb-16 font-sans text-gray-900">
@@ -1196,11 +1214,10 @@ export default function BydClusterPages({
             {matchedTires.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {matchedTires.map(t => (
-                  <TireCard 
+                  <CatalogTireCard 
                     key={t.id} 
                     tire={t} 
-                    onAddToCart={onAddToCart || (() => {})} 
-                    onSelectTire={onShowTireDetail}
+                    onSelect={handleSelectCatalogTire}
                   />
                 ))}
               </div>

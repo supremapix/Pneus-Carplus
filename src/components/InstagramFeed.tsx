@@ -9,14 +9,14 @@ export default function InstagramFeed() {
   return (
     <section 
       ref={ref} 
-      className="bg-gray-50/50 border-t border-b border-gray-200 py-12 px-4 select-none relative overflow-hidden" 
+      className="bg-gray-50/50 border-t border-b border-gray-200 py-10 sm:py-12 px-4 select-none relative overflow-hidden" 
       id="carplus-instagram-feed"
     >
       {/* Background soft lighting effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-tr from-yellow-100/35 to-transparent rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-[#f49e1a]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto space-y-8 relative z-10">
+      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-7 relative z-10">
         
         {/* Header Section using Neuromarketing layout */}
         <motion.div 
@@ -39,18 +39,16 @@ export default function InstagramFeed() {
 
         {/* Embedded Instagram Feed Frame */}
         <motion.div 
-          className="bg-white border-2 border-gray-200 rounded-3xl p-3 sm:p-4 shadow-xl overflow-hidden max-w-lg mx-auto transform hover:scale-[1.01] transition-transform duration-300"
-          initial={{ opacity: 0, y: 30 }}
+          className="bg-white border border-gray-200 rounded-3xl p-2 sm:p-3 shadow-lg overflow-hidden max-w-[480px] w-full mx-auto"
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
         >
-          <div className="relative rounded-2xl overflow-hidden aspect-[9/11] sm:aspect-[4/5] bg-gray-50 border border-gray-150">
+          <div className="relative w-full h-[410px] sm:h-[430px] rounded-2xl overflow-hidden bg-white">
             <iframe
               src="https://www.instagram.com/carpluscwb/embed"
-              className="absolute inset-0 w-full h-full"
-              frameBorder="0"
+              className="w-full h-full border-0 block"
               scrolling="no"
-              allowtransparency="true"
               loading="lazy"
               title="Carplus Instagram Feed"
             ></iframe>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CAR_MODELS_DATA, TIRES_DATA, getBrandFallbackImage } from '../data';
-import { CarModel, Tire } from '../types';
+import { CATALOGO_PNEUS } from '../data/catalogo-pneus';
+import { CarModel, Tire, CatalogTire } from '../types';
 import { Car, Search, CheckCircle, ArrowRight, HelpCircle } from 'lucide-react';
 import { formatWhatsApp } from '../utils/whatsapp';
 
@@ -21,17 +22,23 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
 
   const currentCars = CAR_MODELS_DATA.filter(car => car.brand === selectedBrand);
 
-  // Let's find real tires in our catalog matching this car's recommended ratio
+  // Find real tires in our catalog matching this car's recommended ratio
   const getMatchingTires = (ratio: string): Tire[] => {
-    // ratio is "175/65/14" or parecido
     const parts = ratio.split('/');
     if (parts.length < 3) return [];
-    
     const [w, a, r] = parts.map(Number);
     return TIRES_DATA.filter(t => t.width === w && t.aspectRatio === a && t.rim === r);
   };
 
+  const getMatchingCatalogTires = (ratio: string): CatalogTire[] => {
+    const parts = ratio.split('/');
+    if (parts.length < 3) return [];
+    const [w, a, r] = parts.map(Number);
+    return CATALOGO_PNEUS.filter(t => t.largura === w && t.perfil === a && t.aro === r);
+  };
+
   const matchingTires = selectedCar ? getMatchingTires(selectedCar.recommendedTireRatio) : [];
+  const matchingCatalogTires = selectedCar ? getMatchingCatalogTires(selectedCar.recommendedTireRatio) : [];
 
   return (
     <div className="bg-[#f49e1a] text-black p-6 rounded-3xl border-2 border-black shadow-xl" id="tire-finder-wizard">
@@ -134,54 +141,81 @@ export default function TireFinderWizard({ onSearchMeasure, onAddToCart }: TireF
             </button>
           </div>
 
-          <p className="text-sm text-gray-800 font-extrabold mb-3 text-justify leading-relaxed">
-            Abaixo estão os pneus equivalentes em estoque com esta medida específica hoje. Você pode encomendar e agendar a instalação na nossa loja do Portão em Curitiba:
-          </p>
+          {/* Recommendation Description */}
+          <div className="flex items-center justify-between gap-2 mb-3">
+            <p className="text-sm text-gray-800 font-extrabold text-justify leading-relaxed">
+              Modelos compatíveis em estoque no catálogo oficial Carplus para <strong>{selectedCar.name}</strong> ({selectedCar.recommendedTireRatio.replace('/', '/').replace('/', ' R')}):
+            </p>
+            {matchingCatalogTires.length > 0 && (
+              <span className="bg-[#f49e1a]/20 text-black font-black text-xs px-2.5 py-1 rounded-full whitespace-nowrap border border-black/20">
+                {matchingCatalogTires.length} opções disponíveis
+              </span>
+            )}
+          </div>
 
-          {/* Tires list */}
-          {matchingTires.length > 0 ? (
+          {/* Tires list (Combining catalog and quick inventory) */}
+          {(matchingCatalogTires.length > 0 || matchingTires.length > 0) ? (
             <div className="space-y-3" id="wizard-matched-tires">
-              {matchingTires.map(t => (
+              {matchingCatalogTires.slice(0, 4).map(ct => (
                 <div 
-                  key={t.id} 
-                  className="flex items-center justify-between gap-3 bg-white border border-gray-300 p-3.5 rounded-xl"
-                  id={`matched-tire-${t.id}`}
+                  key={`cat-${ct.id}`} 
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-gray-300 p-3.5 rounded-xl shadow-xs"
+                  id={`matched-catalog-tire-${ct.id}`}
                 >
                   <div className="flex items-center gap-3">
-                    <img 
-                      src={t.image} 
-                      alt={t.name} 
-                      className="w-12 h-12 object-contain bg-white rounded p-1 border border-gray-200"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = getBrandFallbackImage(t.brand, t.id);
-                      }}
-                    />
+                    <div className="w-14 h-14 bg-white rounded-lg p-1 border border-gray-150 flex items-center justify-center shrink-0">
+                      <img 
+                        src={ct.imagem || getBrandFallbackImage(ct.marca, String(ct.id))} 
+                        alt={ct.nome} 
+                        className="w-full h-full object-contain"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = getBrandFallbackImage(ct.marca, String(ct.id));
+                        }}
+                      />
+                    </div>
                     <div>
-                      <span className="bg-black text-[10px] sm:text-xs uppercase font-black text-white px-2.5 py-0.5 rounded border border-black font-mono">
-                        {t.brand}
-                      </span>
-                      <h5 className="text-sm font-black text-gray-900 line-clamp-1 mt-0.5">{t.name}</h5>
-                      <p className="text-xs sm:text-sm text-[#1ebd53] font-black uppercase">
-                        Preço Sob Consulta
+                      <div className="flex items-center gap-2">
+                        <span className="bg-black text-[10px] uppercase font-black text-white px-2 py-0.5 rounded border border-black font-mono">
+                          {ct.marca}
+                        </span>
+                        <span className="text-[10px] text-gray-500 font-bold font-mono">
+                          Aro {ct.aro} • {ct.medida}
+                        </span>
+                      </div>
+                      <h5 className="text-sm font-black text-gray-900 line-clamp-1 mt-0.5">{ct.nome}</h5>
+                      <p className="text-xs text-[#1ebd53] font-black uppercase">
+                        Preço Sob Consulta • Montagem Inclusa
                       </p>
                     </div>
                   </div>
                   <a
                     href={formatWhatsApp(
                       `Olá Carplus! Utilizei o recomendador de pneus do site para o meu veículo ${selectedCar?.brand} ${selectedCar?.name}.\n\n` +
-                      `O recomendador sugeriu o pneu: ${t.brand} ${t.model} (${t.width}/${t.aspectRatio} R${t.rim}).\n` +
-                      `Ggostaria de consultar o valor, estoque e o serviço de instalação correto para meu carro.`
+                      `O recomendador indicou o pneu do catálogo: ${ct.marca} ${ct.nome} (${ct.medida}).\n` +
+                      `Gostaria de consultar o valor especial, prazo de estoque e o serviço de montagem em Curitiba.`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#25D366] hover:bg-[#20ba5a] text-white border border-[#1ebd53] font-black px-4 py-2.5 rounded-xl text-xs tracking-wider uppercase transition flex items-center justify-center text-center"
-                    id={`whatsapp-matched-${t.id}`}
+                    className="bg-[#25D366] hover:bg-[#20ba5a] text-white border border-[#1ebd53] font-black px-4 py-2.5 rounded-xl text-xs tracking-wider uppercase transition flex items-center justify-center text-center shadow-xs shrink-0"
+                    id={`whatsapp-matched-cat-${ct.id}`}
                   >
-                    Consultar WhatsApp
+                    Cotar via WhatsApp
                   </a>
                 </div>
               ))}
+
+              {matchingCatalogTires.length > 4 && (
+                <div className="pt-2 text-center">
+                  <button
+                    onClick={() => onSearchMeasure(selectedCar.recommendedTireRatio)}
+                    className="text-xs font-black text-black bg-yellow-400/30 hover:bg-yellow-400/60 border border-black/20 px-4 py-2 rounded-xl transition inline-flex items-center gap-1.5"
+                  >
+                    <span>Ver todos os {matchingCatalogTires.length} modelos de {selectedCar.recommendedTireRatio.replace('/', '/').replace('/', ' R')} no catálogo</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-5 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 text-black">

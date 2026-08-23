@@ -1,5 +1,8 @@
 import React from 'react';
 import { RIM_SEO_DATA, RimSeoConfig } from '../data/rim-seo-data';
+import { CATALOGO_PNEUS } from '../data/catalogo-pneus';
+import CatalogTireCard from './CatalogTireCard';
+import { CatalogTire } from '../types';
 import { ShieldCheck, Zap, Award, CheckCircle2, MessageCircle, ArrowRight, Wrench, Sparkles, Navigation, Layers, ChevronRight } from 'lucide-react';
 
 interface RimAuthoritySectionProps {
@@ -14,6 +17,15 @@ export default function RimAuthoritySection({ aroName, onSelectAro }: RimAuthori
   const allAros = ['13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
 
   const formatWhatsApp = (msg: string) => `https://wa.me/554130827282?text=${encodeURIComponent(msg)}`;
+
+  const matchingCatalogTires = CATALOGO_PNEUS.filter(t => t.aro === rimConfig.number);
+  const showcaseTires = matchingCatalogTires.slice(0, 8);
+
+  const handleSelectCatalogTire = (tire: CatalogTire) => {
+    window.history.pushState(null, '', `/pneu/${tire.slug}`);
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
   return (
     <div className="space-y-8 text-gray-900" id={`rim-authority-hub-${cleanAro}`}>
@@ -197,6 +209,35 @@ export default function RimAuthoritySection({ aroName, onSelectAro }: RimAuthori
             ))}
           </div>
         </div>
+
+        {/* Modelos em Estoque do Catálogo para este Aro */}
+        {showcaseTires.length > 0 && (
+          <div className="space-y-4 pt-4 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#f49e1a]">
+                  Catálogo Oficial • Aro {rimConfig.number}
+                </span>
+                <h3 className="text-lg sm:text-xl font-black font-display text-gray-950 uppercase">
+                  Pneus Aro {rimConfig.number} em Destaque no Portão
+                </h3>
+              </div>
+              <span className="text-xs font-medium text-gray-500">
+                {matchingCatalogTires.length} modelos cadastrados neste aro
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {showcaseTires.map((tire) => (
+                <CatalogTireCard
+                  key={tire.id}
+                  tire={tire}
+                  onSelect={handleSelectCatalogTire}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Banner CTA Dinâmico com WhatsApp */}
         <div className="bg-yellow-50 border-2 border-[#f49e1a] rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">

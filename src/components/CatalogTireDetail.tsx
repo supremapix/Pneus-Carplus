@@ -92,11 +92,11 @@ export default function CatalogTireDetail({
           
           {/* Left Column: Product Image & Highlights */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
-            <div className="relative bg-gray-50 rounded-2xl border border-gray-200 p-6 flex items-center justify-center min-h-[320px]">
+            <div className="relative bg-white rounded-2xl border border-gray-150 p-6 flex items-center justify-center min-h-[320px] shadow-2xs">
               <img
                 src={displayImage}
                 alt={`Pneu ${tire.nome} medida ${tire.medida} Aro ${tire.aro} Curitiba`}
-                className="max-h-72 w-auto object-contain mx-auto transition-transform hover:scale-105 duration-300"
+                className="max-h-72 w-auto object-contain mx-auto transition-transform hover:scale-105 duration-300 filter drop-shadow-md"
               />
               <div className="absolute top-3 left-3 flex flex-col gap-1.5">
                 <span className="bg-gray-900 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider">

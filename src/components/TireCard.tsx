@@ -36,10 +36,10 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
 
   return (
     <div 
-      className={`bg-gray-100 rounded-3xl overflow-hidden border transition-all duration-300 flex flex-col justify-between h-full group ${
+      className={`bg-white rounded-3xl overflow-hidden border transition-all duration-300 flex flex-col justify-between h-full group ${
         tire.isOffer 
-          ? 'border-[#f49e1a] shadow-xl ring-2 ring-[#f49e1a]/20 relative' 
-          : 'border-gray-200 shadow-sm hover:border-gray-300'
+          ? 'border-[#f49e1a] shadow-md hover:shadow-xl ring-2 ring-[#f49e1a]/20 relative' 
+          : 'border-gray-200 shadow-xs hover:shadow-lg hover:border-yellow-500/50'
       }`}
       id={`tire-card-${tire.id}`}
     >
@@ -56,15 +56,15 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
         )}
       </div>
 
-      {/* Image container with totally white background */}
+      {/* Image container with totally white background - seamless floating */}
       <div 
         onClick={() => onSelectTire && onSelectTire(tire)}
-        className="relative p-6 bg-white flex items-center justify-center min-h-[190px] border-b border-gray-200/80 cursor-pointer"
+        className="relative p-6 bg-white flex items-center justify-center min-h-[200px] cursor-pointer"
       >
         <img 
           src={tire.image} 
           alt={tire.name} 
-          className="max-h-40 object-contain w-auto transform transition duration-500 group-hover:scale-105"
+          className="max-h-44 object-contain w-auto transform transition duration-500 group-hover:scale-108 filter drop-shadow-sm"
           referrerPolicy="no-referrer"
           onError={(e) => {
             // Fallback to same-brand tire image if link fails or blocks hotlinking
@@ -161,21 +161,24 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
           </div>
 
           {/* WhatsApp consultation CTA */}
-          <a
-            href={formatWhatsApp(
-              `Olá Carplus! Gostaria de consultar o preço, estoque e o serviço correto para meu carro.\n\n` +
-              `Item: Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim})\n` +
-              `Quantidade desejada: ${qty} unidade(s)\n` +
-              `Por favor, informe a disponibilidade de instalação rápida inclusa na loja do Portão.`
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-[#1ebd53] text-center"
-            id={`whatsapp-consult-${tire.id}`}
-          >
-            <MessageSquare className="w-4 h-4 shrink-0 fill-current" />
-            <span>Consultar</span>
-          </a>
+          <div className="flex-1 flex flex-col">
+            <a
+              href={formatWhatsApp(
+                `Olá Carplus! Gostaria de consultar o preço, estoque e o serviço correto para meu carro.\n\n` +
+                `Item: Pneu ${tire.brand} ${tire.model} (${tire.width}/${tire.aspectRatio} R${tire.rim})\n` +
+                `Quantidade desejada: ${qty} unidade(s)\n` +
+                `Por favor, informe a disponibilidade de instalação rápida inclusa na loja do Portão.`
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-[#1ebd53] text-center"
+              id={`whatsapp-consult-${tire.id}`}
+            >
+              <MessageSquare className="w-4 h-4 shrink-0 fill-current" />
+              <span>Cotar</span>
+            </a>
+            <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Verificar preço e estoque.</span>
+          </div>
         </div>
       </div>
     </div>

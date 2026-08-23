@@ -4,6 +4,9 @@ import {
   ShoppingBag, Flame, ThumbsUp, MessageSquare, CornerDownRight,
   ArrowRight, Sparkles, Scale, Info, HelpCircle, ChevronRight, CheckCircle
 } from 'lucide-react';
+import { CATALOGO_PNEUS } from '../data/catalogo-pneus';
+import CatalogTireCard from './CatalogTireCard';
+import { CatalogTire } from '../types';
 
 interface SearchIntentPagesProps {
   view: 
@@ -27,6 +30,36 @@ interface SearchIntentPagesProps {
 
 export default function SearchIntentPages({ view, onNavigateHome, onNavigateToPage }: SearchIntentPagesProps) {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  // Filter relevant tires from official catalog
+  const relevantCatalogTires = React.useMemo(() => {
+    if (view === 'xbri-pneus-curitiba') {
+      const match = CATALOGO_PNEUS.filter(t => t.marca.toLowerCase().includes('xbri'));
+      return match.length > 0 ? match.slice(0, 4) : CATALOGO_PNEUS.slice(0, 4);
+    }
+    if (view === 'pneus-bridgestone-curitiba-precos') {
+      const match = CATALOGO_PNEUS.filter(t => t.marca.toLowerCase().includes('bridge'));
+      return match.length > 0 ? match.slice(0, 4) : CATALOGO_PNEUS.slice(0, 4);
+    }
+    if (view === 'pneus-pirelli-em-curitiba-melhor-preco') {
+      const match = CATALOGO_PNEUS.filter(t => t.marca.toLowerCase().includes('pirelli'));
+      return match.length > 0 ? match.slice(0, 4) : CATALOGO_PNEUS.slice(0, 4);
+    }
+    if (view === 'pneu-hankook-curitiba') {
+      const match = CATALOGO_PNEUS.filter(t => t.marca.toLowerCase().includes('hankook'));
+      return match.length > 0 ? match.slice(0, 4) : CATALOGO_PNEUS.slice(0, 4);
+    }
+    if (view === 'pneus-baratos-em-curitiba') {
+      return CATALOGO_PNEUS.filter(t => t.aro <= 15).slice(0, 4);
+    }
+    return CATALOGO_PNEUS.filter(t => t.destaque).slice(0, 4);
+  }, [view]);
+
+  const handleSelectTire = (tire: CatalogTire) => {
+    window.history.pushState(null, '', `/pneu/${tire.slug}`);
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
 
   // Helper inside WhatsApp formatting
   const formatWhatsApp = (text: string) => {
@@ -808,6 +841,39 @@ export default function SearchIntentPages({ view, onNavigateHome, onNavigateToPa
       <div className="bg-white border border-gray-150 rounded-3xl p-6 sm:p-8 space-y-6">
         {activePage.content}
       </div>
+
+      {/* Modelos em Estoque do Catálogo Oficial */}
+      {relevantCatalogTires.length > 0 && (
+        <div className="bg-gray-900 text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-yellow-500/20 shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-gray-800 pb-3">
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#f49e1a]">
+                Catálogo Oficial Carplus • 1.962 Opções
+              </span>
+              <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white font-mono">
+                Pneus Relacionados a Pronta Entrega
+              </h3>
+            </div>
+            <button
+              onClick={onNavigateHome}
+              className="text-xs font-bold text-[#f49e1a] hover:text-white flex items-center gap-1 transition cursor-pointer"
+            >
+              <span>Explorar catálogo completo</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {relevantCatalogTires.map((tire) => (
+              <CatalogTireCard
+                key={tire.id}
+                tire={tire}
+                onSelect={handleSelectTire}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Conversion WhatsApp Banner */}
       <div className="bg-yellow-500/5 border border-yellow-500/15 p-6 rounded-3xl text-center space-y-4 font-sans">

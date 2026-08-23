@@ -22,6 +22,10 @@ import {
   ChevronUp
 } from 'lucide-react';
 import { BLOG_POSTS, BLOG_CATEGORIES, BlogPost, getBlogPostBySlug, getRelatedBlogPosts } from '../blog-data';
+import { CATALOGO_PNEUS } from '../data/catalogo-pneus';
+import CatalogTireCard from './CatalogTireCard';
+import { CatalogTire } from '../types';
+import { Sparkles } from 'lucide-react';
 
 interface BlogViewProps {
   currentSlug?: string | null;
@@ -45,6 +49,57 @@ export const BlogView: React.FC<BlogViewProps> = ({
     if (!currentSlug) return null;
     return getBlogPostBySlug(currentSlug);
   }, [currentSlug]);
+
+  const handleSelectCatalogTire = (tire: CatalogTire) => {
+    if (onNavigateUrl) {
+      onNavigateUrl(`/pneu/${tire.slug}`);
+    } else {
+      window.history.pushState(null, '', `/pneu/${tire.slug}`);
+      window.dispatchEvent(new Event('popstate'));
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  // Find tires referenced or relevant to this article from official catalog
+  const matchingCatalogTires = useMemo(() => {
+    if (!currentPost) return [];
+    if (currentPost.slug === 'pneus-para-carro-eletrico-em-curitiba') {
+      return CATALOGO_PNEUS.filter(t => 
+        t.nome.toLowerCase().includes('ev') || 
+        t.categoria.toLowerCase().includes('elétr') ||
+        t.medida === '175/55R16' ||
+        t.medida === '195/60R16' ||
+        t.medida === '205/50R17' ||
+        t.medida === '215/55R17' ||
+        t.medida === '235/50R19'
+      ).slice(0, 4);
+    }
+    if (currentPost.slug === 'como-escolher-rodas-carro') {
+      return CATALOGO_PNEUS.filter(t => t.aro >= 17 && (t.destaque || t.novoModelo)).slice(0, 4);
+    }
+    if (
+      currentPost.slug === 'pneu-desgastando-de-um-lado' || 
+      currentPost.slug === 'carro-puxando-para-o-lado' || 
+      currentPost.slug === 'quando-fazer-alinhamento-balanceamento' ||
+      currentPost.slug === 'volante-vibrando-causas'
+    ) {
+      return CATALOGO_PNEUS.filter(t => 
+        t.medida === '175/65R14' || 
+        t.medida === '185/60R15' || 
+        t.medida === '205/55R16' || 
+        t.medida === '215/50R17'
+      ).slice(0, 4);
+    }
+    if (currentPost.slug === 'revisao-carro-antes-de-viajar') {
+      return CATALOGO_PNEUS.filter(t => 
+        t.categoria.toLowerCase().includes('suv') || 
+        t.medida === '205/55R16' || 
+        t.medida === '215/65R16' || 
+        t.medida === '225/65R17'
+      ).slice(0, 4);
+    }
+    return CATALOGO_PNEUS.filter(t => t.destaque).slice(0, 4);
+  }, [currentPost]);
 
   // Filter posts for the list view
   const filteredPosts = useMemo(() => {
@@ -342,6 +397,40 @@ export const BlogView: React.FC<BlogViewProps> = ({
                 (41) 3082-7282
               </a>
             </div>
+
+            {/* Catalog Tires Referenced & Recommended */}
+            {matchingCatalogTires.length > 0 && (
+              <section className="p-6 bg-slate-900 text-white rounded-2xl space-y-4 border border-yellow-500/30 shadow-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div>
+                    <div className="inline-flex items-center gap-1.5 bg-[#f49e1a]/20 border border-[#f49e1a]/40 text-[#f49e1a] text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1">
+                      <Sparkles className="w-3 h-3" />
+                      Catálogo Oficial Carplus • 1.962 Modelos
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white">
+                      Pneus Citados no Conteúdo & Pronta Entrega
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => onNavigateUrl ? onNavigateUrl('/pneus') : onNavigateHome()}
+                    className="text-xs font-bold text-[#f49e1a] hover:text-white flex items-center gap-1 transition"
+                  >
+                    <span>Ver catálogo completo</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {matchingCatalogTires.map((tire) => (
+                    <CatalogTireCard
+                      key={tire.id}
+                      tire={tire}
+                      onSelect={handleSelectCatalogTire}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Dynamic CTA Block */}
             <div className="p-6 sm:p-8 bg-gradient-to-br from-amber-500 to-amber-600 rounded-2xl text-white shadow-md text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">

@@ -59,7 +59,7 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
     keywords = `pneu ${selectedCatalogTire.marca.toLowerCase()}, pneu ${selectedCatalogTire.medida.toLowerCase()}, pneu aro ${selectedCatalogTire.aro}, pneu curitiba, carplus pneus`;
     ogImage = selectedCatalogTire.imagemGrande || selectedCatalogTire.imagem || ogImage;
   } else if (currentView === 'catalogo-pneus') {
-    title = "Catálogo de Pneus em Curitiba - Mais de 1.900 Modelos | Carplus Pneus";
+    title = "Catálogo de Pneus em Curitiba - Mais de 1.962 Modelos | Carplus Pneus";
     desc = "Explore o catálogo completo de pneus em Curitiba. Pneus Pirelli, Bridgestone, Continental, Goodyear, Michelin, Delinte e Prinx com montagem grátis no Portão.";
     keywords = "catalogo de pneus, comprar pneus curitiba, pneus aro 13 ao 23, marcas de pneus, carplus pneus";
   } else if (selectedTire) {
