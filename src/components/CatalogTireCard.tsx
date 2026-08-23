@@ -62,7 +62,7 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
               setImageError(true);
               setImageLoaded(true);
             }}
-            className="w-full h-full object-contain filter drop-shadow-xs group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
           />
           {tire.novoModelo && (
             <span className="absolute top-1 right-1 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded shadow-xs">

@@ -64,7 +64,7 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
         <img 
           src={tire.image} 
           alt={tire.name} 
-          className="max-h-44 object-contain w-auto transform transition duration-500 group-hover:scale-108 filter drop-shadow-sm"
+          className="max-h-44 object-contain w-auto transform transition duration-500 group-hover:scale-108"
           referrerPolicy="no-referrer"
           onError={(e) => {
             // Fallback to same-brand tire image if link fails or blocks hotlinking

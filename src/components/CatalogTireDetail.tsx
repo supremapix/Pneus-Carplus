@@ -96,7 +96,7 @@ export default function CatalogTireDetail({
               <img
                 src={displayImage}
                 alt={`Pneu ${tire.nome} medida ${tire.medida} Aro ${tire.aro} Curitiba`}
-                className="max-h-72 w-auto object-contain mx-auto transition-transform hover:scale-105 duration-300 filter drop-shadow-md"
+                className="max-h-72 w-auto object-contain mx-auto transition-transform hover:scale-105 duration-300"
               />
               <div className="absolute top-3 left-3 flex flex-col gap-1.5">
                 <span className="bg-gray-900 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider">

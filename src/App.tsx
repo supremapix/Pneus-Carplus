@@ -1130,7 +1130,7 @@ export default function App() {
                 {/* Professional Trust Badge */}
                 <div className="inline-flex items-center gap-2 bg-neutral-900 text-white font-mono text-[11px] uppercase tracking-wider px-4 py-2 rounded-full shadow-md border border-neutral-800">
                   <span className="w-2 h-2 rounded-full bg-[#f49e1a] animate-pulse"></span>
-                  <span>Centro Automotivo Autorizado • Av. República Argentina, Portão</span>
+                  <span>Centro Automotivo Autorizado • Av. Arthur Bernardes, 1323 - Portão</span>
                 </div>
                 
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-gray-950 uppercase leading-[1.1] select-none">
