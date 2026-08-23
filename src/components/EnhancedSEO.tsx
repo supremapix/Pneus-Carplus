@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Tire } from '../types';
+import { Tire, CatalogTire } from '../types';
 import { toSlug, getTireSlug } from '../utils/slugify';
 import { isPageReleased, getSavedGSCRate } from '../utils/seoWaves';
 import { getBlogPostBySlug } from '../blog-data';
@@ -8,19 +8,24 @@ import { RIM_SEO_DATA } from '../data/rim-seo-data';
 
 // Types definition for our EnhancedSEO component
 interface EnhancedSEOProps {
-  currentView: 'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao' | 'pneus-byd-curitiba' | 'pneu-byd-dolphin-curitiba' | 'pneu-byd-dolphin-mini-curitiba' | 'pneu-byd-dolphin-gs-curitiba' | 'pneu-byd-king-curitiba' | 'pneu-175-55-r16-curitiba' | 'pneu-195-60-r16-curitiba' | 'pneu-205-50-r17-curitiba' | 'pneu-215-55-r17-curitiba' | 'pneu-225-60-r16-curitiba';
+  currentView: string;
   seoTarget: { type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null;
   selectedTire: Tire | null;
+  selectedCatalogTire?: CatalogTire | null;
   selectedBlogSlug?: string | null;
 }
 
-export default function EnhancedSEO({ currentView, seoTarget, selectedTire, selectedBlogSlug }: EnhancedSEOProps) {
+export default function EnhancedSEO({ currentView, seoTarget, selectedTire, selectedCatalogTire, selectedBlogSlug }: EnhancedSEOProps) {
   const domain = "https://www.carpluscwb.com.br";
   
   // 1. Calculate Individual Canonical URL
   let canonicalUrl = domain;
-  if (selectedTire) {
+  if (selectedCatalogTire) {
+    canonicalUrl = `${domain}/pneu/${selectedCatalogTire.slug}`;
+  } else if (selectedTire) {
     canonicalUrl = `${domain}/pneu/${getTireSlug(selectedTire)}`;
+  } else if (currentView === 'catalogo-pneus') {
+    canonicalUrl = `${domain}/pneus`;
   } else if (currentView === 'blog') {
     if (selectedBlogSlug) {
       canonicalUrl = `${domain}/blog/${selectedBlogSlug}`;
@@ -48,7 +53,16 @@ export default function EnhancedSEO({ currentView, seoTarget, selectedTire, sele
   let keywords = "pneus em curitiba, pneus no portão, pneus, comprar pneus curitiba, pneus novos curitiba, auto center curitiba, borracharia curitiba, alinhamento 3D";
   let ogImage = `${domain}/og-carplus.webp`;
 
-  if (selectedTire) {
+  if (selectedCatalogTire) {
+    title = `Pneu ${selectedCatalogTire.marca} ${selectedCatalogTire.medida} ${selectedCatalogTire.linha || ''} em Curitiba | Carplus Pneus`;
+    desc = `Pneu ${selectedCatalogTire.nome} (${selectedCatalogTire.medida} Aro ${selectedCatalogTire.aro}) na Carplus em Curitiba. Garantia de 5 anos de fábrica e montagem grátis no Portão.`;
+    keywords = `pneu ${selectedCatalogTire.marca.toLowerCase()}, pneu ${selectedCatalogTire.medida.toLowerCase()}, pneu aro ${selectedCatalogTire.aro}, pneu curitiba, carplus pneus`;
+    ogImage = selectedCatalogTire.imagemGrande || selectedCatalogTire.imagem || ogImage;
+  } else if (currentView === 'catalogo-pneus') {
+    title = "Catálogo de Pneus em Curitiba - Mais de 1.900 Modelos | Carplus Pneus";
+    desc = "Explore o catálogo completo de pneus em Curitiba. Pneus Pirelli, Bridgestone, Continental, Goodyear, Michelin, Delinte e Prinx com montagem grátis no Portão.";
+    keywords = "catalogo de pneus, comprar pneus curitiba, pneus aro 13 ao 23, marcas de pneus, carplus pneus";
+  } else if (selectedTire) {
     // ----------------------------------------------------------------------
     // WOOCOMMERCE / PRODUCT SEO ENGINE
     // Standard format: Pneu + Marca + Medida + [Modelo] + em Curitiba | Car Plus

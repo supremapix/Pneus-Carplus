@@ -109,6 +109,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             Início
           </button>
           <button 
+            onClick={() => { onNavigate('catalogo-pneus' as any); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
+            className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
+          >
+            Catálogo de Pneus (1.962)
+          </button>
+          <button 
             onClick={() => { onNavigate('quem-somos'); window.scrollTo({top: 0, behavior: 'smooth'}); }} 
             className="hover:underline text-neutral-950 cursor-pointer p-1.5 focus:outline-dotted text-black font-black"
           >

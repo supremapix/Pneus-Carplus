@@ -15,8 +15,11 @@ import EnhancedSEO from './components/EnhancedSEO';
 import CarplusVideosSection from './components/CarplusVideosSection';
 import AuthoritySocialProof from './components/AuthoritySocialProof';
 import InstagramFeed from './components/InstagramFeed';
-import { Tire, CartItem } from './types';
+import { Tire, CartItem, CatalogTire } from './types';
 import FloatingShare from './components/FloatingShare';
+import TireCatalogView from './components/TireCatalogView';
+import CatalogTireDetail from './components/CatalogTireDetail';
+import { findCatalogTireBySlug } from './data/catalogo-pneus';
 
 const BRAND_LOGOS: Record<string, string> = {
   BRIDGESTONE: "https://pneufree.s3.sa-east-1.amazonaws.com/PneufreeReact/Images/SVGBrands/bridgestone.svg",
@@ -47,11 +50,16 @@ export default function App() {
   // Global States
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao' | 'pneus-byd-curitiba' | 'pneu-byd-dolphin-curitiba' | 'pneu-byd-dolphin-mini-curitiba' | 'pneu-byd-dolphin-gs-curitiba' | 'pneu-byd-king-curitiba' | 'pneu-175-55-r16-curitiba' | 'pneu-195-60-r16-curitiba' | 'pneu-205-50-r17-curitiba' | 'pneu-215-55-r17-curitiba' | 'pneu-225-60-r16-curitiba'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'quem-somos' | 'politica-privacidades' | 'politica-devolucao' | 'mapa-do-site' | 'seo-landing' | 'pneu-detalhes' | 'contato' | 'curitiba' | 'regiao-metropolitana' | 'admin-indexacao' | 'carrinho' | 'oficina-do-pneu-curitiba' | 'garagem-de-pneus-curitiba' | 'pneus-pirelli-curitiba' | 'alinhamento-3d-curitiba' | 'blog' | 'xbri-pneus-curitiba' | 'pneus-baratos-em-curitiba' | 'melhor-site-para-comprar-pneus' | 'distribuidora-de-pneus-importados-atacado-curitiba' | 'pneu-hankook-curitiba' | 'pneus-bridgestone-curitiba-precos' | 'barao-pneus-e-oficina-bacacheri-curitiba' | 'barao-pneus-sao-jose-pinhais' | 'pneus-em-curitiba-melhor-preco' | 'distribuidora-de-pneus-em-curitiba' | 'bana-pneus' | 'loja-de-pneus-em-curitiba' | 'pneus-pirelli-em-curitiba-melhor-preco' | 'barao-pneus-e-oficina-portao' | 'pneus-byd-curitiba' | 'pneu-byd-dolphin-curitiba' | 'pneu-byd-dolphin-mini-curitiba' | 'pneu-byd-dolphin-gs-curitiba' | 'pneu-byd-king-curitiba' | 'pneu-175-55-r16-curitiba' | 'pneu-195-60-r16-curitiba' | 'pneu-205-50-r17-curitiba' | 'pneu-215-55-r17-curitiba' | 'pneu-225-60-r16-curitiba' | 'catalogo-pneus' | 'catalogo-detalhe'>('home');
   const [seoTarget, setSeoTarget] = useState<{ type: 'bairro' | 'cidade' | 'aro' | 'carro'; name: string; region?: string; detail?: string; } | null>(null);
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [activeHomeFaqIdx, setActiveHomeFaqIdx] = useState<number | null>(null);
   const [selectedTire, setSelectedTire] = useState<Tire | null>(null);
+  const [selectedCatalogTire, setSelectedCatalogTire] = useState<CatalogTire | null>(null);
+  const [catalogFilterBrand, setCatalogFilterBrand] = useState<string>('Todas');
+  const [catalogFilterRim, setCatalogFilterRim] = useState<number | 'Todos'>('Todos');
+  const [catalogFilterCategory, setCatalogFilterCategory] = useState<string>('Todas');
+  const [catalogFilterSearch, setCatalogFilterSearch] = useState<string>('');
   const [isConveyorPaused, setIsConveyorPaused] = useState(false);
 
   // Search and Filter States
@@ -247,6 +255,14 @@ export default function App() {
       targetView = 'alinhamento-3d-curitiba';
     } else if (sectionId === 'fale-conosco' || sectionId === 'faleconosco') {
       targetView = 'contato';
+    } else if (sectionId === 'catalogo-pneus' || sectionId === 'pneus' || sectionId === 'catalogo') {
+      setSelectedTire(null);
+      setSelectedCatalogTire(null);
+      setSeoTarget(null);
+      setSelectedBlogSlug(null);
+      setCurrentView('catalogo-pneus');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
 
     // 1. Check if it is a standalone company/institutional page
@@ -599,8 +615,35 @@ export default function App() {
       setCurrentView('pneu-215-55-r17-curitiba');
       setSeoTarget(null);
       setSelectedTire(null);
-    } else if (/^pneus?-aro-(\d+)(-curitiba)?$/.test(firstRoute) || (firstRoute === 'pneus' && parts[1] && (/^aro-(\d+)/.test(parts[1]) || /^\d+$/.test(parts[1])))) {
-      const match = firstRoute.match(/^pneus?-aro-(\d+)/) || (parts[1] && parts[1].match(/(?:aro-)?(\d+)/));
+    } else if (firstRoute === 'pneus') {
+      if (parts[1] && (/^aro-(\d+)/.test(parts[1]) || /^\d+$/.test(parts[1]))) {
+        const rimMatch = parts[1].match(/(?:aro-)?(\d+)/);
+        const rimNumber = rimMatch ? parseInt(rimMatch[1], 10) : 16;
+        setCatalogFilterRim(rimNumber);
+        setCurrentView('catalogo-pneus');
+        setSelectedTire(null);
+        setSelectedCatalogTire(null);
+        setSeoTarget(null);
+      } else if (parts[1] === 'marca' && parts[2]) {
+        setCatalogFilterBrand(decodeURIComponent(parts[2]));
+        setCurrentView('catalogo-pneus');
+        setSelectedTire(null);
+        setSelectedCatalogTire(null);
+        setSeoTarget(null);
+      } else if (parts[1] === 'categoria' && parts[2]) {
+        setCatalogFilterCategory(decodeURIComponent(parts[2]));
+        setCurrentView('catalogo-pneus');
+        setSelectedTire(null);
+        setSelectedCatalogTire(null);
+        setSeoTarget(null);
+      } else {
+        setCurrentView('catalogo-pneus');
+        setSelectedTire(null);
+        setSelectedCatalogTire(null);
+        setSeoTarget(null);
+      }
+    } else if (/^pneus?-aro-(\d+)(-curitiba)?$/.test(firstRoute)) {
+      const match = firstRoute.match(/^pneus?-aro-(\d+)/);
       const rimNumber = match ? match[1] : '16';
       setCurrentView('seo-landing');
       setSeoTarget({ type: 'aro', name: rimNumber });
@@ -610,21 +653,33 @@ export default function App() {
       setSeoTarget(null);
       setSelectedTire(null);
     } else if (firstRoute === 'pneu' && parts[1]) {
-      const tireParam = decodeURIComponent(parts[1]).trim().toLowerCase().replace(/[\s+]+/g, '+');
-      // Look for match by direct ID or normalized friendly slug
-      const matched = TIRES_DATA.find(t => {
-        const idMatch = t.id.toLowerCase() === tireParam;
-        const slugMatch = getTireSlug(t).toLowerCase().replace(/[\s+]+/g, '+') === tireParam;
-        return idMatch || slugMatch;
-      });
-      if (matched) {
-        setCurrentView('pneu-detalhes');
-        setSelectedTire(matched);
+      const tireSlugParam = decodeURIComponent(parts[1]).trim();
+      // First, check in comprehensive CATALOGO_PNEUS database
+      const matchedCatalog = findCatalogTireBySlug(tireSlugParam);
+      if (matchedCatalog) {
+        setCurrentView('catalogo-detalhe');
+        setSelectedCatalogTire(matchedCatalog);
+        setSelectedTire(null);
         setSeoTarget(null);
       } else {
-        setCurrentView('home');
-        setSeoTarget(null);
-        setSelectedTire(null);
+        // Fallback: check TIRES_DATA
+        const tireParam = tireSlugParam.toLowerCase().replace(/[\s+]+/g, '+');
+        const matched = TIRES_DATA.find(t => {
+          const idMatch = t.id.toLowerCase() === tireParam;
+          const slugMatch = getTireSlug(t).toLowerCase().replace(/[\s+]+/g, '+') === tireParam;
+          return idMatch || slugMatch;
+        });
+        if (matched) {
+          setCurrentView('pneu-detalhes');
+          setSelectedTire(matched);
+          setSelectedCatalogTire(null);
+          setSeoTarget(null);
+        } else {
+          setCurrentView('catalogo-pneus');
+          setSeoTarget(null);
+          setSelectedTire(null);
+          setSelectedCatalogTire(null);
+        }
       }
     } else if (firstRoute.startsWith('pneus-no-') || firstRoute.startsWith('pneus-em-')) {
       const isPneusNo = firstRoute.startsWith('pneus-no-');
@@ -754,8 +809,12 @@ export default function App() {
 
   useEffect(() => {
     let idealPath = '/';
-    if (selectedTire) {
+    if (selectedCatalogTire) {
+      idealPath = `/pneu/${selectedCatalogTire.slug}`;
+    } else if (selectedTire) {
       idealPath = `/pneu/${getTireSlug(selectedTire)}`;
+    } else if (currentView === 'catalogo-pneus') {
+      idealPath = '/pneus';
     } else if (currentView === 'seo-landing' && seoTarget) {
       const slugName = toSlug(seoTarget.name);
       const currentPath = window.location.pathname.toLowerCase();
@@ -795,6 +854,7 @@ export default function App() {
         currentView={currentView} 
         seoTarget={seoTarget} 
         selectedTire={selectedTire} 
+        selectedCatalogTire={selectedCatalogTire}
         selectedBlogSlug={selectedBlogSlug}
       />
       
@@ -806,7 +866,37 @@ export default function App() {
       />
 
       {/* Main Content Layout */}
-      {currentView === 'pneu-detalhes' && selectedTire ? (
+      {currentView === 'catalogo-detalhe' && selectedCatalogTire ? (
+        <main className="flex-1 w-full bg-white">
+          <CatalogTireDetail 
+            tire={selectedCatalogTire}
+            onBack={() => {
+              setCurrentView('catalogo-pneus');
+              setSelectedCatalogTire(null);
+            }}
+            onSelectTire={(tire) => {
+              setSelectedCatalogTire(tire);
+              window.scrollTo({ top: 0, behavior: 'instant' });
+            }}
+          />
+        </main>
+      ) : currentView === 'catalogo-pneus' ? (
+        <main className="flex-1 w-full bg-white">
+          <TireCatalogView 
+            initialBrand={catalogFilterBrand}
+            initialRim={catalogFilterRim === 'Todos' ? undefined : catalogFilterRim}
+            initialCategory={catalogFilterCategory}
+            initialSearch={catalogFilterSearch}
+            onSelectTire={(tire) => {
+              setSelectedCatalogTire(tire);
+              setCurrentView('catalogo-detalhe');
+            }}
+            onNavigateHome={() => {
+              setCurrentView('home');
+            }}
+          />
+        </main>
+      ) : currentView === 'pneu-detalhes' && selectedTire ? (
         <main className="flex-1 w-full bg-white">
           <TireDetail 
             tire={selectedTire}

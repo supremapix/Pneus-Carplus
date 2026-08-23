@@ -16,7 +16,8 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
 
   const navLinks = [
     { label: 'Início', id: 'home' },
-    { label: 'Pneus e Ofertas', id: 'catalog' },
+    { label: 'Catálogo de Pneus (1.962)', id: 'catalogo-pneus' },
+    { label: 'Ofertas da Semana', id: 'catalog' },
     { label: 'Serviços & Oficina', id: 'alinhamento-3d-curitiba' },
     { label: 'Quem Somos', id: 'quem-somos' },
     { label: 'Blog', id: 'blog' },
@@ -191,6 +192,26 @@ export default function Navbar({ onScrollToSection, cartCount, onOpenCart }: Nav
               <p className="text-xs text-[#f49e1a] uppercase font-black tracking-widest pl-1 mt-1">
                 Páginas mais procuradas:
               </p>
+
+              {/* 0. Catálogo Completo de Pneus (1.962 modelos) */}
+              <button
+                onClick={() => {
+                  onScrollToSection('catalogo-pneus');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-between p-4 bg-yellow-500/10 border-2 border-yellow-500/50 hover:border-yellow-400 rounded-2xl text-left active:bg-yellow-500/20 transition duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="bg-[#f49e1a] text-black p-2.5 rounded-xl">
+                    <ShoppingCart className="w-6 h-6 shrink-0" />
+                  </div>
+                  <div>
+                    <span className="block text-base font-black text-white">Catálogo Completo (1.962 Pneus)</span>
+                    <span className="block text-[11px] text-yellow-400 font-bold">Filtre por marca, aro (13 ao 23) e medidas</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-5 h-5 text-yellow-400 shrink-0" />
+              </button>
 
               {/* 1. Ver estoque de pneus */}
               <button

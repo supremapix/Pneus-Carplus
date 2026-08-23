@@ -1,5 +1,29 @@
 // Types for the Carplus Pneus virtual store
 
+export interface CatalogTire {
+  id: number;
+  slug: string;
+  nome: string;
+  marca: string;
+  linha: string;
+  medida: string;
+  largura: number;
+  perfil: number;
+  aro: number;
+  indiceCarga: string;
+  indiceVelocidade: string;
+  categoria: string;
+  tipoVeiculo: string[];
+  carros: string[];
+  descricao: string;
+  imagem: string;
+  imagemGrande: string;
+  urlOriginal: string;
+  destaque: boolean;
+  novoModelo: boolean;
+  precoEstimado?: number;
+}
+
 export interface Tire {
   id: string;
   brand: string;
