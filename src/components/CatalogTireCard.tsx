@@ -1,6 +1,6 @@
 import React from 'react';
 import { CatalogTire } from '../types';
-import { ShieldCheck, ArrowRight, MessageSquare, Tag, Eye } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Eye } from 'lucide-react';
 
 interface CatalogTireCardProps {
   key?: React.Key;
@@ -24,32 +24,32 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
   return (
     <article 
       onClick={() => onSelect(tire)}
-      className="bg-white rounded-2xl border border-gray-200 hover:border-yellow-500/60 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer"
+      className="bg-white rounded-2xl border-2 border-black hover:border-[#f49e1a] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer"
       id={`catalog-tire-${tire.id}`}
     >
       {/* Top badges & Brand */}
       <div className="p-4 pb-2">
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-[10px] font-black uppercase px-2.5 py-1 bg-gray-900 text-white rounded-md tracking-wider">
+          <span className="text-[10px] font-black uppercase px-2.5 py-1 bg-black text-[#f49e1a] rounded-md tracking-wider border border-black">
             {tire.marca}
           </span>
           <div className="flex items-center gap-1.5">
-            <span className="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/10 text-yellow-800 border border-yellow-500/20 rounded-md">
+            <span className="text-[10px] font-black px-2 py-0.5 bg-[#f49e1a] text-black border border-black rounded-md">
               Aro {tire.aro}
             </span>
             {tire.categoria && (
-              <span className="text-[9px] font-medium px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md truncate max-w-[100px]" title={tire.categoria}>
+              <span className="text-[9px] font-bold px-2 py-0.5 bg-black text-white rounded-md truncate max-w-[100px]" title={tire.categoria}>
                 {tire.categoria}
               </span>
             )}
           </div>
         </div>
 
-        {/* Tire Image with seamless white floating presentation */}
-        <div className="relative w-full h-48 bg-white rounded-xl overflow-hidden flex items-center justify-center p-2 transition group-hover:scale-102 duration-300">
+        {/* Tire Image with seamless white floating presentation - NO SHADOW */}
+        <div className="relative w-full h-48 bg-white rounded-xl overflow-hidden flex items-center justify-center p-2 transition group-hover:scale-102 duration-300 border border-black">
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 bg-white animate-pulse flex items-center justify-center">
-              <span className="text-[10px] text-gray-300 font-mono">Carregando imagem...</span>
+              <span className="text-[10px] text-black font-mono font-bold">Carregando...</span>
             </div>
           )}
           <img
@@ -63,9 +63,10 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
               setImageLoaded(true);
             }}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+            referrerPolicy="no-referrer"
           />
           {tire.novoModelo && (
-            <span className="absolute top-1 right-1 bg-emerald-600 text-white text-[9px] font-extrabold uppercase px-2 py-0.5 rounded shadow-xs">
+            <span className="absolute top-1 right-1 bg-black text-[#f49e1a] text-[9px] font-black uppercase px-2 py-0.5 rounded border border-black">
               Novo
             </span>
           )}
@@ -73,51 +74,51 @@ export default function CatalogTireCard({ tire, onSelect }: CatalogTireCardProps
 
         {/* Product Title & Measure */}
         <div className="mt-3 space-y-1">
-          <h3 className="text-sm font-bold text-gray-900 line-clamp-2 group-hover:text-yellow-700 transition leading-snug" title={tire.nome}>
+          <h3 className="text-sm font-black text-black line-clamp-2 group-hover:text-[#f49e1a] transition leading-snug" title={tire.nome}>
             {tire.nome}
           </h3>
           <div className="flex items-center justify-between pt-1">
-            <span className="text-xs font-black text-gray-950 font-mono bg-gray-100 px-2 py-0.5 rounded">
+            <span className="text-xs font-black text-white font-mono bg-black px-2 py-0.5 rounded border border-black">
               {tire.medida}
             </span>
-            <span className="text-[11px] text-gray-500 font-medium">
+            <span className="text-[11px] text-black font-bold">
               {tire.indiceCarga} {tire.indiceVelocidade ? `• ${tire.indiceVelocidade}` : ''}
             </span>
           </div>
         </div>
 
         {/* Benefits strip */}
-        <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-600">
-          <span className="flex items-center gap-1 text-emerald-700 font-bold">
-            <ShieldCheck className="w-3.5 h-3.5" /> Montagem Grátis
+        <div className="mt-3 pt-2.5 border-t-2 border-black flex items-center justify-between text-[11px] text-black">
+          <span className="flex items-center gap-1 text-black font-black">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#f49e1a]" /> Montagem Grátis
           </span>
-          <span className="text-gray-400 font-medium">Portão, Curitiba</span>
+          <span className="text-black font-bold">Portão, Curitiba</span>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="p-4 pt-2 bg-gray-50/70 border-t border-gray-100 grid grid-cols-2 gap-2">
+      <div className="p-4 pt-2 bg-white border-t-2 border-black grid grid-cols-2 gap-2">
         <div className="flex flex-col">
           <button
             type="button"
             onClick={() => onSelect(tire)}
-            className="w-full bg-white hover:bg-gray-100 text-gray-900 text-xs font-bold py-2 px-2 rounded-xl border border-gray-250 transition flex items-center justify-center gap-1 shadow-2xs"
+            className="w-full bg-black hover:bg-white hover:text-black text-white text-xs font-black py-2.5 px-2 rounded-xl border-2 border-black transition flex items-center justify-center gap-1 cursor-pointer"
           >
-            <Eye className="w-3.5 h-3.5 text-gray-700" />
+            <Eye className="w-3.5 h-3.5 text-[#f49e1a]" />
             <span>Ver</span>
           </button>
-          <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Ficha técnica completa.</span>
+          <span className="text-[9px] text-black font-bold text-center mt-0.5">Ficha técnica.</span>
         </div>
         <div className="flex flex-col">
           <button
             type="button"
             onClick={handleWhatsAppClick}
-            className="w-full bg-[#f49e1a] hover:bg-[#d88912] text-black text-xs font-black py-2 px-2 rounded-xl transition flex items-center justify-center gap-1 shadow-2xs group-hover:shadow-xs"
+            className="w-full bg-[#f49e1a] hover:bg-black hover:text-[#f49e1a] text-black text-xs font-black py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1 border-2 border-black cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5 text-black" />
             <span>Cotar</span>
           </button>
-          <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Pedir preço imediato.</span>
+          <span className="text-[9px] text-black font-bold text-center mt-0.5">Preço imediato.</span>
         </div>
       </div>
     </article>

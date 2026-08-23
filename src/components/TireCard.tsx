@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tire } from '../types';
-import { ShoppingCart, Heart, ShieldCheck, ArrowRight, Tag, MessageSquare } from 'lucide-react';
+import { ShoppingCart, MessageSquare, Tag } from 'lucide-react';
 import { getBrandFallbackImage } from '../data';
 import { formatWhatsApp } from '../utils/whatsapp';
 
@@ -36,27 +36,27 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
 
   return (
     <div 
-      className={`bg-white rounded-3xl overflow-hidden border transition-all duration-300 flex flex-col justify-between h-full group ${
+      className={`bg-white rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between h-full group ${
         tire.isOffer 
-          ? 'border-[#f49e1a] shadow-md hover:shadow-xl ring-2 ring-[#f49e1a]/20 relative' 
-          : 'border-gray-200 shadow-xs hover:shadow-lg hover:border-yellow-500/50'
+          ? 'border-[#f49e1a] shadow-lg relative' 
+          : 'border-black shadow-md hover:border-[#f49e1a]'
       }`}
       id={`tire-card-${tire.id}`}
     >
       {/* Badges row */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
-        <span className="bg-gray-900/95 backdrop-blur-md text-white text-xs sm:text-sm uppercase font-black px-3 py-1.5 rounded-full shadow font-mono border border-gray-700">
+        <span className="bg-black text-[#f49e1a] text-xs sm:text-sm uppercase font-black px-3 py-1.5 rounded-full shadow font-mono border border-black">
           Aro {tire.rim}
         </span>
         {tire.isOffer && (
-          <span className="bg-[#f49e1a] text-gray-950 text-xs sm:text-sm uppercase font-black px-3 py-1.5 rounded-full shadow flex items-center gap-1 border border-black">
+          <span className="bg-[#f49e1a] text-black text-xs sm:text-sm uppercase font-black px-3 py-1.5 rounded-full shadow flex items-center gap-1 border border-black">
             <Tag className="w-3.5 h-3.5 shrink-0" />
             <span>OFERTA {discountPercentage}% OFF</span>
           </span>
         )}
       </div>
 
-      {/* Image container with totally white background - seamless floating */}
+      {/* Image container with totally white background - NO SHADOW on tire */}
       <div 
         onClick={() => onSelectTire && onSelectTire(tire)}
         className="relative p-6 bg-white flex items-center justify-center min-h-[200px] cursor-pointer"
@@ -67,18 +67,17 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
           className="max-h-44 object-contain w-auto transform transition duration-500 group-hover:scale-108"
           referrerPolicy="no-referrer"
           onError={(e) => {
-            // Fallback to same-brand tire image if link fails or blocks hotlinking
             const target = e.target as HTMLImageElement;
             target.src = getBrandFallbackImage(tire.brand, tire.id);
           }}
         />
-        <div className="absolute bottom-2 right-2 bg-neutral-900 text-[#f49e1a] text-xs font-black px-2.5 py-1 rounded uppercase tracking-wider shadow">
+        <div className="absolute bottom-2 right-2 bg-black text-[#f49e1a] text-xs font-black px-2.5 py-1 rounded uppercase tracking-wider border border-black">
           Estoque Imediato
         </div>
       </div>
 
       {/* Content wrapper */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between text-center md:text-justify">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between text-center md:text-justify border-t-2 border-black bg-white">
         <div 
           onClick={() => onSelectTire && onSelectTire(tire)}
           className="cursor-pointer"
@@ -93,48 +92,48 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
                 referrerPolicy="no-referrer"
               />
             ) : (
-              <span className="text-xs sm:text-sm tracking-wider uppercase font-black text-neutral-950 bg-gray-100 px-2.5 py-1 rounded shadow-sm border border-gray-200">
+              <span className="text-xs sm:text-sm tracking-wider uppercase font-black text-black bg-white px-2.5 py-1 rounded border-2 border-black">
                 {tire.brand}
               </span>
             )}
-            <span className="text-gray-300 text-xs">•</span>
-            <span className="text-xs sm:text-sm text-gray-600 font-serif font-black">
+            <span className="text-black text-xs">•</span>
+            <span className="text-xs sm:text-sm text-black font-serif font-black">
               Série {tire.model.split(' ')[0]}
             </span>
           </div>
 
           {/* Catalog name */}
-          <h4 className="text-base font-black text-gray-950 leading-snug line-clamp-2 min-h-[44px] hover:text-[#f49e1a] transition" title={tire.name}>
+          <h4 className="text-base font-black text-black leading-snug line-clamp-2 min-h-[44px] hover:text-[#f49e1a] transition" title={tire.name}>
             {tire.name}
           </h4>
 
           {/* Technical Specs specs badges */}
           <div className="mt-3 flex flex-wrap gap-2 justify-center md:justify-start">
-            <span className="bg-white text-gray-800 text-xs font-mono font-black border border-gray-300 px-2.5 py-1 rounded shadow-sm">
+            <span className="bg-black text-white text-xs font-mono font-black border border-black px-2.5 py-1 rounded">
               Lg. {tire.width}mm
             </span>
-            <span className="bg-white text-gray-800 text-xs font-mono font-black border border-gray-300 px-2.5 py-1 rounded shadow-sm">
+            <span className="bg-black text-white text-xs font-mono font-black border border-black px-2.5 py-1 rounded">
               Perfil {tire.aspectRatio}%
             </span>
-            <span className="bg-white text-gray-800 text-xs font-mono font-black border border-gray-300 px-2.5 py-1 rounded shadow-sm">
+            <span className="bg-black text-white text-xs font-mono font-black border border-black px-2.5 py-1 rounded">
               Aro R{tire.rim}
             </span>
           </div>
         </div>
 
         {/* Pricing tag replaced with Consultation Message */}
-        <div className="mt-4 border-t border-gray-200 pt-3 flex flex-col items-center md:items-start">
-          <p className="text-xs sm:text-sm text-stone-800 font-bold capitalize mb-1 bg-yellow-500/10 px-2 py-0.5 rounded-md w-full text-center md:text-left">
+        <div className="mt-4 border-t-2 border-black pt-3 flex flex-col items-center md:items-start">
+          <p className="text-xs sm:text-sm text-black font-extrabold capitalize mb-1 bg-[#f49e1a] text-black px-2.5 py-1 rounded-md w-full text-center md:text-left border border-black">
             Instalação inclusa na loja do Portão!
           </p>
           
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-lg sm:text-xl font-black text-[#f49e1a] uppercase tracking-wider">
+            <span className="text-lg sm:text-xl font-black text-black uppercase tracking-wider">
               Preço Sob Consulta
             </span>
           </div>
 
-          <p className="text-xs sm:text-sm text-gray-700 font-sans mt-1 font-bold">
+          <p className="text-xs sm:text-sm text-black font-sans mt-1 font-bold">
             Consulte estoque, ofertas e os serviços adequados
           </p>
         </div>
@@ -142,18 +141,18 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
         {/* Add Actions row */}
         <div className="mt-4 flex items-center justify-between gap-2.5">
           {/* Quantity selector */}
-          <div className="flex items-center border-2 border-gray-400 rounded-xl h-10 overflow-hidden shrink-0">
+          <div className="flex items-center border-2 border-black rounded-xl h-10 overflow-hidden shrink-0 bg-white">
             <button 
               onClick={() => setQty(Math.max(1, qty - 1))}
-              className="px-3 hover:bg-gray-200 font-black transition text-gray-800 text-base"
+              className="px-3 hover:bg-black hover:text-[#f49e1a] font-black transition text-black text-base"
               id={`decrease-qty-${tire.id}`}
             >
               -
             </button>
-            <span className="px-4 font-mono font-black text-sm text-gray-900">{qty}</span>
+            <span className="px-4 font-mono font-black text-sm text-black">{qty}</span>
             <button 
               onClick={() => setQty(Math.min(12, qty + 1))}
-              className="px-3 hover:bg-gray-200 font-black transition text-gray-800 text-base"
+              className="px-3 hover:bg-black hover:text-[#f49e1a] font-black transition text-black text-base"
               id={`increase-qty-${tire.id}`}
             >
               +
@@ -171,13 +170,13 @@ export default function TireCard({ tire, onAddToCart, onSelectTire }: TireCardPr
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white hover:text-white font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-[#1ebd53] text-center"
+              className="w-full bg-[#f49e1a] hover:bg-black hover:text-[#f49e1a] text-black font-black h-10 rounded-xl flex items-center justify-center gap-1.5 text-xs sm:text-sm uppercase tracking-wider transition duration-200 border-2 border-black text-center"
               id={`whatsapp-consult-${tire.id}`}
             >
               <MessageSquare className="w-4 h-4 shrink-0 fill-current" />
               <span>Cotar</span>
             </a>
-            <span className="text-[9px] text-gray-500 font-medium text-center mt-0.5">Verificar preço e estoque.</span>
+            <span className="text-[9px] text-black font-bold text-center mt-0.5">Verificar preço e estoque.</span>
           </div>
         </div>
       </div>
